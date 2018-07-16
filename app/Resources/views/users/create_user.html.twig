@@ -19,7 +19,7 @@
                 </div>
             </div>
             <!--begin::Form-->
-            <form id="form_utente" class="m-form" method="POST" action="#">
+            <form id="form_user" class="m-form" method="POST" action="#">
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
                         <div class="form-group m-form__group row">
@@ -53,7 +53,7 @@
 														Scegliere se Amministratore o Autista
 													</span>
                             </div>
-                                <div class="col-lg-6 form-group m-form__group-sub" style="padding-top:45px; padding-left:23px;">
+                                <div class="col-lg-6 form-group m-form__group-sub" style="padding-top:33px; padding-left:23px;">
                                     <label>
                                         * Status
                                     </label>
@@ -89,6 +89,6 @@
 {% block page_scripts %}
     <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/customjs/aggiungi_prodotto.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/create_user.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}
