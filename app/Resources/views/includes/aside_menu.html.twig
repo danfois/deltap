@@ -1,0 +1,359 @@
+<!-- BEGIN: Left Aside -->
+
+    <!-- BEGIN: Aside Menu -->
+    <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+        <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+            <li class="m-menu__item " aria-haspopup="true" >
+                <a  href="{{ path('homepage') }}" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+										<span class="m-menu__link-wrap">
+											<span class="m-menu__link-text">
+												Pannello di Controllo
+											</span>
+											<!--<span class="m-menu__link-badge">
+												<span class="m-badge m-badge--danger">
+													2
+												</span>
+											</span>-->
+										</span>
+									</span>
+                </a>
+            </li>
+            <li class="m-menu__section">
+                <h4 class="m-menu__section-text">
+                    Componenti
+                </h4>
+                <i class="m-menu__section-icon flaticon-more-v3"></i>
+            </li>
+            {% if is_granted('ROLE_RIVENDITORE') == false %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-user"></i>
+                    <span class="m-menu__link-text">
+										Utenti
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
+											<span class="m-menu__link">
+												<span class="m-menu__link-text">
+													Utenti
+												</span>
+											</span>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('crea_utente') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Crea Utente
+												</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('lista_utenti') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Lista Utenti
+												</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('profilo_personale') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Mio Profilo
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-business"></i>
+                    <span class="m-menu__link-text">
+										Prodotti
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('aggiungi_prodotto') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Aggiungi Prodotto
+												</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('lista_prodotti') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Lista Prodotti
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-cart"></i>
+                    <span class="m-menu__link-text">
+										Ordini
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('ordine_speciale') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Nuovo Ordine Speciale
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_AGENTE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('scegli_venditore_ordine') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Nuovo Ordine
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_RIVENDITORE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('visualizza_ordini_ricevuti') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Ordini Ricevuti
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_AGENTE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('visualizza_ordini_effettuati') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Ordini Effettuati
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') or is_granted('ROLE_DISTRIBUTORE') %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-coins"></i>
+                    <span class="m-menu__link-text">
+										Pagamenti
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('visualizza_lista_pagamenti') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Lista Pagamenti
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-folder-1"></i>
+                    <span class="m-menu__link-text">
+										Documenti Fiscali
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        {% if is_granted('ROLE_RIVENDITORE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('fatture_emesse') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Fatture Emesse
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('fatture_ricevute') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Fatture Ricevute
+												</span>
+                            </a>
+                        </li>
+                        {% if is_granted('ROLE_RIVENDITORE') == false and is_granted('ROLE_AGENTE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('note_emesse') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Note Emesse
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_AGENTE') == false %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a  href="{{ path('note_ricevute') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Note Ricevute
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') or is_granted('ROLE_DISTRIBUTORE') or is_granted('ROLE_RIVENDITORE') %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-truck"></i>
+                    <span class="m-menu__link-text">
+										Magazzino
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('magazzino_admin') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Aumenta Magazzino
+												</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('visualizza_magazzino') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Visualizza Magazzino
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') or is_granted('ROLE_DISTRIBUTORE') or is_granted('ROLE_AGENTE') %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-diagram"></i>
+                    <span class="m-menu__link-text">
+										Provvigioni
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('calcola_provvigioni') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Calcola Provvigioni
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_RIVENDITORE') == false %}
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+                <a  href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-pin"></i>
+                    <span class="m-menu__link-text">
+										Geocodifica Utenti
+									</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true" >
+                            <a href="{{ path('geocode_users') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Calcola Coordinate
+												</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    <!-- END: Aside Menu -->
+

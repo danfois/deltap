@@ -1,0 +1,15 @@
+.foto-ordine {
+    max-width:100%;
+}
+
+.prezzo-prodotto {
+    color: #5AB02D;
+}
+
+.blockOverlay {
+    opacity:0.5 !important;
+}
+
+.m-blockui {
+    margin-left:0 !important;
+}
