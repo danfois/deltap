@@ -19,7 +19,8 @@
                 </div>
             </div>
             <!--begin::Form-->
-            <form id="form_user" class="m-form" method="POST" action="#">
+            <form id="form_user" class="m-form" method="POST" action="{{ path('create_user_ajax') }}">
+                {{ form_widget(form._token) }}
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
                         <div class="form-group m-form__group row">

@@ -8,9 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
- * @UniqueEntity("username", message="Username already taken.")
  */
 
 class User implements UserInterface
@@ -154,8 +153,9 @@ class User implements UserInterface
     }
 
     public function setRoles($roles)
-    {
-        $this->roles = $roles;
+    {   //$roles = array();
+
+        $this->roles[] = $roles;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 namespace AppBundle\Repository;
 
 
-class UsersRepository
+class UserRepository
 {
 
 }
