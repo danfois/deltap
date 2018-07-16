@@ -34,7 +34,7 @@ var UserForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: "Il Prodotto è stato creato con successo!",
+                            text: "Utente creato con successo!",
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         })
@@ -56,5 +56,5 @@ var UserForm = function () {
 
 jQuery(document).ready(function () {
     UserForm().init();
-    $('#create_user_roles').removeAttr('multiple');
+    //$('#create_user_roles').removeAttr('multiple');
 });

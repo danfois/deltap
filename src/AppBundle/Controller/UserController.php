@@ -38,7 +38,9 @@ class UserController extends Controller
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            $UserHelper = new UserCreationHelper($user);
+            $encoder = $this->container->get('security.password_encoder');
+
+            $UserHelper = new UserCreationHelper($user, $encoder);
             $UserHelper->execute();
 
             $em = $this->getDoctrine()->getManager();

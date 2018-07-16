@@ -52,10 +52,11 @@ class User implements UserInterface
     private $salt;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="json_array", nullable=false)
      * @Assert\NotBlank(message="You have to choose a Role")
      */
-    private $roles = array();
+    //private $roles = array();
+    private $roles;
 
     /**
      * @ORM\Column(type="integer", name="status", nullable=true)
@@ -116,13 +117,6 @@ class User implements UserInterface
         return $this->password;
     }
 
-
-    public function __construct()
-    {
-        $this->roles = array();
-    }
-
-
     /**
      * Set salt
      *
@@ -152,20 +146,19 @@ class User implements UserInterface
         return (string)$this->id_user;
     }
 
-    public function setRoles($roles)
-    {   //$roles = array();
-
-        $this->roles[] = $roles;
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
     public function getRoles()
-    {   $roles = array();
+    {   /*$roles = array();
         $roles = $this->roles;
         array_push($roles, $this->roles);
-
-        return array_unique($roles);
+        return array_unique($roles);*/
+        return $this->roles;
     }
 
     /**

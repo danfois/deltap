@@ -38,7 +38,7 @@ class CreateUserType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
-            ->addModelTransformer($transformer))
+            /*->addModelTransformer($transformer)*/)
             ->add('status', CheckboxType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input',
