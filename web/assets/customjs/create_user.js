@@ -56,5 +56,5 @@ var UserForm = function () {
 
 jQuery(document).ready(function () {
     UserForm().init();
-    //$('#create_user_roles').removeAttr('multiple');
+    $('#create_user_roles').removeAttr('multiple');
 });
