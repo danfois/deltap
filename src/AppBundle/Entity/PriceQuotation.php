@@ -51,7 +51,7 @@ class PriceQuotation
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true, name="pec")
-     * @Assert\Email(message="The pec address you provided is not valid", checkMX==false)
+     * @Assert\Email(message="The pec address you provided is not valid", checkMX=false)
      */
     private $pec;
 
@@ -62,7 +62,7 @@ class PriceQuotation
     private $service_code;
 
     /**
-     * @ORM\Column(type="integer, name="status", nullable=false, length=1)
+     * @ORM\Column(type="integer", name="status", nullable=false, length=1)
      * @Assert\NotBlank(message="You have to select a status for the price quotation")
      */
     private $status;

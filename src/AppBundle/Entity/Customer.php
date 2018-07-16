@@ -98,7 +98,7 @@ class Customer
 
     /**
      * @ORM\OneToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="category", referencedColumnName="categoryId")
+     * @ORM\JoinColumn(name="category", referencedColumnName="category_id")
      */
     private $category;
 

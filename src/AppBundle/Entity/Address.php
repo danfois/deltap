@@ -33,7 +33,7 @@ class Address
 
     /**
      * @ORM\Column(type="string", name="city", length=32, nullable=false)
-     * @Assert\NotBlank(message="City is empty. You have to provide a valid City)
+     * @Assert\NotBlank(message="City is empty. You have to provide a valid City")
      * @Assert\Length(max=32, maxMessage="City name is too long. Max 32 chars.")
      */
     private $city;
