@@ -54,6 +54,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank(message="You have to choose a Role")
      */
     private $roles = array();
 
