@@ -6,8 +6,8 @@
                 <div class="m-stack m-stack--ver m-stack--general">
                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                         <a href="{{ path('homepage') }}" class="m-brand__logo-wrapper">
-                            <img alt="Logo IchnoCanapa"
-                                 src="{{ asset('assets/demo/default/media/img/logo/ichnologo.png') }}"/>
+                            <img alt="Logo Redentours"
+                                 src="{{ asset('assets/crm/default/media/img/logo/redentours.png') }}" style="height:30px;"/>
                         </a>
                     </div>
                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -61,131 +61,7 @@
                             <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
                                 <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                                 <ul class="m-menu__subnav">
-                                    {% if is_granted('ROLE_RIVENDITORE') == false %}
-                                    <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                        <a href="{{ path('crea_utente') }}" class="m-menu__link ">
-                                            <i class="m-menu__link-icon flaticon-user-add"></i>
-                                            <span class="m-menu__link-title">
-															<span class="m-menu__link-wrap">
-																<span class="m-menu__link-text">
-																	Crea Utente
-																</span>
-                                                                <!--<span class="m-menu__link-badge">
-                                                                    <span class="m-badge m-badge--success">
-                                                                        2
-                                                                    </span>
-                                                                </span>-->
-															</span>
-														</span>
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                    <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover"
-                                        data-redirect="true" aria-haspopup="true">
-                                        <a href="#" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-icon flaticon-cart"></i>
-                                            <span class="m-menu__link-text">
-															Controlla Ordini
-														</span>
-                                            <i class="m-menu__hor-arrow la la-angle-right"></i>
-                                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                        </a>
-                                        <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-                                            <span class="m-menu__arrow "></span>
-                                            <ul class="m-menu__subnav">
-                                                {% if is_granted('ROLE_AGENTE') == false %}
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="{{ path('visualizza_ordini_effettuati') }}"
-                                                       class="m-menu__link ">
-																	<span class="m-menu__link-text">
-																		Ordini Effettuati
-																	</span>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-                                                {% if is_granted('ROLE_RIVENDITORE') == false %}
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="{{ path('visualizza_ordini_ricevuti') }}"
-                                                       class="m-menu__link ">
-																	<span class="m-menu__link-text">
-																		Ordini Ricevuti
-																	</span>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') or is_granted('ROLE_DISTRIBUTORE') %}
-                                    <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover"
-                                        data-redirect="true" aria-haspopup="true">
-                                        <a href="#" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-icon flaticon-coins"></i>
-                                            <span class="m-menu__link-text">
-															Controlla Pagamenti
-														</span>
-                                            <i class="m-menu__hor-arrow la la-angle-right"></i>
-                                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                        </a>
-                                        <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-                                            <span class="m-menu__arrow "></span>
-                                            <ul class="m-menu__subnav">
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="{{ path('visualizza_lista_pagamenti') }}"
-                                                       class="m-menu__link ">
-																	<span class="m-menu__link-text">
-																		Lista Pagamenti
-																	</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    {% endif %}
-                                    <li class="m-menu__item  m-menu__item--submenu" data-menu-submenu-toggle="hover"
-                                        data-redirect="true" aria-haspopup="true">
-                                        <a href="#" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-icon flaticon-folder-1"></i>
-                                            <span class="m-menu__link-text">
-															Controlla Fatture
-														</span>
-                                            <i class="m-menu__hor-arrow la la-angle-right"></i>
-                                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                        </a>
-                                        <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-                                            <span class="m-menu__arrow "></span>
-                                            <ul class="m-menu__subnav">
-                                                {% if is_granted('ROLE_RIVENDITORE') == false and is_granted('ROLE_AGENTE') == false %}
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="{{ path('fatture_emesse') }}" class="m-menu__link ">
-																	<span class="m-menu__link-text">
-																		Fatture Emesse
-																	</span>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-                                                {% if is_granted('ROLE_AGENTE') == false %}
-                                                <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                                    <a href="{{ path('fatture_ricevute') }}" class="m-menu__link ">
-																	<span class="m-menu__link-text">
-																		Fatture Ricevute
-																	</span>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    {% if is_granted('ROLE_RIVENDITORE') == false %}
-                                    <li class="m-menu__item " data-redirect="true" aria-haspopup="true">
-                                        <a href="{{ path('calcola_provvigioni') }}" class="m-menu__link ">
-                                            <i class="m-menu__link-icon flaticon-diagram"></i>
-                                            <span class="m-menu__link-text">
-															Calcola Provvigioni
-														</span>
-                                        </a>
-                                    </li>
-                                    {% endif %}
+
                                 </ul>
                             </div>
                         </li>
@@ -203,7 +79,7 @@
                                                          class="m--img-rounded m--marginless m--img-centered" alt=""/>
 												</span>
                                     <span class="m-topbar__username m--hide">
-													{{ app.user.username }}
+                                        {#{{ app.user.username }}#}
 												</span>
                                 </a>
                                 <div class="m-dropdown__wrapper">
@@ -218,16 +94,16 @@
                                                 </div>
                                                 <div class="m-card-user__details">
 																<span class="m-card-user__name m--font-weight-500">
-																	{{ app.user.anagrafica.ragioneSociale }}
+                                                                    {#{{ app.user.anagrafica.ragioneSociale }}#}
 																</span>
                                                     <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                                                        {{ app.user.anagrafica.email }}
+                                                      {#  {{ app.user.anagrafica.email }}  #}
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="m-dropdown__body">
-                                            <div class="m-dropdown__content">
+                                            {#<div class="m-dropdown__content">
                                                 <ul class="m-nav m-nav--skin-light">
                                                     <li class="m-nav__section m--hide">
 																	<span class="m-nav__section-text">
@@ -292,7 +168,7 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div>#}
                                         </div>
                                     </div>
                                 </div>
