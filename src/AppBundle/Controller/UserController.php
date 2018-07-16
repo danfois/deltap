@@ -3,10 +3,11 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\CreateUserType;
+use AppBundle\Helper\User\UserCreationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class UserController extends Controller
@@ -22,5 +23,29 @@ class UserController extends Controller
         return $this->render('users/create_user.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("create-user-ajax", name="create_user_ajax")
+     */
+    public function createUserAjaxAction(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(CreateUserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+
+            $UserHelper = new UserCreationHelper($user);
+            $UserHelper->execute();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return new Response('OK', 200);
     }
 }
