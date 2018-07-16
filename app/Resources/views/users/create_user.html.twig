@@ -22,59 +22,62 @@
             <form id="form_utente" class="m-form" method="POST" action="#">
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
-                        <div class="form-group m-form__group">
-                            <label for="example_input_full_name">
-                                * Username:
-                            </label>
-                            {{ form_widget(form.username) }}
-                            <span class="m-form__help">
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-6 form-group m-form__group-sub">
+                                <label for="example_input_full_name">
+                                    * Username:
+                                </label>
+                                {{ form_widget(form.username) }}
+                                <span class="m-form__help">
 														Inserire un username da 4 a 16 caratteri. Rispecchia il nome dell'utente.
 													</span>
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label for="example_input_full_name">
-                                * Password:
-                            </label>
-                            {{ form_widget(form.password) }}
-                            <span class="m-form__help">
+                            </div>
+
+                            <div class="col-lg-6 form-group m-form__group-sub">
+                                <label for="example_input_full_name">
+                                    * Password:
+                                </label>
+                                {{ form_widget(form.password) }}
+                                <span class="m-form__help">
 														Inserire una password da 4 a 16 cifre.
 													</span>
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>
-                                Ruolo:
-                            </label>
-                            {{ form_widget(form.roles) }}
-                            <span class="m-form__help">
-														Scegliere se Amministratore o Autista
-													</span>
+                            </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <div class="col-lg-6 form-group m-form__group-sub">
                                 <label>
-                                    * Status
+                                    Ruolo:
                                 </label>
-
-                                    {{ form_widget(form.status) }}
-
+                                {{ form_widget(form.roles) }}
                                 <span class="m-form__help">
+														Scegliere se Amministratore o Autista
+													</span>
+                            </div>
+                                <div class="col-lg-6 form-group m-form__group-sub" style="padding-top:45px; padding-left:23px;">
+                                    <label>
+                                        * Status
+                                    </label>
+
+                                    {{ form_widget(form.status) }}<br>
+
+                                    <span class="m-form__help">
 														Stato utente. Attivo o Disattivo.
 													</span>
+                                </div>
                             </div>
                         </div>
 
                     </div>
-                </div>
-                <div class="m-portlet__foot m-portlet__foot--fit">
-                    <div class="m-form__actions m-form__actions">
-                        <button type="submit" class="btn btn-primary">
-                            Invia
-                        </button>
-                        <button type="reset" class="btn btn-secondary">
-                            Annulla
-                        </button>
+                    <div class="m-portlet__foot m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions">
+                            <button type="submit" class="btn btn-primary">
+                                Invia
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                Annulla
+                            </button>
+                        </div>
                     </div>
-                </div>
             </form>
             <!--end::Form-->
         </div>
@@ -84,7 +87,8 @@
 
 {% endblock %}
 {% block page_scripts %}
-    <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/aggiungi_prodotto.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}
