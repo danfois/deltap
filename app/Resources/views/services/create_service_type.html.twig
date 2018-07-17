@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block title %}Redentours | Crea Tipo Servizio{% endblock %}
+{% block subheader_title %}Crea Tipo Servizio{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon m--hide">
+													<i class="la la-gear"></i>
+												</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Tipo Servizio
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_service_type" class="m-form" method="POST" action="{{ path('create_service_ajax') }}">
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="form-group m-form__group">
+                                {{ form_widget(form._token) }}
+                                <label for="example_input_full_name">
+                                    * Nome Servizio:
+                                </label>
+                                {{ form_widget(form.service_name) }}
+                                <span class="m-form__help">
+														Inserire il nome del servizio.
+													</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions">
+                            <button type="submit" class="btn btn-primary">
+                                Invia
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                Annulla
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon m--hide">
+													<i class="la la-gear"></i>
+												</span>
+                            <h3 class="m-portlet__head-text">
+                                Tipi Servizio Creati
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="m-section">
+                        <div id="service_type_table" class="m-section__content">
+                            <table class="table m-table m-table--head-separator-primary">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tipo Servizio</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for s in services %}
+                                <tr>
+                                    <th scope="row">{{ s.serviceId }}</th>
+                                    <td>{{ s.serviceName }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/create_service_type.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

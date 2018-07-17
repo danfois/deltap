@@ -24,38 +24,4 @@ class ServiceType
      * @Assert\Length(max=24, maxMessage="Service Name cannot exceed 24 chars.")
      */
     private $service_name;
-
-    /**
-     * Get serviceId
-     *
-     * @return integer
-     */
-    public function getServiceId()
-    {
-        return $this->service_id;
-    }
-
-    /**
-     * Set serviceName
-     *
-     * @param string $serviceName
-     *
-     * @return ServiceType
-     */
-    public function setServiceName($serviceName)
-    {
-        $this->service_name = $serviceName;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceName
-     *
-     * @return string
-     */
-    public function getServiceName()
-    {
-        return $this->service_name;
-    }
 }
