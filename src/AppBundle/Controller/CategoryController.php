@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
+
+    //TODO: AGGIUNGERE CRUD
+
     /**
      * @Route("create-category", name="create_category")
      */
