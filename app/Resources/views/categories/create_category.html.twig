@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block title %}Redentours | Crea Categoria{% endblock %}
+{% block subheader_title %}Crea Categoria{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon m--hide">
+													<i class="la la-gear"></i>
+												</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Categoria
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_category" class="m-form" method="POST" action="{{ path('create_category_ajax') }}">
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="form-group m-form__group">
+                                {{ form_widget(form._token) }}
+                                <label for="example_input_full_name">
+                                    * Nome Categoria:
+                                </label>
+                                {{ form_widget(form.category_name) }}
+                                <span class="m-form__help">
+														Inserire il nome della categoria.
+													</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions">
+                            <button type="submit" class="btn btn-primary">
+                                Invia
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                Annulla
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon m--hide">
+													<i class="la la-gear"></i>
+												</span>
+                            <h3 class="m-portlet__head-text">
+                                Tipi Categoria
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="m-section">
+                        <div id="category_table" class="m-section__content">
+                            <table class="table m-table m-table--head-separator-primary">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome Categoria</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for c in categories %}
+                                <tr>
+                                    <th scope="row">{{ c.categoryId }}</th>
+                                    <td>{{ c.categoryName }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/create_category.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
