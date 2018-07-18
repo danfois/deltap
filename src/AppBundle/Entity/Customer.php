@@ -118,4 +118,326 @@ class Customer
      */
     private $registration_date;
 
+
+    /**
+     * Get idCustomer
+     *
+     * @return integer
+     */
+    public function getIdCustomer()
+    {
+        return $this->idCustomer;
+    }
+
+    /**
+     * Set businessName
+     *
+     * @param string $businessName
+     *
+     * @return Customer
+     */
+    public function setBusinessName($businessName)
+    {
+        $this->businessName = $businessName;
+
+        return $this;
+    }
+
+    /**
+     * Get businessName
+     *
+     * @return string
+     */
+    public function getBusinessName()
+    {
+        return $this->businessName;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Customer
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set mobile
+     *
+     * @param string $mobile
+     *
+     * @return Customer
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * Get mobile
+     *
+     * @return string
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     *
+     * @return Customer
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Customer
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     *
+     * @return Customer
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set cf
+     *
+     * @param string $cf
+     *
+     * @return Customer
+     */
+    public function setCf($cf)
+    {
+        $this->cf = $cf;
+
+        return $this;
+    }
+
+    /**
+     * Get cf
+     *
+     * @return string
+     */
+    public function getCf()
+    {
+        return $this->cf;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return Customer
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set cuu
+     *
+     * @param string $cuu
+     *
+     * @return Customer
+     */
+    public function setCuu($cuu)
+    {
+        $this->cuu = $cuu;
+
+        return $this;
+    }
+
+    /**
+     * Get cuu
+     *
+     * @return string
+     */
+    public function getCuu()
+    {
+        return $this->cuu;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param string $tags
+     *
+     * @return Customer
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return string
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set registrationDate
+     *
+     * @param \DateTime $registrationDate
+     *
+     * @return Customer
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registration_date = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationDate
+     *
+     * @return \DateTime
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registration_date;
+    }
+
+    /**
+     * Set fullAddress
+     *
+     * @param \AppBundle\Entity\Address $fullAddress
+     *
+     * @return Customer
+     */
+    public function setFullAddress(\AppBundle\Entity\Address $fullAddress = null)
+    {
+        $this->fullAddress = $fullAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get fullAddress
+     *
+     * @return \AppBundle\Entity\Address
+     */
+    public function getFullAddress()
+    {
+        return $this->fullAddress;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Customer
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }

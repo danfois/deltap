@@ -1,0 +1,153 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Crea Cliente{% endblock %}
+{% block subheader_title %}Crea Cliente{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Cliente
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dettagli Cliente</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6">
+                                    <label>* Nome o Ragione Sociale:</label>
+                                    {{ form_widget(form.business_name) }}
+                                    <span class="m-form__help">Inserire il nome o la ragione sociale del cliente</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>* Categoria:</label>
+                                    {{ form_widget(form.category) }}
+                                    <span class="m-form__help">Scegliere la categoria del cliente o crearne una nuova</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6">
+                                    <label>P. Iva / VAT:</label>
+                                    {{ form_widget(form.vat) }}
+                                    <span class="m-form__help">Inserire una eventuale Partita Iva o Vat</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Codice Fiscale:</label>
+                                    {{ form_widget(form.cf) }}
+                                    <span class="m-form__help">Inserire un eventuale Codice Fiscale se non si ha a disposizione la P.Iva</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6">
+                                    <label>Codice Univoco Ufficio (CUU):</label>
+                                    {{ form_widget(form.cuu) }}
+                                    <span class="m-form__help">Inserire un eventuale Codice Univoco Ufficio (CUU)</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Tags</label>
+                                    {{ form_widget(form.tags) }}
+                                    <span class="m-form__help">Eventualmente, scrivere delle tags separate da virgola (es: scuola, trasporti, ecc) che possono servire per la ricerca del cliente</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Dettagli Indirizzo</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6">
+                                    <label>* Indirizzo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.address) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo del cliente</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Zona:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.zone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire zona se diversa dall'indirizzo</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-3">
+                                    <label class="">* Codice Postale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.cap) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-bookmark-o"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il CAP</span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>* Citta:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.city) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la città del cliente</span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>* Provincia:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.region) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scrivere la provincia del cliente</span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>* Stato:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.country) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire lo Stato nel quale si trova il cliente</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="reset" class="btn btn-primary">Save</button>
+                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
