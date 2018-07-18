@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\ServiceType;
 use AppBundle\Form\CreateServiceTypeType;
+use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,27 +58,12 @@ class ServiceController extends Controller
     {
         $services = $this->getDoctrine()->getRepository('AppBundle:ServiceType')->findAll();
 
-        $table = '';
-        $table_start = '<table class="table m-table m-table--head-separator-primary">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Tipo Servizio</th>
-                                </tr>
-                                </thead>
-                                <tbody>';
-        $table_body = '';
-        foreach($services as $s) {
-            $table_body .= "<tr>
-                               <th scope='row'>{$s->getServiceId()}</th>
-                               <td>{$s->getServiceName()}</td>
-                           </tr>";
-        }
-        $table_end = "</tbody>
-                       </table>";
-        $table .= $table_start;
-        $table .= $table_body;
-        $table .= $table_end;
+        $TableMaker = new TableMaker(TableMaker::DEFAULT_TABLE, $services, array(
+            'Id' => 'service_id',
+            'Tipo Servizio' => 'service_name'
+        ));
+
+        $table = $TableMaker->createTable()->getTable();
 
         return new Response($table, 200);
     }
