@@ -36,13 +36,20 @@ var CustomerForm = function () {
                         text: "Ci sono errori nel form, per favore correggili.",
                         type: "error",
                         confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                    })
+                    });
+                    mApp.unblockPage();
                 },
                 submitHandler: function (e) {
                 }
             });
             (r = t.find(':submit')).on("click", function (e) {
                 e.preventDefault();
+                mApp.blockPage({
+                    overlayColor: "#000000",
+                    type: "loader",
+                    state: "info",
+                    message: "Caricamento..."
+                });
                 i.form() && (mApp.progress(r), t.ajaxSubmit({
                     success: function (data) {
                         mApp.unprogress(r);
@@ -51,7 +58,8 @@ var CustomerForm = function () {
                             text: data,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                        })
+                        });
+                        mApp.unblockPage();
                     },
                     error: function(e) {
                         mApp.unprogress(r);
@@ -60,7 +68,8 @@ var CustomerForm = function () {
                             text: e.responseText,
                             type: "error",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                        })
+                        });
+                        mApp.unblockPage();
                     }
                 }))
             })

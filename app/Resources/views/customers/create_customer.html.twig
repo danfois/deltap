@@ -30,7 +30,7 @@
                                 <h3 class="m-form__heading-title">1. Dettagli Cliente</h3>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>* Nome o Ragione Sociale:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.business_name) }}
@@ -39,14 +39,14 @@
                                     </div>
                                     <span class="m-form__help">Inserire il nome o la ragione sociale del cliente</span>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>* Categoria:</label>
                                     {{ form_widget(form.category) }}
                                     <span class="m-form__help">Scegliere la categoria del cliente o crearne una nuova</span>
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>P. Iva / VAT:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.vat) }}
@@ -55,7 +55,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire una eventuale Partita Iva o Vat</span>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>Codice Fiscale:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.cf) }}
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>Codice Univoco Ufficio (CUU):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.cuu) }}
@@ -75,7 +75,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire un eventuale Codice Univoco Ufficio (CUU)</span>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>Tags</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.tags) }}
@@ -92,7 +92,7 @@
                                 <h3 class="m-form__heading-title">2. Dettagli Indirizzo</h3>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>* Indirizzo:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.address) }}
@@ -101,7 +101,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire l'indirizzo del cliente</span>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>Zona:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.zone) }}
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-3 m-form__group-sub">
                                     <label class="">* Codice Postale:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.cap) }}
@@ -121,7 +121,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire il CAP</span>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3 m-form__group-sub">
                                     <label>* Citta:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.city) }}
@@ -130,7 +130,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire la città del cliente</span>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3 m-form__group-sub">
                                     <label>* Provincia:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.region) }}
@@ -139,7 +139,7 @@
                                     </div>
                                     <span class="m-form__help">Scrivere la provincia del cliente</span>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3 m-form__group-sub">
                                     <label>* Stato:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fullAddress.country) }}
@@ -156,7 +156,7 @@
                                 <h3 class="m-form__heading-title">3. Dettagli Contatto</h3>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>* Email:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.email) }}
@@ -165,7 +165,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire l'indirizzo email del cliente</span>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 m-form__group-sub">
                                     <label>Telefono:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.phone) }}
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label class="">Cellulare:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.mobile) }}
@@ -185,7 +185,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire il numero di telefono cellulare</span>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>Fax:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.fax) }}
@@ -194,7 +194,7 @@
                                     </div>
                                     <span class="m-form__help">Inserire un eventuale fax</span>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>Sito Web:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.website) }}
