@@ -8,7 +8,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
  * @ORM\Table(name="customers")
- * @UniqueEntity("vat", message="A Customer with this Vat Number already exists in the database")
  */
 class Customer
 {
@@ -30,7 +29,7 @@ class Customer
     private $businessName;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist"})
      * @ORM\JoinColumn(name="address_id", referencedColumnName="addressId")
      */
     private $fullAddress;
