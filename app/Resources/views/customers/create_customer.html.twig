@@ -31,7 +31,11 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-6">
                                     <label>* Nome o Ragione Sociale:</label>
-                                    {{ form_widget(form.business_name) }}
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.business_name) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
                                     <span class="m-form__help">Inserire il nome o la ragione sociale del cliente</span>
                                 </div>
                                 <div class="col-lg-6">
@@ -43,24 +47,40 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-6">
                                     <label>P. Iva / VAT:</label>
-                                    {{ form_widget(form.vat) }}
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.vat) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-legal"></i></span></span>
+                                    </div>
                                     <span class="m-form__help">Inserire una eventuale Partita Iva o Vat</span>
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Codice Fiscale:</label>
-                                    {{ form_widget(form.cf) }}
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.cf) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
                                     <span class="m-form__help">Inserire un eventuale Codice Fiscale se non si ha a disposizione la P.Iva</span>
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-6">
                                     <label>Codice Univoco Ufficio (CUU):</label>
-                                    {{ form_widget(form.cuu) }}
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.cuu) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
                                     <span class="m-form__help">Inserire un eventuale Codice Univoco Ufficio (CUU)</span>
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Tags</label>
-                                    {{ form_widget(form.tags) }}
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.tags) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-tags"></i></span></span>
+                                    </div>
                                     <span class="m-form__help">Eventualmente, scrivere delle tags separate da virgola (es: scuola, trasporti, ecc) che possono servire per la ricerca del cliente</span>
                                 </div>
                             </div>
@@ -129,16 +149,71 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Dettagli Contatto</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6">
+                                    <label>* Email:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.email) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo email del cliente</span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Telefono:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.phone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono fisso</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-4">
+                                    <label class="">Cellulare:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.mobile) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-mobile-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono cellulare</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Fax:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fax) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-fax"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale fax</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Sito Web:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.website) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-globe"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale sito web</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                         <div class="m-form__actions m-form__actions--solid">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button type="reset" class="btn btn-primary">Save</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
                                 </div>
                                 <div class="col-lg-6 m--align-right">
-                                    <button type="reset" class="btn btn-danger">Delete</button>
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
                                 </div>
                             </div>
                         </div>
