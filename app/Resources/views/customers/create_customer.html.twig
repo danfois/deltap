@@ -259,14 +259,14 @@
                         <span aria-hidden="true" class="la la-remove"></span>
                     </button>
                 </div>
-                <form id="form_category"
-                      class="m-form m-form--fit m-form--label-align-right">
+                <form id="form_category" class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ path('create_category_ajax') }}">
                     <div class="modal-body">
                         <div class="form-group m-form__group row m--margin-top-20">
                             <label class="col-form-label col-lg-3 col-sm-12">
                                 Nome categoria
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
+                                {{ form_widget(category_form._token) }}
                                 {{ form_widget(category_form.category_name) }}
                                 <span class="m-form__help">
 														Inserire il nome della categoria da creare. Max 32 caratteri.
@@ -275,11 +275,11 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-brand m-btn"
+                        <button type="button" class="btn btn-secondary m-btn"
                                 data-dismiss="modal">
                             Chiudi
                         </button>
-                        <button type="button" class="btn btn-secondary m-btn">
+                        <button type="submit" class="btn btn-brand m-btn">
                             Invia
                         </button>
                     </div>
