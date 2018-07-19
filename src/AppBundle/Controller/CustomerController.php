@@ -1,7 +1,9 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Customer;
+use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateCustomerType;
 use AppBundle\Helper\Customer\CustomerHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,10 +19,14 @@ class CustomerController extends Controller
     public function createCustomerAction()
     {
         $customer = new Customer();
+        $category = new Category();
+
         $form = $this->createForm(CreateCustomerType::class, $customer);
+        $categoryForm = $this->createForm(CreateCategoryType::class, $category);
 
         return $this->render('customers/create_customer.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'category_form' => $categoryForm->createView()
         ));
     }
 
