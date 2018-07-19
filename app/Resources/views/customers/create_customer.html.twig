@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form class="m-form m-form--fit m-form--label-align-right">
+                <form id="form_customer" method="POST" class="m-form m-form--fit m-form--label-align-right" action="">
                     <div class="m-portlet__body">
                         <div class="m-form__section m-form__section--first">
                             <div class="m-form__heading">
@@ -225,4 +225,8 @@
         </div>
     </div>
 
+{% endblock %}
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/create_customer.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}
