@@ -53,7 +53,8 @@
                                 </div>
                                 <div class="col-lg-2 m-form__group-sub">
                                     <label>&nbsp;</label><br>
-                                        <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal" data-toggle="modal" data-target="#create_category">
+                                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                                         data-toggle="modal" data-target="#create_category">
                                 <span>
                                     <i class="la la-plus"></i>
                                     <span>Nuova Categoria</span>
@@ -140,7 +141,9 @@
                                 <div class="col-lg-3 m-form__group-sub">
                                     <label>* Citta:</label>
                                     <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.fullAddress.city) }}
+                                        <div class="m-typeahead">
+                                            {{ form_widget(form.fullAddress.city) }}
+                                        </div>
                                         <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                                         class="la la-map-marker"></i></span></span>
                                     </div>
@@ -259,7 +262,8 @@
                         <span aria-hidden="true" class="la la-remove"></span>
                     </button>
                 </div>
-                <form id="form_category" class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ path('create_category_ajax') }}">
+                <form id="form_category" class="m-form m-form--fit m-form--label-align-right" method="POST"
+                      action="{{ path('create_category_ajax') }}">
                     <div class="modal-body">
                         <div class="form-group m-form__group row m--margin-top-20">
                             <label class="col-form-label col-lg-3 col-sm-12">

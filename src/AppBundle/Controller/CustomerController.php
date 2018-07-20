@@ -18,6 +18,9 @@ class CustomerController extends Controller
      */
     public function createCustomerAction()
     {
+
+        //TODO: AGGIUNGERE AUTOFILL PER CERTI CAMPI
+
         $customer = new Customer();
         $category = new Category();
 
