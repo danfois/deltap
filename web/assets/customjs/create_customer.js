@@ -146,20 +146,22 @@ var Typeahead = function () {
         init: function () {
             var n;
             n = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace("comune"),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
-                prefetch: "/test-json"
+                prefetch: "/json-places"
             });
             $("#create_customer_fullAddress_city").typeahead(null, {
-                name: "best-pictures",
-                display: "value",
+                name: "citta",
+                display: "comune",
                 source: n,
                 templates: {
                     empty: ['<div class="empty-message" style="padding: 5px 15px; text-align: center;">', "Nessun suggerimento disponibile", "</div>"].join("\n"),
-                    suggestion: Handlebars.compile("<div><strong>{{value}}</strong> – {{year}}</div>")
+                    suggestion: Handlebars.compile("<div><strong>{{comune}}</strong> – {{provincia}}, {{cap}}</div>")
                 }
             }).on('typeahead:selected', function (ev, data) {
-
+                $('#create_customer_fullAddress_cap').val(data.cap);
+                $('#create_customer_fullAddress_region').val(data.provincia);
+                $('#create_customer_fullAddress_country').val('Italia');
             })
         }
     }

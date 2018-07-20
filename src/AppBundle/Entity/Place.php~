@@ -1,0 +1,38 @@
+<?php
+
+namespace AppBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="places")
+ */
+class Place
+{
+    /**
+     * @ORM\Column(type="string", length=5, nullable=false, name="istat")
+     */
+    private $istat;
+
+    /**
+     * @ORM\Column(type="string", length=160, nullable=false, name="comune")
+     */
+    private $comune;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="regione", length=32)
+     */
+    private $regione;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="provincia", length=2)
+     */
+    private $provincia;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="cap", length=6)
+     */
+    private $cap;
+}
