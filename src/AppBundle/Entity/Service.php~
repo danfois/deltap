@@ -31,4 +31,62 @@ class Service
      * @Assert\Length(max=120, maxMessage="Service Name is too long. Max 120 chars")
      */
     private $service;
+
+    /**
+     * Get serviceId
+     *
+     * @return integer
+     */
+    public function getServiceId()
+    {
+        return $this->service_id;
+    }
+
+    /**
+     * Set serviceCode
+     *
+     * @param string $serviceCode
+     *
+     * @return Service
+     */
+    public function setServiceCode($serviceCode)
+    {
+        $this->service_code = $serviceCode;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceCode
+     *
+     * @return string
+     */
+    public function getServiceCode()
+    {
+        return $this->service_code;
+    }
+
+    /**
+     * Set service
+     *
+     * @param string $service
+     *
+     * @return Service
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 }
