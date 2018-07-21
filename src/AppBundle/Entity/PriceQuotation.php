@@ -22,6 +22,13 @@ class PriceQuotation
     private $quotationDetails;
 
     /**
+     * @ORM\Column(type="string", name="quotation_code", nullable=false, unique=true, length=12)
+     * @Assert\NotBlank(message="Quotation Code must not be null")
+     * @Assert\Length(max=12, maxMessage="Quotation code is too long. Max 12 chars.")
+     */
+    private $quotationCode;
+
+    /**
      * @ORM\Column(type="datetime", name="quotation_date", nullable=false)
      * @Assert\NotBlank(message="Quotation Date must not be empty")
      */
@@ -342,5 +349,29 @@ class PriceQuotation
     public function getLetter()
     {
         return $this->letter;
+    }
+
+    /**
+     * Set quotationCode
+     *
+     * @param string $quotationCode
+     *
+     * @return PriceQuotation
+     */
+    public function setQuotationCode($quotationCode)
+    {
+        $this->quotationCode = $quotationCode;
+
+        return $this;
+    }
+
+    /**
+     * Get quotationCode
+     *
+     * @return string
+     */
+    public function getQuotationCode()
+    {
+        return $this->quotationCode;
     }
 }

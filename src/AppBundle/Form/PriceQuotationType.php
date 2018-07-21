@@ -22,6 +22,11 @@ class PriceQuotationType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
+            ->add('quotation_code', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle:Customer',
                 'query_builder' => function(EntityRepository $er) {

@@ -22,6 +22,13 @@ class PriceQuotation
     private $quotationDetails;
 
     /**
+     * @ORM\Column(type="string", name="quotation_code", nullable=false, unique=true, length=12)
+     * @Assert\NotBlank(message="Quotation Code must not be null")
+     * @Assert\Length(max=12, maxMessage="Quotation code is too long. Max 12 chars.")
+     */
+    private $quotationCode;
+
+    /**
      * @ORM\Column(type="datetime", name="quotation_date", nullable=false)
      * @Assert\NotBlank(message="Quotation Date must not be empty")
      */
@@ -87,6 +94,11 @@ class PriceQuotation
     public function __construct()
     {
         $this->quotationDetails = new ArrayCollection();
+    }
+
+    public function getQuotationDetails()
+    {
+        return $this->quotationDetails;
     }
 
     /**

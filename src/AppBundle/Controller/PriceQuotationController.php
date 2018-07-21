@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation;
+use AppBundle\Entity\PriceQuotationDetail;
 use AppBundle\Form\PriceQuotationType;
 use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,6 +18,8 @@ class PriceQuotationController extends Controller
     public function createPriceQuotationAction()
     {
         $PQ = new PriceQuotation();
+        $QD = new PriceQuotationDetail();
+        $PQ->getQuotationDetails()->add($QD);
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
         return $this->render('price_quotations/price_quotation.html.twig', array(
