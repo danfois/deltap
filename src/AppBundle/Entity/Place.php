@@ -12,19 +12,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Place
 {
     /**
-     * @ORM\Column(type="string", length=5, nullable=false, name="istat")
+     * @ORM\Column(type="string", length=11, nullable=false, name="istat")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $istat;
 
     /**
-     * @ORM\Column(type="string", length=160, nullable=false, name="comune")
+     * @ORM\Column(type="string", length=255, nullable=false, name="comune")
      */
     private $comune;
 
     /**
-     * @ORM\Column(type="string", nullable=false, name="regione", length=32)
+     * @ORM\Column(type="string", nullable=false, name="regione", length=50)
      */
     private $regione;
 
@@ -34,7 +34,7 @@ class Place
     private $provincia;
 
     /**
-     * @ORM\Column(type="string", nullable=false, name="cap", length=6)
+     * @ORM\Column(type="string", nullable=false, name="cap", length=5)
      */
     private $cap;
 
