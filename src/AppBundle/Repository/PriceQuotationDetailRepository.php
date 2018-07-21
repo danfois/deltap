@@ -1,9 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\EntityRepository;
 
-
-class PriceQuotationDetailRepository
+class PriceQuotationDetailRepository extends EntityRepository
 {
 
 }

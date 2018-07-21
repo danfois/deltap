@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -17,6 +18,8 @@ class PriceQuotation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $quotationId;
+
+    private $quotationDetails;
 
     /**
      * @ORM\Column(type="datetime", name="quotation_date", nullable=false)
@@ -80,6 +83,16 @@ class PriceQuotation
      * @ORM\JoinColumn(name="letter_id", referencedColumnName="letterId")
      */
     private $letter;
+
+    public function __construct()
+    {
+        $this->quotationDetails = new ArrayCollection();
+    }
+
+    public function getQuotationDetails()
+    {
+        return $this->quotationDetails;
+    }
 
     /**
      * Get quotationId

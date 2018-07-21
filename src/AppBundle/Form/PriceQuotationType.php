@@ -5,6 +5,7 @@ use AppBundle\Entity\PriceQuotation;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -70,7 +71,10 @@ class PriceQuotationType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('letter', LetterType::class);
+            ->add('letter', LetterType::class)
+            ->add('quotationDetails', CollectionType::class, array(
+                'entry_type' => PriceQuotationDetailType::class
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
