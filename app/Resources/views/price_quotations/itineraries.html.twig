@@ -152,7 +152,7 @@
 
                 <div class="form-group m-form__group row">
 
-                    <div class="col-md-12 f-form__group-sub">
+                    <div class="col-md-12 m-form__group-sub">
                         <label class="form-control-label">* Descrizione Servizio</label>
                         {{ form_widget(d.description) }}
                     </div>
@@ -163,16 +163,58 @@
                 <div class="form-group m-form__group row">
 
                     {% for rt in d.array_repeated_times %}
-                        <div class="col-md-4 f-form__group-sub">
+                        <div class="col-md-4 m-form__group-sub">
                             <label class="form-control-label">* Ora Partenza</label>
                             {{ form_widget(rt.start_time) }}
                         </div>
 
-                        <div class="col-md-4 f-form__group-sub">
+                        <div class="col-md-4 m-form__group-sub">
                             <label class="form-control-label">* Ora Arrivo</label>
                             {{ form_widget(rt.end_time) }}
                         </div>
                     {% endfor %}
+
+                </div>
+
+
+                <div class="form-group m-form__group row">
+
+                    <div class="col-md-6 m-form__group-sub">
+                        <label class="form-control-label">Frequenza Settimanale</label><br>
+                        <div class="m-checkbox-inline">
+                            {% for key, item in d.array_repeated_days %}
+                                <label class="m-checkbox">
+                                    <input
+                                            type="checkbox"
+                                            value="{{ item.vars.value }}"
+                                            id=" {{ item.vars.id }}"
+                                            name="{{ item.vars.full_name }}"
+                                            {{ item.vars.checked ? 'checked' : '' }}
+                                    >{{ item.vars.label }}
+                                    <span></span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <span class="m-form__help">
+                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                        </span>
+                    </div>
+
+                    <div class="col-md-3 m-form__group-sub">
+                        <label class="form-control-label">Tipologia Iva</label>
+                        {{ form_widget(d.vat_type) }}
+                        <span class="m-form__help">
+                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                        </span>
+                    </div>
+
+                    <div class="col-md-3 m-form__group-sub">
+                        <label class="form-control-label">* Status</label>
+                        {{ form_widget(d.status) }}
+                        <span class="m-form__help">
+                            Scegliere lo status del preventivo.
+                        </span>
+                    </div>
 
                 </div>
             {% endfor %}

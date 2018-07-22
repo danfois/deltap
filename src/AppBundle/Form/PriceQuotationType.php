@@ -49,12 +49,12 @@ class PriceQuotationType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('email', EmailType::class, array(
+            ->add('receiver_mail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('pec', EmailType::class, array(
+            ->add('sender_mail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )

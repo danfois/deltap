@@ -47,9 +47,18 @@ class PriceQuotationDetailType extends AbstractType
                 'entry_type' => RepeatedTimesType::class,
                 'allow_add' => true
             ))
-            ->add('array_repeated_days', CollectionType::class, array(
-                'entry_type' => TextType::class,
-                'allow_add' => true
+            ->add('array_repeated_days', ChoiceType::class, array(
+                'choices' => array(
+                    'Lun' => 1,
+                    'Mar' => 2,
+                    'Mer' => 3,
+                    'Gio' => 4,
+                    'Ven' => 5,
+                    'Sab' => 6,
+                    'Dom' => 7
+                ),
+                'multiple' => true,
+                'expanded' => true
             ))
             ->add('bus_number', TextType::class, array(
                 'attr' => array(

@@ -54,17 +54,17 @@ class PriceQuotation
     private $contract;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false, name="email")
+     * @ORM\Column(type="string", length=64, nullable=false, name="receiver_mail")
      * @Assert\Email(message="The email address you provided is not valid", checkMX=false)
      * @Assert\NotBlank(message="The email cannot be empty")
      */
-    private $email;
+    private $receiver_mail;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true, name="pec")
-     * @Assert\Email(message="The pec address you provided is not valid", checkMX=false)
+     * @ORM\Column(type="string", length=64, nullable=true, name="sender_mail")
+     * @Assert\Email(message="The sender email address you provided is not valid", checkMX=false)
      */
-    private $pec;
+    private $sender_mail;
 
     /**
      * @ORM\OneToOne(targetEntity="service")
@@ -173,63 +173,6 @@ class PriceQuotation
         return $this;
     }
 
-    /**
-     * Get contract
-     *
-     * @return string
-     */
-    public function getContract()
-    {
-        return $this->contract;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return PriceQuotation
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set pec
-     *
-     * @param string $pec
-     *
-     * @return PriceQuotation
-     */
-    public function setPec($pec)
-    {
-        $this->pec = $pec;
-
-        return $this;
-    }
-
-    /**
-     * Get pec
-     *
-     * @return string
-     */
-    public function getPec()
-    {
-        return $this->pec;
-    }
 
     /**
      * Set status
@@ -373,5 +316,63 @@ class PriceQuotation
     public function getQuotationCode()
     {
         return $this->quotationCode;
+    }
+
+    /**
+     * Get contract
+     *
+     * @return string
+     */
+    public function getContract()
+    {
+        return $this->contract;
+    }
+
+    /**
+     * Set receiverMail
+     *
+     * @param string $receiverMail
+     *
+     * @return PriceQuotation
+     */
+    public function setReceiverMail($receiverMail)
+    {
+        $this->receiver_mail = $receiverMail;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverMail
+     *
+     * @return string
+     */
+    public function getReceiverMail()
+    {
+        return $this->receiver_mail;
+    }
+
+    /**
+     * Set senderMail
+     *
+     * @param string $senderMail
+     *
+     * @return PriceQuotation
+     */
+    public function setSenderMail($senderMail)
+    {
+        $this->sender_mail = $senderMail;
+
+        return $this;
+    }
+
+    /**
+     * Get senderMail
+     *
+     * @return string
+     */
+    public function getSenderMail()
+    {
+        return $this->sender_mail;
     }
 }
