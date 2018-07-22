@@ -1,0 +1,212 @@
+{% for d in form.quotationDetails %}
+    <div class="form-group m-form__group row">
+        <div class="col-lg-3 m-form__group-sub">
+            <label class="form-control-label">
+                * Località Partenza:
+            </label>
+            {{ form_widget(d.departure) }}
+            <span class="m-form__help">
+                            Scegliere la Località di partenza
+                        </span>
+        </div>
+        <div class="col-lg-3 m-form__group-sub">
+            <label class="form-control-label">
+                * Località arrivo:
+            </label>
+            {{ form_widget(d.arrival) }}
+            <span class="m-form__help">
+                            Scegliere la località di destinazione
+                        </span>
+        </div>
+        <div class="col-lg-3 m-form__group-sub">
+            <label class="form-control-label">
+                * Data Partenza:
+            </label>
+            {{ form_widget(d.departure_date) }}
+            <span class="m-form__help">
+                            Scegliere la data di partenza
+                        </span>
+        </div>
+        <div class="col-lg-3 m-form__group-sub">
+            <label class="form-control-label">
+                * Data Arrivo:
+            </label>
+            {{ form_widget(d.arrival_date) }}
+            <span class="m-form__help">
+                            Scegliere la data di arrivo
+                        </span>
+        </div>
+    </div>
+    <div class="form-group m-form__group row">
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * N. Bus
+            </label>
+            {{ form_widget(d.bus_number) }}
+            <span class="m-form__help">
+                            Inserire il N. di Bus
+                        </span>
+        </div>
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * Passeggeri
+            </label>
+            {{ form_widget(d.passengers) }}
+            <span class="m-form__help">
+                            Inserire il N. di Passeggeri
+                        </span>
+        </div>
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * Km Stimati
+            </label>
+            {{ form_widget(d.estimated_km) }}
+            <span class="m-form__help">
+                            Inserire Km stimati
+                        </span>
+        </div>
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * Tempo Stimato
+            </label>
+            {{ form_widget(d.estimated_time) }}
+            <span class="m-form__help">
+                            Inserire il tempo stimato
+                        </span>
+        </div>
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * Prezzo
+            </label>
+            {{ form_widget(d.price) }}
+            <span class="m-form__help">
+                            Inserire prezzo
+                        </span>
+        </div>
+        <div class="col-lg-2 m-form__group-sub">
+            <label class="form-control-label">
+                * Iva / Vat
+            </label>
+            {{ form_widget(d.vat) }}
+            <span class="m-form__help">
+                            Inserire aliquota Iva
+                        </span>
+        </div>
+    </div>
+
+
+    <div class="form-group m-form__group row">
+
+        <div class="col-lg-4 m-form__group-sub">
+            <label class="form-control-label">
+                * Tipologia Servizio
+            </label>
+            {{ form_widget(d.service_type) }}
+            <span class="m-form__help">
+                            Inserire Tipologia Servizio
+                        </span>
+        </div>
+
+        <div class="col-lg-2 m-form__group-sub">
+            <label>&nbsp;</label><br>
+            <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                 data-toggle="modal" data-target="#create_service_type">
+                            <span>
+                                <i class="la la-plus"></i>
+                                <span>Nuova Tipologia</span>
+                            </span>
+            </div>
+        </div>
+
+        <div class="col-lg-4 m-form__group-sub">
+            <label class="form-control-label">
+                * Servizio
+            </label>
+            {{ form_widget(d.service_code) }}
+            <span class="m-form__help">
+                            Inserire il Servizio
+                        </span>
+        </div>
+
+        <div class="col-lg-2 m-form__group-sub">
+            <label>&nbsp;</label><br>
+            <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                 data-toggle="modal" data-target="#create_service">
+                            <span>
+                                <i class="la la-plus"></i>
+                                <span>Nuovo Servizio</span>
+                            </span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="form-group m-form__group row">
+
+        <div class="col-md-12 m-form__group-sub">
+            <label class="form-control-label">* Descrizione Servizio</label>
+            {{ form_widget(d.description) }}
+        </div>
+
+    </div>
+
+
+    <div class="form-group m-form__group row">
+
+        {% for rt in d.array_repeated_times %}
+            <div class="col-md-4 m-form__group-sub">
+                <label class="form-control-label">* Ora Partenza</label>
+                {{ form_widget(rt.start_time) }}
+            </div>
+
+            <div class="col-md-4 m-form__group-sub">
+                <label class="form-control-label">* Ora Arrivo</label>
+                {{ form_widget(rt.end_time) }}
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+    <div class="form-group m-form__group row">
+
+        <div class="col-md-6 m-form__group-sub">
+            <label class="form-control-label">Frequenza Settimanale</label><br>
+            <div class="m-checkbox-inline">
+                {% for key, item in d.array_repeated_days %}
+                    <label class="m-checkbox">
+                        <input
+                                type="checkbox"
+                                value="{{ item.vars.value }}"
+                                id=" {{ item.vars.id }}"
+                                name="{{ item.vars.full_name }}"
+                                {{ item.vars.checked ? 'checked' : '' }}
+                        >{{ item.vars.label }}
+                        <span></span>
+                    </label>
+                {% endfor %}
+            </div>
+            <span class="m-form__help">
+                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                        </span>
+        </div>
+
+        <div class="col-md-3 m-form__group-sub">
+            <label class="form-control-label">Tipologia Iva</label>
+            {{ form_widget(d.vat_type) }}
+            <span class="m-form__help">
+                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                        </span>
+        </div>
+
+        <div class="col-md-3 m-form__group-sub">
+            <label class="form-control-label">* Status</label>
+            {{ form_widget(d.status) }}
+            <span class="m-form__help">
+                            Scegliere lo status del preventivo.
+                        </span>
+        </div>
+
+    </div>
+{% endfor %}
