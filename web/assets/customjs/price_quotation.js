@@ -8,7 +8,7 @@ var WizardDemo = function () {
             }), e.on("change", function (e) {
                 mApp.scrollTop();
                 //inserire qua il corpo della funzione onchange aggiuntivo
-                riepilogoCarrello();
+                //riepilogoCarrello();
             }), i = t.validate({
                 ignore: ":hidden",
                 rules: {
