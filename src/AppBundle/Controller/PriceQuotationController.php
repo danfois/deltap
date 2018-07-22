@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation;
 use AppBundle\Entity\PriceQuotationDetail;
 use AppBundle\Form\PriceQuotationType;
+use AppBundle\Form\RepeatedTimesType;
 use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +21,7 @@ class PriceQuotationController extends Controller
         $PQ = new PriceQuotation();
         $QD = new PriceQuotationDetail();
         $PQ->getQuotationDetails()->add($QD);
+        $QD->getArrayRepeatedTimes()->add(new RepeatedTimesType());
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
         return $this->render('price_quotations/price_quotation.html.twig', array(

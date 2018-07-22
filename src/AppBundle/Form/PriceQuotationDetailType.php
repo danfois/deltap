@@ -44,7 +44,7 @@ class PriceQuotationDetailType extends AbstractType
                 )
             ))
             ->add('array_repeated_times', CollectionType::class, array(
-                'entry_type' => TextType::class,
+                'entry_type' => RepeatedTimesType::class,
                 'allow_add' => true
             ))
             ->add('array_repeated_days', CollectionType::class, array(

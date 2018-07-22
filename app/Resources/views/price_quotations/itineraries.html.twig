@@ -160,7 +160,21 @@
                 </div>
 
 
+                <div class="form-group m-form__group row">
 
+                    {% for rt in d.array_repeated_times %}
+                        <div class="col-md-4 f-form__group-sub">
+                            <label class="form-control-label">* Ora Partenza</label>
+                            {{ form_widget(rt.start_time) }}
+                        </div>
+
+                        <div class="col-md-4 f-form__group-sub">
+                            <label class="form-control-label">* Ora Arrivo</label>
+                            {{ form_widget(rt.end_time) }}
+                        </div>
+                    {% endfor %}
+
+                </div>
             {% endfor %}
         </div>
     </div>

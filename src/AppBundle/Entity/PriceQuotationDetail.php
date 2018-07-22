@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -122,6 +123,11 @@ class PriceQuotationDetail
      * @ORM\Column(type="integer", length=10, nullable=true, name="service_code")
      */
     private $service_code;
+
+    public function __construct()
+    {
+        $this->array_repeated_times = new ArrayCollection();
+    }
 
     /**
      * Get detailId
