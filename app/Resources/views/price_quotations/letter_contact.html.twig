@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-xl-8 offset-xl-2">
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">
+                    Informazioni Personali
+                </h3>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6 m-form__group-sub">
+                    <label class="form-control-label">
+                        * Nome:
+                    </label>
+                    {{ form_widget(form.anagrafica.nome) }}
+                    <span class="m-form__help">
+                                                                                Nome dell'Intestatario dell'account
+                                                                            </span>
+                </div>
+                <div class="col-lg-6 m-form__group-sub">
+                    <label class="form-control-label">
+                        * Cognome:
+                    </label>
+                    {{ form_widget(form.anagrafica.cognome) }}
+                    <span class="m-form__help">
+                                                                                Specificare il cognome dell'Intestatario
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-12">
+                    <label class="form-control-label">
+                        * Partita Iva:
+                    </label>
+                    {{ form_widget(form.anagrafica.piva) }}
+                    <span class="m-form__help">
+                                                                                Inserire la Partita Iva, senza mettere IT davanti
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-12">
+                    <label class="form-control-label">
+                        * Ragione Sociale:
+                    </label>
+                    {{ form_widget(form.anagrafica.ragione_sociale) }}
+                    <span class="m-form__help">
+                                                                                Inserire la Ragione Sociale anche se uguale a nome e cognome dell'Intestatario
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-12">
+                    <label class="form-control-label">
+                        * Sede Legale:
+                    </label>
+                    {{ form_widget(form.anagrafica.sede_legale) }}
+                    <span class="m-form__help">
+                                                                                Specificare la Sede Legale nel formato Via, N. Civico, Cap, Citta, Provincia, Stato
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">
+                    * Telefono
+                </label>
+                <div class="col-xl-9 col-lg-9">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                                        <i class="la la-phone"></i>
+                                                                                    </span>
+                        </div>
+                        {{ form_widget(form.anagrafica.telefono) }}
+                    </div>
+                    <span class="m-form__help">
+                                                                                Inserire un numero di telefono valido nel formato +39 1234567890
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-12">
+                    <label class="form-control-label">
+                        * Email:
+                    </label>
+                    {{ form_widget(form.anagrafica.email) }}
+                    <span class="m-form__help">
+                                                                                Inserire un indirizzo email valido, per qualsiasi tipo di comunicazione
+                                                                            </span>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-12">
+                    <label class="form-control-label">
+                        Sito Web:
+                    </label>
+                    {{ form_widget(form.anagrafica.website) }}
+                    <span class="m-form__help">
+                                                                                Facoltativo. Inserire il sito web dell'Intestatario nel formato http://esempio.com
+                                                                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

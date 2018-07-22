@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-xl-10 offset-xl-1">
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">1. Dettagli Preventivo</h3>
+            </div>
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>* Numero Preventivo:</label>
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.quotation_code) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        class="la la-user"></i></span></span>
+                    </div>
+                    <span class="m-form__help">Codice del preventivo. Generato automaticamente ma modificabile.</span>
+                </div>
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>* Data Preventivo:</label>
+                    {{ form_widget(form.quotation_date) }}
+                    <span class="m-form__help">La data che comparirà sul preventivo</span>
+                </div>
+
+                <div class="col-lg-4 m-form__group-sub">
+                    <label>* Cliente:</label>
+                    {{ form_widget(form.customer) }}
+                    <span class="m-form__help"></span>
+                </div>
+
+                <div class="col-lg-2 m-form__group-sub">
+                    <label>&nbsp;</label><br>
+                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                         data-toggle="modal" data-target="#create_customer">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Nuovo Cliente</span>
+                                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>Richiesta:</label>
+                    {{ form_widget(form.request) }}
+                    <span class="m-form__help">Inserire un eventuale riferimento ad una richiesta</span>
+                </div>
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>Contratto:</label>
+                    {{ form_widget(form.contract) }}
+                    <span class="m-form__help">Inserire un eventuale riferimento ad una contratto</span>
+                </div>
+
+                <div class="col-lg-4 m-form__group-sub">
+                    <label>* Tipo Servizio:</label>
+                    {{ form_widget(form.service_code) }}
+                    <span class="m-form__help">Inserire il servizio prevalente del preventivo.</span>
+                </div>
+
+                <div class="col-lg-2 m-form__group-sub">
+                    <label>&nbsp;</label><br>
+                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                         data-toggle="modal" data-target="#create_service">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Nuovo Servizio</span>
+                                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

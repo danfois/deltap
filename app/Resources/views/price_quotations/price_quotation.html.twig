@@ -21,65 +21,553 @@
                         </div>
                     </div>
                 </div>
-                <!--begin::Form-->
-                <form id="form_customer" method="POST" class="m-form m-form--fit m-form--label-align-right"
-                      action="">
-                    {{ form_widget(form._token) }}
-                    <div class="m-portlet__body">
-                        <div class="m-form__section m-form__section--first">
-                            <div class="m-form__heading">
-                                <h3 class="m-form__heading-title">1. Dettagli Preventivo</h3>
-                            </div>
-                            <div class="form-group m-form__group row">
-                                <div class="col-lg-3 m-form__group-sub">
-                                    <label>* Numero Preventivo:</label>
-                                    <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.quotation_code) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                        class="la la-user"></i></span></span>
-                                    </div>
-                                    <span class="m-form__help">Codice del preventivo. Generato automaticamente ma modificabile.</span>
-                                </div>
-                                <div class="col-lg-3 m-form__group-sub">
-                                    <label>* Data Preventivo:</label>
-                                    {{ form_widget(form.quotation_date) }}
-                                    <span class="m-form__help">La data che comparirà sul preventivo</span>
-                                </div>
-                                <div class="col-lg-4 m-form__group-sub">
-                                    <label>* Tipo Servizio:</label>
-                                    {{ form_widget(form.service_code) }}
-                                    <span class="m-form__help"></span>
-                                </div>
-                                <div class="col-lg-2 m-form__group-sub">
-                                    <label>&nbsp;</label><br>
-                                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
-                                         data-toggle="modal" data-target="#create_category">
-                                <span>
-                                    <i class="la la-plus"></i>
-                                    <span>Nuovo Servizio</span>
-                                </span>
-                                    </div>
-                                </div>
-                            </div>
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <div class="m-wizard__head m-portlet__padding-x">
 
+                        <div class="m-wizard__progress">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-                        <div class="m-form__actions m-form__actions--solid">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-primary">Salva</button>
-                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                        <!--begin: Form Wizard Nav -->
+                        <div class="m-wizard__nav">
+                            <div class="m-wizard__steps">
+                                <div class="m-wizard__step m-wizard__step--current"
+                                     data-wizard-target="#m_wizard_form_step_1">
+                                    <div class="m-wizard__step-info">
+                                        <a href="#" class="m-wizard__step-number">
+                                                                <span>
+                                                                    <span>
+                                                                        1
+                                                                    </span>
+                                                                </span>
+                                        </a>
+                                        <div class="m-wizard__step-line">
+                                            <span></span>
+                                        </div>
+                                        <div class="m-wizard__step-label">
+                                            Dettagli Preventivo
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6 m--align-right">
-                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_2">
+                                    <div class="m-wizard__step-info">
+                                        <a href="#" class="m-wizard__step-number">
+                                                                <span>
+                                                                    <span>
+                                                                        2
+                                                                    </span>
+                                                                </span>
+                                        </a>
+                                        <div class="m-wizard__step-line">
+                                            <span></span>
+                                        </div>
+                                        <div class="m-wizard__step-label">
+                                            Itinerari
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_3">
+                                    <div class="m-wizard__step-info">
+                                        <a href="#" class="m-wizard__step-number">
+                                                                    <span>
+                                                                        <span>
+                                                                            3
+                                                                        </span>
+                                                                    </span>
+                                        </a>
+                                        <div class="m-wizard__step-line">
+                                            <span></span>
+                                        </div>
+                                        <div class="m-wizard__step-label">
+                                            Lettera e Contatti
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_4">
+                                    <div class="m-wizard__step-info">
+                                        <a href="#" class="m-wizard__step-number">
+                                                                <span>
+                                                                    <span>
+                                                                        4
+                                                                    </span>
+                                                                </span>
+                                        </a>
+                                        <div class="m-wizard__step-line">
+                                            <span></span>
+                                        </div>
+                                        <div class="m-wizard__step-label">
+                                            Riepilogo
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!--end: Form Wizard Nav -->
                     </div>
-                </form>
-                <!--end::Form-->
+
+                    <div class="m-wizard__form">
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="m_form"
+                              action="" method="POST">
+                            <!--begin: Form Body -->
+                            <div class="m-portlet__body">
+
+                                <div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
+                                    {% include('price_quotations/general_details_section.html.twig') %}
+                                </div>
+
+                                <!--begin: Form Wizard Step 2-->
+                                <div class="m-wizard__form-step" id="m_wizard_form_step_2">
+                                    {% include('price_quotations/itineraries.html.twig') %}
+                                </div>
+                                <!--end: Form Wizard Step 2-->
+                                <!--begin: Form Wizard Step 3-->
+                                <div class="m-wizard__form-step" id="m_wizard_form_step_3">
+                                    {#{% include('price_quotations/letter_contact_section.html.twig') %}#}
+                                </div>
+                                <!--end: Form Wizard Step 3-->
+                                <!--begin: Form Wizard Step 4-->
+                                <div class="m-wizard__form-step" id="m_wizard_form_step_4">
+                                    <div class="row">
+                                        <div class="col-xl-8 offset-xl-2">
+                                            <!--begin::Section-->
+                                            <div class="m-accordion m-accordion--default" id="m_accordion_1"
+                                                 role="tablist">
+                                                <!--begin::Item-->
+                                                <div class="m-accordion__item active">
+                                                    <div class="m-accordion__item-head" role="tab"
+                                                         id="m_accordion_1_item_1_head" data-toggle="collapse"
+                                                         href="#m_accordion_1_item_1_body" aria-expanded="  false">
+                                                    <span class="m-accordion__item-icon">
+                                                                                <i class="fa flaticon-user-ok"></i>
+                                                                            </span>
+                                                        <span class="m-accordion__item-title">
+                                                                                1. Impostazioni Account
+                                                                            </span>
+                                                        <span class="m-accordion__item-mode"></span>
+                                                    </div>
+                                                    <div class="m-accordion__item-body collapse show"
+                                                         id="m_accordion_1_item_1_body" class=" " role="tabpanel"
+                                                         aria-labelledby="m_accordion_1_item_1_head"
+                                                         data-parent="#m_accordion_1">
+                                                        <!--begin::Content-->
+                                                        <div class="tab-content  m--padding-30">
+                                                            <div class="m-form__section m-form__section--first">
+                                                                <div class="m-form__heading">
+                                                                    <h4 class="m-form__heading-title">
+                                                                        Credenziali Account
+                                                                    </h4>
+                                                                </div>
+                                                                {% if is_granted('ROLE_ADMIN') %}
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Regione Concessionario:
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_username">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Password:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_password">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Livello Accesso:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_roles">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Tipo Utente:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_tipo">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Status:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_status">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                                            <div class="m-form__section">
+                                                                <div class="m-form__heading">
+                                                                    <h4 class="m-form__heading-title">
+                                                                        Associazioni Utente
+                                                                    </h4>
+                                                                </div>
+                                                                {% if is_granted('ROLE_ADMIN') %}
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Concessionario Associato:
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_conc_ass">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') %}
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Distributore Associato
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_distr_ass">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCESSIONARIO') or is_granted('ROLE_DISTRIBUTORE') %}
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Agente Associato
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_ag_ass">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Content-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+                                                <!--begin::Item-->
+                                                <div class="m-accordion__item">
+                                                    <div class="m-accordion__item-head collapsed" role="tab"
+                                                         id="m_accordion_1_item_3_head" data-toggle="collapse"
+                                                         href="#m_accordion_1_item_3_body"
+                                                         aria-expanded="    false">
+                                                    <span class="m-accordion__item-icon">
+                                                                                <i class="fa  flaticon-statistics"></i>
+                                                                            </span>
+                                                        <span class="m-accordion__item-title">
+                                                                                2. Sconti e Provvigioni
+                                                                            </span>
+                                                        <span class="m-accordion__item-mode"></span>
+                                                    </div>
+                                                    <div class="m-accordion__item-body collapse"
+                                                         id="m_accordion_1_item_3_body" class=" " role="tabpanel"
+                                                         aria-labelledby="m_accordion_1_item_3_head"
+                                                         data-parent="#m_accordion_1">
+                                                        <!--begin::Content-->
+                                                        <div class="tab-content  m--padding-30">
+                                                            {% if is_granted('ROLE_NESSUNO') %}
+                                                                <div class="m-form__section m-form__section--first">
+                                                                    <div class="m-form__heading">
+                                                                        <h4 class="m-form__heading-title">
+                                                                            Sconti
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Sconto Primo Livello:
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_sconto1">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Sconto Secondo Livello:
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_sconto2">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group m-form__group m-form__group--sm row">
+                                                                        <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                            Sconto Terzo Livello:
+                                                                        </label>
+                                                                        <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_sconto3">
+
+                                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                            <div class="m-form__section m-form__section--first">
+                                                                <div class="m-form__heading">
+                                                                    <h4 class="m-form__heading-title">
+                                                                        Provvigioni
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Provvigioni Primo Livello:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_provvigioni1">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Provvigioni Secondo Livello:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_provvigioni2">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Provvigioni Terzo Livello:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_provvigioni3">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Content-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+                                                <!--begin::Item-->
+                                                <div class="m-accordion__item">
+                                                    <div class="m-accordion__item-head collapsed" role="tab"
+                                                         id="m_accordion_1_item_2_head" data-toggle="collapse"
+                                                         href="#m_accordion_1_item_2_body"
+                                                         aria-expanded="    false">
+                                                    <span class="m-accordion__item-icon">
+                                                                                <i class="fa  flaticon-profile"></i>
+                                                                            </span>
+                                                        <span class="m-accordion__item-title">
+                                                                                3. Anagrafica Utente
+                                                                            </span>
+                                                        <span class="m-accordion__item-mode"></span>
+                                                    </div>
+                                                    <div class="m-accordion__item-body collapse"
+                                                         id="m_accordion_1_item_2_body" class=" " role="tabpanel"
+                                                         aria-labelledby="m_accordion_1_item_2_head"
+                                                         data-parent="#m_accordion_1">
+                                                        <!--begin::Content-->
+                                                        <div class="tab-content  m--padding-30">
+                                                            <div class="m-form__section m-form__section--first">
+                                                                <div class="m-form__heading">
+                                                                    <h4 class="m-form__heading-title">
+                                                                        Informazioni Personali
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Nome:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_nome">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Cognome:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_cognome">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Partita Iva:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_piva">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Ragione Sociale:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_ragione_sociale">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Sede Legale:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_sede_legale">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Telefono:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_telefono">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Email:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static" id="ic_email">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                                    <label class="col-xl-4 col-lg-4 col-form-label">
+                                                                        Sito Web:
+                                                                    </label>
+                                                                    <div class="col-xl-8 col-lg-8">
+                                                                    <span class="m-form__control-static"
+                                                                          id="ic_website">
+
+                                                                                            </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Content-->
+                                                    </div>
+                                                </div>
+                                                <!--end::Item-->
+
+                                            </div>
+                                            <!--end::Section-->
+                                            <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <div class="col-xl-12">
+                                                    <div class="m-checkbox-inline">
+                                                        <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                            <input type="checkbox" name="accept" value="1"> Clicca
+                                                            qui
+                                                            per confermare la registrazione dell'account
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end: Form Wizard Step 4-->
+                            </div>
+                            <!--end: Form Body -->
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-left">
+                                            <a href="#" class="btn btn-secondary m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="prev">
+                                                                    <span>
+                                                                        <i class="la la-arrow-left"></i>
+                                                                        &nbsp;&nbsp;
+                                                                        <span>
+                                                                            Indietro
+                                                                        </span>
+                                                                    </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="submit">
+                                                                    <span>
+                                                                        <i class="la la-check"></i>
+                                                                        &nbsp;&nbsp;
+                                                                        <span>
+                                                                            Invia
+                                                                        </span>
+                                                                    </span>
+                                            </a>
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="next">
+                                                                    <span>
+                                                                        <span>
+                                                                            Salva & Continua
+                                                                        </span>
+                                                                        &nbsp;&nbsp;
+                                                                        <i class="la la-arrow-right"></i>
+                                                                    </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
             </div>
             <!--end::Portlet-->
         </div>
@@ -92,6 +580,6 @@
 
 
 {% block page_scripts %}
-    <script src="{{ asset('assets/customjs/create_customer.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/price_quotation.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}
