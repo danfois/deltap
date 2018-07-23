@@ -1,15 +1,24 @@
-var WizardDemo = function () {
-    var i, e, n = $("#m_wizard"), t = $("#m_form");
+var PriceQuotation = function () {
+    var i;
+    var e;
+    var n = $("#m_wizard");
+    var t = $("#price_quotation_form");
     return {
         init: function () {
             var r;
-            n = $("#m_wizard"), t = $("#m_form"), (e = n.mWizard({startStep: 1})).on("beforeNext", function (e) {
-                //if (!0 !== i.form())return !1
-            }), e.on("change", function (e) {
+            n = $("#m_wizard");
+            t = $("#price_quotation_form"),
+
+
+                (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
+                if (!0 !== i.form()) return !1
+            }),
+
+                e.on("change", function () {
                 mApp.scrollTop();
-                //inserire qua il corpo della funzione onchange aggiuntivo
-                //riepilogoCarrello();
-            }), i = t.validate({
+            }),
+
+                i = t.validate({
                 ignore: ":hidden",
                 rules: {
                     'users[password]': {required:!0, maxlength:16},
@@ -71,9 +80,7 @@ var WizardDemo = function () {
                     message: "Caricamento..."
                 }),  /*$('#users_roles').attr('multiple', 'multiple'),*/ i.form() && (mApp.progress(r), t.ajaxSubmit({
                     success: function (res) {
-                       // if($('#ordini_pagamento').val() === 'carta_di_credito') {
-                         //   location.href = 'http://127.0.0.1:8000/test-pagamento-' + res;
-                       // } else {
+
                             mApp.unprogress(r), swal({
                                 title: "",
                                 text: "Hai effettuato l'ordine con successo! Abbiamo inviato alla tua email i dati al quale effettuare il pagamento",
@@ -82,7 +89,7 @@ var WizardDemo = function () {
                             })
                         mApp.unblockPage();
                         setTimeout(function() { window.location.href= '/'; } , 3000);
-                        //}
+
                     },
                     error: function(e) {
                         var errorText;
@@ -106,7 +113,7 @@ var WizardDemo = function () {
     }
 }();
 jQuery(document).ready(function () {
-    WizardDemo.init();
+    PriceQuotation.init();
     $('#users_roles').removeAttr('multiple');
     $(".tspin").TouchSpin({
         buttondown_class: "btn btn-secondary",
