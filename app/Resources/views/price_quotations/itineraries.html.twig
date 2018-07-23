@@ -19,7 +19,7 @@
                                      data-toggle="collapse" href="#itinerariBody_{{ loop.index }}"
                                      aria-expanded="false">
                                                 <span class="m-accordion__item-icon">
-														<i class="fa flaticon-user-ok"></i>
+														<i class="fa flaticon-map-location"></i>
 													</span>
                                     <span class="m-accordion__item-title itiner_title">
 														Itinerario #{{ loop.index }}
@@ -37,7 +37,11 @@
                                                 <label class="form-control-label">
                                                     * Località Partenza:
                                                 </label>
-                                                {{ form_widget(d.departure) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.departure) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-map-marker"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Scegliere la Località di partenza
                         </span>
@@ -46,7 +50,11 @@
                                                 <label class="form-control-label">
                                                     * Località arrivo:
                                                 </label>
-                                                {{ form_widget(d.arrival) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.arrival) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-map-marker"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Scegliere la località di destinazione
                         </span>
@@ -55,7 +63,11 @@
                                                 <label class="form-control-label">
                                                     * Data Partenza:
                                                 </label>
-                                                {{ form_widget(d.departure_date) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.departure_date) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-calendar"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Scegliere la data di partenza
                         </span>
@@ -64,7 +76,11 @@
                                                 <label class="form-control-label">
                                                     * Data Arrivo:
                                                 </label>
-                                                {{ form_widget(d.arrival_date) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.arrival_date) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-calendar"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Scegliere la data di arrivo
                         </span>
@@ -76,7 +92,11 @@
                                                 <label class="form-control-label">
                                                     * N. Bus
                                                 </label>
-                                                {{ form_widget(d.bus_number) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.bus_number) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-bus"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire il N. di Bus
                         </span>
@@ -85,7 +105,11 @@
                                                 <label class="form-control-label">
                                                     * Passeggeri
                                                 </label>
-                                                {{ form_widget(d.passengers) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.passengers) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-users"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire il N. di Passeggeri
                         </span>
@@ -94,7 +118,11 @@
                                                 <label class="form-control-label">
                                                     * Km Stimati
                                                 </label>
-                                                {{ form_widget(d.estimated_km) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.estimated_km) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-dashboard"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire Km stimati
                         </span>
@@ -103,7 +131,11 @@
                                                 <label class="form-control-label">
                                                     * Tempo Stimato
                                                 </label>
-                                                {{ form_widget(d.estimated_time) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.estimated_time) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-clock-o"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire il tempo stimato
                         </span>
@@ -112,7 +144,11 @@
                                                 <label class="form-control-label">
                                                     * Prezzo
                                                 </label>
-                                                {{ form_widget(d.price) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.price) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-euro"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire prezzo
                         </span>
@@ -121,7 +157,11 @@
                                                 <label class="form-control-label">
                                                     * Iva / Vat
                                                 </label>
-                                                {{ form_widget(d.vat) }}
+                                                <div class="m-input-icon m-input-icon--right">
+                                                    {{ form_widget(d.vat) }}
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                    class="la la-credit-card"></i></span></span>
+                                                </div>
                                                 <span class="m-form__help">
                             Inserire aliquota Iva
                         </span>
@@ -185,21 +225,43 @@
 
                                         </div>
 
+                                        <div class="repeated-times-repeater">
+                                            <div data-repeater-list="array_repeated_times">
+                                                <div data-repeater-item>
+                                                    <div class="form-group m-form__group row">
+                                                        {% for rt in d.array_repeated_times %}
+                                                            <div class="col-md-4 m-form__group-sub">
+                                                                <label class="form-control-label">* Ora Partenza</label>
+                                                                <div class="m-input-icon m-input-icon--right">
+                                                                    {{ form_widget(rt.start_time) }}
+                                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                                    class="la la-clock-o"></i></span></span>
+                                                                </div>
+                                                            </div>
 
-                                        <div class="form-group m-form__group row">
-
-                                            {% for rt in d.array_repeated_times %}
-                                                <div class="col-md-4 m-form__group-sub">
-                                                    <label class="form-control-label">* Ora Partenza</label>
-                                                    {{ form_widget(rt.start_time) }}
+                                                            <div class="col-md-4 m-form__group-sub">
+                                                                <label class="form-control-label">* Ora Arrivo</label>
+                                                                <div class="m-input-icon m-input-icon--right">
+                                                                    {{ form_widget(rt.end_time) }}
+                                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                                    class="la la-clock-o"></i></span></span>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
                                                 </div>
-
-                                                <div class="col-md-4 m-form__group-sub">
-                                                    <label class="form-control-label">* Ora Arrivo</label>
-                                                    {{ form_widget(rt.end_time) }}
+                                            </div>
+                                            <div class="row">
+                                                <div class="col text-left">
+                                                    <div data-repeater-create=""
+                                                         class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Partenza / Arrivo</span>
+                                                    </span>
+                                                    </div>
                                                 </div>
-                                            {% endfor %}
-
+                                            </div>
                                         </div>
 
 
@@ -230,7 +292,7 @@
                                                 <label class="form-control-label">Tipologia Iva</label>
                                                 {{ form_widget(d.vat_type) }}
                                                 <span class="m-form__help">
-                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                            Scegliere Tipologia Iva / Vat.
                         </span>
                                             </div>
 
@@ -251,7 +313,14 @@
                     </div>
                 </div>
             </div>
-            <input data-repeater-create type="button" value="Add"/>
+            <div class="col text-right">
+                <div data-repeater-create="" class="btn btn btn-primary m-btn m-btn--icon">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Aggiungi Itinerario</span>
+                                        </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

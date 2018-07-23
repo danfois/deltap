@@ -12,7 +12,11 @@
                     <label class="form-control-label">
                         * Email Mittente:
                     </label>
-                    {{ form_widget(form.sender_mail) }}
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.sender_mail) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        class="la la-envelope"></i></span></span>
+                    </div>
                     <span class="m-form__help">
                         Indirizzo mail del mittente del preventivo
                     </span>
@@ -22,7 +26,11 @@
                     <label class="form-control-label">
                         * Email Destinatario:
                     </label>
-                    {{ form_widget(form.receiver_mail) }}
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.receiver_mail) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        class="la la-envelope"></i></span></span>
+                    </div>
                     <span class="m-form__help">
                         Indirizzo mail del destinatario
                     </span>

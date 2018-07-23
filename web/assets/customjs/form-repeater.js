@@ -13,7 +13,9 @@ var FormRepeater = {
                 $(this).find('.itiner_title').text(getFirstPart($title, '#') + '#' + (counter + 1));
             }, hide: function (e) {
                 $(this).slideUp(e)
-            }
+            }, repeaters: [{
+                selector: '.repeated-times-repeater'
+            }]
         }), $("#m_repeater_2").repeater({
             initEmpty: !1, defaultValues: {"text-input": "foo"}, show: function () {
                 $(this).slideDown()
