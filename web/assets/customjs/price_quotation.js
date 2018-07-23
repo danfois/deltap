@@ -30,45 +30,39 @@ var PriceQuotation = function () {
                             type: "error",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
+                        mApp.unblockPage();
                     },
                     submitHandler: function (e) {
                     }
-                }), (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
-                e.preventDefault(), mApp.blockPage({
+                });
+            (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
+                e.preventDefault();
+                mApp.blockPage({
                     overlayColor: "#000000",
                     type: "loader",
                     state: "info",
                     message: "Caricamento..."
-                }), i.form() && (mApp.progress(r), t.ajaxSubmit({
-                    success: function (res) {
-
-                        mApp.unprogress(r), swal({
+                });
+                i.form() && (mApp.progress(r), t.ajaxSubmit({
+                    success: function (data) {
+                        mApp.unprogress(r);
+                        swal({
                             title: "",
-                            text: "Hai effettuato l'ordine con successo! Abbiamo inviato alla tua email i dati al quale effettuare il pagamento",
+                            text: "Preventivo Salvato con Successo",
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                        })
+                        });
                         mApp.unblockPage();
-                        setTimeout(function () {
-                            window.location.href = '/';
-                        }, 3000);
-
                     },
                     error: function (e) {
-                        var errorText;
-                        for (var tt in e.responseJSON) {
-                            if (e.responseJSON.hasOwnProperty(tt) && tt !== undefined) {
-                                errorText = (errorText || '') + e.responseJSON[tt] + '; \n\n';
-                            }
-                        }
-                        mApp.unprogress(r), swal({
+                        mApp.unprogress(r);
+                        swal({
                             title: "",
-                            text: errorText,
+                            text: e.responseText,
                             type: "error",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                        })
-                        mApp.unblockPage()
-                        console.log(e);
+                        });
+                        mApp.unblockPage();
                     }
                 }))
             })
@@ -90,21 +84,21 @@ function createValidationObjects() {
     };
 
     for (var i = 0; i < 10; i++) {
-        ValidationObject['price_quotation[quotationDetails][' + i + '][departure]']         = {required: !0, maxlength: 120};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival]']           = {required: !0, maxlength: 120};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][description]']       = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][departure_date]']    = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival_date]']      = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][bus_number]']        = {required: !0, maxlength: 2};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][passengers]']        = {required: !0, maxlength: 3};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_km]']      = {maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_time]']    = {maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][price]']             = {required: !0, maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][vat]']               = {required: !0, maxlength: 5};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][status]']            = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][vat_type]']          = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][service_type]']      = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][service_code]']      = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][departure]'] = {required: !0, maxlength: 120};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival]'] = {required: !0, maxlength: 120};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][description]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][departure_date]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival_date]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][bus_number]'] = {required: !0, maxlength: 2};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][passengers]'] = {required: !0, maxlength: 3};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_km]'] = {maxlength: 12};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_time]'] = {maxlength: 12};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][price]'] = {required: !0, maxlength: 12};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][vat]'] = {required: !0, maxlength: 5};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][status]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][vat_type]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][service_type]'] = {required: !0};
+        ValidationObject['price_quotation[quotationDetails][' + i + '][service_code]'] = {required: !0};
     }
 
     return ValidationObject;
