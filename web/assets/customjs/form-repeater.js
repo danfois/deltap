@@ -1,14 +1,16 @@
 var FormRepeater = {
     init: function () {
+        var counter = 0;
         $(".repeater").repeater({
             initEmpty: !1, defaultValues: {"text-input": "foo"}, show: function () {
                 $(this).slideDown();
-                var $id = $('.itiner_class').last().attr('id');
-                var $href = $('.itiner_head').last().attr('href');
-                var $title = $('.itiner_title').last().text();
-                $('.itiner_class').last().attr('id', getFirstPart($id, '_') + '_' + (parseInt(getSecondPart($id, '_')) + 1));
-                $('.itiner_head').last().attr('href', getFirstPart($href, '_') + '_' + (parseInt(getSecondPart($href, '_')) + 1));
-                $('.itiner_title').last().text(getFirstPart($title, '#') + '#' + (parseInt(getSecondPart($title, '#')) + 1));
+                counter++;
+                var $id = $(this).find('.itiner_class').attr('id');
+                var $href = $(this).find('.itiner_head').attr('href');
+                var $title = $(this).find('.itiner_title').text();
+                $(this).find('.itiner_class').attr('id', getFirstPart($id, '_') + '_' + (counter + 1) );
+                $(this).find('.itiner_head').attr('href', getFirstPart($href, '_') + '_' + (counter + 1) );
+                $(this).find('.itiner_title').text(getFirstPart($title, '#') + '#' + (counter + 1));
             }, hide: function (e) {
                 $(this).slideUp(e)
             }
