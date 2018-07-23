@@ -36,7 +36,7 @@ class PriceQuotationType extends AbstractType
                 'placeholder' => 'Scegli Cliente',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input customer_select'
                 )
             ))
             ->add('request', TextType::class, array(
@@ -75,7 +75,7 @@ class PriceQuotationType extends AbstractType
                 'placeholder' => 'Scegli Servizio',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input service_select'
                 )
             ))
             ->add('letter', LetterType::class)

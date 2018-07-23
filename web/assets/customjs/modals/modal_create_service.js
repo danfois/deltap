@@ -63,6 +63,37 @@ var ServiceForm = function () {
 };
 
 
+var findMaxServiceValue = function (element) {
+    var maxValue = 0;
+    $('option', element).each(function () {
+        var val = $(this).attr('value');
+        val = parseInt(val, 10);
+        if (maxValue === undefined || maxValue < val) {
+            maxValue = val;
+        }
+    });
+    return maxValue;
+};
+
+var updateCategorySelect = function () {
+    var categoryNamefield = $('#create_category_category_name');
+    var categorySelectField = $('#create_customer_category');
+    var maxValue = findMaxServiceValue(categorySelectField);
+    var currentValue;
+
+    if (isNaN(maxValue) || maxValue === 0 || maxValue === undefined) {
+        currentValue = 1;
+    } else {
+        currentValue = maxValue + 1;
+    }
+
+    categorySelectField.append($('<option>', {
+        value: currentValue,
+        text: categoryNamefield.val()
+    }));
+};
+
+
 jQuery(document).ready(function () {
     ServiceForm().init();
 });

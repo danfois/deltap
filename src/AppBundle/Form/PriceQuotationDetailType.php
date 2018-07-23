@@ -122,7 +122,7 @@ class PriceQuotationDetailType extends AbstractType
                 'placeholder' => 'Tipo Servizio',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input service_type_select'
                 )
             ))
             ->add('service_code', EntityType::class, array(
@@ -134,7 +134,7 @@ class PriceQuotationDetailType extends AbstractType
                 'placeholder' => 'Servizio',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input service_select'
                 )
             ));
     }
