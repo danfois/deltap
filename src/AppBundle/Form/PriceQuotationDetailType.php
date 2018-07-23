@@ -45,7 +45,8 @@ class PriceQuotationDetailType extends AbstractType
             ))
             ->add('array_repeated_times', CollectionType::class, array(
                 'entry_type' => RepeatedTimesType::class,
-                'allow_add' => true
+                'allow_add' => true,
+                'required' => false
             ))
             ->add('array_repeated_days', ChoiceType::class, array(
                 'choices' => array(
@@ -58,7 +59,8 @@ class PriceQuotationDetailType extends AbstractType
                     'Dom' => 7
                 ),
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
+                'required' => false
             ))
             ->add('bus_number', TextType::class, array(
                 'attr' => array(
@@ -73,12 +75,14 @@ class PriceQuotationDetailType extends AbstractType
             ->add('estimated_km', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('estimated_time', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('price', TextType::class, array(
                 'attr' => array(

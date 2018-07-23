@@ -42,12 +42,14 @@ class PriceQuotationType extends AbstractType
             ->add('request', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('contract', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('receiver_mail', EmailType::class, array(
                 'attr' => array(
