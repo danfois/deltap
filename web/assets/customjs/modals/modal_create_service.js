@@ -44,6 +44,7 @@ var ServiceForm = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
+                        updateServiceSelect();
                         t[0].reset();
                     },
                     error: function(e) {
@@ -75,22 +76,26 @@ var findMaxServiceValue = function (element) {
     return maxValue;
 };
 
-var updateCategorySelect = function () {
-    var categoryNamefield = $('#create_category_category_name');
-    var categorySelectField = $('#create_customer_category');
-    var maxValue = findMaxServiceValue(categorySelectField);
-    var currentValue;
+var updateServiceSelect = function () {
+    var serviceNameField = $('#create_service_service');
+    var serviceSelects = $('.service_select');
 
-    if (isNaN(maxValue) || maxValue === 0 || maxValue === undefined) {
-        currentValue = 1;
-    } else {
-        currentValue = maxValue + 1;
-    }
+    serviceSelects.each(function() {
+        var maxValue = findMaxServiceValue(this);
+        var currentValue;
 
-    categorySelectField.append($('<option>', {
-        value: currentValue,
-        text: categoryNamefield.val()
-    }));
+        if (isNaN(maxValue) || maxValue === 0 || maxValue === undefined) {
+            currentValue = 1;
+        } else {
+            currentValue = maxValue + 1;
+        }
+
+        $(this).append($('<option>', {
+            value: currentValue,
+            text: serviceNameField.val()
+        }));
+        console.log(this);
+    });
 };
 
 
