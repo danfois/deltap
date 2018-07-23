@@ -126,8 +126,11 @@
 
 {% endblock %}
 
-
-
+{% block modals %}
+    {% include('categories/modal_create_category.html.twig') %}
+    {% include('services/modal_create_service_type.html.twig') %}
+    {% include('services/modal_create_service.html.twig') %}
+{% endblock %}
 
 
 {% block page_scripts %}

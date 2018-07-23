@@ -1,0 +1,42 @@
+<div class="modal fade" id="create_service_type" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">
+                    Crea Tipologia Servizio
+                </h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true" class="la la-remove"></span>
+                </button>
+            </div>
+            <form id="form_category" class="m-form m-form--fit m-form--label-align-right" method="POST"
+                  action="{{ path('create_service_type_ajax') }}">
+                <div class="modal-body">
+                    <div class="form-group m-form__group row m--margin-top-20">
+                        <label class="col-form-label col-lg-3 col-sm-12">
+                            Tipologia Servizio
+                        </label>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
+                            {{ form_widget(service_type_form._token) }}
+                            {{ form_widget(service_type_form.service_name) }}
+                            <span class="m-form__help">
+														Inserire il nome della tipologia servizio da creare.
+													</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary m-btn"
+                            data-dismiss="modal">
+                        Chiudi
+                    </button>
+                    <button type="submit" class="btn btn-brand m-btn">
+                        Invia
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
