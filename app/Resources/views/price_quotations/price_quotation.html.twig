@@ -45,10 +45,10 @@
 
                     <div class="m-wizard__form">
                         <form class="m-form m-form--label-align-left- m-form--state-" id="price_quotation_form"
-                              action="" method="POST">
+                              action="{{ path('create_price_quotation_ajax') }}" method="POST">
                             <!--begin: Form Body -->
                             <div class="m-portlet__body">
-
+                                {{ form_widget(form._token) }}
                                 <div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
                                     {% include('price_quotations/general_details_section.html.twig') %}
                                 </div>
@@ -98,6 +98,7 @@
                                                                         </span>
                                                                     </span>
                                             </a>
+                                            <button type="submit">Invia</button>
                                             <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
                                                data-wizard-action="next">
                                                                     <span>

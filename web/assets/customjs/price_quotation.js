@@ -32,10 +32,11 @@ var PriceQuotation = function () {
                         });
                         mApp.unblockPage();
                     },
-                    submitHandler: function (e) {
-                    }
+                    /*submitHandler: function (e) {
+                    }*/
                 });
-            (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
+
+            /*(r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
                 e.preventDefault();
                 mApp.blockPage({
                     overlayColor: "#000000",
@@ -65,7 +66,7 @@ var PriceQuotation = function () {
                         mApp.unblockPage();
                     }
                 }))
-            })
+            })*/
         }
     }
 }();

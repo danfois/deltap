@@ -37,4 +37,29 @@ class PriceQuotationController extends Controller
             'service_form' => $formService->createView()
         ));
     }
+
+    /**
+     * @Route("create-price-quotation-ajax", name="create_price_quotation_ajax")
+     */
+    public function createPriceQuotationAjaxAction(Request $request)
+    {
+        $PQ = new PriceQuotation();
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $PQ = $form->getData();
+
+            return $this->render('DEBUG/form_data.html.twig', array(
+                'data' => $PQ,
+                'title' => 'Debug Price Quotation Form'
+            ));
+        }
+        $errors = $form->getErrors();
+        return $this->render('DEBUG/form_data.html.twig', array(
+            'data' => $errors,
+            'title' => 'Errore durante l\'invio del form'
+        ));
+    }
 }

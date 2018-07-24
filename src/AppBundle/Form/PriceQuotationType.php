@@ -81,14 +81,16 @@ class PriceQuotationType extends AbstractType
             ))
             ->add('letter', LetterType::class)
             ->add('quotationDetails', CollectionType::class, array(
-                'entry_type' => PriceQuotationDetailType::class
+                'entry_type' => PriceQuotationDetailType::class,
+                'allow_add' => true
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => PriceQuotation::class
+            'data_class' => PriceQuotation::class,
+            'csrf_protection' => false
         ));
     }
 }

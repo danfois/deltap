@@ -69,13 +69,11 @@ class PriceQuotation
     /**
      * @ORM\OneToOne(targetEntity="service")
      * @ORM\JoinColumn(name="service_code", referencedColumnName="service_id")
-     * @Assert\Length(max=16, maxMessage="The service code cannot exceed 16 chars.")
      */
     private $service_code;
 
     /**
      * @ORM\Column(type="integer", name="status", nullable=false, length=1)
-     * @Assert\NotBlank(message="You have to select a status for the price quotation")
      */
     private $status;
 
