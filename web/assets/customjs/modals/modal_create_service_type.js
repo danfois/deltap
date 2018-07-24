@@ -43,8 +43,8 @@ var ServiceTypeForm = function () {
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
+                        updateServiceTypeSelect();
                         t[0].reset();
-                        updateServiceTable(url);
                         mApp.unblockPage();
                     },
                     error: function(e) {
@@ -63,13 +63,42 @@ var ServiceTypeForm = function () {
     }
 };
 
-var updateServiceTable = function(url) {
-    $.get(url, function(data) {
-        $('#service_type_table').html(data);
+
+var findMaxServiceTypeValue = function (element) {
+    var maxValue = 0;
+    $('option', element).each(function () {
+        var val = $(this).attr('value');
+        val = parseInt(val, 10);
+        if (maxValue === undefined || maxValue < val) {
+            maxValue = val;
+        }
+    });
+    return maxValue;
+};
+
+var updateServiceTypeSelect = function () {
+    var serviceTypeNameField = $('#create_service_type_service_name');
+    var serviceTypeSelects = $('.service_type_select');
+
+    serviceTypeSelects.each(function() {
+        var maxValue = findMaxServiceValue(this);
+        var currentValue;
+
+        if (isNaN(maxValue) || maxValue === 0 || maxValue === undefined) {
+            currentValue = 1;
+        } else {
+            currentValue = maxValue + 1;
+        }
+
+        $(this).append($('<option>', {
+            value: currentValue,
+            text: serviceTypeNameField.val()
+        }));
+        console.log(this);
     });
 };
 
+
 jQuery(document).ready(function () {
     ServiceTypeForm().init();
-    $('#create_user_roles').removeAttr('multiple');
 });
