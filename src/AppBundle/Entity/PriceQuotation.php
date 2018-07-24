@@ -84,7 +84,7 @@ class PriceQuotation
     private $author;
 
     /**
-     * @ORM\OneToOne(targetEntity="Letter")
+     * @ORM\OneToOne(targetEntity="Letter", cascade={"persist"})
      * @ORM\JoinColumn(name="letter_id", referencedColumnName="letterId")
      */
     private $letter;

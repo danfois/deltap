@@ -20,7 +20,7 @@ class PriceQuotationDetail
     private $detail_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PriceQuotation")
+     * @ORM\ManyToOne(targetEntity="PriceQuotation", cascade={"persist"})
      * @ORM\JoinColumn(name="price_quotation", referencedColumnName="quotationId")
      */
     private $price_quotation;
