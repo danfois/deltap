@@ -19,7 +19,8 @@ class PriceQuotationType extends AbstractType
         $builder
             ->add('quotation_date', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker',
+                    'autocomplete' => 'off'
                 )
             ))
             ->add('quotation_code', TextType::class, array(

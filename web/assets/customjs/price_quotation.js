@@ -11,7 +11,7 @@ var PriceQuotation = function () {
 
 
                 (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
-                    if (!0 !== i.form()) return !1
+                    //if (!0 !== i.form()) return !1
                 }),
 
                 e.on("change", function () {
@@ -70,6 +70,69 @@ var PriceQuotation = function () {
     }
 }();
 
+var PriceQuotationFormRepeater = {
+    init: function () {
+        var counter = 0;
+        $(".repeater").repeater({
+            initEmpty: !1, defaultValues: {"text-input": "foo"}, show: function () {
+                $(this).slideDown();
+                counter++;
+                var $id = $(this).find('.itiner_class').attr('id');
+                var $href = $(this).find('.itiner_head').attr('href');
+                var $title = $(this).find('.itiner_title').text();
+                $(this).find('.itiner_class').attr('id', getFirstPart($id, '_') + '_' + (counter + 1) );
+                $(this).find('.itiner_head').attr('href', getFirstPart($href, '_') + '_' + (counter + 1) );
+                $(this).find('.itiner_title').text(getFirstPart($title, '#') + '#' + (counter + 1));
+                initializeWidgets();
+                TypeAheadWidget();
+            }, hide: function (e) {
+                $(this).slideUp(e)
+            }, repeaters: [{
+                selector: '.repeated-times-repeater',
+                show: function() {
+                    $(this).slideDown();
+                    $(".time_picker").timepicker({
+                        minuteStep: 1,
+                        defaultTime: "",
+                        showSeconds: 0,
+                        showMeridian: !1,
+                        snapToStep: !0
+                    });
+                }
+            }]
+        })
+    }
+};
+
+var TypeAheadPrefetch = function() {
+    var n;
+    n = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("comune"),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: "/json-places"
+    });
+    return n;
+};
+
+var TypeAheadWidget = function() {
+    $(".place_autocomplete").typeahead(null, {
+        name: "citta",
+        display: "comune",
+        source: window.comuni,
+        templates: {
+            empty: ['<div class="empty-message" style="padding: 5px 15px; text-align: center;">', "Nessun suggerimento disponibile", "</div>"].join("\n"),
+            suggestion: Handlebars.compile("<div><strong>{{comune}}</strong> – {{provincia}}, {{cap}}</div>")
+        }
+    })
+};
+
+function getFirstPart(str, sym) {
+    return str.split(sym)[0];
+}
+
+function getSecondPart(str, sym) {
+    return str.split(sym)[1];
+}
 
 function createValidationObjects() {
     var ValidationObject = {
@@ -104,33 +167,48 @@ function createValidationObjects() {
     return ValidationObject;
 }
 
-
-jQuery(document).ready(function () {
-    PriceQuotation.init();
-    $('#users_roles').removeAttr('multiple');
-    $(".tspin").TouchSpin({
-        buttondown_class: "btn btn-secondary",
-        buttonup_class: "btn btn-secondary",
-        min: 0,
-        max: 99,
-        step: 1,
-        decimals: 0,
-        boostat: 5,
-        maxboostedstep: 10,
-        prefix: "%"
+var initializeWidgets = function() {
+    $(".date_picker").datepicker({
+        todayHighlight: !0,
+        orientation: "top right",
+        templates: {leftArrow: '<i class="la la-angle-left"></i>', rightArrow: '<i class="la la-angle-right"></i>'}
     });
-});
 
+    $(".time_picker").timepicker({
+        minuteStep: 1,
+        defaultTime: "",
+        showSeconds: 0,
+        showMeridian: !1,
+        snapToStep: !0
+    });
 
-jQuery(document).ready(function () {
-    $(".quantita_prodotto_field").TouchSpin({
+    $(".touch_spin").TouchSpin({
         buttondown_class: "btn btn-secondary",
         buttonup_class: "btn btn-secondary",
         min: 0,
-        max: $(this).attr('data-max'),
+        max: 999999,
+        step: .01,
+        decimals: 2,
+        boostat: 5,
+        maxboostedstep: 10
+    });
+
+    $(".int_touch_spin").TouchSpin({
+        buttondown_class: "btn btn-secondary",
+        buttonup_class: "btn btn-secondary",
+        min: 0,
+        max: 999999,
         step: 1,
         decimals: 0,
         boostat: 5,
         maxboostedstep: 10
     });
+};
+
+jQuery(document).ready(function () {
+    PriceQuotation.init();
+    PriceQuotationFormRepeater.init();
+    window.comuni = TypeAheadPrefetch();
+    TypeAheadWidget();
+    initializeWidgets();
 });

@@ -19,12 +19,12 @@ class PriceQuotationDetailType extends AbstractType
         $builder
             ->add('departure', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input place_autocomplete'
                 )
             ))
             ->add('arrival', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input place_autocomplete'
                 )
             ))
             ->add('description', TextareaType::class, array(
@@ -35,12 +35,14 @@ class PriceQuotationDetailType extends AbstractType
             ))
             ->add('departure_date', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker',
+                    'autocomplete' => 'off'
                 )
             ))
             ->add('arrival_date', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker',
+                    'autocomplete' => 'off'
                 )
             ))
             ->add('array_repeated_times', CollectionType::class, array(
@@ -64,17 +66,17 @@ class PriceQuotationDetailType extends AbstractType
             ))
             ->add('bus_number', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('passengers', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('estimated_km', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 ),
                 'required' => false
             ))
@@ -86,12 +88,12 @@ class PriceQuotationDetailType extends AbstractType
             ))
             ->add('price', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('vat', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('status', ChoiceType::class, array(

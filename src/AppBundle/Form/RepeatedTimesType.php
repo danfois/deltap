@@ -13,13 +13,13 @@ class RepeatedTimesType extends AbstractType
         $builder
             ->add('start_time', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input time_picker'
                 ),
                 'mapped' => false
             ))
             ->add('end_time', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input time_picker'
                 ),
                 'mapped' => false
             ));

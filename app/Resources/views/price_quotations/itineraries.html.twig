@@ -38,7 +38,9 @@
                                                     * Località Partenza:
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
-                                                    {{ form_widget(d.departure) }}
+                                                    <div class="m-typeahead">
+                                                        {{ form_widget(d.departure) }}
+                                                    </div>
                                                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                                                     class="la la-map-marker"></i></span></span>
                                                 </div>
@@ -51,7 +53,9 @@
                                                     * Località arrivo:
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
-                                                    {{ form_widget(d.arrival) }}
+                                                    <div class="m-typeahead">
+                                                        {{ form_widget(d.arrival) }}
+                                                    </div>
                                                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                                                     class="la la-map-marker"></i></span></span>
                                                 </div>
@@ -94,7 +98,7 @@
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
                                                     {{ form_widget(d.bus_number) }}
-                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                                     class="la la-bus"></i></span></span>
                                                 </div>
                                                 <span class="m-form__help">
@@ -107,7 +111,7 @@
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
                                                     {{ form_widget(d.passengers) }}
-                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                                     class="la la-users"></i></span></span>
                                                 </div>
                                                 <span class="m-form__help">
@@ -120,7 +124,7 @@
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
                                                     {{ form_widget(d.estimated_km) }}
-                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                                     class="la la-dashboard"></i></span></span>
                                                 </div>
                                                 <span class="m-form__help">
@@ -146,7 +150,7 @@
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
                                                     {{ form_widget(d.price) }}
-                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                                     class="la la-euro"></i></span></span>
                                                 </div>
                                                 <span class="m-form__help">
@@ -159,7 +163,7 @@
                                                 </label>
                                                 <div class="m-input-icon m-input-icon--right">
                                                     {{ form_widget(d.vat) }}
-                                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                                     class="la la-credit-card"></i></span></span>
                                                 </div>
                                                 <span class="m-form__help">
