@@ -25,8 +25,10 @@ class PriceQuotationController extends Controller
     {
         $PQ = new PriceQuotation();
         $QD = new PriceQuotationDetail();
+
         $PQ->getQuotationDetails()->add($QD);
         $QD->getArrayRepeatedTimes()->add(new RepeatedTimesType());
+
         $form = $this->createForm(PriceQuotationType::class, $PQ);
         $formCategory = $this->createForm(CreateCategoryType::class);
         $formServiceType = $this->createForm(CreateServiceTypeType::class);
@@ -72,5 +74,26 @@ class PriceQuotationController extends Controller
 
         $errors = $form->getErrors();
         return new Response($errors, 500);
+    }
+
+    /**
+     * @Route("generate-letter", name="generate_letter")
+     */
+    public function generateLetterAction(Request $request)
+    {
+        $PQ = new PriceQuotation();
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $PQ = $form->getData();
+
+            return $this->render('price_quotations/letter_template.html.twig', array(
+                'data' => $PQ
+            ));
+        }
+
+        throw new \Exception('You should not be here', 403);
     }
 }

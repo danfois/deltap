@@ -11,7 +11,7 @@ var PriceQuotation = function () {
 
 
                 (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
-                    //if (!0 !== i.form()) return !1
+                    if (!0 !== i.form()) return !1
                 }),
 
                 e.on("change", function () {
@@ -81,8 +81,8 @@ var PriceQuotationFormRepeater = {
                 var $id = $(this).find('.itiner_class').attr('id');
                 var $href = $(this).find('.itiner_head').attr('href');
                 var $title = $(this).find('.itiner_title').text();
-                $(this).find('.itiner_class').attr('id', getFirstPart($id, '_') + '_' + (counter + 1) );
-                $(this).find('.itiner_head').attr('href', getFirstPart($href, '_') + '_' + (counter + 1) );
+                $(this).find('.itiner_class').attr('id', getFirstPart($id, '_') + '_' + (counter + 1));
+                $(this).find('.itiner_head').attr('href', getFirstPart($href, '_') + '_' + (counter + 1));
                 $(this).find('.itiner_title').text(getFirstPart($title, '#') + '#' + (counter + 1));
                 initializeWidgets();
                 TypeAheadWidget();
@@ -90,7 +90,7 @@ var PriceQuotationFormRepeater = {
                 $(this).slideUp(e)
             }, repeaters: [{
                 selector: '.repeated-times-repeater',
-                show: function() {
+                show: function () {
                     $(this).slideDown();
                     $(".time_picker").timepicker({
                         minuteStep: 1,
@@ -105,7 +105,7 @@ var PriceQuotationFormRepeater = {
     }
 };
 
-var TypeAheadPrefetch = function() {
+var TypeAheadPrefetch = function () {
     var n;
     n = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace("comune"),
@@ -115,7 +115,7 @@ var TypeAheadPrefetch = function() {
     return n;
 };
 
-var TypeAheadWidget = function() {
+var TypeAheadWidget = function () {
     $(".place_autocomplete").typeahead(null, {
         name: "citta",
         display: "comune",
@@ -127,6 +127,35 @@ var TypeAheadWidget = function() {
     });
     $('.place_autocomplete').removeClass('place_autocomplete');
 };
+
+var generateLetter = function () {
+    return {
+        init: function () {
+            var $form = $('#price_quotation_form');
+            $('#generate_letter').on("click", function () {
+                mApp.blockPage({
+                    overlayColor: "#000000",
+                    type: "loader",
+                    state: "info",
+                    message: "Generando la Lettera..."
+                });
+                $.ajax({
+                    url: window.location.protocol + "//" + window.location.host + '/generate-letter',
+                    type: 'POST',
+                    data: $form.serialize(),
+                    success: function (data) {
+                        $('.note-editable').html(data);
+                        mApp.unblockPage();
+                    },
+                    error: function(err) {
+                        $('.note-editable').html(err);
+                        mApp.unblockPage();
+                    }
+                });
+            });
+        }
+    };
+}();
 
 function getFirstPart(str, sym) {
     return str.split(sym)[0];
@@ -169,7 +198,7 @@ function createValidationObjects() {
     return ValidationObject;
 }
 
-var initializeWidgets = function() {
+var initializeWidgets = function () {
     $(".date_picker").datepicker({
         todayHighlight: !0,
         orientation: "top right",
@@ -210,6 +239,7 @@ var initializeWidgets = function() {
 jQuery(document).ready(function () {
     PriceQuotation.init();
     PriceQuotationFormRepeater.init();
+    generateLetter.init();
     window.comuni = TypeAheadPrefetch();
     TypeAheadWidget();
     initializeWidgets();
