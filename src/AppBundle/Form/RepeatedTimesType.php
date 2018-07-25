@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RepeatedTimesType extends AbstractType
 {
+    public $start_time;
+    public $end_time;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -26,7 +29,13 @@ class RepeatedTimesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => RepeatedTimesType::class
         ));
+    }
+    public function getStartTime() {
+        return $this->start_time;
+    }
+    public function getEndTime() {
+        return $this->end_time;
     }
 }

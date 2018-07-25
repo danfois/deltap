@@ -124,7 +124,8 @@ var TypeAheadWidget = function() {
             empty: ['<div class="empty-message" style="padding: 5px 15px; text-align: center;">', "Nessun suggerimento disponibile", "</div>"].join("\n"),
             suggestion: Handlebars.compile("<div><strong>{{comune}}</strong> – {{provincia}}, {{cap}}</div>")
         }
-    })
+    });
+    $('.place_autocomplete').removeClass('place_autocomplete');
 };
 
 function getFirstPart(str, sym) {
