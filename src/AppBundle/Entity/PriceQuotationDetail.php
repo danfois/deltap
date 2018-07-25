@@ -20,7 +20,7 @@ class PriceQuotationDetail
     private $detail_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PriceQuotation", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="PriceQuotation", inversedBy="quotationDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="price_quotation", referencedColumnName="quotationId")
      */
     private $price_quotation;
@@ -97,7 +97,7 @@ class PriceQuotationDetail
     private $price;
 
     /**
-     * @ORM\Column(type="decimal", precision=2, scale=2, nullable=true, name="vat")
+     * @ORM\Column(type="decimal", precision=4, scale=2, nullable=true, name="vat")
      * @Assert\Range(min=0, max=99, maxMessage="Vat percentage can't be higher than 99%")
      */
     private $vat;
@@ -113,14 +113,15 @@ class PriceQuotationDetail
     private $vat_type;
 
     /**
-     * @ORM\OneToOne(targetEntity="ServiceType")
+     * @ORM\ManyToOne(targetEntity="ServiceType")
      * @ORM\JoinColumn(name="service_type", referencedColumnName="service_id")
      * @Assert\NotBlank(message="You have to choose a service type")
      */
     private $service_type;
 
     /**
-     * @ORM\Column(type="integer", length=10, nullable=true, name="service_code")
+     * @ORM\ManyToOne(targetEntity="Service")
+     * @ORM\JoinColumn(name="service", referencedColumnName="service_id")
      */
     private $service_code;
 

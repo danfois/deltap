@@ -19,6 +19,9 @@ class PriceQuotation
      */
     private $quotationId;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PriceQuotationDetail", mappedBy="price_quotation", cascade={"persist", "remove"})
+     */
     private $quotationDetails;
 
     /**
@@ -67,7 +70,7 @@ class PriceQuotation
     private $sender_mail;
 
     /**
-     * @ORM\OneToOne(targetEntity="service")
+     * @ORM\ManyToOne(targetEntity="service")
      * @ORM\JoinColumn(name="service_code", referencedColumnName="service_id")
      */
     private $service_code;

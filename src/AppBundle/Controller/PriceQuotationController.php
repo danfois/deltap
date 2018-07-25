@@ -8,7 +8,9 @@ use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
 use AppBundle\Form\PriceQuotationType;
 use AppBundle\Form\RepeatedTimesType;
+use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
 use AppBundle\Util\TableMaker;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,15 +53,24 @@ class PriceQuotationController extends Controller
         if($form->isSubmitted() && $form->isValid()) {
             $PQ = $form->getData();
 
-            return $this->render('DEBUG/form_data.html.twig', array(
-                'data' => $PQ,
-                'title' => 'Debug Price Quotation Form'
-            ));
+            $user = $this->getUser();
+
+            try {
+                $PQHelper = new PriceQuotationHelper($PQ, $user);
+                $PQHelper->execute();
+            } catch(\Exception $e) {
+                return new Response( $e->getMessage(), 500);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($PQ);
+            $em->flush();
+
+            return new Response('Ok', 200);
         }
+
         $errors = $form->getErrors();
-        return $this->render('DEBUG/form_data.html.twig', array(
-            'data' => $errors,
-            'title' => 'Errore durante l\'invio del form'
-        ));
+        return new Response($errors, 500);
     }
 }
