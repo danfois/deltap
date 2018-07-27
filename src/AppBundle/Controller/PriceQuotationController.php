@@ -81,6 +81,8 @@ class PriceQuotationController extends Controller
      */
     public function generateLetterAction(Request $request)
     {
+        //TODO: create a good template for the letter
+
         $PQ = new PriceQuotation();
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
