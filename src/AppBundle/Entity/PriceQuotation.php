@@ -12,6 +12,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class PriceQuotation
 {
+
+    //TODO: INTERFACCIA PER LE FATTURE, DA IMPLEMENTARE
+
     /**
      * @ORM\Column(type="integer", name="quotationId")
      * @ORM\Id
