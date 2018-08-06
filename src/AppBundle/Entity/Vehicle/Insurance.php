@@ -10,9 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Insurance extends VehiclePeriodicCost
 {
-    //todo: quando sarà pronta l'entità provider, dovrò fare un associazione
     /**
-     * @ORM\Column(type="string", nullable=false, length=255, name="company")
+     * @ORM\ManyToOne(targetEntity="Provider")
+     * @ORM\JoinColumn(name="companyId", referencedColumnName="idProvider")
      */
     private $company;
 
