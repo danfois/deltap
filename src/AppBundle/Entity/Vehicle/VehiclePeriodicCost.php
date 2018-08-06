@@ -25,7 +25,7 @@ abstract class VehiclePeriodicCost
     private $endDate;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, name="price")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="price")
      * @Assert\NotBlank(message="Price must not be null")
      */
     private $price;
