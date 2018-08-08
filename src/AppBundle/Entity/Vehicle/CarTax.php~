@@ -16,14 +16,4 @@ class CarTax extends VehiclePeriodicCost
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $carTaxId;
-
-    /**
-     * Get carTaxId
-     *
-     * @return integer
-     */
-    public function getCarTaxId()
-    {
-        return $this->carTaxId;
-    }
 }

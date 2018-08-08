@@ -166,14 +166,4 @@ class Tachograph
     {
         return $this->vehicle;
     }
-
-    /**
-     * Get tachographId
-     *
-     * @return integer
-     */
-    public function getTachographId()
-    {
-        return $this->tachographId;
-    }
 }

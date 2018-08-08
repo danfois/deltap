@@ -18,7 +18,7 @@ class Insurance extends VehiclePeriodicCost
     private $insuranceId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\ManyToOne(targetEntity="Provider")
      * @ORM\JoinColumn(name="companyId", referencedColumnName="idProvider")
      */
     private $company;
@@ -36,7 +36,7 @@ class Insurance extends VehiclePeriodicCost
     private $agent;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, length=1, name="durationType")
+     * @ORM\Column(type="int", nullable=false, length=1, name="durationType")
      * @Assert\NotBlank(message="Insurance Duration Type cannot be null")
      */
     private $durationType;
@@ -145,11 +145,11 @@ class Insurance extends VehiclePeriodicCost
     /**
      * Set company
      *
-     * @param \AppBundle\Entity\Provider $company
+     * @param \AppBundle\Entity\Vehicle\Provider $company
      *
      * @return Insurance
      */
-    public function setCompany(\AppBundle\Entity\Provider $company = null)
+    public function setCompany(\AppBundle\Entity\Vehicle\Provider $company = null)
     {
         $this->company = $company;
 
@@ -164,15 +164,5 @@ class Insurance extends VehiclePeriodicCost
     public function getCompany()
     {
         return $this->company;
-    }
-
-    /**
-     * Get insuranceId
-     *
-     * @return integer
-     */
-    public function getInsuranceId()
-    {
-        return $this->insuranceId;
     }
 }

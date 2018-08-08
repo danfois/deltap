@@ -16,14 +16,4 @@ class CarReview extends VehiclePeriodicCost
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $carReviewId;
-
-    /**
-     * Get carReviewId
-     *
-     * @return integer
-     */
-    public function getCarReviewId()
-    {
-        return $this->carReviewId;
-    }
 }
