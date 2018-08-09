@@ -1,0 +1,478 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Crea Veicolo{% endblock %}
+{% block subheader_title %}Crea Veicolo{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Veicolo
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_customer" method="POST" class="m-form m-form--fit m-form--label-align-right" action="">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Generalità Veicolo</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Targa:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.plate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la targa del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Ex Targa:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.exPlate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire eventuale ex targa del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Uso:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.useTypology) }}
+
+                                    </div>
+                                    <span class="m-form__help">Inserire tipologia d'uso</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Destinazione Uso (J.1):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.useDestination) }}
+                                    </div>
+                                    <span class="m-form__help">Inserire destinazione d'uso del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Carrozzeria (J.2):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.bodyWork) }}
+                                    </div>
+                                    <span class="m-form__help">Inserire carrozzeria del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Intestatario (C2):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.owner) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'intestatario del veicolo</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Marca (D.1):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.brand) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-tag"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la marca del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Modello:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.model) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-tags"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il modello del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Telaio (E):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.frame) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il n. di telaio del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Anno 1° Immatr. (B):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.carRegistrationDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire data prima immatr.</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Numero 1° Immatr. (N°):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.carRegistrationNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire numero prima immatr.</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Data Carta Immatr. (I):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.registrationCardDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire data carta immatr.</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Data Acquisto:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.purchaseDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire data di acquisto del veicolo.</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Data Cessione:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.saleDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire data di cessione del veicolo.</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Finanziamento: </label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.financing) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire eventuale tipo finanziamento.</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Autorizzazione Regionale: </label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.regionalAuthorization) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-legal"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire eventuale autorizzazione regionale.</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Dettagli Tecnici</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Posti a Sedere (S.1):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.seats) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-users"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire i posti a sedere del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Posti in Piedi (S.2):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.stands) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-users"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire i posti in piedi del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Portata Passeggeri Seduti KG:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.passengersSeated) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-users"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Peso passeggeri seduti in KG</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Portata Passeggeri In Piedi KG:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.passengersStanding) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-users"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Peso passeggeri in piedi KG</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Lunghezza:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.length) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-arrows-v"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la lunghezza del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Larghezza:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.width) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-arrows-h"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la larghezza del veicolo</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Uscite Emergenza:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.emergencyExits) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-sign-out"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">N° Uscite Emergenza del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Numero Motore (P.5):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.engineNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-cogs"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero Motore del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Cambio:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.transmission) }}
+                                    </div>
+                                    <span class="m-form__help">Tipo di cambio del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Massa Max a Carico Kg. (F2):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.maximumLoadMass) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-balance-scale"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Massa a carico massimo in KG</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Categoria Veicolo (J):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.category) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-file"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Categoria del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* N° Assi (L):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.axesNumber) }}
+                                    </div>
+                                    <span class="m-form__help">Numero di Assi</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Cilindrata (P.1):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.engineCapacity) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-power-off"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Cilindrata in cm3</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Potenza Kw (P.2):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.powerKw) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-bolt"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Potenza in KW</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Combustibile:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fuel) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-fire"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Tipo di combustibile del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Pneumatici:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.tires) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-opera"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Tipo di pneumatici principali del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Pneumatici Alternativi:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.alternateTires) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-opera"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Tipo di pneumatici alternativi del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Areazione:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.areation) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-cloud"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Tipo di areazione del veicolo</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Numero Omologazione (K):</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.omologationNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero Omologazione del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Numero Estintore:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fireExtinguisherNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-fire-extinguisher"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero dell'estintore del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>Scadenza Estintore:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fireExtinguisherExpiration) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scadenza dell'estintore del veicolo</span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Note:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.notes) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
