@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form id="form_customer" method="POST" class="m-form m-form--fit m-form--label-align-right" action="">
+                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action="" autocomplete="off">
                     {{ form_widget(form._token) }}
                     <div class="m-portlet__body">
                         <div class="m-form__section m-form__section--first">
@@ -214,7 +214,7 @@
                                     <label>* Posti a Sedere (S.1):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.seats) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-users"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Inserire i posti a sedere del veicolo</span>
@@ -224,7 +224,7 @@
                                     <label>* Posti in Piedi (S.2):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.stands) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-users"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Inserire i posti in piedi del veicolo</span>
@@ -234,7 +234,7 @@
                                     <label>* Portata Passeggeri Seduti KG:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.passengersSeated) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-users"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Peso passeggeri seduti in KG</span>
@@ -244,7 +244,7 @@
                                     <label>* Portata Passeggeri In Piedi KG:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.passengersStanding) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-users"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Peso passeggeri in piedi KG</span>
@@ -254,7 +254,7 @@
                                     <label>* Lunghezza:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.length) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-arrows-v"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Inserire la lunghezza del veicolo</span>
@@ -264,7 +264,7 @@
                                     <label>* Larghezza:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.width) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-arrows-h"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Inserire la larghezza del veicolo</span>
@@ -279,7 +279,7 @@
                                     <label>* Uscite Emergenza:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.emergencyExits) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-sign-out"></i></span></span>
                                     </div>
                                     <span class="m-form__help">N° Uscite Emergenza del veicolo</span>
@@ -307,7 +307,7 @@
                                     <label>* Massa Max a Carico Kg. (F2):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.maximumLoadMass) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-balance-scale"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Massa a carico massimo in KG</span>
@@ -340,7 +340,7 @@
                                     <label>* Cilindrata (P.1):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.engineCapacity) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-power-off"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Cilindrata in cm3</span>
@@ -350,7 +350,7 @@
                                     <label>* Potenza Kw (P.2):</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.powerKw) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-bolt"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Potenza in KW</span>
@@ -449,7 +449,7 @@
                         <div class="m-form__actions m-form__actions--solid">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva</button>
                                     <button type="reset" class="btn btn-secondary">Annulla</button>
                                 </div>
                                 <div class="col-lg-6 m--align-right">
@@ -474,5 +474,6 @@
 
 
 {% block page_scripts %}
+    <script src="{{ asset('assets/customjs/vehicles/create_vehicle.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}

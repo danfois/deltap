@@ -21,11 +21,12 @@ class VehicleType extends AbstractType
             ->add('exPlate', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('carRegistrationDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('carRegistrationNumber', TextType::class, array(
@@ -35,7 +36,7 @@ class VehicleType extends AbstractType
             ))
             ->add('registrationCardDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('brand', TextType::class, array(
@@ -50,33 +51,34 @@ class VehicleType extends AbstractType
             ))
             ->add('seats', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('stands', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('width', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('length', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('purchaseDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('saleDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
-                )
+                    'class' => 'form-control m-input date_picker'
+                ),
+                'required' => false
             ))
             ->add('useTypology', ChoiceType::class, array(
                 'attr' => array(
@@ -104,11 +106,13 @@ class VehicleType extends AbstractType
             ->add('frame', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('owner', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
+                    //todo: autocomplete coi dati dei dipendenti / clienti / fornitori
                 )
             ))
             ->add('transmission', ChoiceType::class, array(
@@ -130,31 +134,34 @@ class VehicleType extends AbstractType
             ->add('alternateTires', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('regionalAuthorization', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('areation', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('passengersSeated', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('passengersStanding', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('emergencyExits', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('omologationNumber', TextType::class, array(
@@ -164,7 +171,7 @@ class VehicleType extends AbstractType
             ))
             ->add('maximumLoadMass', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ))
             ->add('category', TextType::class, array(
@@ -174,12 +181,12 @@ class VehicleType extends AbstractType
             ))
             ->add('axesNumber', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('engineCapacity', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('engineNumber', TextType::class, array(
@@ -189,33 +196,43 @@ class VehicleType extends AbstractType
             ))
             ->add('powerKw', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
-            ->add('fuel', TextType::class, array(
+            ->add('fuel', ChoiceType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'choices' => array(
+                    'Gasolio' => 'Gasolio',
+                    'Benzina' => 'Benzina',
+                    'Ibrido'  => 'Ibrido'
+                ),
+                'multiple' => false
             ))
             ->add('fireExtinguisherNumber', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('fireExtinguisherExpiration', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('notes', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('financing', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ));
     }
 

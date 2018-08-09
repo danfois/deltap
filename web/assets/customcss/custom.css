@@ -17,3 +17,7 @@
 .right-30 {
     right:30px !important;
 }
+
+.bootstrap-touchspin-up, .bootstrap-touchspin-down {
+    background-color: #eceaff !important;
+}
