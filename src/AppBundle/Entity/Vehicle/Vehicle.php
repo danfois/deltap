@@ -120,8 +120,7 @@ class Vehicle
     private $purchaseDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false, name="saleDate")
-     * @Assert\NotBlank(message="Sale Date cannot be null")
+     * @ORM\Column(type="datetime", nullable=true, name="saleDate")
      */
     private $saleDate;
 
@@ -181,8 +180,7 @@ class Vehicle
     private $regionalAuthorization;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false, name="areation")
-     * @Assert\NotBlank(message="Vehicle's areation cannot be null")
+     * @ORM\Column(type="string", length=32, nullable=true, name="areation")
      */
     private $areation;
 

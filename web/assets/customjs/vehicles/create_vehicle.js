@@ -20,8 +20,7 @@ var VehicleForm = function () {
                     });
                     mApp.unblockPage();
                 },
-                submitHandler: function (e) {
-                }
+                submitHandler: function (e) {}
             });
 
             (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
@@ -47,10 +46,11 @@ var VehicleForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: e.responseText,
+                            html: e.responseText,
                             type: "error",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
+                        console.log(e);
                         mApp.unblockPage();
                     }
                 }))
@@ -131,6 +131,7 @@ var initializeWidgets = function () {
     $(".date_picker").datepicker({
         todayHighlight: !0,
         orientation: "top right",
+        format: 'dd/mm/yyyy',
         templates: {leftArrow: '<i class="la la-angle-left"></i>', rightArrow: '<i class="la la-angle-right"></i>'}
     });
 

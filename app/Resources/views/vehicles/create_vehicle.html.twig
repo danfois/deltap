@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action=""
+                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action="{{ path('create_vehicle_ajax') }}"
                       autocomplete="off">
                     {{ form_widget(form._token) }}
                     <div class="m-portlet__body">

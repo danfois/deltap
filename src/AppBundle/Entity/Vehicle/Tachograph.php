@@ -18,7 +18,7 @@ class Tachograph
     private $tachographId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Vehicle")
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="tachographs")
      * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
      */
     private $vehicle;
