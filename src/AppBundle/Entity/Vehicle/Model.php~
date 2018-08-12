@@ -1,0 +1,30 @@
+<?php
+
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="models")
+ */
+class Model
+{
+    /**
+     * @ORM\Column(type="integer", name="brandId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $modelId;
+
+    /**
+     * @ORM\Column(type="string", length=55, nullable=false, name="code")
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="string", length=55, nullable=false, name="title")
+     */
+    private $title;
+}

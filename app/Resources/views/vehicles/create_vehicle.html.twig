@@ -22,7 +22,8 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action="" autocomplete="off">
+                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action=""
+                      autocomplete="off">
                     {{ form_widget(form._token) }}
                     <div class="m-portlet__body">
                         <div class="m-form__section m-form__section--first">
@@ -95,20 +96,24 @@
 
                                 <div class="col-lg-2 m-form__group-sub">
                                     <label>* Marca (D.1):</label>
-                                    <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.brand) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                        class="la la-tag"></i></span></span>
+                                    <div class="m-typeahead">
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.brand) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-tag"></i></span></span>
+                                        </div>
                                     </div>
                                     <span class="m-form__help">Inserire la marca del veicolo</span>
                                 </div>
 
                                 <div class="col-lg-2 m-form__group-sub">
                                     <label>* Modello:</label>
-                                    <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.model) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                        class="la la-tags"></i></span></span>
+                                    <div class="m-typeahead">
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.model) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-tags"></i></span></span>
+                                        </div>
                                     </div>
                                     <span class="m-form__help">Inserire il modello del veicolo</span>
                                 </div>
@@ -449,7 +454,8 @@
                         <div class="m-form__actions m-form__actions--solid">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva</button>
+                                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                                    </button>
                                     <button type="reset" class="btn btn-secondary">Annulla</button>
                                 </div>
                                 <div class="col-lg-6 m--align-right">

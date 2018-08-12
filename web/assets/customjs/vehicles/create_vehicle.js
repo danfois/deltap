@@ -59,61 +59,72 @@ var VehicleForm = function () {
     }
 }();
 
-var TypeAheadPrefetch = function () {
+var TypeAheadWidget = function () {
     var n;
     n = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("comune"),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("title"),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: "/json-places"
+        prefetch: "/vehicle/brands"
     });
-    return n;
-};
 
-var TypeAheadWidget = function () {
-    $(".place_autocomplete").typeahead(null, {
-        name: "citta",
-        display: "comune",
-        source: window.comuni,
+    var m;
+    m = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace("title"),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: "/vehicle/models"
+    });
+
+    $("#vehicle_brand").typeahead(null, {
+        name: "modello",
+        display: "title",
+        source: n,
         templates: {
             empty: ['<div class="empty-message" style="padding: 5px 15px; text-align: center;">', "Nessun suggerimento disponibile", "</div>"].join("\n"),
-            suggestion: Handlebars.compile("<div><strong>{{comune}}</strong> – {{provincia}}, {{cap}}</div>")
+            suggestion: Handlebars.compile("<div><strong>{{title}}</strong></div>")
         }
     });
-    $('.place_autocomplete').removeClass('place_autocomplete');
+
+    $("#vehicle_model").typeahead(null, {
+        name: "modello",
+        display: "title",
+        source: m,
+        templates: {
+            empty: ['<div class="empty-message" style="padding: 5px 15px; text-align: center;">', "Nessun suggerimento disponibile", "</div>"].join("\n"),
+            suggestion: Handlebars.compile("<div><strong>{{title}}</strong></div>")
+        }
+    });
 };
 
 function createValidationObjects() {
-    var ValidationObject = {
-        'price_quotation[quotation_code]': {required: !0, maxlength: 12},
-        'price_quotation[quotation_date]': {required: !0},
-        'price_quotation[customer]': {required: !0, maxlength: 255},
-        'price_quotation[receiver_mail]': {required: !0, maxlength: 64, email: true},
-        'price_quotation[sender_mail]': {required: !0, maxlength: 64, email: true},
-        'price_quotation[service_code]': {required: !0},
-        'price_quotation[status]': {required: !0},
-        'price_quotation[letter][status]': {required: !0},
-        'accept': {required: !0}
+    return {
+        'vehicle[plate]': {required: !0, maxlength: 10},
+        'vehicle[exPlate]': {maxlength: 10},
+        'vehicle[carRegistrationNumber]': {maxlength: 64},
+        'vehicle[brand]': {maxlength: 64},
+        'vehicle[seats]': {maxlength: 3},
+        'vehicle[stands]': {maxlength: 3},
+        'vehicle[width]': {maxlength: 12},
+        'vehicle[length]': {maxlength: 12},
+        'vehicle[financing]': {maxlength: 128},
+        'vehicle[useDestination]': {maxlength: 128},
+        'vehicle[bodyWork]': {maxlength: 64},
+        'vehicle[frame]': {maxlength: 20},
+        'vehicle[tires]': {maxlength: 64},
+        'vehicle[alternateTires]': {maxlength: 64},
+        'vehicle[regionalAuthorization]': {maxlength: 64},
+        'vehicle[areation]': {maxlength: 32},
+        'vehicle[passengersSeated]': {maxlength: 12},
+        'vehicle[passengersStanding]': {maxlength: 12},
+        'vehicle[emergencyExits]': {maxlength: 1},
+        'vehicle[engineNumber]': {maxlength: 32},
+        'vehicle[omologationNumber]': {maxlength: 24},
+        'vehicle[maximumLoadMass]': {maxlength: 12},
+        'vehicle[category]': {maxlength: 24},
+        'vehicle[axesNumber]': {maxlength: 1},
+        'vehicle[engineCapacity]': {maxlength: 5},
+        'vehicle[powerKw]': {maxlength: 5},
+        'vehicle[notes]': {maxlength: 255}
     };
-
-    for (var i = 0; i < 10; i++) {
-        ValidationObject['price_quotation[quotationDetails][' + i + '][departure]'] = {required: !0, maxlength: 120};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival]'] = {required: !0, maxlength: 120};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][description]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][departure_date]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][arrival_date]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][bus_number]'] = {required: !0, maxlength: 2};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][passengers]'] = {required: !0, maxlength: 3};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_km]'] = {maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][estimated_time]'] = {maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][price]'] = {required: !0, maxlength: 12};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][vat]'] = {required: !0, maxlength: 5};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][status]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][vat_type]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][service_type]'] = {required: !0};
-        ValidationObject['price_quotation[quotationDetails][' + i + '][service_code]'] = {required: !0};
-    }
-
-    return ValidationObject;
 }
 
 var initializeWidgets = function () {
@@ -156,7 +167,6 @@ var initializeWidgets = function () {
 
 jQuery(document).ready(function () {
     VehicleForm.init();
-    window.comuni = TypeAheadPrefetch();
     TypeAheadWidget();
     initializeWidgets();
 });

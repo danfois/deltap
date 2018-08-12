@@ -28,4 +28,21 @@ class VehicleController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("vehicle/brands", name="vehicle_brands")
+     */
+    public function vehicleBrands()
+    {
+        return $this->render('vehicles/brands_json.html.twig');
+    }
+
+    /**
+     * @Route("vehicle/models", name="vehicle_models")
+     */
+    public function vehicleModelsAction()
+    {
+        return $this->render('vehicles/models_json.html.twig');
+    }
+
 }

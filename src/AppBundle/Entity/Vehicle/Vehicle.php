@@ -187,16 +187,14 @@ class Vehicle
     private $areation;
 
     /**
-     * @ORM\Column(type="integer", length=3, nullable=false, name="passengersSeated")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="passengersSeated")
      * @Assert\NotBlank(message="Seated Passengers cannot be null")
-     * @Assert\Length(max=3, maxMessage="There cannot be more than 999 seated passengers")
      */
     private $passengersSeated;
 
     /**
-     * @ORM\Column(type="integer", length=3, nullable=false, name="passengersStanding")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="passengersStanding")
      * @Assert\NotBlank(message="Standing Passengers cannot be null")
-     * @Assert\Length(max=3, maxMessage="There cannot be more than 999 standing passengers")
      */
     private $passengersStanding;
 
