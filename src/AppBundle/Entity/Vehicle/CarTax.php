@@ -11,6 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CarTax extends VehiclePeriodicCost
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="carTaxes")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    private $vehicle;
+
+    /**
      * @ORM\Column(type="integer", name="carTaxId")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

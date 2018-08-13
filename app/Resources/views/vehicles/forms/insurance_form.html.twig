@@ -1,0 +1,106 @@
+<form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action=""
+      autocomplete="off">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group row">
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Veicolo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.vehicle) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-barcode"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire la targa del veicolo</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Data Inizio:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.startDate) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Data Inizio Polizza</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Data Scadenza:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.endDate) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Data di scadenza della polizza</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Prezzo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.price) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-money"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire prezzo totale della polizza</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Rata:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.flat) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-money"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire rata della polizza</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>* Durata:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.durationType) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-clock-o"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire prezzo totale della polizza</span>
+            </div>
+
+        </div>
+
+
+        <div class="form-group m-form__group row">
+
+            <div class="col-lg-6 m-form__group-sub">
+                <label>* Compagnia:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.company) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-bank"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire la compagnia assicurativa</span>
+            </div>
+
+            <div class="col-lg-6 m-form__group-sub">
+                <label>* Agente:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.agent) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-suitcase"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire l'agente assicurativo</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

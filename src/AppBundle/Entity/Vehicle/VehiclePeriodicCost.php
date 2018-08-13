@@ -11,12 +11,6 @@ use Doctrine\ORM\Mapping\MappedSuperclass;
 abstract class VehiclePeriodicCost
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Vehicle")
-     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
-     */
-    private $vehicle;
-
-    /**
      * @ORM\Column(type="datetime", nullable=false, name="startDate")
      * @Assert\NotBlank(message="Start Date must not be null")
      */
@@ -34,7 +28,7 @@ abstract class VehiclePeriodicCost
      */
     private $price;
 
-    public function getVehicle() : Vehicle
+    public function getVehicle()
     {
         return $this->vehicle;
     }

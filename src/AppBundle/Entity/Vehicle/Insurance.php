@@ -10,6 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Insurance extends VehiclePeriodicCost
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="insurances")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    private $vehicle;
+
     /**
      * @ORM\Column(type="integer", name="insuranceId")
      * @ORM\Id
@@ -45,6 +52,22 @@ class Insurance extends VehiclePeriodicCost
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="flat")
      */
     private $flat;
+
+    /**
+     * @return mixed
+     */
+    public function getVehicle()
+    {
+        return $this->vehicle;
+    }
+
+    /**
+     * @param Vehicle $vehicle
+     */
+    public function setVehicle(Vehicle $vehicle)
+    {
+        $this->vehicle = $vehicle;
+    }
 
     /**
      * Set number

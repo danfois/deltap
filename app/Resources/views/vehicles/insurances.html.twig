@@ -1,0 +1,32 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Assicurazioni{% endblock %}
+{% block subheader_title %}Assicurazioni{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Assicurazione
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                {% include('vehicles/forms/insurance_form.html.twig') %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block page_scripts %}
+{% endblock %}
