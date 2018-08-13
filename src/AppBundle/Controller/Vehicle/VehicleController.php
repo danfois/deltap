@@ -5,15 +5,20 @@ namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\Vehicle\VehicleType;
 use AppBundle\Helper\Vehicle\VehicleHelper;
+use AppBundle\Serializer\VehicleViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 
 class VehicleController extends Controller
 {
+    //todo: aggiugere crud per i veicoli
+
     /**
      * @Route("create-vehicle", name="create_vehicle")
      */
@@ -71,6 +76,23 @@ class VehicleController extends Controller
         }
 
         throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("vehicles", name="vehicles")
+     */
+    public function viewVehicles()
+    {
+        $vehicles = $this->getDoctrine()->getRepository(Vehicle::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new VehicleViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($vehicles, 'json');
+
+        return $this->render('vehicles/vehicle_list.html.twig', array(
+            'dati' => $json
+        ));
     }
 
     /**
