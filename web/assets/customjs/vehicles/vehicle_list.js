@@ -1,13 +1,17 @@
-var VehicleList = function() {
+var VehicleList = function () {
 
-    var vehicleList = function(dati) {
+    var vehicleList = function () {
 
-        var dataJSONArray = JSON.parse(dati);
+        //var dataJSONArray = JSON.parse(dati);
 
         var options = {
             data: {
-                type: 'local',
-                source: dataJSONArray,
+                type: 'remote',
+                source: {
+                    read: {
+                        url: '/json/vehicles'
+                    }
+                },
                 pageSize: 20
             },
 
@@ -68,13 +72,13 @@ var VehicleList = function() {
                     field: 'use',
                     title: 'Tipo Uso',
                     sortable: 'asc',
-                    template: function(row) {
+                    template: function (row) {
                         var status = {
-                            'Autonoleggio' : {'title': 'Autonoleggio', 'class': 'm-badge--primary'},
-                            'Noleggio' : {'title': 'Noleggio', 'class': ' m-badge--warning'},
-                            'Linea' : {'title': 'Linea', 'class': ' m-badge--accent'},
-                            'Uso Privato' : {'title': 'Uso Privato', 'class': ' m-badge--success'},
-                            'Altro' : {'title': 'Altro', 'class': ' m-badge--metal'}
+                            'Autonoleggio': {'title': 'Autonoleggio', 'class': 'm-badge--primary'},
+                            'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--warning'},
+                            'Linea': {'title': 'Linea', 'class': ' m-badge--accent'},
+                            'Uso Privato': {'title': 'Uso Privato', 'class': ' m-badge--success'},
+                            'Altro': {'title': 'Altro', 'class': ' m-badge--metal'}
                         };
                         return '<span class="m-badge ' + status[row.use].class + ' m-badge--wide">' + status[row.use].title + '</span>';
                     }
@@ -113,24 +117,24 @@ var VehicleList = function() {
 
         var datatable = $('.m_datatable').mDatatable(options);
 
-        $('#m_datatable_destroy').on('click', function() {
+        $('#m_datatable_destroy').on('click', function () {
             $('.m_datatable').mDatatable('destroy');
         });
 
-        $('#m_datatable_init').on('click', function() {
+        $('#m_datatable_init').on('click', function () {
             datatable = $('.m_datatable').mDatatable(options);
         });
 
-        $('#m_datatable_reload').on('click', function() {
+        $('#m_datatable_reload').on('click', function () {
             $('.m_datatable').mDatatable('reload');
         });
 
-        $('#m_datatable_sort').on('click', function() {
+        $('#m_datatable_sort').on('click', function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
         });
 
         // get checked record and get value by column name
-        $('#m_datatable_get').on('click', function() {
+        $('#m_datatable_get').on('click', function () {
             // select active rows
             datatable.rows('.m-datatable__row--active');
             // check selected nodes
@@ -142,35 +146,35 @@ var VehicleList = function() {
             }
         });
 
-        $('#m_datatable_check').on('click', function() {
+        $('#m_datatable_check').on('click', function () {
             var input = $('#m_datatable_check_input').val();
             datatable.setActive(input);
         });
 
-        $('#m_datatable_check_all').on('click', function() {
+        $('#m_datatable_check_all').on('click', function () {
             $('.m_datatable').mDatatable('setActiveAll', true);
         });
 
-        $('#m_datatable_uncheck_all').on('click', function() {
+        $('#m_datatable_uncheck_all').on('click', function () {
             $('.m_datatable').mDatatable('setActiveAll', false);
         });
 
-        $('#m_datatable_hide_column').on('click', function() {
+        $('#m_datatable_hide_column').on('click', function () {
             datatable.columns('Currency').visible(false);
         });
 
-        $('#m_datatable_show_column').on('click', function() {
+        $('#m_datatable_show_column').on('click', function () {
             datatable.columns('Currency').visible(true);
         });
 
-        $('#m_datatable_remove_row').on('click', function() {
+        $('#m_datatable_remove_row').on('click', function () {
             datatable.rows('.m-datatable__row--active').remove();
         });
     };
 
     return {
-        init: function(dati) {
-            vehicleList(dati);
+        init: function () {
+            vehicleList();
         }
     };
 }();

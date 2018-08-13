@@ -107,9 +107,9 @@
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/vehicles/vehicle_list.js') }}"></script>
     <script>
-        var dati = '{{ dati|raw }}';
+
         jQuery(document).ready(function () {
-            VehicleList.init(dati);
+            VehicleList.init();
         });
     </script>
 {% endblock %}

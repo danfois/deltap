@@ -83,15 +83,8 @@ class VehicleController extends Controller
      */
     public function viewVehicles()
     {
-        $vehicles = $this->getDoctrine()->getRepository(Vehicle::class)->findAll();
-
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new VehicleViewNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-        $json = $serializer->serialize($vehicles, 'json');
-
+        //json is being loaded from JsonController:jsonVehicles
         return $this->render('vehicles/vehicle_list.html.twig', array(
-            'dati' => $json
         ));
     }
 
