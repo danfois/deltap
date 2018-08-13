@@ -52,7 +52,7 @@ class InsuranceType extends VehiclePeriodicCostType
             ))
             ->add('flat', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ));
     }
@@ -60,7 +60,8 @@ class InsuranceType extends VehiclePeriodicCostType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Insurance::class
+            'data_class' => Insurance::class,
+            'csrf_protection' => false,
         ));
     }
 }

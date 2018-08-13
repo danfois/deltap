@@ -28,17 +28,17 @@ class VehiclePeriodicCostType extends AbstractType
             ))
             ->add('startDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('endDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('price', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input touch_spin'
                 )
             ));
     }
@@ -46,7 +46,8 @@ class VehiclePeriodicCostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => VehiclePeriodicCost::class
+            'data_class' => VehiclePeriodicCost::class,
+            'csrf_protection' => false
         ));
     }
 }

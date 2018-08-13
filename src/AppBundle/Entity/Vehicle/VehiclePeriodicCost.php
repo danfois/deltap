@@ -53,19 +53,22 @@ abstract class VehiclePeriodicCost
         $this->vehicle = $vehicle;
     }
 
-    public function setStartDate(\DateTime $date)
+    public function setStartDate($date)
     {
         $this->startDate = $date;
+        return $this;
     }
 
-    public function setEndDate(\DateTime $date)
+    public function setEndDate($date)
     {
         $this->endDate = $date;
+        return $this;
     }
 
     public function setPrice($price)
     {
         $this->price = $price;
+        return $this;
     }
 
 }

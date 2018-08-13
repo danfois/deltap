@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\InsuranceRepository")
  * @ORM\Table(name="insurances")
  */
 class Insurance extends VehiclePeriodicCost
@@ -63,10 +63,13 @@ class Insurance extends VehiclePeriodicCost
 
     /**
      * @param Vehicle $vehicle
+     * @return $this
      */
     public function setVehicle(Vehicle $vehicle)
     {
         $this->vehicle = $vehicle;
+
+        return $this;
     }
 
     /**

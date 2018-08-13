@@ -1,5 +1,5 @@
-<form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right"
-      action=""
+<form id="form_insurance" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ path('create_insurance_ajax') }}"
       autocomplete="off">
     <div class="m-portlet__body">
         <div class="form-group m-form__group row">
@@ -38,7 +38,7 @@
                 <label>* Prezzo:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.price) }}
-                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                     class="la la-money"></i></span></span>
                 </div>
                 <span class="m-form__help">Inserire prezzo totale della polizza</span>
@@ -48,7 +48,7 @@
                 <label>* Rata:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.flat) }}
-                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                     class="la la-money"></i></span></span>
                 </div>
                 <span class="m-form__help">Inserire rata della polizza</span>
@@ -69,6 +69,16 @@
 
         <div class="form-group m-form__group row">
 
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Numero Polizza:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.number) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-barcode"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire numero polizza</span>
+            </div>
+
             <div class="col-lg-6 m-form__group-sub">
                 <label>* Compagnia:</label>
                 <div class="m-input-icon m-input-icon--right">
@@ -79,7 +89,7 @@
                 <span class="m-form__help">Inserire la compagnia assicurativa</span>
             </div>
 
-            <div class="col-lg-6 m-form__group-sub">
+            <div class="col-lg-3 m-form__group-sub">
                 <label>* Agente:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.agent) }}
