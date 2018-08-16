@@ -131,4 +131,19 @@ class InsuranceController extends Controller
 
         throw new AccessDeniedException('Non sei autorizzato ad entrare in questa pagina');
     }
+
+    /**
+     * @Route("ajax/delete-insurance-{idInsurance}", name="delete_insurance_ajax")
+     */
+    public function deleteInsuranceAjaxAction(Request $request, int $idInsurance)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $insurance = $em->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $idInsurance));
+        if($insurance == null) return new Response('Questa assicurazione non esiste', 404);
+
+        $em->remove($insurance);
+        $em->flush();
+
+        return new Response('OK', 200);
+    }
 }

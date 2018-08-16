@@ -98,19 +98,37 @@ var InsuranceList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance('+ row.idv +')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-trash"></i> Elimina Assicurazione</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
-						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+						<a href="javascript:void(0);" onclick="editInsurance('+ row.idv +')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+						<a href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
                     }
-                }]
+                }],
+            translate: {
+                records: {processing: "Caricamento...", noRecords: "Nessun Record nel Database"},
+                toolbar: {
+                    pagination: {
+                        items: {
+                            default: {
+                                first: "Primo",
+                                prev: "Precedente",
+                                next: "Successivo",
+                                last: "Ultimo",
+                                more: "Più Pagine",
+                                input: "Numero di Pagina",
+                                select: "Seleziona il numero della pagina"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} assicurazioni"
+                        }
+                    }
+                }
+            }
         };
 
         var datatable = $('.m_datatable').mDatatable(options);
