@@ -84,6 +84,7 @@ var InsuranceList = function () {
                     }
                 },
                 {
+                    //todo: sistemare la cosa del registrare pagamento
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',
