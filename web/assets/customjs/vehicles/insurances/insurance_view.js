@@ -86,7 +86,7 @@ var InsuranceList = function () {
                 {
                     field: 'Actions',
                     width: 110,
-                    title: 'Actions',
+                    title: 'Azioni',
                     sortable: false,
                     overflow: 'visible',
                     template: function (row, index, datatable) {
@@ -97,9 +97,9 @@ var InsuranceList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance('+ row.idv +')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
+						    	<a class="dropdown-item" href="#"><i class="la la-trash"></i> Elimina Assicurazione</a>\
+						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
 						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\

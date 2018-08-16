@@ -113,8 +113,12 @@
 
 {% endblock %}
 
+{% block modals %}
+{% include('vehicles/forms/modal_edit_insurance.html.twig') %}
+{% endblock %}
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_form.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_view.js') }}"></script>
+    <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_edit.js') }}"></script>
 {% endblock %}

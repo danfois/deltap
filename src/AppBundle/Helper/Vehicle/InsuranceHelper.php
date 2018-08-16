@@ -7,10 +7,10 @@ use Doctrine\ORM\EntityManager;
 
 class InsuranceHelper
 {
-    private $insurance;
-    private $em;
-    private $errors;
-    private $executed = 0;
+    protected $insurance;
+    protected $em;
+    protected $errors;
+    protected $executed = 0;
 
     public function __construct(Insurance $insurance, EntityManager $em)
     {
@@ -35,21 +35,21 @@ class InsuranceHelper
         return false;
     }
 
-    private function checkDateCoherence()
+    protected function checkDateCoherence()
     {
         if($this->insurance->getStartDate() < $this->insurance->getEndDate()) return true;
         $this->errors .= 'La Data di inizio della polizza deve essere precedente a quella di scadenza<br>';
         return false;
     }
 
-    private function setInsuranceStartDate()
+    protected function setInsuranceStartDate()
     {
         if($this->insurance->setStartDate(\DateTime::createFromFormat('d/m/Y', $this->insurance->getStartDate()))) return true;
         $this->errors .= 'Impossibile impostare la data di inizio dell\'assicurazione<br>';
         return false;
     }
 
-    private function setInsuranceEndDate()
+    protected function setInsuranceEndDate()
     {
         if($this->insurance->setEndDate(\DateTime::createFromFormat('d/m/Y', $this->insurance->getEndDate()))) return true;
         $this->errors .= 'Impossibile impostare la data di scadenza dell\'assicurazione<br>';
