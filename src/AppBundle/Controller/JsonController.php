@@ -1,7 +1,9 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Serializer\CarTaxViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,6 +42,21 @@ class JsonController extends Controller
         $normalizers = [new InsuranceViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($insurances, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/cartaxes", name="car_taxes_json")
+     */
+    public function jsonCarTaxAction()
+    {
+        $carTaxes = $this->getDoctrine()->getRepository(CarTax::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new CarTaxViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($carTaxes, 'json');
 
         return new Response($json);
     }

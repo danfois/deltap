@@ -1,0 +1,62 @@
+<form id="form_car_tax" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ path('create_cartax_ajax') }}"
+      autocomplete="off">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group row">
+        {{ form_widget(form._token) }}
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Veicolo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.vehicle) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-barcode"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire la targa del veicolo</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Data Inizio:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.startDate) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Data Inizio Validità Bollo</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Data Scadenza:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.endDate) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Data di scadenza del bollo</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Prezzo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.price) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                    class="la la-money"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire prezzo totale del bollo</span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
