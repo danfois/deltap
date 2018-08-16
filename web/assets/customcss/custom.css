@@ -21,3 +21,9 @@
 .bootstrap-touchspin-up, .bootstrap-touchspin-down {
     background-color: #eceaff !important;
 }
+
+.blockMsg {
+    width:auto !important;
+    left:50% !important;
+    transform: translateX(-50%);
+}
