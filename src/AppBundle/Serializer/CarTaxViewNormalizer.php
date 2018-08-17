@@ -15,7 +15,7 @@ class CarTaxViewNormalizer implements NormalizerInterface
 
                 $status = '1';
                 if(new \DateTime() > $o->getEndDate()) $status = '2';
-                if(new \DateTime('+1 month') > $o->getEndDate()) $status = '3';
+                else if(new \DateTime('+1 month') > $o->getEndDate()) $status = '3';
 
                 $r[] = [
                     'id'        => $o->getCarTaxId(),

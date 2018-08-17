@@ -79,20 +79,21 @@
                     <!--begin: Search Form -->
                     <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
 
                                 {# todo: sistemare la cosa delle azioni di massa #}
 
-                                <select class="form-control m-input">
+                                <select id="mass-action" title="Azioni di massa" class="form-control m-input">
                                     <option value="">Scegli Operazione...</option>
                                     <option value="1">Registra Pagamento</option>
-                                    <option value="2">Elimina</option>
+                                    <option value="2">Rinnova alle stesse condizioni</option>
+                                    <option value="3">Elimina</option>
                                 </select>
                             </div>
                             <div class="col-lg-1">
-                                <a href="javascript:void(0);" class="btn btn-brand">Applica</a>
+                                <a href="javascript:void(0);" id="apply-mass-action" class="btn btn-brand">Applica</a>
                             </div>
-                            <div class="col-lg-9 text-right">
+                            <div class="col-lg-8 text-right">
                                 <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
                                     Seleziona Tutto
                                 </button>
@@ -125,4 +126,5 @@
     <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_view.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_edit.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_delete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_renew.js') }}"></script>
 {% endblock %}

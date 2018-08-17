@@ -86,6 +86,7 @@ var CarTaxList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editCarTax('+ row.idv +')"><i class="la la-edit"></i> Modifica Bollo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarTax(' + row.idv + ')"><i class="la la-trash"></i> Elimina Bollo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarTax(' + row.idv + ')"><i class="la la-refresh"></i> Rinnova Bollo stesse condizioni</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
@@ -136,17 +137,17 @@ var CarTaxList = function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
         });
 
-        // get checked record and get value by column name
-        $('#m_datatable_get').on('click', function () {
-            // select active rows
+        $('#apply-mass-action').on('click', function() {
+            var select_value = $('#mass-action').val();
+            var selected = [];
             datatable.rows('.m-datatable__row--active');
-            // check selected nodes
             if (datatable.nodes().length > 0) {
-                // get column by field name and get the column nodes
-                var value = datatable.columns('idv').nodes().text();
-                $('#datatable_value').html(value);
-                alert(value);
+                var value = datatable.columns('idv').nodes().each(function(element, index) {
+                    selected.push(index.childNodes[0].textContent);
+                });
+                console.log(selected);
             }
+            if(select_value === '2') CarTaxRenew(selected);
         });
 
         $('#m_datatable_check').on('click', function () {

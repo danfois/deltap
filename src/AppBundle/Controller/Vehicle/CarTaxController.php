@@ -76,7 +76,7 @@ class CarTaxController extends Controller
     public function editCarTaxAction(Request $request, int $idCartax)
     {
         $carTax = $this->getDoctrine()->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $idCartax));
-        if($carTax == null) return new Response('Bollo non trovato', 404);
+        if ($carTax == null) return new Response('Bollo non trovato', 404);
 
         $carTax->setStartDate($carTax->getStartDate()->format('d/m/Y'));
         $carTax->setEndDate($carTax->getEndDate()->format('d/m/Y'));
@@ -96,13 +96,13 @@ class CarTaxController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $carTax = $em->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $idCartax));
-        if($carTax == null) return new Response('Questo bollo non esiste', 404);
+        if ($carTax == null) return new Response('Questo bollo non esiste', 404);
 
         $form = $this->createForm(CarTaxType::class, $carTax);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $carTax = $form->getData();
 
             $IH = new CarTaxHelper($carTax, $em, true);
@@ -110,7 +110,7 @@ class CarTaxController extends Controller
 
             $errors = $IH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->flush();
                 return new Response('OK', 200);
             } else {
@@ -118,11 +118,11 @@ class CarTaxController extends Controller
             }
         }
 
-        if($form->isSubmitted() && !$form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true);
             $error = '';
 
-            foreach($errors as $k => $e) {
+            foreach ($errors as $k => $e) {
                 $error .= $e->getMessage() . '<br> ';
 
             }
@@ -139,11 +139,37 @@ class CarTaxController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $carTax = $em->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $idCartax));
-        if($carTax == null) return new Response('Bollo non trovato', 404);
+        if ($carTax == null) return new Response('Bollo non trovato', 404);
 
         $em->remove($carTax);
         $em->flush();
 
         return new Response('OK', 200);
     }
+
+    /**
+     * @Route("ajax/renew-cartax", name="renew_cartax")
+     */
+    public function ajaxRenewCartaxAction(Request $request)
+    {
+        $carTaxArray = json_decode($request->request->get('ids'));
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($carTaxArray as $ca) {
+            $c = $em->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $ca));
+            if ($c instanceof CarTax) {
+                $dateIntVal = $c->getStartDate()->diff($c->getEndDate());
+                $ct = new CarTax();
+                $ct->setStartDate($c->getStartDate()->add($dateIntVal));
+                $ct->setEndDate($c->getEndDate()->add($dateIntVal));
+                $ct->setPrice($c->getPrice());
+                $ct->setVehicle($c->getVehicle());
+                $em->persist($ct);
+            }
+        }
+        $em->flush();
+
+        return new Response('ok', 200);
+    }
+
 }
