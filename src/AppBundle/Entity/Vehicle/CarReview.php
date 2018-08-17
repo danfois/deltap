@@ -32,4 +32,14 @@ class CarReview extends VehiclePeriodicCost
     {
         return $this->carReviewId;
     }
+
+    public function getVehicle()
+    {
+        return $this->vehicle;
+    }
+
+    public function setVehicle(Vehicle $vehicle)
+    {
+        $this->vehicle = $vehicle;
+    }
 }
