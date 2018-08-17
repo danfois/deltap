@@ -131,4 +131,19 @@ class CarTaxController extends Controller
 
         throw new AccessDeniedException('Non sei autorizzato ad entrare in questa pagina');
     }
+
+    /**
+     * @Route("ajax/delete-cartax-{idCartax}", name="delete_cartax")
+     */
+    public function deleteCartaxAction(Request $request, int $idCartax)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $carTax = $em->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $idCartax));
+        if($carTax == null) return new Response('Bollo non trovato', 404);
+
+        $em->remove($carTax);
+        $em->flush();
+
+        return new Response('OK', 200);
+    }
 }

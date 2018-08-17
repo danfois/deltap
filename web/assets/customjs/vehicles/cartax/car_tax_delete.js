@@ -1,4 +1,4 @@
-var deleteInsurance = function (id) {
+var deleteCarTax = function (id) {
     swal({
         title: "Sei sicuro?",
         text: "La modifica non è reversibile!",
@@ -8,11 +8,11 @@ var deleteInsurance = function (id) {
         cancelButtonText: "No, Annulla!",
         reverseButtons: !0
     }).then(function (e) {
-        e.value ? deleteAjaxInsurance(id) : "cancel" === e.dismiss && swal("Annullato", "L'assicurazione non è stata eliminata.", "info")
+        e.value ? deleteAjaxCarTax(id) : "cancel" === e.dismiss && swal("Annullato", "Il bollo non è stato eliminaato.", "info")
     })
 };
 
-function deleteAjaxInsurance(id) {
+function deleteAjaxCarTax(id) {
     mApp.blockPage({
         overlayColor: "#000000",
         type: "loader",
@@ -21,13 +21,13 @@ function deleteAjaxInsurance(id) {
     });
     $.ajax({
         method: 'GET',
-        url: 'ajax/delete-insurance-' + id,
+        url: 'ajax/delete-cartax-' + id,
         data: {'id': id},
         dataType: 'html',
         success: function (response) {
             swal({
                 title: "",
-                html: 'Assicurazione Eliminata con successo',
+                html: 'Bollo eliminato con successo',
                 type: "success",
                 confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
             });
