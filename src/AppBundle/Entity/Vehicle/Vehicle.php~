@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Vehicle;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,9 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vehicle
 {
-    //todo: inserire le relazioni con i costi creati in precedenza
-    //todo: inserire nel constructor gli array collection
-
     /**
      * @ORM\Column(type="integer", name="vehicleId")
      * @ORM\Id
@@ -29,6 +27,16 @@ class Vehicle
      * @ORM\OneToMany(targetEntity="Insurance", mappedBy="vehicle")
      */
     private $insurances;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KmRead", mappedBy="vehicle")
+     */
+    private $kmReads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Unavailability", mappedBy="vehicle")
+     */
+    private $unavailabilities;
 
     /**
      * @ORM\OneToMany(targetEntity="CarTax", mappedBy="vehicle")
@@ -123,8 +131,7 @@ class Vehicle
     private $purchaseDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false, name="saleDate")
-     * @Assert\NotBlank(message="Sale Date cannot be null")
+     * @ORM\Column(type="datetime", nullable=true, name="saleDate")
      */
     private $saleDate;
 
@@ -184,22 +191,19 @@ class Vehicle
     private $regionalAuthorization;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false, name="areation")
-     * @Assert\NotBlank(message="Vehicle's areation cannot be null")
+     * @ORM\Column(type="string", length=32, nullable=true, name="areation")
      */
     private $areation;
 
     /**
-     * @ORM\Column(type="integer", length=3, nullable=false, name="passengersSeated")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="passengersSeated")
      * @Assert\NotBlank(message="Seated Passengers cannot be null")
-     * @Assert\Length(max=3, maxMessage="There cannot be more than 999 seated passengers")
      */
     private $passengersSeated;
 
     /**
-     * @ORM\Column(type="integer", length=3, nullable=false, name="passengersStanding")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="passengersStanding")
      * @Assert\NotBlank(message="Standing Passengers cannot be null")
-     * @Assert\Length(max=3, maxMessage="There cannot be more than 999 standing passengers")
      */
     private $passengersStanding;
 
@@ -277,4 +281,1107 @@ class Vehicle
      * @ORM\Column(type="string", length=255, nullable=true, name="notes")
      */
     private $notes;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tachographs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->insurances = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carTaxes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carReviews = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get vehicleId
+     *
+     * @return integer
+     */
+    public function getVehicleId()
+    {
+        return $this->vehicleId;
+    }
+
+    /**
+     * Set plate
+     *
+     * @param string $plate
+     *
+     * @return Vehicle
+     */
+    public function setPlate($plate)
+    {
+        $this->plate = $plate;
+
+        return $this;
+    }
+
+    /**
+     * Get plate
+     *
+     * @return string
+     */
+    public function getPlate()
+    {
+        return $this->plate;
+    }
+
+    /**
+     * Set exPlate
+     *
+     * @param string $exPlate
+     *
+     * @return Vehicle
+     */
+    public function setExPlate($exPlate)
+    {
+        $this->exPlate = $exPlate;
+
+        return $this;
+    }
+
+    /**
+     * Get exPlate
+     *
+     * @return string
+     */
+    public function getExPlate()
+    {
+        return $this->exPlate;
+    }
+
+    /**
+     * Set carRegistrationDate
+     *
+     * @param \DateTime $carRegistrationDate
+     *
+     * @return Vehicle
+     */
+    public function setCarRegistrationDate($carRegistrationDate)
+    {
+        $this->carRegistrationDate = $carRegistrationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get carRegistrationDate
+     *
+     * @return \DateTime
+     */
+    public function getCarRegistrationDate()
+    {
+        return $this->carRegistrationDate;
+    }
+
+    /**
+     * Set carRegistrationNumber
+     *
+     * @param string $carRegistrationNumber
+     *
+     * @return Vehicle
+     */
+    public function setCarRegistrationNumber($carRegistrationNumber)
+    {
+        $this->carRegistrationNumber = $carRegistrationNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get carRegistrationNumber
+     *
+     * @return string
+     */
+    public function getCarRegistrationNumber()
+    {
+        return $this->carRegistrationNumber;
+    }
+
+    /**
+     * Set registrationCardDate
+     *
+     * @param \DateTime $registrationCardDate
+     *
+     * @return Vehicle
+     */
+    public function setRegistrationCardDate($registrationCardDate)
+    {
+        $this->registrationCardDate = $registrationCardDate;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationCardDate
+     *
+     * @return \DateTime
+     */
+    public function getRegistrationCardDate()
+    {
+        return $this->registrationCardDate;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param string $brand
+     *
+     * @return Vehicle
+     */
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return string
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return Vehicle
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set seats
+     *
+     * @param integer $seats
+     *
+     * @return Vehicle
+     */
+    public function setSeats($seats)
+    {
+        $this->seats = $seats;
+
+        return $this;
+    }
+
+    /**
+     * Get seats
+     *
+     * @return integer
+     */
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    /**
+     * Set stands
+     *
+     * @param integer $stands
+     *
+     * @return Vehicle
+     */
+    public function setStands($stands)
+    {
+        $this->stands = $stands;
+
+        return $this;
+    }
+
+    /**
+     * Get stands
+     *
+     * @return integer
+     */
+    public function getStands()
+    {
+        return $this->stands;
+    }
+
+    /**
+     * Set width
+     *
+     * @param string $width
+     *
+     * @return Vehicle
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return string
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set length
+     *
+     * @param string $length
+     *
+     * @return Vehicle
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return string
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    /**
+     * Set financing
+     *
+     * @param string $financing
+     *
+     * @return Vehicle
+     */
+    public function setFinancing($financing)
+    {
+        $this->financing = $financing;
+
+        return $this;
+    }
+
+    /**
+     * Get financing
+     *
+     * @return string
+     */
+    public function getFinancing()
+    {
+        return $this->financing;
+    }
+
+    /**
+     * Set purchaseDate
+     *
+     * @param \DateTime $purchaseDate
+     *
+     * @return Vehicle
+     */
+    public function setPurchaseDate($purchaseDate)
+    {
+        $this->purchaseDate = $purchaseDate;
+
+        return $this;
+    }
+
+    /**
+     * Get purchaseDate
+     *
+     * @return \DateTime
+     */
+    public function getPurchaseDate()
+    {
+        return $this->purchaseDate;
+    }
+
+    /**
+     * Set saleDate
+     *
+     * @param \DateTime $saleDate
+     *
+     * @return Vehicle
+     */
+    public function setSaleDate($saleDate)
+    {
+        $this->saleDate = $saleDate;
+
+        return $this;
+    }
+
+    /**
+     * Get saleDate
+     *
+     * @return \DateTime
+     */
+    public function getSaleDate()
+    {
+        return $this->saleDate;
+    }
+
+    /**
+     * Set useTypology
+     *
+     * @param string $useTypology
+     *
+     * @return Vehicle
+     */
+    public function setUseTypology($useTypology)
+    {
+        $this->useTypology = $useTypology;
+
+        return $this;
+    }
+
+    /**
+     * Get useTypology
+     *
+     * @return string
+     */
+    public function getUseTypology()
+    {
+        return $this->useTypology;
+    }
+
+    /**
+     * Set useDestination
+     *
+     * @param string $useDestination
+     *
+     * @return Vehicle
+     */
+    public function setUseDestination($useDestination)
+    {
+        $this->useDestination = $useDestination;
+
+        return $this;
+    }
+
+    /**
+     * Get useDestination
+     *
+     * @return string
+     */
+    public function getUseDestination()
+    {
+        return $this->useDestination;
+    }
+
+    /**
+     * Set bodyWork
+     *
+     * @param string $bodyWork
+     *
+     * @return Vehicle
+     */
+    public function setBodyWork($bodyWork)
+    {
+        $this->bodyWork = $bodyWork;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyWork
+     *
+     * @return string
+     */
+    public function getBodyWork()
+    {
+        return $this->bodyWork;
+    }
+
+    /**
+     * Set frame
+     *
+     * @param string $frame
+     *
+     * @return Vehicle
+     */
+    public function setFrame($frame)
+    {
+        $this->frame = $frame;
+
+        return $this;
+    }
+
+    /**
+     * Get frame
+     *
+     * @return string
+     */
+    public function getFrame()
+    {
+        return $this->frame;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param string $owner
+     *
+     * @return Vehicle
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return string
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set transmission
+     *
+     * @param string $transmission
+     *
+     * @return Vehicle
+     */
+    public function setTransmission($transmission)
+    {
+        $this->transmission = $transmission;
+
+        return $this;
+    }
+
+    /**
+     * Get transmission
+     *
+     * @return string
+     */
+    public function getTransmission()
+    {
+        return $this->transmission;
+    }
+
+    /**
+     * Set tires
+     *
+     * @param string $tires
+     *
+     * @return Vehicle
+     */
+    public function setTires($tires)
+    {
+        $this->tires = $tires;
+
+        return $this;
+    }
+
+    /**
+     * Get tires
+     *
+     * @return string
+     */
+    public function getTires()
+    {
+        return $this->tires;
+    }
+
+    /**
+     * Set alternateTires
+     *
+     * @param string $alternateTires
+     *
+     * @return Vehicle
+     */
+    public function setAlternateTires($alternateTires)
+    {
+        $this->alternateTires = $alternateTires;
+
+        return $this;
+    }
+
+    /**
+     * Get alternateTires
+     *
+     * @return string
+     */
+    public function getAlternateTires()
+    {
+        return $this->alternateTires;
+    }
+
+    /**
+     * Set regionalAuthorization
+     *
+     * @param string $regionalAuthorization
+     *
+     * @return Vehicle
+     */
+    public function setRegionalAuthorization($regionalAuthorization)
+    {
+        $this->regionalAuthorization = $regionalAuthorization;
+
+        return $this;
+    }
+
+    /**
+     * Get regionalAuthorization
+     *
+     * @return string
+     */
+    public function getRegionalAuthorization()
+    {
+        return $this->regionalAuthorization;
+    }
+
+    /**
+     * Set areation
+     *
+     * @param string $areation
+     *
+     * @return Vehicle
+     */
+    public function setAreation($areation)
+    {
+        $this->areation = $areation;
+
+        return $this;
+    }
+
+    /**
+     * Get areation
+     *
+     * @return string
+     */
+    public function getAreation()
+    {
+        return $this->areation;
+    }
+
+    /**
+     * Set passengersSeated
+     *
+     * @param integer $passengersSeated
+     *
+     * @return Vehicle
+     */
+    public function setPassengersSeated($passengersSeated)
+    {
+        $this->passengersSeated = $passengersSeated;
+
+        return $this;
+    }
+
+    /**
+     * Get passengersSeated
+     *
+     * @return integer
+     */
+    public function getPassengersSeated()
+    {
+        return $this->passengersSeated;
+    }
+
+    /**
+     * Set passengersStanding
+     *
+     * @param integer $passengersStanding
+     *
+     * @return Vehicle
+     */
+    public function setPassengersStanding($passengersStanding)
+    {
+        $this->passengersStanding = $passengersStanding;
+
+        return $this;
+    }
+
+    /**
+     * Get passengersStanding
+     *
+     * @return integer
+     */
+    public function getPassengersStanding()
+    {
+        return $this->passengersStanding;
+    }
+
+    /**
+     * Set emergencyExits
+     *
+     * @param integer $emergencyExits
+     *
+     * @return Vehicle
+     */
+    public function setEmergencyExits($emergencyExits)
+    {
+        $this->emergencyExits = $emergencyExits;
+
+        return $this;
+    }
+
+    /**
+     * Get emergencyExits
+     *
+     * @return integer
+     */
+    public function getEmergencyExits()
+    {
+        return $this->emergencyExits;
+    }
+
+    /**
+     * Set engineNumber
+     *
+     * @param string $engineNumber
+     *
+     * @return Vehicle
+     */
+    public function setEngineNumber($engineNumber)
+    {
+        $this->engineNumber = $engineNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get engineNumber
+     *
+     * @return string
+     */
+    public function getEngineNumber()
+    {
+        return $this->engineNumber;
+    }
+
+    /**
+     * Set omologationNumber
+     *
+     * @param string $omologationNumber
+     *
+     * @return Vehicle
+     */
+    public function setOmologationNumber($omologationNumber)
+    {
+        $this->omologationNumber = $omologationNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get omologationNumber
+     *
+     * @return string
+     */
+    public function getOmologationNumber()
+    {
+        return $this->omologationNumber;
+    }
+
+    /**
+     * Set maximumLoadMass
+     *
+     * @param string $maximumLoadMass
+     *
+     * @return Vehicle
+     */
+    public function setMaximumLoadMass($maximumLoadMass)
+    {
+        $this->maximumLoadMass = $maximumLoadMass;
+
+        return $this;
+    }
+
+    /**
+     * Get maximumLoadMass
+     *
+     * @return string
+     */
+    public function getMaximumLoadMass()
+    {
+        return $this->maximumLoadMass;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return Vehicle
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set axesNumber
+     *
+     * @param integer $axesNumber
+     *
+     * @return Vehicle
+     */
+    public function setAxesNumber($axesNumber)
+    {
+        $this->axesNumber = $axesNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get axesNumber
+     *
+     * @return integer
+     */
+    public function getAxesNumber()
+    {
+        return $this->axesNumber;
+    }
+
+    /**
+     * Set engineCapacity
+     *
+     * @param integer $engineCapacity
+     *
+     * @return Vehicle
+     */
+    public function setEngineCapacity($engineCapacity)
+    {
+        $this->engineCapacity = $engineCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get engineCapacity
+     *
+     * @return integer
+     */
+    public function getEngineCapacity()
+    {
+        return $this->engineCapacity;
+    }
+
+    /**
+     * Set powerKw
+     *
+     * @param integer $powerKw
+     *
+     * @return Vehicle
+     */
+    public function setPowerKw($powerKw)
+    {
+        $this->powerKw = $powerKw;
+
+        return $this;
+    }
+
+    /**
+     * Get powerKw
+     *
+     * @return integer
+     */
+    public function getPowerKw()
+    {
+        return $this->powerKw;
+    }
+
+    /**
+     * Set fuel
+     *
+     * @param string $fuel
+     *
+     * @return Vehicle
+     */
+    public function setFuel($fuel)
+    {
+        $this->fuel = $fuel;
+
+        return $this;
+    }
+
+    /**
+     * Get fuel
+     *
+     * @return string
+     */
+    public function getFuel()
+    {
+        return $this->fuel;
+    }
+
+    /**
+     * Set fireExtinguisherNumber
+     *
+     * @param string $fireExtinguisherNumber
+     *
+     * @return Vehicle
+     */
+    public function setFireExtinguisherNumber($fireExtinguisherNumber)
+    {
+        $this->fireExtinguisherNumber = $fireExtinguisherNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get fireExtinguisherNumber
+     *
+     * @return string
+     */
+    public function getFireExtinguisherNumber()
+    {
+        return $this->fireExtinguisherNumber;
+    }
+
+    /**
+     * Set fireExtinguisherExpiration
+     *
+     * @param \DateTime $fireExtinguisherExpiration
+     *
+     * @return Vehicle
+     */
+    public function setFireExtinguisherExpiration($fireExtinguisherExpiration)
+    {
+        $this->fireExtinguisherExpiration = $fireExtinguisherExpiration;
+
+        return $this;
+    }
+
+    /**
+     * Get fireExtinguisherExpiration
+     *
+     * @return \DateTime
+     */
+    public function getFireExtinguisherExpiration()
+    {
+        return $this->fireExtinguisherExpiration;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Vehicle
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Add tachograph
+     *
+     * @param \AppBundle\Entity\Vehicle\Tachograph $tachograph
+     *
+     * @return Vehicle
+     */
+    public function addTachograph(\AppBundle\Entity\Vehicle\Tachograph $tachograph)
+    {
+        $this->tachographs[] = $tachograph;
+
+        return $this;
+    }
+
+    /**
+     * Remove tachograph
+     *
+     * @param \AppBundle\Entity\Vehicle\Tachograph $tachograph
+     */
+    public function removeTachograph(\AppBundle\Entity\Vehicle\Tachograph $tachograph)
+    {
+        $this->tachographs->removeElement($tachograph);
+    }
+
+    /**
+     * Get tachographs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTachographs()
+    {
+        return $this->tachographs;
+    }
+
+    /**
+     * Add insurance
+     *
+     * @param \AppBundle\Entity\Vehicle\Insurance $insurance
+     *
+     * @return Vehicle
+     */
+    public function addInsurance(\AppBundle\Entity\Vehicle\Insurance $insurance)
+    {
+        $this->insurances[] = $insurance;
+
+        return $this;
+    }
+
+    /**
+     * Remove insurance
+     *
+     * @param \AppBundle\Entity\Vehicle\Insurance $insurance
+     */
+    public function removeInsurance(\AppBundle\Entity\Vehicle\Insurance $insurance)
+    {
+        $this->insurances->removeElement($insurance);
+    }
+
+    /**
+     * Get insurances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInsurances()
+    {
+        return $this->insurances;
+    }
+
+    /**
+     * Add carTax
+     *
+     * @param \AppBundle\Entity\Vehicle\CarTax $carTax
+     *
+     * @return Vehicle
+     */
+    public function addCarTax(\AppBundle\Entity\Vehicle\CarTax $carTax)
+    {
+        $this->carTaxes[] = $carTax;
+
+        return $this;
+    }
+
+    /**
+     * Remove carTax
+     *
+     * @param \AppBundle\Entity\Vehicle\CarTax $carTax
+     */
+    public function removeCarTax(\AppBundle\Entity\Vehicle\CarTax $carTax)
+    {
+        $this->carTaxes->removeElement($carTax);
+    }
+
+    /**
+     * Get carTaxes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarTaxes()
+    {
+        return $this->carTaxes;
+    }
+
+    /**
+     * Add carReview
+     *
+     * @param \AppBundle\Entity\Vehicle\CarReview $carReview
+     *
+     * @return Vehicle
+     */
+    public function addCarReview(\AppBundle\Entity\Vehicle\CarReview $carReview)
+    {
+        $this->carReviews[] = $carReview;
+
+        return $this;
+    }
+
+    /**
+     * Remove carReview
+     *
+     * @param \AppBundle\Entity\Vehicle\CarReview $carReview
+     */
+    public function removeCarReview(\AppBundle\Entity\Vehicle\CarReview $carReview)
+    {
+        $this->carReviews->removeElement($carReview);
+    }
+
+    /**
+     * Get carReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarReviews()
+    {
+        return $this->carReviews;
+    }
+
+    /**
+     * Add kmRead
+     *
+     * @param \AppBundle\Entity\Vehicle\KmRead $kmRead
+     *
+     * @return Vehicle
+     */
+    public function addKmRead(\AppBundle\Entity\Vehicle\KmRead $kmRead)
+    {
+        $this->kmReads[] = $kmRead;
+
+        return $this;
+    }
+
+    /**
+     * Remove kmRead
+     *
+     * @param \AppBundle\Entity\Vehicle\KmRead $kmRead
+     */
+    public function removeKmRead(\AppBundle\Entity\Vehicle\KmRead $kmRead)
+    {
+        $this->kmReads->removeElement($kmRead);
+    }
+
+    /**
+     * Get kmReads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKmReads()
+    {
+        return $this->kmReads;
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Vehicle;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,6 +27,16 @@ class Vehicle
      * @ORM\OneToMany(targetEntity="Insurance", mappedBy="vehicle")
      */
     private $insurances;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KmRead", mappedBy="vehicle")
+     */
+    private $kmReads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Unavailability", mappedBy="vehicle")
+     */
+    private $unavailabilities;
 
     /**
      * @ORM\OneToMany(targetEntity="CarTax", mappedBy="vehicle")
@@ -270,6 +281,7 @@ class Vehicle
      * @ORM\Column(type="string", length=255, nullable=true, name="notes")
      */
     private $notes;
+
     /**
      * Constructor
      */
@@ -1337,5 +1349,73 @@ class Vehicle
     public function getCarReviews()
     {
         return $this->carReviews;
+    }
+
+    /**
+     * Add kmRead
+     *
+     * @param \AppBundle\Entity\Vehicle\KmRead $kmRead
+     *
+     * @return Vehicle
+     */
+    public function addKmRead(\AppBundle\Entity\Vehicle\KmRead $kmRead)
+    {
+        $this->kmReads[] = $kmRead;
+
+        return $this;
+    }
+
+    /**
+     * Remove kmRead
+     *
+     * @param \AppBundle\Entity\Vehicle\KmRead $kmRead
+     */
+    public function removeKmRead(\AppBundle\Entity\Vehicle\KmRead $kmRead)
+    {
+        $this->kmReads->removeElement($kmRead);
+    }
+
+    /**
+     * Get kmReads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKmReads()
+    {
+        return $this->kmReads;
+    }
+
+    /**
+     * Add unavailability
+     *
+     * @param \AppBundle\Entity\Vehicle\Unavailability $unavailability
+     *
+     * @return Vehicle
+     */
+    public function addUnavailability(\AppBundle\Entity\Vehicle\Unavailability $unavailability)
+    {
+        $this->unavailabilities[] = $unavailability;
+
+        return $this;
+    }
+
+    /**
+     * Remove unavailability
+     *
+     * @param \AppBundle\Entity\Vehicle\Unavailability $unavailability
+     */
+    public function removeUnavailability(\AppBundle\Entity\Vehicle\Unavailability $unavailability)
+    {
+        $this->unavailabilities->removeElement($unavailability);
+    }
+
+    /**
+     * Get unavailabilities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUnavailabilities()
+    {
+        return $this->unavailabilities;
     }
 }

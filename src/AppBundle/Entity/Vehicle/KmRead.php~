@@ -1,0 +1,42 @@
+<?php
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="km_read")
+ */
+class KmRead
+{
+    /**
+     * @ORM\Column(type="integer", name="readId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $readId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="kmReads")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    private $vehicle;
+
+    /**
+     * @ORM\Column(type="datetime", name="read_date", nullable=false)
+     * @Assert\NotBlank(message="Read date must not be null")
+     */
+    private $readDate;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="km")
+     * @Assert\NotBlank(message="Kilometers must not be null")
+     */
+    private $km;
+
+    /**
+     * @ORM\Column(type="integer", name="service_order", nullable=true)
+     */
+    private $serviceOrder;
+}

@@ -1,0 +1,44 @@
+<?php
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="unavailabilities")
+ */
+class Unavailability
+{
+    /**
+     * @ORM\Column(type="integer", name="unavailabilityId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $unavailabilityId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="unavailabilities")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    private $vehicle;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="startDate")
+     * @Assert\NotBlank(message="Unavailability Start Date cannot be null")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="endDate")
+     * @Assert\NotBlank(message="Unavailability End Date cannot be null")
+     */
+    private $endDate;
+
+    /**
+     * @ORM\Column(type="string", length=128, name="issue", nullable=false)
+     * @Assert\NotBlank(message="Unavailability issue must not be null")
+     * @Assert\Length(max=128, maxMessage="Unavailability issue too long. Max 128 chars")
+     */
+    private $issue;
+}
