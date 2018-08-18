@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
+use AppBundle\Serializer\UnavailabilityViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,6 +76,21 @@ class JsonController extends Controller
         $normalizers = [new CarReviewViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($carReviews, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/unavailabilities", name="unavailabilities_json")
+     */
+    public function jsonUnavailabilitiesAction()
+    {
+        $u= $this->getDoctrine()->getRepository(Unavailability::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new UnavailabilityViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($u, 'json');
 
         return new Response($json);
     }
