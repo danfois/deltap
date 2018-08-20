@@ -25,6 +25,11 @@ class Insurance extends VehiclePeriodicCost
     private $insuranceId;
 
     /**
+     * @ORM\OneToMany(targetEntity="InsuranceSuspension", mappedBy="insurance")
+     */
+    private $suspensions;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumn(name="companyId", referencedColumnName="idProvider")
      */
@@ -200,5 +205,46 @@ class Insurance extends VehiclePeriodicCost
     public function getInsuranceId()
     {
         return $this->insuranceId;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->suspensions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add suspension
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceSuspension $suspension
+     *
+     * @return Insurance
+     */
+    public function addSuspension(\AppBundle\Entity\Vehicle\InsuranceSuspension $suspension)
+    {
+        $this->suspensions[] = $suspension;
+
+        return $this;
+    }
+
+    /**
+     * Remove suspension
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceSuspension $suspension
+     */
+    public function removeSuspension(\AppBundle\Entity\Vehicle\InsuranceSuspension $suspension)
+    {
+        $this->suspensions->removeElement($suspension);
+    }
+
+    /**
+     * Get suspensions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSuspensions()
+    {
+        return $this->suspensions;
     }
 }

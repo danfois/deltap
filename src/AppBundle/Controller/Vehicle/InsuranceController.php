@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Entity\Vehicle\InsuranceSuspension;
+use AppBundle\Form\Vehicle\InsuranceSuspensionType;
 use AppBundle\Form\Vehicle\InsuranceType;
 use AppBundle\Helper\Vehicle\InsuranceEditHelper;
 use AppBundle\Helper\Vehicle\InsuranceHelper;
@@ -145,5 +147,18 @@ class InsuranceController extends Controller
         $em->flush();
 
         return new Response('OK', 200);
+    }
+
+    /**
+     * @Route("insurance-suspension", name="insurance_suspension")
+     */
+    public function insuranceSuspensionAction()
+    {
+        $is = new InsuranceSuspension();
+        $form = $this->createForm(InsuranceSuspensionType::class, $is);
+
+        return $this->render('DEBUG/show_form.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

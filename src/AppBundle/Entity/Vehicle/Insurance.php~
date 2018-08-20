@@ -5,11 +5,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\InsuranceRepository")
  * @ORM\Table(name="insurances")
  */
 class Insurance extends VehiclePeriodicCost
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="insurances")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    private $vehicle;
+
     /**
      * @ORM\Column(type="integer", name="insuranceId")
      * @ORM\Id
@@ -18,7 +25,12 @@ class Insurance extends VehiclePeriodicCost
     private $insuranceId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Provider")
+     * @ORM\OneToMany(targetEntity="InsuranceSuspension", mappedBy="insurance")
+     */
+    private $suspensions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumn(name="companyId", referencedColumnName="idProvider")
      */
     private $company;
@@ -36,7 +48,7 @@ class Insurance extends VehiclePeriodicCost
     private $agent;
 
     /**
-     * @ORM\Column(type="int", nullable=false, length=1, name="durationType")
+     * @ORM\Column(type="integer", nullable=false, length=1, name="durationType")
      * @Assert\NotBlank(message="Insurance Duration Type cannot be null")
      */
     private $durationType;
@@ -45,6 +57,25 @@ class Insurance extends VehiclePeriodicCost
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="flat")
      */
     private $flat;
+
+    /**
+     * @return mixed
+     */
+    public function getVehicle()
+    {
+        return $this->vehicle;
+    }
+
+    /**
+     * @param Vehicle $vehicle
+     * @return $this
+     */
+    public function setVehicle(Vehicle $vehicle)
+    {
+        $this->vehicle = $vehicle;
+
+        return $this;
+    }
 
     /**
      * Set number
@@ -145,11 +176,11 @@ class Insurance extends VehiclePeriodicCost
     /**
      * Set company
      *
-     * @param \AppBundle\Entity\Vehicle\Provider $company
+     * @param \AppBundle\Entity\Provider $company
      *
      * @return Insurance
      */
-    public function setCompany(\AppBundle\Entity\Vehicle\Provider $company = null)
+    public function setCompany(\AppBundle\Entity\Provider $company = null)
     {
         $this->company = $company;
 
@@ -164,5 +195,15 @@ class Insurance extends VehiclePeriodicCost
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Get insuranceId
+     *
+     * @return integer
+     */
+    public function getInsuranceId()
+    {
+        return $this->insuranceId;
     }
 }

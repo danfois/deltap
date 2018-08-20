@@ -19,6 +19,24 @@ class Vehicle
     private $vehicleId;
 
     /**
+     * @ORM\OneToOne(targetEntity="Insurance")
+     * @ORM\JoinColumn(name="current_insurance", referencedColumnName="insuranceId", nullable=true)
+     */
+    private $currentInsurance;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CarTax")
+     * @ORM\JoinColumn(name="current_cartax", referencedColumnName="carTaxId", nullable=true)
+     */
+    private $currentCarTax;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CarReview")
+     * @ORM\JoinColumn(name="current_carreview", referencedColumnName="carReviewId", nullable=true)
+     */
+    private $currentCarReview;
+
+    /**
      * @ORM\OneToMany(targetEntity="Tachograph", mappedBy="vehicle")
      */
     private $tachographs;
@@ -1383,5 +1401,39 @@ class Vehicle
     public function getKmReads()
     {
         return $this->kmReads;
+    }
+
+    /**
+     * Add unavailability
+     *
+     * @param \AppBundle\Entity\Vehicle\Unavailability $unavailability
+     *
+     * @return Vehicle
+     */
+    public function addUnavailability(\AppBundle\Entity\Vehicle\Unavailability $unavailability)
+    {
+        $this->unavailabilities[] = $unavailability;
+
+        return $this;
+    }
+
+    /**
+     * Remove unavailability
+     *
+     * @param \AppBundle\Entity\Vehicle\Unavailability $unavailability
+     */
+    public function removeUnavailability(\AppBundle\Entity\Vehicle\Unavailability $unavailability)
+    {
+        $this->unavailabilities->removeElement($unavailability);
+    }
+
+    /**
+     * Get unavailabilities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUnavailabilities()
+    {
+        return $this->unavailabilities;
     }
 }

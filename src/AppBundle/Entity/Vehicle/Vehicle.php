@@ -19,6 +19,24 @@ class Vehicle
     private $vehicleId;
 
     /**
+     * @ORM\OneToOne(targetEntity="Insurance")
+     * @ORM\JoinColumn(name="current_insurance", referencedColumnName="insuranceId", nullable=true)
+     */
+    private $currentInsurance;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CarTax")
+     * @ORM\JoinColumn(name="current_cartax", referencedColumnName="carTaxId", nullable=true)
+     */
+    private $currentCarTax;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CarReview")
+     * @ORM\JoinColumn(name="current_carreview", referencedColumnName="carReviewId", nullable=true)
+     */
+    private $currentCarReview;
+
+    /**
      * @ORM\OneToMany(targetEntity="Tachograph", mappedBy="vehicle")
      */
     private $tachographs;
@@ -1417,5 +1435,77 @@ class Vehicle
     public function getUnavailabilities()
     {
         return $this->unavailabilities;
+    }
+
+    /**
+     * Set currentInsurance
+     *
+     * @param \AppBundle\Entity\Vehicle\Insurance $currentInsurance
+     *
+     * @return Vehicle
+     */
+    public function setCurrentInsurance(\AppBundle\Entity\Vehicle\Insurance $currentInsurance = null)
+    {
+        $this->currentInsurance = $currentInsurance;
+
+        return $this;
+    }
+
+    /**
+     * Get currentInsurance
+     *
+     * @return \AppBundle\Entity\Vehicle\Insurance
+     */
+    public function getCurrentInsurance()
+    {
+        return $this->currentInsurance;
+    }
+
+    /**
+     * Set currentCarTax
+     *
+     * @param \AppBundle\Entity\Vehicle\CarTax $currentCarTax
+     *
+     * @return Vehicle
+     */
+    public function setCurrentCarTax(\AppBundle\Entity\Vehicle\CarTax $currentCarTax = null)
+    {
+        $this->currentCarTax = $currentCarTax;
+
+        return $this;
+    }
+
+    /**
+     * Get currentCarTax
+     *
+     * @return \AppBundle\Entity\Vehicle\CarTax
+     */
+    public function getCurrentCarTax()
+    {
+        return $this->currentCarTax;
+    }
+
+    /**
+     * Set currentCarReview
+     *
+     * @param \AppBundle\Entity\Vehicle\CarReview $currentCarReview
+     *
+     * @return Vehicle
+     */
+    public function setCurrentCarReview(\AppBundle\Entity\Vehicle\CarReview $currentCarReview = null)
+    {
+        $this->currentCarReview = $currentCarReview;
+
+        return $this;
+    }
+
+    /**
+     * Get currentCarReview
+     *
+     * @return \AppBundle\Entity\Vehicle\CarReview
+     */
+    public function getCurrentCarReview()
+    {
+        return $this->currentCarReview;
     }
 }
