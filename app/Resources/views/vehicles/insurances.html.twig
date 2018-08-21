@@ -118,6 +118,7 @@
 
 {% block modals %}
 {% include('vehicles/forms/modal_edit_insurance.html.twig') %}
+{% include('vehicles/forms/modal_suspend_insurance.html.twig') %}
 {% endblock %}
 
 {% block page_scripts %}
@@ -126,5 +127,6 @@
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_view.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_edit.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_delete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_suspend.js') }}"></script>
     <script src="{{ asset('assets/customjs/set_active.js') }}"></script>
 {% endblock %}

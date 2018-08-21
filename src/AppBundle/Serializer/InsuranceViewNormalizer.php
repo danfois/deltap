@@ -13,9 +13,17 @@ class InsuranceViewNormalizer implements NormalizerInterface
         foreach($object as $o) {
             if($o instanceof Insurance) {
 
+                $isSuspended = 0;
+                $suspensions = $o->getSuspensions();
+
+                foreach($suspensions as $s) {
+                    if($s->getEndDate() == null || $s->getEndDate() > new \DateTime()) $isSuspended = 1;
+                }
+
                 $status = '1';
                 if(new \DateTime() > $o->getEndDate()) $status = '2';
                 if(new \DateTime('+1 month') > $o->getEndDate()) $status = '3';
+                if($isSuspended === 1) $status = 4;
 
                 $r[] = [
                     'id'        => $o->getInsuranceId(),

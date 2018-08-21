@@ -21,7 +21,7 @@ class InsuranceSuspensionType extends AbstractType
                     return $er->createQueryBuilder('i')
                         ->select('i');
                 },
-                'choice_label' => 'number',
+                'choice_label' => 'insuranceId',
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'

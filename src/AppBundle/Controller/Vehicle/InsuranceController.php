@@ -7,6 +7,7 @@ use AppBundle\Form\Vehicle\InsuranceSuspensionType;
 use AppBundle\Form\Vehicle\InsuranceType;
 use AppBundle\Helper\Vehicle\InsuranceEditHelper;
 use AppBundle\Helper\Vehicle\InsuranceHelper;
+use AppBundle\Helper\Vehicle\InsuranceSuspensionHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -178,15 +179,64 @@ class InsuranceController extends Controller
     }
 
     /**
-     * @Route("insurance-suspension", name="insurance_suspension")
+     * @Route("suspend-insurance", name="insurance_suspension")
      */
-    public function insuranceSuspensionAction()
+    public function insuranceSuspensionAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $insurance = $this->getDoctrine()->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $id));
+        if($insurance == null) return new Response('Assicurazione non trovata', 404);
+
+        $is = new InsuranceSuspension();
+        $is->setInsurance($insurance);
+
+        $form = $this->createForm(InsuranceSuspensionType::class, $is);
+
+        return $this->render('vehicles/forms/insurance_suspend_form.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("ajax/suspend-insurance", name="suspend_insurance_ajax")
+     */
+    public function suspendInsuranceAjax(Request $request)
     {
         $is = new InsuranceSuspension();
         $form = $this->createForm(InsuranceSuspensionType::class, $is);
 
-        return $this->render('DEBUG/show_form.html.twig', array(
-            'form' => $form->createView()
-        ));
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $is = $form->getData();
+
+            $ISH = new InsuranceSuspensionHelper($is, $em, false);
+            $ISH->execute();
+            $errors = $ISH->getErrors();
+
+            if($errors == null) {
+                $em->persist($is);
+                $em->flush();
+
+                return new Response('Assicurazione sospesa con successo!', 200);
+            } else {
+                return new Response($errors, 500);
+            }
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
     }
 }
