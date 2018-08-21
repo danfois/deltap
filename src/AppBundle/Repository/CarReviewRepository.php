@@ -15,4 +15,14 @@ class CarReviewRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function findActiveCarReviewPerVehicle($idV)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.vehicle = :vi AND c.isActive = 1')
+            ->setParameter(':vi', $idV)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

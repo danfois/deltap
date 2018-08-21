@@ -161,10 +161,10 @@ class InsuranceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $insurance = $em->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $idA));
 
+        if($insurance->getEndDate() < new \DateTime()) return new Response('Impossibile impostare come attivo poichè la data di fine validità è precedente a quella odierna', 500);
+
         $v = $insurance->getVehicle();
         $is = $em->getRepository(Insurance::class)->findActiveInsurancesPerVehicle($v->getVehicleId());
-
-        if($insurance->getEndDate() < new \DateTime()) return new Response('Impossibile impostare come attivo poichè la data di fine validità è precedente a quella odierna', 500);
 
         foreach($is as $i) {
             $i->setIsActive(0);

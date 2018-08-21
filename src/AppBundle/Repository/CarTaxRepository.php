@@ -15,4 +15,14 @@ class CarTaxRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function findActiveCarTaxPerVehicle($idV)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.vehicle = :vi AND c.isActive = 1')
+            ->setParameter(':vi', $idV)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

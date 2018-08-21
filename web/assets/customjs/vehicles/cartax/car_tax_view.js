@@ -62,8 +62,8 @@ var CarTaxList = function () {
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            1: {'title': 'In Uso', 'class': 'm-badge--success'},
-                            2: {'title': 'Scaduta', 'class': ' m-badge--danger'},
+                            1: {'title': 'Non Scaduto', 'class': 'm-badge--success'},
+                            2: {'title': 'Scaduto', 'class': ' m-badge--danger'},
                             3: {'title': 'In Scadenza', 'class': ' m-badge--warning'}
                         };
                         return '<span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';

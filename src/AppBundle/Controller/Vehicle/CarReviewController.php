@@ -145,4 +145,33 @@ class CarReviewController extends Controller
 
         return new Response('OK', 200);
     }
+
+    /**
+     * @Route("set-active-car-review", name="set-active-car-review")
+     */
+    public function setActiveCarReview(Request $request)
+    {
+        $idC = $request->query->get('id');
+        if(is_numeric($idC) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $cr = $em->getRepository(CarReview::class)->findOneBy(array('carReviewId' => $idC));
+
+        $v = $cr->getVehicle();
+
+        if($cr->getEndDate() < new \DateTime()) return new Response('Impossibile impostare come attivo poichè la data di fine validità è precedente a quella odierna', 500);
+
+        $cs = $em->getRepository(CarReview::class)->findActiveCarReviewPerVehicle($idC);
+
+        foreach($cs as $c) {
+            $c->setIsActive(0);
+        }
+
+        $cr->setIsActive(1);
+        $v->setCurrentCarReview($cr);
+
+        $em->flush();
+
+    return new Response('Revisione impostata come attiva!', 200);
+    }
 }
