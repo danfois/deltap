@@ -76,28 +76,4 @@ abstract class VehiclePeriodicCost
         return $this;
     }
 
-
-    /**
-     * Set isActive
-     *
-     * @param integer $isActive
-     *
-     * @return VehiclePeriodicCost
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return integer
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
 }

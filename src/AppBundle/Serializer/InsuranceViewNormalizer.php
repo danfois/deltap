@@ -27,7 +27,8 @@ class InsuranceViewNormalizer implements NormalizerInterface
                     'price'     => $o->getPrice(),
                     'flat'      => $o->getFlat(),
                     'vehicle'   => $o->getVehicle()->getPlate(),
-                    'status'    => $status
+                    'status'    => $status,
+                    'active'    => $o->getIsActive()
                 ];
             }
         }

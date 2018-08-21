@@ -24,7 +24,8 @@ class CarReviewViewNormalizer implements NormalizerInterface
                     'endDate'   => $o->getEndDate()->format('d/m/Y'),
                     'price'     => $o->getPrice(),
                     'vehicle'   => $o->getVehicle()->getPlate(),
-                    'status'    => $status
+                    'status'    => $status,
+                    'active'    => $o->getIsActive()
                 ];
             }
         }

@@ -2,8 +2,6 @@ var VehicleList = function () {
 
     var vehicleList = function () {
 
-        //var dataJSONArray = JSON.parse(dati);
-
         var options = {
             data: {
                 type: 'remote',

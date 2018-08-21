@@ -15,4 +15,14 @@ class InsuranceRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function findActiveInsurancesPerVehicle($idV)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('i')
+            ->where('i.vehicle = :vi AND i.isActive = 1')
+            ->setParameter(':vi', $idV)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

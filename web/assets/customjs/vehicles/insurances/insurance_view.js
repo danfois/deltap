@@ -84,6 +84,17 @@ var InsuranceList = function () {
                     }
                 },
                 {
+                    field:'active',
+                    title:'Attiva',
+                    template: function(row) {
+                        var status = {
+                            1: {'title': 'In Uso', 'class': 'success'},
+                            0: {'title': 'Non in Uso', 'class': 'metal'}
+                        }
+                        return '<span class="m-badge m-badge--' + status[row.active].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.active].class + '">' + status[row.active].title + '</span>';
+                    }
+                },
+                {
                     //todo: sistemare la cosa del registrare pagamento
                     field: 'Actions',
                     width: 110,
@@ -98,6 +109,7 @@ var InsuranceList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="setActive('+ row.idv +', \'set-active-insurance\')"><i class="la la-check"></i> Imposta come in uso</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance('+ row.idv +')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\

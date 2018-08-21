@@ -18,6 +18,7 @@ abstract class AbstractPeriodicCostHelper
         $this->instance = $instance;
         $this->em = $em;
         $this->isEdited = $isEdited;
+        $this->instance->setIsActive(0);
     }
 
     abstract public function execute();

@@ -122,11 +122,10 @@
 {% endblock %}
 
 {% block page_scripts %}
+    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_form.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_view.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_edit.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_delete.js') }}"></script>
-    {#<script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_edit.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_delete.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_renew.js') }}"></script>#}
+    <script src="{{ asset('assets/customjs/set_active.js') }}"></script>
 {% endblock %}

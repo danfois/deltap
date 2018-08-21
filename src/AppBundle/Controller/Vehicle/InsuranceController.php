@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class InsuranceController extends Controller
@@ -147,6 +148,33 @@ class InsuranceController extends Controller
         $em->flush();
 
         return new Response('OK', 200);
+    }
+
+    /**
+     * @Route("set-active-insurance", name="set_active_insurance")
+     */
+    public function setActiveInsuranceAction(Request $request)
+    {
+        $idA = $request->query->get('id');
+        if(is_numeric($idA) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $insurance = $em->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $idA));
+
+        $v = $insurance->getVehicle();
+        $is = $em->getRepository(Insurance::class)->findActiveInsurancesPerVehicle($v->getVehicleId());
+
+        if($insurance->getEndDate() < new \DateTime()) return new Response('Impossibile impostare come attivo poichè la data di fine validità è precedente a quella odierna', 500);
+
+        foreach($is as $i) {
+            $i->setIsActive(0);
+        }
+
+        $insurance->setIsActive(1);
+        $v->setCurrentInsurance($insurance);
+
+        $em->flush();
+        return new Response('Assicurazione impostata come attiva!');
     }
 
     /**
