@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Form\Vehicle\UnavailabilityType;
+use AppBundle\Helper\Vehicle\UnavailabilityCreator;
 use AppBundle\Helper\Vehicle\UnavailabilityHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -159,5 +160,30 @@ class UnavailabilityController extends Controller
         $em->flush();
 
         return new Response('ok', 200);
+    }
+
+    /**
+     * @Route("ajax/create-unavailability", name="ajax_create_unavailability")
+     */
+    public function ajaxCreateUnavailabilityAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $type = $request->request->get('type');
+        if($type != 'suspension' && $type != 'cartax' && $type != 'carreview') return new Response('Tipo indisponibilità non corretto', 400);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $UC = new UnavailabilityCreator($id, $type, $em);
+        $UC->create();
+
+        if($UC->getErrors() == null) {
+            $em->persist($UC->getUnavailability());
+            $em->flush();
+
+            return new Response('Indisponibilità creata con successo!');
+        }
+        return new Response($UC->getErrors(), 500);
     }
 }

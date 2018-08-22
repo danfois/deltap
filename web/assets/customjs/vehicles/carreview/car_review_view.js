@@ -98,6 +98,7 @@ var CarReviewList = function () {
 						  	    <a class="dropdown-item" href="javascript:void(0);" onclick="setActive('+ row.idv +', \'set-active-car-review\')"><i class="la la-check"></i> Imposta come in uso</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editCarReview('+ row.idv +')"><i class="la la-edit"></i> Modifica Revisione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarReview(' + row.idv + ')"><i class="la la-trash"></i> Elimina Revisione</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/create-unavailability\', {\'id\' : ' + row.idv + ', \'type\' : \'carreview\'})"  title="Aggiungi Indisponibilità"><i class="la la-ban"></i>Aggiungi Indisponibilità</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\

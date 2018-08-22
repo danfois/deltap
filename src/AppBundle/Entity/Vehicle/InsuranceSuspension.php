@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InsuranceSuspensionRepository")
  * @ORM\Table(name="insurance_suspensions")
  */
-class InsuranceSuspension
+class InsuranceSuspension implements UnavailabilityInterface
 {
     /**
      * @ORM\Column(type="integer", name="suspensionId")
@@ -34,6 +34,16 @@ class InsuranceSuspension
      * @Assert\NotBlank(message="Suspension end date cannot be null")
      */
     private $endDate;
+
+    public function getIssue()
+    {
+        return 'Polizza Sospesa';
+    }
+
+    public function getVehicle()
+    {
+        return $this->getInsurance()->getVehicle();
+    }
 
     /**
      * Get suspensionId

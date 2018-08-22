@@ -61,7 +61,8 @@ var InsuranceList = function () {
                                 overflow: 'visible',
                                 template: function (row, index, datatable) {
                                     var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
-                                    return '<a href="javascript:void(0);" onclick="deleteInsuranceSuspension(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Sospensione">\
+                                    return '<a href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/create-unavailability\', {\'id\' : ' + row.idv + ', \'type\' : \'suspension\'})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Aggiungi Indisponibilità"><i class="la la-ban"></i></a>\
+                                    <a href="javascript:void(0);" onclick="deleteInsuranceSuspension(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Sospensione">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';

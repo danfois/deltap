@@ -98,6 +98,7 @@ var CarTaxList = function () {
 						  	    <a class="dropdown-item" href="javascript:void(0);" onclick="setActive('+ row.idv +', \'set-active-car-tax\')"><i class="la la-check"></i> Imposta come in uso</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editCarTax('+ row.idv +')"><i class="la la-edit"></i> Modifica Bollo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarTax(' + row.idv + ')"><i class="la la-trash"></i> Elimina Bollo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/create-unavailability\', {\'id\' : ' + row.idv + ', \'type\' : \'cartax\'})"  title="Aggiungi Indisponibilità"><i class="la la-ban"></i>Aggiungi Indisponibilità</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarTax(' + row.idv + ')"><i class="la la-refresh"></i> Rinnova Bollo stesse condizioni</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\

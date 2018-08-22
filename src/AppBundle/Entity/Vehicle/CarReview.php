@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CarReviewRepository")
  * @ORM\Table(name="carReview")
  */
-class CarReview extends VehiclePeriodicCost
+class CarReview extends VehiclePeriodicCost implements UnavailabilityInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="carReviews")
@@ -31,6 +31,11 @@ class CarReview extends VehiclePeriodicCost
     public function getCarReviewId()
     {
         return $this->carReviewId;
+    }
+
+    public function getIssue()
+    {
+        return 'Revisione Scaduta';
     }
 
     public function getVehicle()
