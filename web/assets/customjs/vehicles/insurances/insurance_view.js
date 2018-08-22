@@ -34,7 +34,7 @@ var InsuranceList = function () {
                                 read: {
                                     url: "json/insurance-suspensions",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
-                                    params: {'id' : t.data.idv}
+                                    params: {'id': t.data.idv}
                                 }
                             },
                             pageSize: 10
@@ -51,10 +51,27 @@ var InsuranceList = function () {
                             field: "id",
                             title: "Id Sospensione"
                         },
-                        {field: "startDate", title: "Data Inizio"},
-                        {field: "endDate", title: "Data Fine"}],
+                            {field: "startDate", title: "Data Inizio"},
+                            {field: "endDate", title: "Data Fine"},
+                            {
+                                field: 'Actions',
+                                width: 110,
+                                title: 'Azioni',
+                                sortable: false,
+                                overflow: 'visible',
+                                template: function (row, index, datatable) {
+                                    var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
+                                    return '<a href="javascript:void(0);" onclick="deleteInsuranceSuspension(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Sospensione">\
+							<i class="la la-trash"></i>\
+						</a>\
+					';
+                                }
+                            }],
                         translate: {
-                            records: {processing: "Caricamento...", noRecords: "Nessuna Sospensione per questa Assicurazione"},
+                            records: {
+                                processing: "Caricamento...",
+                                noRecords: "Nessuna Sospensione per questa Assicurazione"
+                            },
                             toolbar: {
                                 pagination: {
                                     items: {
@@ -135,9 +152,9 @@ var InsuranceList = function () {
                     }
                 },
                 {
-                    field:'active',
-                    title:'Attiva',
-                    template: function(row) {
+                    field: 'active',
+                    title: 'Attiva',
+                    template: function (row) {
                         var status = {
                             1: {'title': 'In Uso', 'class': 'success'},
                             0: {'title': 'Non in Uso', 'class': 'metal'}
@@ -160,14 +177,14 @@ var InsuranceList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="setActive('+ row.idv +', \'set-active-insurance\')"><i class="la la-check"></i> Imposta come in uso</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance('+ row.idv +')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance('+ row.idv +')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="setActive(' + row.idv + ', \'set-active-insurance\')"><i class="la la-check"></i> Imposta come in uso</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.idv + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
-						<a href="javascript:void(0);" onclick="editInsurance('+ row.idv +')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
+						<a href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
 							<i class="la la-edit"></i>\
 						</a>\
 						<a href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
@@ -252,6 +269,6 @@ var InsuranceList = function () {
     };
 }();
 
-$(document).ready(function() {
+$(document).ready(function () {
     InsuranceList.init();
 });

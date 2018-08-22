@@ -246,4 +246,29 @@ class InsuranceController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("ajax/delete-suspension", name="delete_suspension")
+     */
+    public function deleteSuspension(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $suspension = $em->getRepository(InsuranceSuspension::class)->findOneBy(array('suspensionId' => $id));
+
+        if($suspension == null) return new Response('Sospensione assicurazione non trovata', 404);
+
+        $insurance = $em->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $suspension->getInsurance()->getInsuranceId()));
+
+        $dateInterval = $suspension->getStartDate()->diff($suspension->getEndDate());
+        $newDate = $insurance->getEndDate()->sub($dateInterval);
+        $insurance->setEndDate(new \DateTime($newDate->format('Y-m-d')));
+
+        $em->remove($suspension);
+        $em->flush();
+
+        return new Response('Sospensione rimossa con successo!', 200);
+    }
 }
