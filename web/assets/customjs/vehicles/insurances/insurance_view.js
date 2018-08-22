@@ -25,7 +25,57 @@ var InsuranceList = function () {
             search: {
                 input: $('#generalSearch')
             },
+            detail: {
+                title: "Caricamento...", content: function (t) {
+                    $("<div/>").attr("id", "child_data_ajax_" + t.data.idv).appendTo(t.detailCell).mDatatable({
+                        data: {
+                            type: "remote",
+                            source: {
+                                read: {
+                                    url: "json/insurance-suspensions",
+                                    //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
+                                    params: {'id' : t.data.idv}
+                                }
+                            },
+                            pageSize: 10
+                        },
+                        layout: {
+                            theme: "default",
+                            scroll: !0,
+                            height: 300,
+                            footer: !1,
+                            spinner: {type: 1, theme: "default"}
+                        },
+                        sortable: !0,
+                        columns: [{
+                            field: "id",
+                            title: "Id Sospensione"
+                        },
+                        {field: "startDate", title: "Data Inizio"},
+                        {field: "endDate", title: "Data Fine"}],
+                        translate: {
+                            records: {processing: "Caricamento...", noRecords: "Nessuna Sospensione per questa Assicurazione"},
+                            toolbar: {
+                                pagination: {
+                                    items: {
+                                        default: {
+                                            first: "Primo",
+                                            prev: "Precedente",
+                                            next: "Successivo",
+                                            last: "Ultimo",
+                                            more: "Più Pagine",
+                                            input: "Numero di Pagina",
+                                            select: "Seleziona il numero della pagina"
+                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} sospensioni"
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            },
             columns: [
+                {field: "ids", title: "", sortable: !1, width: 20, textAlign: "center"},
                 {
                     field: 'id',
                     title: 'Id Assicurazione',

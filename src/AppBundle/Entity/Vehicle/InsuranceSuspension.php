@@ -18,7 +18,7 @@ class InsuranceSuspension
     private $suspensionId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Insurance", inversedBy="suspensions")
+     * @ORM\ManyToOne(targetEntity="Insurance", inversedBy="suspensions", cascade={"persist"})
      * @ORM\JoinColumn(name="insuranceId", referencedColumnName="insuranceId")
      */
     private $insurance;
@@ -30,7 +30,8 @@ class InsuranceSuspension
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true, name="endDate")
+     * @ORM\Column(type="datetime", nullable=false, name="endDate")
+     * @Assert\NotBlank(message="Suspension end date cannot be null")
      */
     private $endDate;
 

@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Entity\Vehicle\InsuranceSuspension;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
+use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,6 +48,22 @@ class JsonController extends Controller
         $normalizers = [new InsuranceViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($insurances, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/insurance-suspensions", name="insurance_suspensions")
+     */
+    public function jsonInsuranceSuspensionAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        $suspensions = $this->getDoctrine()->getRepository(InsuranceSuspension::class)->findBy(array('insurance' => $id));
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new InsuranceSuspensionViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($suspensions, 'json');
 
         return new Response($json);
     }

@@ -27,6 +27,7 @@ class InsuranceViewNormalizer implements NormalizerInterface
 
                 $r[] = [
                     'id'        => $o->getInsuranceId(),
+                    'ids'        => $o->getInsuranceId(),
                     'idv'       => $o->getInsuranceId(),
                     'company'   => $o->getCompany()->getBusinessName(),
                     'number'    => $o->getNumber(),

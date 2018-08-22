@@ -27,3 +27,7 @@
     left:50% !important;
     transform: translateX(-50%);
 }
+
+.m-datatable__body {
+    min-height:400px;
+}

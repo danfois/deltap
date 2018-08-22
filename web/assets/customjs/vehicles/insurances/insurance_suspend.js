@@ -70,7 +70,7 @@ var InsuranceSuspendForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: "Assicurazione sospesa con successo!",
+                            text: response,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });

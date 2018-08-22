@@ -218,6 +218,13 @@ class InsuranceController extends Controller
             $errors = $ISH->getErrors();
 
             if($errors == null) {
+
+                $insurance = $em->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $is->getInsurance()->getInsuranceId()));
+
+                $dateInterval = $is->getStartDate()->diff($is->getEndDate());
+                $newDate = $insurance->getEndDate()->add($dateInterval);
+                $insurance->setEndDate(new \DateTime($newDate->format('Y-m-d')));
+
                 $em->persist($is);
                 $em->flush();
 
