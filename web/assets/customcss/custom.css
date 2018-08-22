@@ -31,3 +31,11 @@
 .m-datatable__body {
     min-height:400px;
 }
+
+.mCustomScrollBox {
+    min-height:400px;
+}
+
+.mCSB_container {
+    min-height:400px;
+}
