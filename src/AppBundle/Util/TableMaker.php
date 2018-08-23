@@ -64,7 +64,11 @@ class TableMaker
             $this->tableBody .= '<tr>';
             foreach ($this->associations as $k => $v) {
                 $methodName = 'get'.$this->convertValueToMethod($v);
-                $this->tableBody .= '<td>'.$value->$methodName().'</td>';
+                if($value->$methodName($v) instanceof \DateTime) {
+                    $this->tableBody .= '<td>' . $value->$methodName()->format('d/m/Y') . '</td>';
+                } else {
+                    $this->tableBody .= '<td>' . $value->$methodName() . '</td>';
+                }
             }
             $this->tableBody .= '</tr>';
         }

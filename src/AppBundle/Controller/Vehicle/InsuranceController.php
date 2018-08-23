@@ -8,6 +8,7 @@ use AppBundle\Form\Vehicle\InsuranceType;
 use AppBundle\Helper\Vehicle\InsuranceEditHelper;
 use AppBundle\Helper\Vehicle\InsuranceHelper;
 use AppBundle\Helper\Vehicle\InsuranceSuspensionHelper;
+use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -270,5 +271,30 @@ class InsuranceController extends Controller
         $em->flush();
 
         return new Response('Sospensione rimossa con successo!', 200);
+    }
+
+    /**
+     * @Route("insurance-suspensions-table", name="insurance_suspensions_table")
+     */
+    public function insuranceSuspensionsTableAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o assicurazione non presente', 400);
+
+        $suspensions = $this->getDoctrine()->getRepository(InsuranceSuspension::class)->findBy(array('insurance' => $id));
+        if($suspensions == null) return new Response('Nessuna sospensione trovata per questa assicurazione', 404);
+
+        $TableMaker = new TableMaker(TableMaker::DEFAULT_TABLE, $suspensions, array(
+            'Id' => 'suspensionId',
+            'Data Inizio' => 'startDate',
+            'Data Fine' => 'endDate'
+        ));
+
+        $table = $TableMaker->createTable()->getTable();
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Lista Sospensioni per Assicurazione N. ' . $id,
+            'modal_content' => $table
+        ));
     }
 }

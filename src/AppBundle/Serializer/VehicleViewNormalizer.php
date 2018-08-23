@@ -27,9 +27,9 @@ class VehicleViewNormalizer implements NormalizerInterface
                     'insuranceEnd'  => ($o->getCurrentInsurance() != null ? $o->getCurrentInsurance()->getEndDate()->format('d/m/Y') : ''),
                     'cartaxEnd'     => ($o->getCurrentCarTax() != null ? $o->getCurrentCarTax()->getEndDate()->format('d/m/Y') : ''),
                     'carreviewEnd'  => ($o->getCurrentCarReview() != null ? $o->getCurrentCarReview()->getEndDate()->format('d/m/Y') : ''),
-                    'insuranceId'   => ($o->getCurrentInsurance() != null ? $o->getCurrentInsurance()->getInsuranceId() : ''),
-                    'carTaxId'      => ($o->getCurrentCarTax() != null ? $o->getCurrentCarTax()->getCarTaxId() : ''),
-                    'carReviewId'   => ($o->getCurrentCarReview() != null ? $o->getCurrentCarReview()->getCarReviewId() : ''),
+                    'insuranceId'   => ($o->getCurrentInsurance() != null ? $o->getCurrentInsurance()->getInsuranceId() : '0'),
+                    'carTaxId'      => ($o->getCurrentCarTax() != null ? $o->getCurrentCarTax()->getCarTaxId() : '0'),
+                    'carReviewId'   => ($o->getCurrentCarReview() != null ? $o->getCurrentCarReview()->getCarReviewId() : '0'),
                 ];
             }
         }
