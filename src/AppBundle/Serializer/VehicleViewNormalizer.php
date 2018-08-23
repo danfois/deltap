@@ -23,7 +23,10 @@ class VehicleViewNormalizer implements NormalizerInterface
                     'stands'        => $o->getStands(),
                     'owner'         => $o->getOwner(),
                     'use'           => $o->getUseTypology(),
-                    'purchaseDate'  => $o->getPurchaseDate()->format('d/m/Y')
+                    'purchaseDate'  => $o->getPurchaseDate()->format('d/m/Y'),
+                    'insuranceEnd'  => ($o->getCurrentInsurance() != null ? $o->getCurrentInsurance()->getEndDate()->format('d/m/Y') : ''),
+                    'cartaxEnd'     => ($o->getCurrentCarTax() != null ? $o->getCurrentCarTax()->getEndDate()->format('d/m/Y') : ''),
+                    'carreviewEnd'  => ($o->getCurrentCarReview() != null ? $o->getCurrentCarReview()->getEndDate()->format('d/m/Y') : ''),
                 ];
             }
         }

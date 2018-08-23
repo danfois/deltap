@@ -36,7 +36,7 @@ var VehicleForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: "Veicolo Salvato con Successo",
+                            text: data,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });

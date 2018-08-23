@@ -11,11 +11,13 @@ class VehicleHelper
     private $errors;
     private $em;
     private $executed = 0;
+    private $isEdited;
 
-    public function __construct(Vehicle $vehicle, EntityManager $em)
+    public function __construct(Vehicle $vehicle, EntityManager $em, $isEdited = false)
     {
         $this->vehicle = $vehicle;
         $this->em = $em;
+        $this->isEdited = $isEdited;
     }
 
     public function execute()

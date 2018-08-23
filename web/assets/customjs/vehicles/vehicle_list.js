@@ -37,17 +37,18 @@ var VehicleList = function () {
                 {
                     field: 'idv',
                     title: 'Id',
-                    width: 30
+                    width: 20
                 },
                 {
                     field: 'plate',
                     title: 'Targa',
                     sortable: true,
-                    width: 100
+                    width: 70
                 },
                 {
                     field: 'brand',
-                    title: 'Marca'
+                    title: 'Marca',
+                    width: 100
                 }, {
                     field: 'model',
                     title: 'Modello',
@@ -55,11 +56,13 @@ var VehicleList = function () {
                 }, {
                     field: 'seats',
                     title: 'Posti Sedere',
-                    sortable: 'asc'
+                    sortable: 'asc',
+                    width: 70
                 }, {
                     field: 'stands',
                     title: 'Posti in Piedi',
-                    sortable: 'asc'
+                    sortable: 'asc',
+                    width: 70
                 },
                 {
                     field: 'owner',
@@ -83,10 +86,35 @@ var VehicleList = function () {
                 }, {
                     field: 'purchaseDate',
                     title: 'Data Acquisto'
-                }, {
+                },
+                {
+                    field: 'insuranceEnd',
+                    title: 'Scad. Assicurazione',
+                    width: 100,
+                    template: function(row) {
+                        return '<span style="color:red; font-weight:bold;">' + row.insuranceEnd + '</span>';
+                    }
+                },
+                {
+                    field: 'cartaxEnd',
+                    title: 'Scad. Bollo',
+                    width: 100,
+                    template: function(row) {
+                        return '<span style="color:red; font-weight:bold;">' + row.cartaxEnd + '</span>';
+                    }
+                },
+                {
+                    field: 'carreviewEnd',
+                    title: 'Scad. Revisione',
+                    width: 100,
+                    template: function(row) {
+                        return '<span style="color:red; font-weight:bold;">' + row.carreviewEnd + '</span>';
+                    }
+                },
+                {
                     field: 'Actions',
                     width: 110,
-                    title: 'Actions',
+                    title: 'Azioni',
                     sortable: false,
                     overflow: 'visible',
                     template: function (row, index, datatable) {

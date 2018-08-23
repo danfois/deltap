@@ -1,6 +1,6 @@
 {% extends('base.html.twig') %}
-{% block title %}Redentours | Crea Veicolo{% endblock %}
-{% block subheader_title %}Crea Veicolo{% endblock %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
 
 {% block content %}
 
@@ -16,13 +16,13 @@
 						<i class="la la-gear"></i>
 						</span>
                             <h3 class="m-portlet__head-text">
-                                Creazione Veicolo
+                                {{ title }}
                             </h3>
                         </div>
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action="{{ path('create_vehicle_ajax') }}"
+                <form id="form_vehicle" method="POST" class="m-form m-form--fit m-form--label-align-right" action="{{ action_url }}"
                       autocomplete="off">
                     {{ form_widget(form._token) }}
                     <div class="m-portlet__body">
