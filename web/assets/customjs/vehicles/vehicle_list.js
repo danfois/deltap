@@ -127,7 +127,7 @@ var VehicleList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-vehicle-'+ row.id +'"><i class="la la-edit"></i> Modifica Veicolo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'vehicle-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.insuranceId + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-vehicle-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Veicolo">\

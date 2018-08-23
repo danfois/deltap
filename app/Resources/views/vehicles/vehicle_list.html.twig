@@ -105,11 +105,14 @@
 
 {% block modals %}
     {% include('includes/generic_modal.html.twig') %}
+    {% include('vehicles/forms/modal_suspend_insurance.html.twig') %}
 {% endblock %}
 
 
 {% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/vehicle_list.js') }}"></script>
+    <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_suspend.js') }}"></script>
     <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
     <script>
 

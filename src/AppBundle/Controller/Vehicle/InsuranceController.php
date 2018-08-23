@@ -184,7 +184,7 @@ class InsuranceController extends Controller
     public function insuranceSuspensionAction(Request $request)
     {
         $id = $request->query->get('id');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o assicurazione non presente', 400);
 
         $insurance = $this->getDoctrine()->getRepository(Insurance::class)->findOneBy(array('insuranceId' => $id));
         if($insurance == null) return new Response('Assicurazione non trovata', 404);
