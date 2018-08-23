@@ -153,6 +153,26 @@ class VehicleController extends Controller
     }
 
     /**
+     * @Route("vehicle-details", name="vehicle_details")
+     */
+    public function vehicleDetailsAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->findOneBy(array('vehicleId' => $id));
+
+        if($vehicle == null) return new Response('Questo veicolo non è registrato', 404);
+
+        $html = $this->renderView('vehicles/vehicle_details.html.twig', array(
+            'v' => $vehicle
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Dettagli Veicolo -' . $vehicle->getPlate(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
      * @Route("vehicles", name="vehicles")
      */
     public function viewVehicles()

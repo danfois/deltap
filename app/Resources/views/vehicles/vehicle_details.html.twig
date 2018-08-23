@@ -1,0 +1,197 @@
+<div class="row m--padding-20">
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Dettaglio</th>
+                <th>Valore</th>
+            </tr>
+            </thead>
+            <tr>
+                <td class="bg-light m--font-bold">Id Veicolo</td>
+                <td>{{ v.vehicleId }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Targa</td>
+                <td>{{ v.plate }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Ex Targa</td>
+                <td>{{ v.exPlate }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Intestatario</td>
+                <td>{{ v.owner }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Marca</td>
+                <td>{{ v.brand }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Modello</td>
+                <td>{{ v.model }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Tipologia Uso</td>
+                <td>{{ v.useTypology }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Destinaz. Uso</td>
+                <td>{{ v.useDestination }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data Immatricolazione</td>
+                <td>{{ v.carRegistrationDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Numero Immatricolazione</td>
+                <td>{{ v.carRegistrationNumber }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data Carta Imm.</td>
+                <td>{{ v.registrationCardDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">N. Omologazione</td>
+                <td>{{ v.omologationNumber }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Posti a Sedere</td>
+                <td>{{ v.seats }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Posti in Piedi</td>
+                <td>{{ v.stands }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Larghezza</td>
+                <td>{{ v.width }} m</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Lunghezza</td>
+                <td>{{ v.length }} m</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data di Acquisto</td>
+                <td>{{ v.purchaseDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data di Cessione</td>
+                <td>{{ v.saleDate|date('d/m/Y') }}</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Dettaglio</th>
+                <th>Valore</th>
+            </tr>
+            </thead>
+            <tr>
+                <td class="bg-light m--font-bold">Carrozzeria</td>
+                <td>{{ v.bodyWork }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Telaio</td>
+                <td>{{ v.frame }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Numero Motore</td>
+                <td>{{ v.engineNumber }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Cambio</td>
+                <td>{{ v.transmission }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Pneumatici</td>
+                <td>{{ v.tires }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Pneumatici Alt.</td>
+                <td>{{ v.alternateTires }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Autorizzazione Reg.</td>
+                <td>{{ v.regionalAuthorization }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Pass. Seduti</td>
+                <td>{{ v.passengersSeated }} Kg.</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Pass. in Piedi</td>
+                <td>{{ v.passengersStanding }} Kg.</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Uscite Emerg.</td>
+                <td>{{ v.emergencyExits }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Massa Max Carico</td>
+                <td>{{ v.maximumLoadMass }} Kg.</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Categoria</td>
+                <td>{{ v.category }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">N. Assi</td>
+                <td>{{ v.axesNumber }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Cilindrata</td>
+                <td>{{ v.engineCapacity }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Potenza KW</td>
+                <td>{{ v.powerKw }} KW</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Combustibile</td>
+                <td>{{ v.fuel }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">N. Estintore</td>
+                <td>{{ v.fireExtinguisherNumber }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Finanziamento</td>
+                <td>{{ v.financing }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row m--padding-20">
+    <div class="col-md-12">
+        <table class="table m-table m-table--head-separator-danger text-center">
+            <thead>
+            <tr class="bg-danger">
+                <th>Scadenza Assicurazione</th>
+                <th>Scadenza Bollo</th>
+                <th>Scadenza Revisione</th>
+                <th>Scadenza Estintore</th>
+            </tr>
+            </thead>
+            <tr>
+                {% if v.currentInsurance is not null %}
+                <td class="m--font-danger"><strong>{{ v.currentInsurance.endDate|date('d/m/Y') }}</strong></td>
+                {% endif %}
+                {% if v.currentCarTax is not null %}
+                <td class="m--font-danger"><strong>{{ v.currentCarTax.endDate|date('d/m/Y') }}</strong></td>
+                {% endif %}
+                {% if v.currentCarReview is not null %}
+                <td class="m--font-danger"><strong>{{ v.currentCarReview.endDate|date('d/m/Y') }}</strong></td>
+                {% endif %}
+                {% if v.fireExtinguisherExpiration is not null %}
+                <td class="m--font-danger"><strong>{{ v.fireExtinguisherExpiration|date('d/m/Y') }}</strong></td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+</div>

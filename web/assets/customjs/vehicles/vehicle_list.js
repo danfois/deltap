@@ -125,16 +125,16 @@ var VehicleList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>\
+						    	<a class="dropdown-item" href="edit-vehicle-'+ row.id +'"><i class="la la-edit"></i> Modifica Veicolo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'vehicle-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>\
 						  	</div>\
 						</div>\
-						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+						<a href="edit-vehicle-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Veicolo">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
-							<i class="la la-trash"></i>\
+						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'vehicle-details\', { \'id\' : ' + row.id + '})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Dettagli">\
+							<i class="la la-eye"></i>\
 						</a>\
 					';
                     }

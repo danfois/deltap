@@ -39,3 +39,11 @@
 .mCSB_container {
     min-height:400px;
 }
+
+.details-table {
+    font-size: 12px;
+}
+
+.details-table td {
+    padding: 0.25rem;
+}
