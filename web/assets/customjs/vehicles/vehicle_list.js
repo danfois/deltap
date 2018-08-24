@@ -37,7 +37,7 @@ var VehicleList = function () {
                 {
                     field: 'idv',
                     title: 'Id',
-                    width: 20
+                    width: 30
                 },
                 {
                     field: 'plate',
@@ -129,6 +129,7 @@ var VehicleList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'vehicle-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.insuranceId + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'insurance-suspensions-table\', { \'id\' : ' + row.insuranceId + '})"><i class="la la-eye"></i> Vedi Sospensioni Ass.</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/renew-cartax\', { \'ids\' : JSON.stringify([' + row.carTaxId + '])})"><i class="la la-refresh"></i> Rinnova Bollo Stesse Condizioni</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-vehicle-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Veicolo">\
@@ -139,7 +140,28 @@ var VehicleList = function () {
 						</a>\
 					';
                     }
-                }]
+                }],
+            translate: {
+                records: {
+                    processing: "Caricamento...",
+                    noRecords: "Nessun veicolo trovato"
+                },
+                toolbar: {
+                    pagination: {
+                        items: {
+                            default: {
+                                first: "Primo",
+                                prev: "Precedente",
+                                next: "Successivo",
+                                last: "Ultimo",
+                                more: "Più Pagine",
+                                input: "Numero di Pagina",
+                                select: "Seleziona il numero della pagina"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} veicoli"
+                        }
+                    }
+                }
+            }
         };
 
         var datatable = $('.m_datatable').mDatatable(options);

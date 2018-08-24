@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Vehicle;
 
 use AppBundle\Entity\Vehicle\CarTax;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\Vehicle\CarTaxType;
 use AppBundle\Helper\Vehicle\CarTaxHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -141,6 +142,10 @@ class CarTaxController extends Controller
         $carTax = $em->getRepository(CarTax::class)->findOneBy(array('carTaxId' => $idCartax));
         if ($carTax == null) return new Response('Bollo non trovato', 404);
 
+        $vehicle = $em->getRepository(Vehicle::class)->findOneBy(array('currentCarTax' => $idCartax));
+
+        if($vehicle != null) $vehicle->setCurrentCarTax(null);
+
         $em->remove($carTax);
         $em->flush();
 
@@ -164,12 +169,15 @@ class CarTaxController extends Controller
                 $ct->setEndDate($c->getEndDate()->add($dateIntVal));
                 $ct->setPrice($c->getPrice());
                 $ct->setVehicle($c->getVehicle());
+                $ct->setIsActive(1);
                 $em->persist($ct);
+                $c->setIsActive(0);
+                $c->getVehicle()->setCurrentCarTax($ct);
             }
         }
         $em->flush();
 
-        return new Response('ok', 200);
+        return new Response('Bollo Rinnovato con Successo!', 200);
     }
 
     /**
