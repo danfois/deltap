@@ -2,9 +2,11 @@
 
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Unavailability;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\Vehicle\UnavailabilityType;
 use AppBundle\Helper\Vehicle\UnavailabilityCreator;
 use AppBundle\Helper\Vehicle\UnavailabilityHelper;
+use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -185,5 +187,32 @@ class UnavailabilityController extends Controller
             return new Response('Indisponibilità creata con successo!');
         }
         return new Response($UC->getErrors(), 500);
+    }
+
+    /**
+     * @Route("ajax/unavailability-list-vehicle", name="unavailability_list_vehicle")
+     */
+    public function unavailabilityListVehicleAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o indisponibilità non presente', 400);
+
+        $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->findOneBy(array('vehicleId' => $id));
+        $unavailabilities = $this->getDoctrine()->getRepository(Unavailability::class)->findBy(array('vehicle' => $id));
+        if($unavailabilities == null) return new Response('Nessuna indisponibilità per questo veicolo', 404);
+
+        $TableMaker = new TableMaker(TableMaker::DEFAULT_TABLE, $unavailabilities, array(
+            'Id Ind.' => 'unavailabilityId',
+            'Data Inizio' => 'startDate',
+            'Data Fine' => 'endDate',
+            'Causa' => 'issue'
+        ));
+
+        $table = $TableMaker->createTable()->getTable();
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Lista indisponibilità per ' . $vehicle->getPlate(),
+            'modal_content' => $table
+        ));
     }
 }
