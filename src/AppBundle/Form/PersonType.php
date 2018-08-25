@@ -45,7 +45,8 @@ class PersonType extends AbstractType
             ->add('fax', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('email', TextType::class, array(
                 'attr' => array(

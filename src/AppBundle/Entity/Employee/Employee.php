@@ -70,6 +70,11 @@ class Employee extends Person
     private $driverQualificationLetters;
 
     /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="is_fired")
+     */
+    private $isFired;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -344,5 +349,29 @@ class Employee extends Person
     public function getDriverQualificationLetters()
     {
         return $this->driverQualificationLetters;
+    }
+
+    /**
+     * Set isFired
+     *
+     * @param integer $isFired
+     *
+     * @return Employee
+     */
+    public function setIsFired($isFired)
+    {
+        $this->isFired = $isFired;
+
+        return $this;
+    }
+
+    /**
+     * Get isFired
+     *
+     * @return integer
+     */
+    public function getIsFired()
+    {
+        return $this->isFired;
     }
 }

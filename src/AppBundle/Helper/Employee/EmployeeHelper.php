@@ -24,6 +24,11 @@ class EmployeeHelper
     {
         $this->setAdmissionDate();
         $this->setBirthDate();
+
+        if($this->isEdited === false) {
+            $this->setIsFired();
+        }
+
         $this->executed = 1;
     }
 
@@ -38,6 +43,13 @@ class EmployeeHelper
     {
         if($this->instance->setBirthDate(\DateTime::createFromFormat('d/m/Y', $this->instance->getBirthDate()))) return true;
         $this->errors .= 'Impossibile impostare la data di nascita; <br>';
+        return false;
+    }
+
+    protected function setIsFired()
+    {
+        if($this->instance->setIsFired(0)) return true;
+        $this->errors .= 'Impossibile stabilire lo stato di assunzione del dipendente<br>';
         return false;
     }
 

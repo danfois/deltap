@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
@@ -8,6 +9,7 @@ use AppBundle\Entity\Vehicle\InsuranceSuspension;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
+use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
@@ -109,6 +111,21 @@ class JsonController extends Controller
         $normalizers = [new UnavailabilityViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($u, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/employees", name="employees_json")
+     */
+    public function jsonEmployeesAction()
+    {
+        $e = $this->getDoctrine()->getRepository(Employee::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new EmployeeViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($e, 'json');
 
         return new Response($json);
     }

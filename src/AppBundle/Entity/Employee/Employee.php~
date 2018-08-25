@@ -13,7 +13,7 @@ use AppBundle\Entity\Person;
 class Employee extends Person
 {
     /**
-     * @ORM\Column(type="string", length=11, nullable=false, name="employeeId")
+     * @ORM\Column(type="integer", length=11, name="employeeId")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -69,4 +69,285 @@ class Employee extends Person
      */
     private $driverQualificationLetters;
 
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="is_fired")
+     */
+    private $isFired;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->curriculums = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->drivingLicenses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->drivingLetters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->driverQualificationLetters = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get employeeId
+     *
+     * @return string
+     */
+    public function getEmployeeId()
+    {
+        return $this->employeeId;
+    }
+
+    /**
+     * Set employeeCode
+     *
+     * @param string $employeeCode
+     *
+     * @return Employee
+     */
+    public function setEmployeeCode($employeeCode)
+    {
+        $this->employeeCode = $employeeCode;
+
+        return $this;
+    }
+
+    /**
+     * Get employeeCode
+     *
+     * @return string
+     */
+    public function getEmployeeCode()
+    {
+        return $this->employeeCode;
+    }
+
+    /**
+     * Set employmentType
+     *
+     * @param string $employmentType
+     *
+     * @return Employee
+     */
+    public function setEmploymentType($employmentType)
+    {
+        $this->employmentType = $employmentType;
+
+        return $this;
+    }
+
+    /**
+     * Get employmentType
+     *
+     * @return string
+     */
+    public function getEmploymentType()
+    {
+        return $this->employmentType;
+    }
+
+    /**
+     * Set admission
+     *
+     * @param \DateTime $admission
+     *
+     * @return Employee
+     */
+    public function setAdmission($admission)
+    {
+        $this->admission = $admission;
+
+        return $this;
+    }
+
+    /**
+     * Get admission
+     *
+     * @return \DateTime
+     */
+    public function getAdmission()
+    {
+        return $this->admission;
+    }
+
+    /**
+     * Set payGrade
+     *
+     * @param string $payGrade
+     *
+     * @return Employee
+     */
+    public function setPayGrade($payGrade)
+    {
+        $this->payGrade = $payGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get payGrade
+     *
+     * @return string
+     */
+    public function getPayGrade()
+    {
+        return $this->payGrade;
+    }
+
+    /**
+     * Set duties
+     *
+     * @param string $duties
+     *
+     * @return Employee
+     */
+    public function setDuties($duties)
+    {
+        $this->duties = $duties;
+
+        return $this;
+    }
+
+    /**
+     * Get duties
+     *
+     * @return string
+     */
+    public function getDuties()
+    {
+        return $this->duties;
+    }
+
+    /**
+     * Add curriculum
+     *
+     * @param \AppBundle\Entity\Employee\Curriculum $curriculum
+     *
+     * @return Employee
+     */
+    public function addCurriculum(\AppBundle\Entity\Employee\Curriculum $curriculum)
+    {
+        $this->curriculums[] = $curriculum;
+
+        return $this;
+    }
+
+    /**
+     * Remove curriculum
+     *
+     * @param \AppBundle\Entity\Employee\Curriculum $curriculum
+     */
+    public function removeCurriculum(\AppBundle\Entity\Employee\Curriculum $curriculum)
+    {
+        $this->curriculums->removeElement($curriculum);
+    }
+
+    /**
+     * Get curriculums
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCurriculums()
+    {
+        return $this->curriculums;
+    }
+
+    /**
+     * Add drivingLicense
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLicense $drivingLicense
+     *
+     * @return Employee
+     */
+    public function addDrivingLicense(\AppBundle\Entity\Employee\DrivingLicense $drivingLicense)
+    {
+        $this->drivingLicenses[] = $drivingLicense;
+
+        return $this;
+    }
+
+    /**
+     * Remove drivingLicense
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLicense $drivingLicense
+     */
+    public function removeDrivingLicense(\AppBundle\Entity\Employee\DrivingLicense $drivingLicense)
+    {
+        $this->drivingLicenses->removeElement($drivingLicense);
+    }
+
+    /**
+     * Get drivingLicenses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDrivingLicenses()
+    {
+        return $this->drivingLicenses;
+    }
+
+    /**
+     * Add drivingLetter
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLetter $drivingLetter
+     *
+     * @return Employee
+     */
+    public function addDrivingLetter(\AppBundle\Entity\Employee\DrivingLetter $drivingLetter)
+    {
+        $this->drivingLetters[] = $drivingLetter;
+
+        return $this;
+    }
+
+    /**
+     * Remove drivingLetter
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLetter $drivingLetter
+     */
+    public function removeDrivingLetter(\AppBundle\Entity\Employee\DrivingLetter $drivingLetter)
+    {
+        $this->drivingLetters->removeElement($drivingLetter);
+    }
+
+    /**
+     * Get drivingLetters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDrivingLetters()
+    {
+        return $this->drivingLetters;
+    }
+
+    /**
+     * Add driverQualificationLetter
+     *
+     * @param \AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter
+     *
+     * @return Employee
+     */
+    public function addDriverQualificationLetter(\AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter)
+    {
+        $this->driverQualificationLetters[] = $driverQualificationLetter;
+
+        return $this;
+    }
+
+    /**
+     * Remove driverQualificationLetter
+     *
+     * @param \AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter
+     */
+    public function removeDriverQualificationLetter(\AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter)
+    {
+        $this->driverQualificationLetters->removeElement($driverQualificationLetter);
+    }
+
+    /**
+     * Get driverQualificationLetters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDriverQualificationLetters()
+    {
+        return $this->driverQualificationLetters;
+    }
 }

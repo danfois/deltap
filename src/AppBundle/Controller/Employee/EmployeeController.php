@@ -136,4 +136,12 @@ class EmployeeController extends Controller
         }
         return new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
     }
+
+    /**
+     * @Route("employees", name="employees")
+     */
+    public function employeesAction()
+    {
+        return $this->render('employees/employees_list.html.twig');
+    }
 }
