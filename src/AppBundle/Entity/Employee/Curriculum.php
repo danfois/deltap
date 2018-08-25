@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Curriculum
 {
     /**
-     * @ORM\Column(type="string", length=11, nullable=false, name="curriculumId")
+     * @ORM\Column(type="integer", length=11, name="curriculumId")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
