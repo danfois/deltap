@@ -18,7 +18,7 @@ class DrivingLicense extends DrivingDocument
     private $licenseId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="drivingLicense")
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="drivingLicenses")
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     private $employee;

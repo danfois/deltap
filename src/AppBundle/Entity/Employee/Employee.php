@@ -13,7 +13,7 @@ use AppBundle\Entity\Person;
 class Employee extends Person
 {
     /**
-     * @ORM\Column(type="string", length=11, nullable=false, name="employeeId")
+     * @ORM\Column(type="integer", length=11, name="employeeId")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

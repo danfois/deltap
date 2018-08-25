@@ -46,7 +46,7 @@ abstract class Person implements Contactable
     /**
      * @ORM\Column(type="string", length=16, nullable=true, name="cf")
      * @Assert\Length(
-     *     max=12,
+     *     max=16,
      *     maxMessage="Fiscal Code can contain at maximum 16 digits"
      * )
      */
