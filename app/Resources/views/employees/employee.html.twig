@@ -1,0 +1,306 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_employee" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Anagrafica Dipendente</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Nome:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.name) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il nome del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Cognome:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.surname) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il cognome del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data di Nascita:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.birthDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data di nascita del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Luogo di Nascita:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.birthPlace) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il luogo di nascita del dipendente</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Codice Fiscale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.cf) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il codice fiscale del dipendente</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Dettagli Indirizzo</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Indirizzo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.address) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo del dipendente</span>
+                                </div>
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Zona:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.zone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire zona se diversa dall'indirizzo</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label class="">* Codice Postale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.cap) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-bookmark-o"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il CAP</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Citta:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <div class="m-typeahead">
+                                            {{ form_widget(form.fullAddress.city) }}
+                                        </div>
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il comune del dipendente</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Provincia:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.region) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scrivere la provincia del dipendente</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Stato:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.country) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire lo Stato nel quale si trova il dipendente</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Recapiti</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Email:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.email) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo email del dipendente</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Telefono:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.phone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono fisso</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label class="">Cellulare:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.mobile) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-mobile-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono cellulare</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Fax:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fax) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-fax"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale fax</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">4. Dettagli Amministrativi</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Codice Dipendente:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.employeeCode) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il codice del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Tipo Impiego:</label>
+                                        {{ form_widget(form.employmentType) }}
+                                    <span class="m-form__help">Inserire il tipo di impiego del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label class="">* Data Assunzione:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.admission) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data di assunzione del dipendente</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Inquadramento:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <div class="m-typeahead">
+                                            {{ form_widget(form.payGrade) }}
+                                        </div>
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-file"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'inquadramento del dipendente</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>* Mansioni:</label>
+                                        {{ form_widget(form.duties) }}
+                                    <span class="m-form__help">Descrivere le mansioni del dipendente</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/modals/modal_create_category.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/create_customer.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
