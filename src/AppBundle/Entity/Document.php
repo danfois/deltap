@@ -1,0 +1,166 @@
+<?php
+
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="documents")
+ */
+class Document
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer", name="documentId")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $documentId;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="documents")
+     * @ORM\JoinColumn(name="curriculumId", referencedColumnName="curriculumId", nullable=true)
+     */
+    public $curriculum;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DrivingLicense", inversedBy="documents")
+     * @ORM\JoinColumn(name="licenseId", referencedColumnName="licenseId", nullable=true)
+     */
+    public $drivingLicense;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DrivingLetter", inversedBy="documents")
+     * @ORM\JoinColumn(name="letterId", referencedColumnName="letterId", nullable=true)
+     */
+    public $drivingLetter;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DriverQualificationLetter", inversedBy="documents")
+     * @ORM\JoinColumn(name="qualificationId", referencedColumnName="qualificationId")
+     */
+    public $driverQualificationLetter;
+
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents';
+    }
+
+    /**
+     * Get documentId
+     *
+     * @return integer
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Document
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Document
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+}

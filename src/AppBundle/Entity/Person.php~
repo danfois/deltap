@@ -1,0 +1,89 @@
+<?php
+
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\MappedSuperclass;
+
+/**
+ * @MappedSuperClass
+ */
+abstract class Person implements Contactable
+{
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false, name="name")
+     * @Assert\NotBlank(message="Name cannot be null")
+     * @Assert\Length(max=64, maxMessage="Name is too long. Max 64 chars")
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false, name="surname")
+     * @Assert\NotBlank(message="Surname cannot be null")
+     * @Assert\Length(max=64, maxMessage="Surname is too long. Max 64 chars")
+     */
+    protected $surname;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="birthDate")
+     * @Assert\NotBlank(message="Date of birth cannot be null")
+     */
+    protected $birthDate;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="birthPlace", length=128)
+     * @Assert\NotBlank(message="Place of Birth cannot be null")
+     * @Assert\Length(max=128, maxMessage="Birth of Place too long. Max 128 chars")
+     */
+    protected $birthPlace;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="addressId")
+     */
+    protected $fullAddress;
+
+    /**
+     * @ORM\Column(type="string", length=16, nullable=true, name="cf")
+     * @Assert\Length(
+     *     max=12,
+     *     maxMessage="Fiscal Code can contain at maximum 16 digits"
+     * )
+     */
+    protected $cf;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=12, name="phone")
+     * @Assert\Length(
+     *     max=12,
+     *     maxMessage="The Phone can contain at maximum 12 digits"
+     * )
+     */
+    protected $phone;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=12, name="mobile")
+     * @Assert\Length(
+     *     max=12,
+     *     maxMessage="The Mobile can contain at maximum 12 digits"
+     * )
+     */
+    protected $mobile;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=12, name="fax")
+     * @Assert\Length(
+     *     max=12,
+     *     maxMessage="The Fax can contain at maximum 12 digits"
+     * )
+     */
+    protected $fax;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=false, name="email")
+     * @Assert\NotBlank(message="Email address cannot be empty.")
+     * @Assert\Email(message="The email address you provided is not valid.", checkMX=false)
+     */
+    protected $email;
+
+}
