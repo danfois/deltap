@@ -32,7 +32,7 @@ class EmployeeType extends PersonType
             ))
             ->add('admission', TextType::class, array(
                 'attr' => array(
-                    'class' => 'm-input form-control datetime'
+                    'class' => 'm-input form-control date_picker'
                 )
             ))
             ->add('payGrade', TextType::class, array(

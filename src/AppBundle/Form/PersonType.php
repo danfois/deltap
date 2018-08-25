@@ -24,7 +24,7 @@ class PersonType extends AbstractType
             ))
             ->add('birthDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input datetime'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('birthPlace', TextType::class, array(
