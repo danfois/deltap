@@ -12,11 +12,11 @@ interface Contactable
 
     public function getFax();
 
-    public function setEmail();
+    public function setEmail($email);
 
-    public function setPhone();
+    public function setPhone($phone);
 
-    public function setMobile();
+    public function setMobile($mobile);
 
-    public function setFax();
+    public function setFax($fax);
 }

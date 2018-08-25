@@ -41,7 +41,7 @@ class Curriculum
     private $workExperience;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="Curriculum")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Document", mappedBy="curriculum")
      */
     private $documents;
     /**
@@ -135,40 +135,6 @@ class Curriculum
     }
 
     /**
-     * Add document
-     *
-     * @param \AppBundle\Entity\Employee\Document $document
-     *
-     * @return Curriculum
-     */
-    public function addDocument(\AppBundle\Entity\Employee\Document $document)
-    {
-        $this->documents[] = $document;
-
-        return $this;
-    }
-
-    /**
-     * Remove document
-     *
-     * @param \AppBundle\Entity\Employee\Document $document
-     */
-    public function removeDocument(\AppBundle\Entity\Employee\Document $document)
-    {
-        $this->documents->removeElement($document);
-    }
-
-    /**
-     * Get documents
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocuments()
-    {
-        return $this->documents;
-    }
-
-    /**
      * Set employee
      *
      * @param \AppBundle\Entity\Employee\Employee $employee
@@ -190,5 +156,39 @@ class Curriculum
     public function getEmployee()
     {
         return $this->employee;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AppBundle\Entity\Document $document
+     *
+     * @return Curriculum
+     */
+    public function addDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AppBundle\Entity\Document $document
+     */
+    public function removeDocument(\AppBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

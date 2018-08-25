@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DrivingLicense extends DrivingDocument
 {
     /**
-     * @ORM\Column(type="integer", name="licenseId")
+     * @ORM\Column(type="integer", name="idCustomer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -101,38 +101,4 @@ class DrivingLicense extends DrivingDocument
         return $this->employee;
     }
 
-
-    /**
-     * Add document
-     *
-     * @param \AppBundle\Entity\Document $document
-     *
-     * @return DrivingLicense
-     */
-    public function addDocument(\AppBundle\Entity\Document $document)
-    {
-        $this->documents[] = $document;
-
-        return $this;
-    }
-
-    /**
-     * Remove document
-     *
-     * @param \AppBundle\Entity\Document $document
-     */
-    public function removeDocument(\AppBundle\Entity\Document $document)
-    {
-        $this->documents->removeElement($document);
-    }
-
-    /**
-     * Get documents
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocuments()
-    {
-        return $this->documents;
-    }
 }

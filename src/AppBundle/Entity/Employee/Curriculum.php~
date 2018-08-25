@@ -18,7 +18,7 @@ class Curriculum
     private $curriculumId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="curriculum")
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="curriculums")
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     private $employee;
@@ -41,7 +41,7 @@ class Curriculum
     private $workExperience;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="Curriculum")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Document", mappedBy="Curriculum")
      */
     private $documents;
     /**
@@ -135,36 +135,26 @@ class Curriculum
     }
 
     /**
-     * Add document
+     * Set employee
      *
-     * @param \AppBundle\Entity\Employee\Document $document
+     * @param \AppBundle\Entity\Employee\Employee $employee
      *
      * @return Curriculum
      */
-    public function addDocument(\AppBundle\Entity\Employee\Document $document)
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
     {
-        $this->documents[] = $document;
+        $this->employee = $employee;
 
         return $this;
     }
 
     /**
-     * Remove document
+     * Get employee
      *
-     * @param \AppBundle\Entity\Employee\Document $document
+     * @return \AppBundle\Entity\Employee\Employee
      */
-    public function removeDocument(\AppBundle\Entity\Employee\Document $document)
+    public function getEmployee()
     {
-        $this->documents->removeElement($document);
-    }
-
-    /**
-     * Get documents
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocuments()
-    {
-        return $this->documents;
+        return $this->employee;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,7 +20,6 @@ class Document
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      */
     public $name;
 
@@ -27,6 +27,31 @@ class Document
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Curriculum", inversedBy="documents")
+     * @ORM\JoinColumn(name="curriculumId", referencedColumnName="curriculumId", nullable=true)
+     */
+    public $curriculum;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DrivingLicense", inversedBy="documents")
+     * @ORM\JoinColumn(name="licenseId", referencedColumnName="licenseId", nullable=true)
+     */
+    public $drivingLicense;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DrivingLetter", inversedBy="documents")
+     * @ORM\JoinColumn(name="letterId", referencedColumnName="letterId", nullable=true)
+     */
+    public $drivingLetter;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DriverQualificationLetter", inversedBy="documents")
+     * @ORM\JoinColumn(name="qualificationId", referencedColumnName="qualificationId")
+     */
+    public $driverQualificationLetter;
+
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -59,5 +84,83 @@ class Document
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
         return 'uploads/documents';
+    }
+
+    /**
+     * Get documentId
+     *
+     * @return integer
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Document
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Document
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

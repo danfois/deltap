@@ -29,26 +29,26 @@ class Document
     public $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Curriculum", inversedBy="documents")
      * @ORM\JoinColumn(name="curriculumId", referencedColumnName="curriculumId", nullable=true)
      */
     public $curriculum;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DrivingLicense", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DrivingLicense", inversedBy="documents")
      * @ORM\JoinColumn(name="licenseId", referencedColumnName="licenseId", nullable=true)
      */
     public $drivingLicense;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DrivingLetter", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DrivingLetter", inversedBy="documents")
      * @ORM\JoinColumn(name="letterId", referencedColumnName="letterId", nullable=true)
      */
     public $drivingLetter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DriverQualificationLetter", inversedBy="documents")
-     * @ORM\JoinColumn(name="qualificationId", referencedColumnName="qualificationId")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\DriverQualificationLetter", inversedBy="documents")
+     * @ORM\JoinColumn(name="qualificationId", referencedColumnName="qualificationId", nullable=true)
      */
     public $driverQualificationLetter;
 
@@ -162,5 +162,101 @@ class Document
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set curriculum
+     *
+     * @param \AppBundle\Entity\Employee\Curriculum $curriculum
+     *
+     * @return Document
+     */
+    public function setCurriculum(\AppBundle\Entity\Employee\Curriculum $curriculum = null)
+    {
+        $this->curriculum = $curriculum;
+
+        return $this;
+    }
+
+    /**
+     * Get curriculum
+     *
+     * @return \AppBundle\Entity\Employee\Curriculum
+     */
+    public function getCurriculum()
+    {
+        return $this->curriculum;
+    }
+
+    /**
+     * Set drivingLicense
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLicense $drivingLicense
+     *
+     * @return Document
+     */
+    public function setDrivingLicense(\AppBundle\Entity\Employee\DrivingLicense $drivingLicense = null)
+    {
+        $this->drivingLicense = $drivingLicense;
+
+        return $this;
+    }
+
+    /**
+     * Get drivingLicense
+     *
+     * @return \AppBundle\Entity\Employee\DrivingLicense
+     */
+    public function getDrivingLicense()
+    {
+        return $this->drivingLicense;
+    }
+
+    /**
+     * Set drivingLetter
+     *
+     * @param \AppBundle\Entity\Employee\DrivingLetter $drivingLetter
+     *
+     * @return Document
+     */
+    public function setDrivingLetter(\AppBundle\Entity\Employee\DrivingLetter $drivingLetter = null)
+    {
+        $this->drivingLetter = $drivingLetter;
+
+        return $this;
+    }
+
+    /**
+     * Get drivingLetter
+     *
+     * @return \AppBundle\Entity\Employee\DrivingLetter
+     */
+    public function getDrivingLetter()
+    {
+        return $this->drivingLetter;
+    }
+
+    /**
+     * Set driverQualificationLetter
+     *
+     * @param \AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter
+     *
+     * @return Document
+     */
+    public function setDriverQualificationLetter(\AppBundle\Entity\Employee\DriverQualificationLetter $driverQualificationLetter = null)
+    {
+        $this->driverQualificationLetter = $driverQualificationLetter;
+
+        return $this;
+    }
+
+    /**
+     * Get driverQualificationLetter
+     *
+     * @return \AppBundle\Entity\Employee\DriverQualificationLetter
+     */
+    public function getDriverQualificationLetter()
+    {
+        return $this->driverQualificationLetter;
     }
 }

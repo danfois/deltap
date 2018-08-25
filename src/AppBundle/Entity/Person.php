@@ -38,7 +38,7 @@ abstract class Person implements Contactable
     protected $birthPlace;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address", cascade={"persist"})
      * @ORM\JoinColumn(name="address_id", referencedColumnName="addressId")
      */
     protected $fullAddress;
