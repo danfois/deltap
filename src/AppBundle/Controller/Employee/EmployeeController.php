@@ -144,4 +144,27 @@ class EmployeeController extends Controller
     {
         return $this->render('employees/employees_list.html.twig');
     }
+
+    /**
+     * @Route("employee-details", name="employee_details")
+     */
+    public function employeeDetailsAction(Request $request)
+    {
+        $id = $request->query->get('id');
+
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+
+        $employee = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+
+        if($employee == null) return new Response('Dipendente non trovato!', 404);
+
+        $html = $this->renderView('employees/employee_details.html.twig', array(
+            'e' => $employee
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Dettagli di ' . $employee->getName() . ' ' . $employee->getSurname(),
+            'modal_content' => $html
+        ));
+    }
 }

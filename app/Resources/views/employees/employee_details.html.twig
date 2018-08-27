@@ -1,0 +1,214 @@
+<div class="row m--padding-20">
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Dettaglio</th>
+                <th>Valore</th>
+            </tr>
+            </thead>
+            <tr>
+                <td class="bg-light m--font-bold">Id Dipendente</td>
+                <td>{{ e.employeeId }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Cod. Dipendente</td>
+                <td>{{ e.employeeCode }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Nome</td>
+                <td>{{ e.name }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Cognome</td>
+                <td>{{ e.surname }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data di Nascita</td>
+                <td>{{ e.birthDate|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Luogo di Nascita</td>
+                <td>{{ e.birthPlace }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Codice Fiscale</td>
+                <td>{{ e.cf }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Tel. Fisso</td>
+                <td>{{ e.phone }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Te. Cellulare</td>
+                <td>{{ e.mobile }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Email</td>
+                <td>{{ e.email }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Fax</td>
+                <td>{{ e.fax }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Dettaglio</th>
+                <th>Valore</th>
+            </tr>
+            </thead>
+            <tr>
+                <td class="bg-light m--font-bold">Cod. Dipendente</td>
+                <td>{{ e.employeeCode }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Tipo Impiego</td>
+                <td>{{ e.employmentType }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data Assunzione</td>
+                <td>{{ e.admission|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Inquadramento</td>
+                <td>{{ e.payGrade }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Mansioni</td>
+                <td>{{ e.duties }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row m--padding-20">
+
+    <div class="col-md-4">
+        <table class="table m-table m-table--head-separator-danger text-center larger-details-table">
+            <thead>
+            <tr>
+                <td class="m--bg-fill-warning" colspan="2">Patente</td>
+            </tr>
+            </thead>
+            {% if e.drivingLicenses is not empty %}
+                <tr>
+                    <td class="m--bg-fill-accent">Numero</td>
+                    <td>{{ e.drivingLicenses|last.number }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Scadenza</td>
+                    <td>{{ e.drivingLicenses|last.expiration|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Rilasciata da:</td>
+                    <td>{{ e.drivingLicenses|last.releasedBy }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Tipo</td>
+                    <td>{{ e.drivingLicenses|last.type }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Links</td>
+                    {% if e.drivingLicenses|last.documents is not empty %}
+                        <td>
+                            {% for d in e.drivingLicenses|last.documents %}
+                                <a href="{{ d.path }}"></a><br>
+                            {% endfor %}
+                        </td> {% else %}
+                        <td>Nessun documento allegato</td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="m--bg-fill-danger">Nessuna Patente Trovata</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+
+
+    <div class="col-md-4">
+        <table class="table m-table m-table--head-separator-danger text-center larger-details-table">
+            <thead>
+            <tr>
+                <td class="m--bg-fill-warning" colspan="2">Carta Conducente</td>
+            </tr>
+            </thead>
+            {% if e.drivingLetters is not empty %}
+                <tr>
+                    <td class="m--bg-fill-accent">Numero</td>
+                    <td>{{ e.drivingLetters|last.number }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Scadenza</td>
+                    <td>{{ e.drivingLetters|last.expiration|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Rilasciata da:</td>
+                    <td>{{ e.drivingLetters|last.releasedBy }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Links</td>
+                    {% if e.drivingLetters|last.documents is not empty %}
+                        <td>
+                            {% for d in e.drivingLetters|last.documents %}
+                                <a href="{{ d.path }}"></a><br>
+                            {% endfor %}
+                        </td> {% else %}
+                        <td>Nessun documento allegato</td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="m--bg-fill-danger">Nessuna Carta Conducente Trovata</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+
+
+    <div class="col-md-4">
+        <table class="table m-table m-table--head-separator-danger text-center larger-details-table">
+            <thead>
+            <tr>
+                <td class="m--bg-fill-warning" colspan="2">Carta Qualificazione Conducente</td>
+            </tr>
+            </thead>
+            {% if e.driverQualificationLetters is not empty %}
+                <tr>
+                    <td class="m--bg-fill-accent">Numero</td>
+                    <td>{{ e.driverQualificationLetters|last.number }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Scadenza</td>
+                    <td>{{ e.driverQualificationLetters|last.expiration|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Rilasciata da:</td>
+                    <td>{{ e.driverQualificationLetters|last.releasedBy }}</td>
+                </tr>
+                <tr>
+                    <td class="m--bg-fill-accent">Links</td>
+                    {% if e.driverQualificationLetters|last.documents is not empty %}
+                        <td>
+                            {% for d in e.driverQualificationLetters|last.documents %}
+                                <a href="{{ d.path }}"></a><br>
+                            {% endfor %}
+                        </td> {% else %}
+                        <td>Nessun documento allegato</td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="m--bg-fill-danger">Nessuna Carta Qualificazione Conducente Trovata</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+
+</div>

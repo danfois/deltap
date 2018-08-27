@@ -47,3 +47,11 @@
 .details-table td {
     padding: 0.25rem;
 }
+
+.larger-details-table {
+    font-size: 14px;
+}
+
+.larger-details-table td {
+    padding: 0.35rem;
+}
