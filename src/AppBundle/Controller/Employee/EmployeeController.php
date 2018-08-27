@@ -1,8 +1,14 @@
 <?php
 
 namespace AppBundle\Controller\Employee;
+
+use AppBundle\Entity\Document;
+use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Form\Employee\DrivingLicenseType;
 use AppBundle\Form\Employee\EmployeeType;
+use AppBundle\Helper\DocumentHelper;
+use AppBundle\Helper\Employee\DrivingLicenseHelper;
 use AppBundle\Helper\Employee\EmployeeHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,7 +45,7 @@ class EmployeeController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $employee = $form->getData();
 
@@ -47,7 +53,7 @@ class EmployeeController extends Controller
             $EH->execute();
             $errors = $EH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->persist($employee);
                 $em->flush();
 
@@ -56,12 +62,12 @@ class EmployeeController extends Controller
             return new Response($errors, 500);
         }
 
-        if($form->isSubmitted() && !$form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             if ($form->isSubmitted() && !$form->isValid()) {
                 $errors = $form->getErrors(true);
                 $error = '';
 
-                foreach($errors as $k => $e) {
+                foreach ($errors as $k => $e) {
                     $error .= $e->getMessage() . '<br> ';
 
                 }
@@ -77,7 +83,7 @@ class EmployeeController extends Controller
     public function editEmployeeAction(Request $request, int $id)
     {
         $employee = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
-        if($employee == null) return new Response('Dipendente non trovato', 404);
+        if ($employee == null) return new Response('Dipendente non trovato', 404);
 
         $employee->setAdmission($employee->getAdmission()->format('d/m/Y'));
         $employee->setBirthDate($employee->getBirthDate()->format('d/m/Y'));
@@ -99,13 +105,13 @@ class EmployeeController extends Controller
     public function editEmployeeAjaxAction(Request $request, int $id)
     {
         $employee = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
-        if($employee == null) return new Response('Dipendente non trovato', 404);
+        if ($employee == null) return new Response('Dipendente non trovato', 404);
 
         $form = $this->createForm(EmployeeType::class, $employee);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $employee = $form->getData();
 
@@ -113,7 +119,7 @@ class EmployeeController extends Controller
             $EH->execute();
             $errors = $EH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
 
                 $em->flush();
 
@@ -122,12 +128,12 @@ class EmployeeController extends Controller
             return new Response($errors, 500);
         }
 
-        if($form->isSubmitted() && !$form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             if ($form->isSubmitted() && !$form->isValid()) {
                 $errors = $form->getErrors(true);
                 $error = '';
 
-                foreach($errors as $k => $e) {
+                foreach ($errors as $k => $e) {
                     $error .= $e->getMessage() . '<br> ';
 
                 }
@@ -152,11 +158,11 @@ class EmployeeController extends Controller
     {
         $id = $request->query->get('id');
 
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
 
         $employee = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
 
-        if($employee == null) return new Response('Dipendente non trovato!', 404);
+        if ($employee == null) return new Response('Dipendente non trovato!', 404);
 
         $html = $this->renderView('employees/employee_details.html.twig', array(
             'e' => $employee
@@ -167,4 +173,78 @@ class EmployeeController extends Controller
             'modal_content' => $html
         ));
     }
+
+    /**
+     * @Route("driving-licenses", name="driving_license")
+     */
+    public function drivingLicensesAction()
+    {
+        $dl = new DrivingLicense();
+        $form = $this->createForm(DrivingLicenseType::class, $dl);
+
+        $actionUrl = $this->generateUrl('create-driving-license-ajax');
+
+        return $this->render('employees/driving_licenses.html.twig', array(
+            'form' => $form->createView(),
+            'documentType' => 'Patente',
+            'action_url' => $actionUrl
+        ));
+    }
+
+    /**
+     * @Route("create-driving-license-ajax", name="create-driving-license-ajax")
+     */
+    public function createDrivingLicenseAjax(Request $request)
+    {
+        $dl = new DrivingLicense();
+        $form = $this->createForm(DrivingLicenseType::class, $dl);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dl = $form->getData();
+            $files = $form->get('files')->getData();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $DLH = new DrivingLicenseHelper($dl, $em, false);
+            $DLH->execute();
+            $errors = $DLH->getErrors();
+
+            $DH = new DocumentHelper($files, $em, $dl->getEmployee());
+            $DH->execute();
+            $errors .= $DH->getErrors();
+
+            if ($errors == null) {
+                $documents = $DH->getDocumentArray();
+
+                foreach ($documents as $d) {
+                    if ($d instanceof Document) {
+                        $d->setDrivingLicense($dl);
+                        $d->upload();
+                        $em->persist($d);
+                        }
+                }
+
+                $em->persist($dl);
+                $em->flush();
+
+                return new Response('Patente Creata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+        throw new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
+    }
+
 }

@@ -1,0 +1,47 @@
+<div class="form-group m-form__group row">
+{{ form_widget(form._token) }}
+    <div class="col-lg-6 m-form__group-sub">
+        <label>* Numero:</label>
+        <div class="m-input-icon m-input-icon--right">
+            {{ form_widget(form.number) }}
+            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                            class="la la-barcode"></i></span></span>
+        </div>
+        <span class="m-form__help">Inserire il numero di {{ documentType }}</span>
+    </div>
+
+    <div class="col-lg-6 m-form__group-sub">
+        <label>* Data Scadenza:</label>
+        <div class="m-input-icon m-input-icon--right">
+            {{ form_widget(form.expiration) }}
+            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                            class="la la-calendar"></i></span></span>
+        </div>
+        <span class="m-form__help">Inserire la data di scadenza per la {{ documentType }}</span>
+    </div>
+
+</div>
+
+<div class="form-group m-form__group row">
+
+    <div class="col-lg-6 m-form__group-sub">
+        <label>* Rilasciata da:</label>
+        <div class="m-input-icon m-input-icon--right">
+            {{ form_widget(form.releasedBy) }}
+            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                            class="la la-calendar"></i></span></span>
+        </div>
+        <span class="m-form__help">Inserire ente di rilascio della {{ documentType }}</span>
+    </div>
+
+    <div class="col-lg-6 m-form__group-sub">
+        <label>* Data di Rilascio:</label>
+        <div class="m-input-icon m-input-icon--right">
+            {{ form_widget(form.releaseDate) }}
+            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                            class="la la-calendar"></i></span></span>
+        </div>
+        <span class="m-form__help">Inserire data di rilascio della {{ documentType }}</span>
+    </div>
+
+</div>

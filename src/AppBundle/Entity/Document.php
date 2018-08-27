@@ -54,7 +54,7 @@ class Document
 
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="60000000")
      */
     private $file;
 
@@ -76,7 +76,7 @@ class Document
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -84,6 +84,30 @@ class Document
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
         return 'uploads/documents';
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            throw new \Exception('Files nullo');
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->path = $this->getName();
+
+        // clean up the file property as you won't need it anymore
+        //$this->file = null;
     }
 
     /**
