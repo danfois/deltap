@@ -247,4 +247,33 @@ class EmployeeController extends Controller
         throw new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
     }
 
+    /**
+     * @Route("delete-driving-license", name="delete_driving_license")
+     */
+    public function deleteDrivingLicenseAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o patente non esistente', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $dl = $em->getRepository(DrivingLicense::class)->findOneBy(array('licenseId' => $id));
+        if($dl == null) return new Response('Nessuna patente trovata', 404);
+
+        $documents = $dl->getDocuments();
+
+        try {
+            foreach($documents as $d) {
+                if (unlink($d->getAbsolutePath())) {
+                    $em->remove($d);
+                }
+            }
+            $em->remove($dl);
+            $em->flush();
+
+            return new Response('Patente Eliminata con Successo!', 200);
+        } catch (\Exception $e) {
+            return new Response('Errore durante l\'eliminazione della patente',500);
+        }
+    }
+
 }

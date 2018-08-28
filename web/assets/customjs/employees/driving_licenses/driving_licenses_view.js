@@ -1,13 +1,13 @@
-var InsuranceList = function () {
+var DrivingLicenseList = function () {
 
-    var insuranceList = function () {
+    var drivingLicenseList = function () {
 
         var options = {
             data: {
                 type: 'remote',
                 source: {
                     read: {
-                        url: '/json/insurances'
+                        url: '/json/driving-documents/driving-license'
                     }
                 },
                 pageSize: 20
@@ -32,9 +32,9 @@ var InsuranceList = function () {
                             type: "remote",
                             source: {
                                 read: {
-                                    url: "json/insurance-suspensions",
+                                    url: "json/documents",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
-                                    params: {'id': t.data.idv}
+                                    params: {'id': t.data.idv, 'type': 'driving-license'}
                                 }
                             },
                             pageSize: 10
@@ -49,10 +49,25 @@ var InsuranceList = function () {
                         sortable: !0,
                         columns: [{
                             field: "id",
-                            title: "Id Sospensione"
+                            title: "Id Documento"
                         },
-                            {field: "startDate", title: "Data Inizio"},
-                            {field: "endDate", title: "Data Fine"},
+                            {
+                                field: 'name',
+                                title: 'Nome File'
+                            },
+                            {
+                                field: "type",
+                                title: "Tipo Documento",
+                                template: function(row) {
+                                    var status = {
+                                        1: {'title': 'Curriculum', 'class': ' m-badge--metal'},
+                                        2: {'title': 'Patente', 'class': ' m-badge--success'},
+                                        3: {'title': 'Carta Conducente', 'class': ' m-badge--info'},
+                                        4: {'title': 'Carta Qualificazione Conducente', 'class': ' m-badge--accent'}
+                                    };
+                                    return '<span class="m-badge ' + status[row.type].class + ' m-badge--wide">' + status[row.type].title + '</span>';
+                                }
+                            },
                             {
                                 field: 'Actions',
                                 width: 110,
@@ -61,8 +76,8 @@ var InsuranceList = function () {
                                 overflow: 'visible',
                                 template: function (row, index, datatable) {
                                     var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
-                                    return '<a href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/create-unavailability\', {\'id\' : ' + row.idv + ', \'type\' : \'suspension\'})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Aggiungi Indisponibilità"><i class="la la-ban"></i></a>\
-                                    <a href="javascript:void(0);" onclick="deleteInsuranceSuspension(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Sospensione">\
+                                    return '<a href="download-document/' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Scarica"><i class="la la-download"></i></a>\
+                                    <a href="javascript:void(0);" onclick="genericDelete(\'delete-document\', \'Il File non è stato eliminato\', {\'id\' : \'' + row.idv + '\'})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
@@ -71,7 +86,7 @@ var InsuranceList = function () {
                         translate: {
                             records: {
                                 processing: "Caricamento...",
-                                noRecords: "Nessuna Sospensione per questa Assicurazione"
+                                noRecords: "Nessun file per questo documento"
                             },
                             toolbar: {
                                 pagination: {
@@ -84,7 +99,7 @@ var InsuranceList = function () {
                                             more: "Più Pagine",
                                             input: "Numero di Pagina",
                                             select: "Seleziona il numero della pagina"
-                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} sospensioni"
+                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} files"
                                     }
                                 }
                             }
@@ -96,7 +111,7 @@ var InsuranceList = function () {
                 {field: "ids", title: "", sortable: !1, width: 20, textAlign: "center"},
                 {
                     field: 'id',
-                    title: 'Id Assicurazione',
+                    title: 'Id',
                     sortable: false,
                     width: 40,
                     selector: {class: 'm-checkbox--solid m-checkbox--brand'}
@@ -107,35 +122,29 @@ var InsuranceList = function () {
                     width: 30
                 },
                 {
-                    field: 'vehicle',
-                    title: 'Veicolo'
-                },
-                {
-                    field: 'company',
-                    title: 'Compagnia',
-                    sortable: true,
-                    width: 100
+                    field: 'employee',
+                    title: 'Dipendente'
                 },
                 {
                     field: 'number',
-                    title: 'Numero'
+                    title: 'Numero',
+                    sortable: true
+                },
+                {
+                    field: 'expiration',
+                    title: 'Scandenza'
                 }, {
-                    field: 'startDate',
-                    title: 'Data Inizio',
+                    field: 'releasedBy',
+                    title: 'Rilasciato da',
                     width: 100
                 }, {
-                    field: 'endDate',
-                    title: 'Data Scadenza',
+                    field: 'releaseDate',
+                    title: 'Data Rilascio',
                     sortable: 'asc',
                     width: 100
                 }, {
-                    field: 'price',
-                    title: 'Prezzo Tot.',
-                    sortable: 'asc'
-                },
-                {
-                    field: 'flat',
-                    title: 'Rata',
+                    field: 'type',
+                    title: 'Tipo',
                     sortable: 'asc'
                 },
                 {
@@ -145,26 +154,13 @@ var InsuranceList = function () {
                     template: function (row) {
                         var status = {
                             1: {'title': 'In Uso', 'class': ' m-badge--success'},
-                            2: {'title': 'Scaduta', 'class': ' m-badge--danger'},
-                            3: {'title': 'In Scadenza', 'class': ' m-badge--warning'},
-                            4: {'title': 'Sospesa', 'class': ' m-badge--info'}
+                            2: {'title': 'Scaduto', 'class': ' m-badge--danger'},
+                            3: {'title': 'In Scadenza', 'class': ' m-badge--warning'}
                         };
                         return '<span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
                     }
                 },
                 {
-                    field: 'active',
-                    title: 'Attiva',
-                    template: function (row) {
-                        var status = {
-                            1: {'title': 'In Uso', 'class': 'success'},
-                            0: {'title': 'Non in Uso', 'class': 'metal'}
-                        };
-                        return '<span class="m-badge m-badge--' + status[row.active].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.active].class + '">' + status[row.active].title + '</span>';
-                    }
-                },
-                {
-                    //todo: sistemare la cosa del registrare pagamento
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',
@@ -173,22 +169,7 @@ var InsuranceList = function () {
                     template: function (row, index, datatable) {
                         var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
-						<div class="dropdown ' + dropup + '">\
-							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
-                                <i class="la la-ellipsis-h"></i>\
-                            </a>\
-						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="setActive(' + row.idv + ', \'set-active-insurance\')"><i class="la la-check"></i> Imposta come in uso</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.idv + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
-						  	</div>\
-						</div>\
-						<a href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
-							<i class="la la-edit"></i>\
-						</a>\
-						<a href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
+						<a href="javascript:void(0);" onclick="genericDelete(\'delete-driving-license\', \'La patente non è stata eliminata!\', {\'id\' : \'' + row.idv + '\'})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
@@ -207,7 +188,7 @@ var InsuranceList = function () {
                                 more: "Più Pagine",
                                 input: "Numero di Pagina",
                                 select: "Seleziona il numero della pagina"
-                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} assicurazioni"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} patenti"
                         }
                     }
                 }
@@ -265,11 +246,11 @@ var InsuranceList = function () {
 
     return {
         init: function () {
-            insuranceList();
+            drivingLicenseList();
         }
     };
 }();
 
 $(document).ready(function () {
-    InsuranceList.init();
+    DrivingLicenseList.init();
 });

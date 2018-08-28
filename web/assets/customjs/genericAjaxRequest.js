@@ -1,4 +1,4 @@
-var genericAjaxRequest = function(method, url, data) {
+var genericAjaxRequest = function(method, url, data, callback) {
     mApp.blockPage({
         overlayColor: "#000000",
         type: "loader",
@@ -27,5 +27,6 @@ var genericAjaxRequest = function(method, url, data) {
             });
             mApp.unblockPage();
         }
-    })
+    });
+    callback();
 };

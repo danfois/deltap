@@ -1,6 +1,10 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Document;
+use AppBundle\Entity\Employee\DriverQualificationLetter;
+use AppBundle\Entity\Employee\DrivingLetter;
+use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
@@ -9,6 +13,8 @@ use AppBundle\Entity\Vehicle\InsuranceSuspension;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
+use AppBundle\Serializer\DocumentViewNormalizer;
+use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
@@ -129,4 +135,72 @@ class JsonController extends Controller
 
         return new Response($json);
     }
+
+    /**
+     * @Route("json/driving-documents/{type}", name="driving_documents_json")
+     */
+    public function jsonDrivingDocuments(string $type)
+    {
+        $repositoryClass = '';
+
+        switch($type) {
+            case 'driving-license':
+                $repositoryClass = DrivingLicense::class;
+                break;
+            case 'driving-letter':
+                $repositoryClass = DrivingLetter::class;
+                break;
+            case 'qualification-letter':
+                $repositoryClass = DriverQualificationLetter::class;
+                break;
+        }
+
+        $data = $this->getDoctrine()->getRepository($repositoryClass)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new DrivingDocumentViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($data, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/documents", name="documents_json")
+     */
+    public function jsonDocuments(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $type = $request->request->get('type');
+        if($type == null) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        switch($type) {
+            case 'driving-license':
+                $data = $this->getDoctrine()->getRepository(Document::class)->findBy(array('drivingLicense' => $id));
+                break;
+            case 'driving-letter':
+                $data = $this->getDoctrine()->getRepository(Document::class)->findBy(array('drivingLetter' => $id));
+                break;
+            case 'qualification-letter':
+                $data = $this->getDoctrine()->getRepository(Document::class)->findBy(array('driverQualificationLetter' => $id));
+                break;
+            case 'curriculum':
+                $data = $this->getDoctrine()->getRepository(Document::class)->findBy(array('curriculum' => $id));
+                break;
+        }
+
+        if(!isset($data)) return new Response('Nessun Documento trovato', 404);
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new DocumentViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($data, 'json');
+
+        return new Response($json);
+    }
+
+
+
 }
