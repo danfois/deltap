@@ -276,4 +276,34 @@ class EmployeeController extends Controller
         }
     }
 
+    /**
+     * @Route("ajax/create-driving-license", name="ajax_create_driving_license")
+     */
+    public function ajaxCreateDrivingLicenseAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+
+        $e = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+        if($e == null) return new Response('Dipendente non trovato', 404);
+
+        $dl = new DrivingLicense();
+        $dl->setEmployee($e);
+
+        $form = $this->createForm(DrivingLicenseType::class, $dl);
+
+        $actionUrl = $this->generateUrl('create-driving-license-ajax');
+
+        $html = $this->renderView('employees/forms/driving_license_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl,
+            'documentType' => 'Patente'
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Aggiungi Patente per ' . $e->getName() . ' ' . $e->getSurname(),
+            'modal_content' => $html
+        ));
+    }
+
 }

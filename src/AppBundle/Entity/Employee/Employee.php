@@ -56,16 +56,19 @@ class Employee extends Person
 
     /**
      * @ORM\OneToMany(targetEntity="DrivingLicense", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $drivingLicenses;
 
     /**
      * @ORM\OneToMany(targetEntity="DrivingLetter", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $drivingLetters;
 
     /**
      * @ORM\OneToMany(targetEntity="DriverQualificationLetter", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $driverQualificationLetters;
 

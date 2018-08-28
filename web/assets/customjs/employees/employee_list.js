@@ -103,7 +103,7 @@ var EmployeeList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-employee-'+ row.id +'"><i class="la la-edit"></i> Modifica Dipendente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.insuranceId + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-license\', {\'id\': \'' + row.id + '\'})"><i class="la la-plus-circle"></i> Aggiungi Patente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'insurance-suspensions-table\', { \'id\' : ' + row.insuranceId + '})"><i class="la la-eye"></i> Vedi Sospensioni Ass.</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/renew-cartax\', { \'ids\' : JSON.stringify([' + row.carTaxId + '])})"><i class="la la-refresh"></i> Rinnova Bollo Stesse Condizioni</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/unavailability-list-vehicle\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Indisponibilità</a>\
