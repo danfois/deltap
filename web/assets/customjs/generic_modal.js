@@ -1,4 +1,4 @@
-var genericModalFunction = function(method, url, data) {
+var genericModalFunction = function(method, url, data, options) {
     mApp.blockPage({
         overlayColor: "#000000",
         type: "loader",
@@ -13,6 +13,12 @@ var genericModalFunction = function(method, url, data) {
         success : function(response) {
             $('#generic_modal_content').html(response);
             $('#generic_modal').modal();
+
+            if(options !== undefined) {
+                if (options['initializeWidgets'] === true) initializeWidgets();
+                if (options['initializeForm'] === true) GenericFormSubmission($('#' + options['formJquery'])).init();
+            }
+
             mApp.unblockPage();
         },
         error : function(e) {
