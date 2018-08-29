@@ -2,13 +2,8 @@
 
 namespace AppBundle\Controller\Employee;
 
-use AppBundle\Entity\Document;
-use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
-use AppBundle\Form\Employee\DrivingLicenseType;
 use AppBundle\Form\Employee\EmployeeType;
-use AppBundle\Helper\DocumentHelper;
-use AppBundle\Helper\Employee\DrivingLicenseHelper;
 use AppBundle\Helper\Employee\EmployeeHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -170,138 +165,6 @@ class EmployeeController extends Controller
 
         return $this->render('includes/generic_modal_content.html.twig', array(
             'modal_title' => 'Dettagli di ' . $employee->getName() . ' ' . $employee->getSurname(),
-            'modal_content' => $html
-        ));
-    }
-
-    /**
-     * @Route("driving-licenses", name="driving_license")
-     */
-    public function drivingLicensesAction()
-    {
-        $dl = new DrivingLicense();
-        $form = $this->createForm(DrivingLicenseType::class, $dl);
-
-        $actionUrl = $this->generateUrl('create-driving-license-ajax');
-
-        return $this->render('employees/driving_licenses.html.twig', array(
-            'form' => $form->createView(),
-            'documentType' => 'Patente',
-            'action_url' => $actionUrl
-        ));
-    }
-
-    /**
-     * @Route("create-driving-license-ajax", name="create-driving-license-ajax")
-     */
-    public function createDrivingLicenseAjax(Request $request)
-    {
-        $dl = new DrivingLicense();
-        $form = $this->createForm(DrivingLicenseType::class, $dl);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $dl = $form->getData();
-            $files = $form->get('files')->getData();
-
-            $em = $this->getDoctrine()->getManager();
-
-            $DLH = new DrivingLicenseHelper($dl, $em, false);
-            $DLH->execute();
-            $errors = $DLH->getErrors();
-
-            $DH = new DocumentHelper($files, $em, $dl->getEmployee());
-            $DH->execute();
-            $errors .= $DH->getErrors();
-
-            if ($errors == null) {
-                $documents = $DH->getDocumentArray();
-
-                foreach ($documents as $d) {
-                    if ($d instanceof Document) {
-                        $d->setDrivingLicense($dl);
-                        $d->upload();
-                        $em->persist($d);
-                        }
-                }
-
-                $em->persist($dl);
-                $em->flush();
-
-                return new Response('Patente Creata con successo!', 200);
-            }
-            return new Response($errors, 500);
-        }
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $errors = $form->getErrors(true);
-            $error = '';
-
-            foreach($errors as $k => $e) {
-                $error .= $e->getMessage() . '<br> ';
-
-            }
-            return new Response($error, 500);
-        }
-        throw new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
-    }
-
-    /**
-     * @Route("delete-driving-license", name="delete_driving_license")
-     */
-    public function deleteDrivingLicenseAction(Request $request)
-    {
-        $id = $request->query->get('id');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o patente non esistente', 400);
-
-        $em = $this->getDoctrine()->getManager();
-        $dl = $em->getRepository(DrivingLicense::class)->findOneBy(array('licenseId' => $id));
-        if($dl == null) return new Response('Nessuna patente trovata', 404);
-
-        $documents = $dl->getDocuments();
-
-        try {
-            foreach($documents as $d) {
-                if (unlink($d->getAbsolutePath())) {
-                    $em->remove($d);
-                }
-            }
-            $em->remove($dl);
-            $em->flush();
-
-            return new Response('Patente Eliminata con Successo!', 200);
-        } catch (\Exception $e) {
-            return new Response('Errore durante l\'eliminazione della patente',500);
-        }
-    }
-
-    /**
-     * @Route("ajax/create-driving-license", name="ajax_create_driving_license")
-     */
-    public function ajaxCreateDrivingLicenseAction(Request $request)
-    {
-        $id = $request->query->get('id');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
-
-        $e = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
-        if($e == null) return new Response('Dipendente non trovato', 404);
-
-        $dl = new DrivingLicense();
-        $dl->setEmployee($e);
-
-        $form = $this->createForm(DrivingLicenseType::class, $dl);
-
-        $actionUrl = $this->generateUrl('create-driving-license-ajax');
-
-        $html = $this->renderView('employees/forms/driving_license_form.html.twig', array(
-            'form' => $form->createView(),
-            'action_url' => $actionUrl,
-            'documentType' => 'Patente'
-        ));
-
-        return $this->render('includes/generic_modal_content.html.twig', array(
-            'modal_title' => 'Aggiungi Patente per ' . $e->getName() . ' ' . $e->getSurname(),
             'modal_content' => $html
         ));
     }

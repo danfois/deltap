@@ -1,0 +1,44 @@
+<form id="form_driving_letter" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ action_url }}"
+      autocomplete="off">
+    <div class="m-portlet__body m--margin-15">
+
+        {% include('employees/forms/driving_document_form.html.twig') %}
+
+        <div class="form-group m-form__group row">
+
+            <div class="col-lg-6 m-form__group-sub">
+                <label>* Dipendente:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.employee) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-folder"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire dipendente titolare della {{ documentType }}</span>
+            </div>
+
+            <div class="col-lg-6 m-form__group-sub">
+                <label>* Files:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.files) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-folder"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire file allegati</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

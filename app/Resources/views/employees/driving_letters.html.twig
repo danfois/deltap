@@ -1,0 +1,131 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Carte Conducenti{% endblock %}
+{% block subheader_title %}Carte Conducenti{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Creazione Carta Conducente
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                {% include('employees/forms/driving_letter_form.html.twig') %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--mobile">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Tabella Carte Conducenti
+                                <small>
+                                    versione interattiva
+                                </small>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                        <div class="row align-items-center">
+                            <div class="col-xl-8 order-2 order-xl-1">
+                                <div class="form-group m-form__group row align-items-center">
+                                    <div class="col-md-3">
+                                        <div class="m-input-icon m-input-icon--left">
+                                            <input type="text" class="form-control m-input" placeholder="Cerca..."
+                                                   id="generalSearch">
+                                            <span class="m-input-icon__icon m-input-icon__icon--left">
+															<span>
+																<i class="la la-search"></i>
+															</span>
+														</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <button class="btn btn-success" type="button" id="m_datatable_init">
+                                            Inizializza
+                                        </button>
+                                        <button class="btn btn-danger" type="button" id="m_datatable_destroy">
+                                            Distruggi
+                                        </button>
+                                        <button class="btn btn-info" type="button" id="m_datatable_reload">
+                                            Ricarica Dati
+                                        </button>
+                                        <!--<button class="btn btn-secondary" type="button" id="m_datatable_get">
+                                            Get ShipCity
+                                        </button>
+                                        <span id="datatable_value"></span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Search Form -->
+                    <!--begin: Search Form -->
+                    <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
+                        <div class="row">
+                            <div class="col-lg-2">
+
+                                {# todo: sistemare la cosa delle azioni di massa #}
+
+                                <select class="form-control m-input">
+                                    <option value="">Scegli Operazione...</option>
+                                    <option value="2">Elimina</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+                                <a href="javascript:void(0);" class="btn btn-brand">Applica</a>
+                            </div>
+                            <div class="col-lg-9 text-right">
+                                <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
+                                    Seleziona Tutto
+                                </button>
+                                <button class="btn btn-secondary" type="button" id="m_datatable_uncheck_all">
+                                    Deseleziona Tutto
+                                </button>
+                                <button class="btn btn-secondary" type="button" id="m_datatable_remove_row">
+                                    Nascondi Righe Selezionate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Search Form -->
+                    <!--begin: Datatable -->
+                    <div class="m_datatable" id="api_methods"></div>
+                    <!--end: Datatable -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
+    <script src="{{ asset('assets/customjs/employees/driving_letters/driving_letters_view.js') }}"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}"></script>
+    <script>
+        jQuery(document).ready(function(){
+            GenericFormSubmission($('#form_driving_letter')).init();
+            initializeWidgets();
+        });
+    </script>
+{% endblock %}

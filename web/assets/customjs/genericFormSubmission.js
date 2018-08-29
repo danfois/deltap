@@ -5,7 +5,6 @@ var GenericFormSubmission = function (formjQuery) {
 
     return {
         init: function () {
-            console.log(t);
             var r;
             i = t.validate({
                 ignore: ":hidden",

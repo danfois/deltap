@@ -13,14 +13,16 @@ class DocumentHelper
     protected $em;
     protected $employee;
     protected $document_array = array();
+    protected $documentType;
     protected $errors;
     protected $executed = 0;
 
-    public function __construct(array $files, EntityManager $em, Employee $employee)
+    public function __construct(array $files, EntityManager $em, Employee $employee, string $documentType = 'generico')
     {
         $this->files = $files;
         $this->em = $em;
         $this->employee = $employee;
+        $this->documentType = $documentType;
     }
 
     public function execute()
@@ -38,7 +40,7 @@ class DocumentHelper
             foreach ($this->files as $f) {
                 $rn = rand(1, 100);
                 $d = new Document();
-                $d->setName($this->employee->getName() . '_' . $this->employee->getSurname() . '_patente_' . $date->format('d-m-Y') . '_' . substr(md5($rn), 0, 8));
+                $d->setName($this->employee->getName() . '_' . $this->employee->getSurname() . '_' . $this->documentType . '_' . $date->format('d-m-Y') . '_' . substr(md5($rn), 0, 8) . '.' . $f->guessExtension());
                 $d->setFile($f);
 
                 $this->document_array[] = $d;
