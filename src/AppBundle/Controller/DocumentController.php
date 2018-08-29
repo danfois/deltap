@@ -3,10 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Document;
+use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Form\Employee\DriverQualificationLetterType;
 use AppBundle\Form\Employee\DrivingLetterType;
 use AppBundle\Helper\Employee\DrivingLetterHelper;
+use AppBundle\Helper\Employee\QualificationLetterHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -321,6 +324,138 @@ class DocumentController extends Controller
 
         return $this->render('includes/generic_modal_content.html.twig', array(
             'modal_title' => 'Aggiungi Carta Conducente per ' . $e->getName() . ' ' . $e->getSurname(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("qualification-letters", name="qualification_letters")
+     */
+    public function qualificationLettersAction()
+    {
+        $dl = new DriverQualificationLetter();
+        $form = $this->createForm(DriverQualificationLetterType::class, $dl);
+
+        $actionUrl = $this->generateUrl('create-qualification-letter-ajax');
+
+        return $this->render('employees/qualification_letters.html.twig', array(
+            'form' => $form->createView(),
+            'documentType' => 'Carta Qualificazione Conducente',
+            'action_url' => $actionUrl
+        ));
+    }
+
+    /**
+     * @Route("create-qualification-letter-ajax", name="create-qualification-letter-ajax")
+     */
+    public function createQualificationLetterAjax(Request $request)
+    {
+        $dl = new DriverQualificationLetter();
+        $form = $this->createForm(DriverQualificationLetterType::class, $dl);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dl = $form->getData();
+            $files = $form->get('files')->getData();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $DLH = new QualificationLetterHelper($dl, $em, false);
+            $DLH->execute();
+            $errors = $DLH->getErrors();
+
+            $DH = new DocumentHelper($files, $em, $dl->getEmployee(), 'cartaQualificazioneConducente');
+            $DH->execute();
+            $errors .= $DH->getErrors();
+
+            if ($errors == null) {
+                $documents = $DH->getDocumentArray();
+
+                foreach ($documents as $d) {
+                    if ($d instanceof Document) {
+                        $d->setDriverQualificationLetter($dl);
+                        $d->upload();
+                        $em->persist($d);
+                    }
+                }
+
+                $em->persist($dl);
+                $em->flush();
+
+                return new Response('Carta Qualificazione Conducente Creata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+        throw new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
+    }
+
+    /**
+     * @Route("delete-qualification-letter", name="delete_qualification_letter")
+     */
+    public function deleteQualificationLetterAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Carta qualificazione conducente non esistente', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $dl = $em->getRepository(DriverQualificationLetter::class)->findOneBy(array('qualificationId' => $id));
+        if($dl == null) return new Response('Nessuna carta qualificazione conducente trovata', 404);
+
+        $documents = $dl->getDocuments();
+
+        try {
+            foreach($documents as $d) {
+                if (unlink($d->getAbsolutePath())) {
+                    $em->remove($d);
+                }
+            }
+            $em->remove($dl);
+            $em->flush();
+
+            return new Response('Carta Qualificazione Conducente Eliminata con Successo!', 200);
+        } catch (\Exception $e) {
+            return new Response('Errore durante l\'eliminazione della carta conducente',500);
+        }
+    }
+
+    /**
+     * @Route("ajax/create-qualification-letter", name="ajax_create_qualification_letter")
+     */
+    public function ajaxCreateQualificationLetterAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+
+        $e = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+        if($e == null) return new Response('Dipendente non trovato', 404);
+
+        $dl = new DriverQualificationLetter();
+        $dl->setEmployee($e);
+
+        $form = $this->createForm(DriverQualificationLetterType::class, $dl);
+
+        $actionUrl = $this->generateUrl('create-qualification-letter-ajax');
+
+        $html = $this->renderView('employees/forms/qualification_letter_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl,
+            'documentType' => 'Carta Qualificazione Conducente'
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Aggiungi Carta Qualificazione Conducente per ' . $e->getName() . ' ' . $e->getSurname(),
             'modal_content' => $html
         ));
     }

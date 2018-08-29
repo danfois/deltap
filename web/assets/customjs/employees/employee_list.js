@@ -105,9 +105,7 @@ var EmployeeList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-license\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_driving_license\' });"><i class="la la-plus-circle"></i> Aggiungi Patente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_driving_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Conducente</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'insurance-suspensions-table\', { \'id\' : ' + row.insuranceId + '})"><i class="la la-eye"></i> Vedi Sospensioni Ass.</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/renew-cartax\', { \'ids\' : JSON.stringify([' + row.carTaxId + '])})"><i class="la la-refresh"></i> Rinnova Bollo Stesse Condizioni</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/unavailability-list-vehicle\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Indisponibilità</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-qualification-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_qualification_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Qualificazione Conducente</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-employee-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Dipendente">\
