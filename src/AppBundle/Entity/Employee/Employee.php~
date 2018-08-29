@@ -56,16 +56,19 @@ class Employee extends Person
 
     /**
      * @ORM\OneToMany(targetEntity="DrivingLicense", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $drivingLicenses;
 
     /**
      * @ORM\OneToMany(targetEntity="DrivingLetter", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $drivingLetters;
 
     /**
      * @ORM\OneToMany(targetEntity="DriverQualificationLetter", mappedBy="employee")
+     * @ORM\OrderBy({"expiration" = "ASC"})
      */
     private $driverQualificationLetters;
 
@@ -73,6 +76,11 @@ class Employee extends Person
      * @ORM\Column(type="integer", length=1, nullable=false, name="is_fired")
      */
     private $isFired;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="termination_date")
+     */
+    private $terminationDate;
 
     /**
      * Constructor
@@ -349,5 +357,29 @@ class Employee extends Person
     public function getDriverQualificationLetters()
     {
         return $this->driverQualificationLetters;
+    }
+
+    /**
+     * Set isFired
+     *
+     * @param integer $isFired
+     *
+     * @return Employee
+     */
+    public function setIsFired($isFired)
+    {
+        $this->isFired = $isFired;
+
+        return $this;
+    }
+
+    /**
+     * Get isFired
+     *
+     * @return integer
+     */
+    public function getIsFired()
+    {
+        return $this->isFired;
     }
 }

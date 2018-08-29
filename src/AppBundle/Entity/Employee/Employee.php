@@ -78,6 +78,11 @@ class Employee extends Person
     private $isFired;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true, name="termination_date")
+     */
+    private $terminationDate;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -376,5 +381,29 @@ class Employee extends Person
     public function getIsFired()
     {
         return $this->isFired;
+    }
+
+    /**
+     * Set terminationDate
+     *
+     * @param \DateTime $terminationDate
+     *
+     * @return Employee
+     */
+    public function setTerminationDate($terminationDate)
+    {
+        $this->terminationDate = $terminationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get terminationDate
+     *
+     * @return \DateTime
+     */
+    public function getTerminationDate()
+    {
+        return $this->terminationDate;
     }
 }

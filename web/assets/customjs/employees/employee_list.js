@@ -107,6 +107,7 @@ var EmployeeList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_driving_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Conducente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-qualification-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_qualification_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Qualificazione Conducente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-curriculum\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_curriculum\' });"><i class="la la-plus-circle"></i> Aggiungi Curriculum</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/terminate-employee\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_terminate\' });"><i class="la la-ban"></i> Cessazione Rapporto</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-employee-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Dipendente">\

@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Employee;
 
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Form\Employee\EmployeeType;
+use AppBundle\Form\Employee\TerminateEmployeeType;
 use AppBundle\Helper\Employee\EmployeeHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -167,6 +168,58 @@ class EmployeeController extends Controller
             'modal_title' => 'Dettagli di ' . $employee->getName() . ' ' . $employee->getSurname(),
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("ajax/terminate-employee", name="terminate_employee_ajax")
+     */
+    public function terminateEmployeeAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+
+        $employee = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+
+        if ($employee == null) return new Response('Dipendente non trovato!', 404);
+
+        $form = $this->createForm(TerminateEmployeeType::class, $employee);
+
+        $actionUrl = $this->generateUrl('terminate_employee_ajax_id', array('id' => $employee->getEmployeeId()));
+
+        $html = $this->renderView('employees/forms/terminate_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Cessazione Rapporto di Lavoro per ' . $employee->getName() . ' ' . $employee->getSurname(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/terminate-employee/{id}", name="terminate_employee_ajax_id")
+     */
+    public function terminateEmployeeAjaxId(Request $request, int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $employee = $em->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+
+        if($employee == null) return new Response('Nessun dipendente trovato', 404);
+
+        $form = $this->createForm(TerminateEmployeeType::class, $employee);
+
+        $form->handleRequest($request);
+
+        if($form->isValid() && $form->isSubmitted()) {
+            $employee = $form->getData();
+            $employee->setisFired(1);
+
+            $em->flush();
+
+            return new Response('Cessazione rapporto registrata', 200);
+        }
+        return new Response('Errore durante la registrazione della cessazione del rapporto', 500);
     }
 
 }
