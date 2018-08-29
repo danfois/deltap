@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\Document;
+use AppBundle\Entity\Employee\Curriculum;
 use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\DrivingLicense;
@@ -13,6 +14,7 @@ use AppBundle\Entity\Vehicle\InsuranceSuspension;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
+use AppBundle\Serializer\CurriculumViewNormalizer;
 use AppBundle\Serializer\DocumentViewNormalizer;
 use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
@@ -197,6 +199,21 @@ class JsonController extends Controller
         $normalizers = [new DocumentViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($data, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/curriculums", name="json_curriculums")
+     */
+    public function jsonCurriculumsAction()
+    {
+        $curriculums = $this->getDoctrine()->getRepository(Curriculum::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new CurriculumViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($curriculums, 'json');
 
         return new Response($json);
     }

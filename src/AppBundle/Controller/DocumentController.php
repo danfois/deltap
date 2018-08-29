@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Document;
+use AppBundle\Entity\Employee\Curriculum;
 use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Form\Employee\CurriculumType;
 use AppBundle\Form\Employee\DriverQualificationLetterType;
 use AppBundle\Form\Employee\DrivingLetterType;
 use AppBundle\Helper\Employee\DrivingLetterHelper;
@@ -458,5 +460,133 @@ class DocumentController extends Controller
             'modal_title' => 'Aggiungi Carta Qualificazione Conducente per ' . $e->getName() . ' ' . $e->getSurname(),
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("curriculums", name="curriculums")
+     */
+    public function curriculumsAction()
+    {
+        $curriculum = new Curriculum();
+        $form = $this->createForm(CurriculumType::class, $curriculum);
+
+        $actionUrl = $this->generateUrl('create-curriculum-ajax');
+
+        return $this->render('employees/curriculums.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl,
+            'documentType' => 'Curriculum'
+        ));
+    }
+
+    /**
+     * @Route("create-curriculum-ajax", name="create-curriculum-ajax")
+     */
+    public function createCurriculumAjaxAction(Request $request)
+    {
+        $curriculum = new Curriculum();
+        $form = $this->createForm(CurriculumType::class, $curriculum);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $curriculum = $form->getData();
+            $files = $form->get('files')->getData();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $DH = new DocumentHelper($files, $em, $curriculum->getEmployee(), 'curriculum');
+            $DH->execute();
+            $errors = $DH->getErrors();
+
+            if ($errors == null) {
+                $documents = $DH->getDocumentArray();
+
+                foreach ($documents as $d) {
+                    if ($d instanceof Document) {
+                        $d->setCurriculum($curriculum);
+                        $d->upload();
+                        $em->persist($d);
+                    }
+                }
+
+                $em->persist($curriculum);
+                $em->flush();
+
+                return new Response('Curriculum creato con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+        throw new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
+    }
+
+    /**
+     * @Route("ajax/create-curriculum", name="ajax_create_curriculum")
+     */
+    public function ajaxCreateCurriculumAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o dipendente non trovato', 400);
+
+        $e = $this->getDoctrine()->getRepository(Employee::class)->findOneBy(array('employeeId' => $id));
+        if($e == null) return new Response('Dipendente non trovato', 404);
+
+        $dl = new Curriculum();
+        $dl->setEmployee($e);
+
+        $form = $this->createForm(CurriculumType::class, $dl);
+
+        $actionUrl = $this->generateUrl('create-curriculum-ajax');
+
+        $html = $this->renderView('employees/forms/curriculum_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl,
+            'documentType' => 'Curriculum'
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Aggiungi Curriculum per ' . $e->getName() . ' ' . $e->getSurname(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("delete-curriculum", name="delete-curriculum")
+     */
+    public function deleteCurriculumAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Curriculum non esistente', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $dl = $em->getRepository(Curriculum::class)->findOneBy(array('curriculumId' => $id));
+        if($dl == null) return new Response('Nessun curriculum trovato', 404);
+
+        $documents = $dl->getDocuments();
+
+        try {
+            foreach($documents as $d) {
+                if (unlink($d->getAbsolutePath())) {
+                    $em->remove($d);
+                }
+            }
+            $em->remove($dl);
+            $em->flush();
+
+            return new Response('Curriculum eliminato con Successo!', 200);
+        } catch (\Exception $e) {
+            return new Response('Errore durante l\'eliminazione del curriculum',500);
+        }
     }
 }
