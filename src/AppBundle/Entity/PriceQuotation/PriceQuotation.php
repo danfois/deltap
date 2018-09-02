@@ -30,7 +30,7 @@ class PriceQuotation
     protected $code;
 
     /**
-     * @ORM\Column(type="string", nullable=false, name="priceQuotationDate")
+     * @ORM\Column(type="datetime", nullable=false, name="priceQuotationDate")
      * @Assert\NotBlank(message="Price Quotation Date cannot be null")
      */
     protected $priceQuotationDate;

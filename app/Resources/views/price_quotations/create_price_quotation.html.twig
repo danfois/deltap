@@ -1,0 +1,260 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Crea Preventivo Multiplo{% endblock %}
+{% block subheader_title %}Preventivo Multiplo{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Preventivo Multiplo
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_price_quotation" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Impostazioni Preventivo</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Codice:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.code) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Codice del preventivo</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Preventivo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.priceQuotationDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data del preventivo</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Cliente:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.customer) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scegliere il cliente</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>&nbsp;</label><br>
+                                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span><a href="{{ path('create_customer') }}"
+                                                     style="color:inherit; text-decoration: inherit;">Nuovo Cliente</a></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Richiesta:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.request) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire una eventuale richiesta di riferimento</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Contratto:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.contract) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-legal"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale contratto</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Servizio:</label>
+                                    {{ form_widget(form.serviceCode) }}
+                                    <span class="m-form__help">Scegliere il tipo di servizio richiesto</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>&nbsp;</label><br>
+                                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                                         data-toggle="modal" data-target="#create_service">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Nuovo Servizio</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Singoli Preventivi</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+
+                                {% for p in form.priceQuotationDetails %}
+
+                                    <div class="repeater">
+                                        <div data-repeater-list="price_quotation">
+                                            <div data-repeater-item>
+                                                <div class="col-lg-12 m-form__group-sub">
+                                                    <label>* Preventivo Singolo:</label>
+                                                    <div class="m-input-icon m-input-icon--right">
+                                                        {{ form_widget(p.priceQuotationDetailId) }}
+                                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                        class="la la-map"></i></span></span>
+                                                    </div>
+                                                    <span class="m-form__help">Scegliere un preventivo singolo da allegare a questo preventivo multiplo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="col text-left">
+                                                <div data-repeater-create=""
+                                                     class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Preventivo Singolo</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Lettera</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Email Mittente:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.senderMail) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo email del mittente</span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Email Destinatario:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.recipientEmail) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo email del destinatario</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>* Lettera:</label>
+                                    {{ form_widget(form.letter.letter_body) }}
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row text-right">
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>&nbsp;</label><br>
+                                    <div id="generate_letter"
+                                         class="btn-md btn btn-success m-btn m-btn--icon m-btn--gradient-to-metal">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Genera Lettera</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/price_quotations/price_quotation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

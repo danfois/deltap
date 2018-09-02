@@ -2,8 +2,11 @@
 
 namespace AppBundle\Form\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
+use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use AppBundle\Form\LetterType;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -14,6 +17,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PriceQuotationType extends AbstractType
 {
+
+    protected $transformer;
+
+    public function __construct(StringToDateTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -31,7 +42,7 @@ class PriceQuotationType extends AbstractType
             ))
             ->add('priceQuotationDate', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input date_picker'
                 )
             ))
             ->add('code', TextType::class, array(
@@ -54,12 +65,14 @@ class PriceQuotationType extends AbstractType
             ->add('recipientEmail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('senderMail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('serviceCode', EntityType::class, array(
                 'class' => 'AppBundle:Service',
@@ -73,18 +86,35 @@ class PriceQuotationType extends AbstractType
                     'class' => 'form-control m-input service_select'
                 )
             ))
-            ->add('letter', LetterType::class)
-            ->add('priceQuotationDetails', CollectionType::class, array(
+            ->add('letter', LetterType::class, array(
+                'required' => false
+            ))
+            /*->add('priceQuotationDetails', CollectionType::class, array(
                 'entry_type' => EntityType::class,
                 'entry_options' => array(
-                    'allow_add' => true,
-                    'allow_delete' => true,
                     'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
-                    'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'empty_data' => null,
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('p')->select('p');
+                    }
                 ),
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))*/
+            ->add('priceQuotationDetails', CollectionType::class, array(
+                'entry_type' => SinglePriceQuotationDetailType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
             ));
+
+            $builder->get('priceQuotationDate')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

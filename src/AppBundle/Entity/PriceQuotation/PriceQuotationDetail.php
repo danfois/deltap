@@ -18,7 +18,7 @@ class PriceQuotationDetail
     protected $priceQuotationDetailId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation", inversedBy="priceQuotationDetails")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation", inversedBy="priceQuotationDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId")
      */
     protected $priceQuotation;

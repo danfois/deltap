@@ -1,52 +1,75 @@
 <?php
 
 namespace AppBundle\Helper\PriceQuotation;
-
-use AppBundle\Entity\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 
 class PriceQuotationHelper
 {
     private $priceQuotation;
+    private $em;
     private $user;
-    private $_pqdh;
+    private $errors;
+    private $executed;
 
-    public function __construct(PriceQuotation $priceQuotation, User $user)
+    public function __construct(PriceQuotation $priceQuotation, EntityManager $em, User $user)
     {
         $this->priceQuotation = $priceQuotation;
+        $this->em = $em;
         $this->user = $user;
-        $this->_pqdh = new PriceQuotationDetailHelper($this->priceQuotation->getQuotationDetails(), $this->priceQuotation);
     }
 
     public function execute()
     {
+        $this->checkDetails();
         $this->setUser();
         $this->setStatus();
-        $this->convertDates();
-        $this->_pqdh->execute();
+        $this->checkSamePriceQuotation();
+        $this->executed = 1;
+    }
+
+    private function checkDetails()
+    {
+        foreach($this->priceQuotation->getPriceQuotationDetails() as $p) {
+            if($p instanceof PriceQuotationDetail) {
+                if($p->getPriceQuotation() == null) continue;
+                if($p->getPriceQuotation() != null && $p->getPriceQuotation()->getPriceQuotationId() == $this->priceQuotation->getPriceQuotationId()) continue;
+                $newP = clone $p;
+                $newP->setPriceQuotation($this->priceQuotation);
+                $this->priceQuotation->getPriceQuotationDetails()->remove($p);
+                $this->priceQuotation->getPriceQuotationDetails()->add($newP);
+            }
+        }
+    }
+
+    private function checkSamePriceQuotation()
+    {
+        $pq = $this->em->getRepository(PriceQuotation::class)->findOneBy(array('code' => $this->priceQuotation->getCode()));
+        if($pq == null) return true;
+        $this->errors .= 'Esiste già un preventivo multiplo con questo codice<br>';
+        return false;
     }
 
     private function setUser()
     {
         if($this->priceQuotation->setAuthor($this->user)) return true;
-        throw new \Exception('Cannot set Price Quotation Author');
+        $this->errors .= 'Impossibile impostare l\'autore del preventivo<br>';
+        return false;
     }
 
     private function setStatus()
     {
         if($this->priceQuotation->setStatus(1)) return true;
-        throw new \Exception('Cannot set Price Quotation Status');
+        $this->errors .= 'Impossibile impostare lo status del preventivo<br>';
+        return false;
     }
 
-    private function convertStringToDate($string)
-    {
-        return new \DateTime($string);
-    }
 
-    private function convertDates()
+    public function getErrors()
     {
-        if($this->priceQuotation->getQuotationDate() != '') {
-            $this->priceQuotation->setQuotationDate($this->convertStringToDate($this->priceQuotation->getQuotationDate()));
-        }
+        if($this->executed === 0) throw new \Exception('Class Not Executed');
+        return $this->errors;
     }
 }

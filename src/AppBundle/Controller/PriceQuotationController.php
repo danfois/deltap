@@ -7,12 +7,15 @@ use AppBundle\Entity\PriceQuotation\Stage;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
+use AppBundle\Form\PriceQuotation\PriceQuotationType;
+use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PriceQuotationController extends Controller
 {
@@ -22,6 +25,41 @@ class PriceQuotationController extends Controller
     public function createPriceQuotationAction()
     {
         $PQ = new PriceQuotation();
+        $PD = new PriceQuotationDetail();
+
+        $PQ->getPriceQuotationDetails()->add($PD);
+
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        //$actionUrl = $this->generateUrl('create_price_quotation_ajax_test');
+        $actionUrl = $this->generateUrl('create_price_quotation_ajax');
+
+        return $this->render('price_quotations/create_price_quotation.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl
+        ));
+    }
+
+    /**
+     * @Route("create-price-quotation-ajax-test", name="create_price_quotation_ajax_test")
+     */
+    public function createPriceQuotationAjaxTest(Request $request)
+    {
+        $PQ = new PriceQuotation();
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $data = $form->getData();
+
+            return $this->render('DEBUG/form_data.html.twig', array(
+                'data' => $data,
+                'title' => 'DEBUG di preventivo'
+            ));
+        }
+
+        return new Response('NON VA BENE', 200);
     }
 
     /**
@@ -36,26 +74,33 @@ class PriceQuotationController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             $PQ = $form->getData();
-
+            $em = $this->getDoctrine()->getManager();
             $user = $this->getUser();
 
-            try {
-                $PQHelper = new PriceQuotationHelper($PQ, $user);
-                $PQHelper->execute();
-            } catch(\Exception $e) {
-                return new Response( $e->getMessage(), 500);
+            $PQH = new PriceQuotationHelper($PQ, $em, $user);
+            $PQH->execute();
+            $errors = $PQH->getErrors();
+
+            if($errors == null) {
+                $em->persist($PQ);
+                $em->flush();
+
+                return new Response('Preventivo Multiplo creato con successo', 200);
             }
+            return new Response($errors, 500);
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
 
-            $em = $this->getDoctrine()->getManager();
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
 
-            $em->persist($PQ);
-            $em->flush();
-
-            return new Response('Ok', 200);
+            }
+            return new Response($error, 500);
         }
 
-        $errors = $form->getErrors();
-        return new Response($errors, 500);
+        throw new AccessDeniedException('Accesso Negato');
     }
 
     /**
