@@ -48,7 +48,7 @@ class PriceQuotation
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Letter", cascade={"persist"})
-     * @ORM\JoinColumn(name="letterId", referencedColumnName="letterId")
+     * @ORM\JoinColumn(name="letterId", referencedColumnName="letterId", nullable=true)
      */
     protected $letter;
 

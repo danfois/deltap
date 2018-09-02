@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Form;
-use AppBundle\Entity\PriceQuotation;
+namespace AppBundle\Form\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Form\LetterType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,17 +17,6 @@ class PriceQuotationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quotation_date', TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input date_picker',
-                    'autocomplete' => 'off'
-                )
-            ))
-            ->add('quotation_code', TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                )
-            ))
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle:Customer',
                 'query_builder' => function(EntityRepository $er) {
@@ -38,6 +27,16 @@ class PriceQuotationType extends AbstractType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input customer_select'
+                )
+            ))
+            ->add('priceQuotationDate', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))
+            ->add('code', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
                 )
             ))
             ->add('request', TextType::class, array(
@@ -52,22 +51,17 @@ class PriceQuotationType extends AbstractType
                 ),
                 'required' => false
             ))
-            ->add('receiver_mail', EmailType::class, array(
+            ->add('recipientEmail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('sender_mail', EmailType::class, array(
+            ->add('senderMail', EmailType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('status', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                )
-            ))
-            ->add('service_code', EntityType::class, array(
+            ->add('serviceCode', EntityType::class, array(
                 'class' => 'AppBundle:Service',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('s')->select('s');
@@ -80,9 +74,16 @@ class PriceQuotationType extends AbstractType
                 )
             ))
             ->add('letter', LetterType::class)
-            ->add('quotationDetails', CollectionType::class, array(
-                'entry_type' => PriceQuotationDetailType::class,
-                'allow_add' => true
+            ->add('priceQuotationDetails', CollectionType::class, array(
+                'entry_type' => EntityType::class,
+                'entry_options' => array(
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
+                    'choice_label' => 'name'
+                ),
+                'allow_add' => true,
+                'allow_delete' => true
             ));
     }
 
