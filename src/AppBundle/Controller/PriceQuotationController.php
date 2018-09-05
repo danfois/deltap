@@ -4,10 +4,13 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\PriceQuotation\Stage;
+use AppBundle\Entity\RepeatedTimes;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
+use AppBundle\Form\PriceQuotation\PriceQuotationDetailType;
 use AppBundle\Form\PriceQuotation\PriceQuotationType;
+use AppBundle\Form\PriceQuotation\RepeatedTimesType;
 use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
@@ -101,6 +104,62 @@ class PriceQuotationController extends Controller
         }
 
         throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("create-price-quotation-detail-{id}", name="create_price_quotation_detail")
+     */
+    public function createPriceQuotationDetailAction(Request $request, int $id = null)
+    {
+        //todo: l'id mi serve nel caso sto creando un dettaglio da associare ad un preventivo multiplo già esistente
+
+        $PQD = new PriceQuotationDetail();
+        $s = new Stage();
+        $s->setRepeatedTimes(array(new RepeatedTimesType()));
+
+        $PQD->getStages()->add($s);
+
+        $form = $this->createForm(PriceQuotationDetailType::class, $PQD);
+
+        return $this->render('price_quotations/create_price_quotation_detail.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("ajax/create-price-quotation-detail", name="create_price_quotation_detail_ajax")
+     */
+    public function createPriceQuotationDetaiAjax(Request $request)
+    {
+        $PQD = new PriceQuotationDetail();
+        $form = $this->createForm(PriceQuotationDetailType::class, $PQD);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $PQD = $form->getData();
+
+            //todo: eventualmente implementare un helper
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($PQD);
+
+            foreach($PQD->getStages() as $ss) {
+                $em->persist($ss);
+            }
+            $em->flush();
+
+            return new Response('ok', 200);
+        }
+        return new Response('nessun form inviato', 500);
+    }
+
+    /**
+     * @Route("price-quotations-list", name="price_quotations_list")
+     */
+    public function priceQuotationListAction()
+    {
+        return $this->render('price_quotations/price_quotation_list.html.twig');
     }
 
     /**

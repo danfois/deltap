@@ -18,7 +18,7 @@ class Stage
     protected $stageId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", inversedBy="stages")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", inversedBy="stages", cascade={"persist"})
      * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId")
      */
     protected $priceQuotationDetail;
@@ -31,11 +31,11 @@ class Stage
     protected $departureLocation;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=64, name="arrival")
+     * @ORM\Column(type="string", nullable=false, length=64, name="arrival_location")
      * @Assert\NotBlank(message="Arrival Location cannot be null")
      * @Assert\Length(max=64, maxMessage="Arrival location too long. Max 64 chars")
      */
-    protected $departureArrival;
+    protected $arrivalLocation;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, name="departure_date")
@@ -55,6 +55,11 @@ class Stage
      * @Assert\Length(max=2, maxMessage="Max Bus allowed for single stage is 99")
      */
     protected $busNumber;
+
+    /**
+     * @ORM\Column(type="integer", length=4, nullable=true, name="passengers")
+     */
+    protected $passengers;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="km")
@@ -117,30 +122,6 @@ class Stage
     public function getDepartureLocation()
     {
         return $this->departureLocation;
-    }
-
-    /**
-     * Set departureArrival
-     *
-     * @param string $departureArrival
-     *
-     * @return Stage
-     */
-    public function setDepartureArrival($departureArrival)
-    {
-        $this->departureArrival = $departureArrival;
-
-        return $this;
-    }
-
-    /**
-     * Get departureArrival
-     *
-     * @return string
-     */
-    public function getDepartureArrival()
-    {
-        return $this->departureArrival;
     }
 
     /**
@@ -357,5 +338,53 @@ class Stage
     public function getPriceQuotationDetail()
     {
         return $this->priceQuotationDetail;
+    }
+
+    /**
+     * Set arrivalLocation
+     *
+     * @param string $arrivalLocation
+     *
+     * @return Stage
+     */
+    public function setArrivalLocation($arrivalLocation)
+    {
+        $this->arrivalLocation = $arrivalLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get arrivalLocation
+     *
+     * @return string
+     */
+    public function getArrivalLocation()
+    {
+        return $this->arrivalLocation;
+    }
+
+    /**
+     * Set passengers
+     *
+     * @param integer $passengers
+     *
+     * @return Stage
+     */
+    public function setPassengers($passengers)
+    {
+        $this->passengers = $passengers;
+
+        return $this;
+    }
+
+    /**
+     * Get passengers
+     *
+     * @return integer
+     */
+    public function getPassengers()
+    {
+        return $this->passengers;
     }
 }

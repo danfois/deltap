@@ -1,7 +1,7 @@
 var initializeWidgets = function () {
     $(".date_picker").datepicker({
         todayHighlight: !0,
-        orientation: "top right",
+        orientation: "bottom right",
         format: 'dd/mm/yyyy',
         templates: {leftArrow: '<i class="la la-angle-left"></i>', rightArrow: '<i class="la la-angle-right"></i>'}
     });

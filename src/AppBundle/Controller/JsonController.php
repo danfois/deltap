@@ -7,6 +7,8 @@ use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
@@ -20,6 +22,8 @@ use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
+use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
+use AppBundle\Serializer\PriceQuotationViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -218,6 +222,35 @@ class JsonController extends Controller
         return new Response($json);
     }
 
+    /**
+     * @Route("json/price-quotations", name="json_price_quotations")
+     */
+    public function jsonPriceQuotationsAction()
+    {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new PriceQuotationViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($pq, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/price-quotation-details", name="json_price_quotations_details")
+     */
+    public function jsonPriceQuotationsDetailsAction()
+    {
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new PriceQuotationDetailViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($pqd, 'json');
+
+        return new Response($json);
+    }
 
 
 }

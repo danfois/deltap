@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+{% block title %}Redentours | Crea Itinerario{% endblock %}
+{% block subheader_title %}Crea Itinerario{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Itinerario
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin: Form Wizard-->
+                <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                        <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+                    <!--begin: Form Wizard Head -->
+                    <div class="m-wizard__head m-portlet__padding-x">
+
+                        <div class="m-wizard__progress">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                        <!--begin: Form Wizard Nav -->
+                        {% include('price_quotations/wizard_head.html.twig') %}
+                        <!--end: Form Wizard Nav -->
+                    </div>
+
+                    <div class="m-wizard__form">
+                        <form class="m-form m-form--label-align-left- m-form--state-" id="form_price_quotation_detail"
+                              action="{{ path('create_price_quotation_detail_ajax') }}" method="POST">
+                            <!--begin: Form Body -->
+                            <div class="m-portlet__body">
+                                {{ form_widget(form._token) }}
+                                <div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
+                                    {% include('price_quotations/general_details_section.html.twig') %}
+                                </div>
+
+                                <!--begin: Form Wizard Step 2-->
+                                <div class="m-wizard__form-step" id="m_wizard_form_step_2">
+                                    {% include('price_quotations/stages.html.twig') %}
+                                </div>
+                                <!--end: Form Wizard Step 2-->
+                                <!--begin: Form Wizard Step 3-->
+                                <div class="m-wizard__form-step" id="m_wizard_form_step_4">
+                                    {#{% include('price_quotations/last_step.html.twig') %}#}
+                                </div>
+                                <!--end: Form Wizard Step 3-->
+                            </div>
+                            <!--end: Form Body -->
+                            <!--begin: Form Actions -->
+                            <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                                <div class="m-form__actions m-form__actions">
+                                    <div class="row">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-lg-4 m--align-left">
+                                            <a href="#" class="btn btn-secondary m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="prev">
+                                                                    <span>
+                                                                        <i class="la la-arrow-left"></i>
+                                                                        &nbsp;&nbsp;
+                                                                        <span>
+                                                                            Indietro
+                                                                        </span>
+                                                                    </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 m--align-right">
+                                            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="submit">
+                                                                    <span>
+                                                                        <i class="la la-check"></i>
+                                                                        &nbsp;&nbsp;
+                                                                        <span>
+                                                                            Salva
+                                                                        </span>
+                                                                    </span>
+                                            </a>
+                                            <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
+                                               data-wizard-action="next">
+                                                                    <span>
+                                                                        <span>
+                                                                            Salva & Continua
+                                                                        </span>
+                                                                        &nbsp;&nbsp;
+                                                                        <i class="la la-arrow-right"></i>
+                                                                    </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Form Actions -->
+                        </form>
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+                <!--end: Form Wizard-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block modals %}
+    {#{% include('categories/modal_create_category.html.twig') %}
+    {% include('services/modal_create_service_type.html.twig') %}
+    {% include('services/modal_create_service.html.twig') %}#}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/price_quotations/calculateKm.js') }}"></script>
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/modals/modal_create_category.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/modals/modal_create_service.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/modals/modal_create_service_type.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/price_quotations/price_quotation_detail.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

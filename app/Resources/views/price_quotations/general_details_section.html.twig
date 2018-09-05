@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-xl-10 offset-xl-1">
+        <div class="m-form__section m-form__section--first">
+            <div class="m-form__heading">
+                <h3 class="m-form__heading-title">1. Generalità Itinerario</h3>
+            </div>
+
+
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>* Numero Preventivo:</label>
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.priceQuotation) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        class="la la-barcode"></i></span></span>
+                    </div>
+                    <span class="m-form__help">Preventivo al quale associare questo itinerario</span>
+                </div>
+
+                <div class="col-lg-9 m-form__group-sub">
+                    <label>* Codice Itinerario:</label>
+                    <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.name) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                        class="la la-file"></i></span></span>
+                    </div>
+                    <span class="m-form__help">Il nome dell'itinerario che servirà in caso di riutilizzo nella creazione di preventivi futuri</span>
+                </div>
+
+            </div>
+
+
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-4 m-form__group-sub">
+                    <label>* Frequenza Servizio:</label>
+                    {{ form_widget(form.serviceType) }}
+                    <span class="m-form__help"></span>
+                </div>
+
+                <div class="col-lg-2 m-form__group-sub">
+                    <label>&nbsp;</label><br>
+                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span><a href="{{ path('create_service_type') }}" style="color:inherit; text-decoration: inherit;">Nuovo Tipo Servizio</a></span>
+                                        </span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 m-form__group-sub">
+                    <label>* Tipo Servizio:</label>
+                    {{ form_widget(form.serviceCode) }}
+                    <span class="m-form__help">Inserire il servizio prevalente dell'itinerario.</span>
+                </div>
+
+                <div class="col-lg-2 m-form__group-sub">
+                    <label>&nbsp;</label><br>
+                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                         data-toggle="modal" data-target="#create_service">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Nuovo Servizio</span>
+                                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-12 m-form__group-sub">
+                    <label>* Descrizione:</label>
+                    {{ form_widget(form.description) }}
+                    <span class="m-form__help">Inserire la descrizione dell'itinerario.</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
