@@ -87,7 +87,14 @@ class StageType extends AbstractType
                     'class' => 'form-control m-input touch_spin'
                 ),
                 'required' => false
+            ))
+            ->add('leftouts', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
             ));
+
+        //todo: implementare quel coso tipo i tag separati da virgola
 
         $builder->get('departureDate')->addModelTransformer($this->transformer);
         $builder->get('arrivalDate')->addModelTransformer($this->transformer);

@@ -89,6 +89,11 @@ class Stage
      */
     protected $estimatedTime;
 
+    /**
+     * @ORM\Column(type="string", nullable=true, name="leftouts")
+     */
+    protected $leftouts;
+
 
     /**
      * Get stageId
@@ -387,4 +392,22 @@ class Stage
     {
         return $this->passengers;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLeftouts()
+    {
+        return $this->leftouts;
+    }
+
+    /**
+     * @param mixed $leftouts
+     */
+    public function setLeftouts($leftouts)
+    {
+        $this->leftouts = $leftouts;
+    }
+
+
 }
