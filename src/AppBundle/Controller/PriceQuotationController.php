@@ -184,4 +184,15 @@ class PriceQuotationController extends Controller
 
         throw new \Exception('You should not be here', 403);
     }
+
+    /**
+     * @Route("/distance-matrix", name="distance_matrix")
+     */
+    public function distanceMatrixAction(Request $request)
+    {
+        $DistanceMatrixUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=';
+        $response = file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=Sennori&destination=Sassari&key=AIzaSyBzvS_c1V5lQH9KZWO8A5QihgEAcYQfC1A');
+
+        return new Response($response, 200);
+    }
 }

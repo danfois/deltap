@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-xl-10 offset-xl-1">
+        <!--begin::Section-->
+        <div class="m-accordion m-accordion--default" id="m_accordion_1"
+             role="tablist">
+            <!--begin::Item-->
+            <div class="m-accordion__item active">
+                <div class="m-accordion__item-head" role="tab"
+                     id="m_accordion_1_item_1_head" data-toggle="collapse"
+                     href="#m_accordion_1_item_1_body" aria-expanded="false">
+                                                    <span class="m-accordion__item-icon">
+                                                                                <i class="fa flaticon-map-location"></i>
+                                                                            </span>
+                    <span class="m-accordion__item-title">
+                                                                                1. Generalità Itinerario
+                                                                            </span>
+                    <span class="m-accordion__item-mode"></span>
+                </div>
+                <div class="m-accordion__item-body collapse show"
+                     id="m_accordion_1_item_1_body" role="tabpanel"
+                     aria-labelledby="m_accordion_1_item_1_head"
+                     data-parent="#m_accordion_1">
+                    <!--begin::Content-->
+                    <div class="tab-content  m--padding-30">
+
+                            <div class="m-form__heading">
+                                <h4 class="m-form__heading-title">
+                                    Generalità
+                                </h4>
+                            </div>
+
+
+                            <!-- Dove viene visualizzato il riepilogo-->
+                            <table class="table m-table m-table--head-separator-primary">
+                                <thead>
+                                <tr>
+                                    <th>Numero Preventivo</th>
+                                    <th>Codice Itinerario</th>
+                                    <th>Frequenza Servizio</th>
+                                    <th>Tipo Servizio</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td id="n_prev"></td>
+                                    <td id="cod_it"></td>
+                                    <td id="fr_s"></td>
+                                    <td id="t_s"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <div class="m-accordion__item">
+                <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head"
+                     data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="false">
+                    <span class="m-accordion__item-icon">
+                        <i class="fa  flaticon-statistics"></i>
+                    </span>
+                    <span class="m-accordion__item-title">
+                        2. Tragitti
+                    </span>
+                    <span class="m-accordion__item-mode"></span>
+                </div>
+                <div class="m-accordion__item-body collapse"
+                     id="m_accordion_1_item_3_body" role="tabpanel"
+                     aria-labelledby="m_accordion_1_item_3_head"
+                     data-parent="#m_accordion_1">
+                    <!--begin::Content-->
+                    <div class="tab-content  m--padding-30">
+                            <div class="m-form__heading">
+                                <h4 class="m-form__heading-title">
+                                    Itinerari
+                                </h4>
+                            </div>
+
+
+                            <div id="riepilogo-itinerari"></div>
+
+
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Item-->
+        </div>
+        <!--end::Section-->
+        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+        <div class="form-group m-form__group m-form__group--sm row">
+            <div class="col-xl-12">
+                <div class="m-checkbox-inline">
+                    <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                        <input type="checkbox" name="accept" value="1"> Clicca
+                        qui
+                        per confermare il salvataggio dell'itinerario
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

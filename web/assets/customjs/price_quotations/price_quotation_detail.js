@@ -12,7 +12,7 @@ var PriceQuotation = function () {
 
                 (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
                     //if (!0 !== i.form()) return !1;
-                    //lastStep();
+                    LastStep();
                 }),
 
                 e.on("change", function () {
@@ -95,78 +95,6 @@ var TypeAheadWidget = function () {
         }
     });
     $('.place_autocomplete').removeClass('place_autocomplete');
-};
-
-
-var lastStep = function () {
-    var inputs_1 = $('#m_wizard_form_step_1 :text');
-    var selects_1 = $('#m_wizard_form_step_1 select option:selected');
-    var summaryDetailsContainer = $('#riepilogo-dettagli');
-
-    summaryDetailsContainer.html('');
-
-    inputs_1.each(function () {
-        var $label = $(this).parent().parent().find('label');
-        if ($(this).val() !== '' && !$label.hasClass('note-form-label')) {
-            summaryDetailsContainer.append('<div class="form-group m-form__group m-form__group--sm row"><label class="col-xl-4 col-lg-4 col-form-label">' + $label.text() + '</label>\
-                <div class="col-xl-8 col-lg-8"><span class="m-form__control-static">' + $(this).val() + '</span></div></div>');
-        }
-    });
-
-    selects_1.each(function () {
-        var parent = $(this).parent();
-        var $label = parent.find('label');
-
-        while ($label.text() === '') {
-            parent = parent.parent();
-            $label = parent.find('label');
-        }
-
-        if ($(this).text() !== '' && !$label.hasClass('note-form-label') && $(this).val() !== '') {
-            summaryDetailsContainer.append('<div class="form-group m-form__group m-form__group--sm row"><label class="col-xl-4 col-lg-4 col-form-label">' + $label.text() + '</label>\
-                <div class="col-xl-8 col-lg-8"><span class="m-form__control-static">' + $(this).text() + '</span></div></div>');
-        }
-    });
-
-    var inputs_2 = $('#m_wizard_form_step_2 :text');
-    var selects_2 = $('#m_wizard_form_step_2 select option:selected');
-    var summaryItineraryContainer = $('#riepilogo-itinerari');
-
-    summaryItineraryContainer.html('');
-
-    inputs_2.each(function () {
-        var parent = $(this).parent();
-        var $label = parent.find('label');
-
-        while ($label.text() === '') {
-            parent = parent.parent();
-            $label = parent.find('label');
-        }
-
-        if ($(this).val() !== '' && !$label.hasClass('note-form-label')) {
-            if ($label.text().indexOf('Località Partenza') !== -1) summaryItineraryContainer.append('<div class="m-separator m-separator--dashed m-separator--lg"></div>');
-            summaryItineraryContainer.append('<div class="form-group m-form__group m-form__group--sm row"><label class="col-xl-4 col-lg-4 col-form-label">' + $label.text() + '</label>\
-                <div class="col-xl-8 col-lg-8"><span class="m-form__control-static">' + $(this).val() + '</span></div></div>');
-        }
-    });
-
-    //TODO: fare in modo che le select siano divise per itinerario
-
-    /*selects_2.each(function () {
-     var parent = $(this).parent();
-     var $label = parent.find('label');
-
-     while($label.text() === '') {
-     parent = parent.parent();
-     $label = parent.find('label');
-     }
-
-     if ($(this).text() !== '' && !$label.hasClass('note-form-label') && $(this).val() !== '') {
-     summaryItineraryContainer.append('<div class="form-group m-form__group m-form__group--sm row"><label class="col-xl-4 col-lg-4 col-form-label">' + $label.text() + '</label>\
-     <div class="col-xl-8 col-lg-8"><span class="m-form__control-static">' + $(this).text() + '</span></div></div>');
-     }
-     });*/
-
 };
 
 
