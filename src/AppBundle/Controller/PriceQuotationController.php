@@ -12,6 +12,7 @@ use AppBundle\Form\PriceQuotation\PriceQuotationDetailType;
 use AppBundle\Form\PriceQuotation\PriceQuotationType;
 use AppBundle\Form\PriceQuotation\RepeatedTimesType;
 use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
+use AppBundle\Util\DistanceMatrixAPI;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -190,8 +191,13 @@ class PriceQuotationController extends Controller
      */
     public function distanceMatrixAction(Request $request)
     {
-        $DistanceMatrixUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=';
-        $response = file_get_contents('https://maps.googleapis.com/maps/api/directions/json?origin=Sennori&destination=Sassari&key=AIzaSyBzvS_c1V5lQH9KZWO8A5QihgEAcYQfC1A');
+        $startPoint = $request->query->get('startPoint');
+        $endPoint = $request->query->get('endPoint');
+
+        $DM = new DistanceMatrixAPI($startPoint, $endPoint, 'json', true);
+        $DM->generateRequestUrl();
+        $response = $DM->getResult();
+
 
         return new Response($response, 200);
     }
