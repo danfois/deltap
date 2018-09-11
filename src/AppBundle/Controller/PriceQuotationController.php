@@ -6,6 +6,8 @@ use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\PriceQuotation\Stage;
 use AppBundle\Entity\RepeatedTimes;
+use AppBundle\Entity\Service;
+use AppBundle\Entity\ServiceType;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
@@ -119,6 +121,12 @@ class PriceQuotationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $st = new ServiceType();
+        $service = new Service();
+
+        $service_form_type = $this->createForm(CreateServiceTypeType::class, $st);
+        $serviceType = $this->createForm(CreateServiceType::class, $service);
+
         $PQD = new PriceQuotationDetail();
         $PQD->setName(PriceQuotationUtils::generatePriceQuotationDetailCode($em));
         $s = new Stage();
@@ -135,7 +143,9 @@ class PriceQuotationController extends Controller
         $form = $this->createForm(PriceQuotationDetailType::class, $PQD);
 
         return $this->render('price_quotations/create_price_quotation_detail.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'service_form' => $serviceType->createView(),
+            'service_type_form' => $service_form_type->createView()
         ));
     }
 
