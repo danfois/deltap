@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\PriceQuotation\Stage;
@@ -13,6 +14,7 @@ use AppBundle\Form\PriceQuotation\PriceQuotationType;
 use AppBundle\Form\PriceQuotation\RepeatedTimesType;
 use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
 use AppBundle\Util\DistanceMatrixAPI;
+use AppBundle\Util\PriceQuotationUtils;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,6 +34,9 @@ class PriceQuotationController extends Controller
         $PD = new PriceQuotationDetail();
 
         $PQ->getPriceQuotationDetails()->add($PD);
+
+        $em = $this->getDoctrine()->getManager();
+        $PQ->setCode(PriceQuotationUtils::generatePriceQuotationCode($em));
 
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
@@ -54,7 +59,7 @@ class PriceQuotationController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $data = $form->getData();
 
             return $this->render('DEBUG/form_data.html.twig', array(
@@ -76,7 +81,7 @@ class PriceQuotationController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $PQ = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $user = $this->getUser();
@@ -85,7 +90,7 @@ class PriceQuotationController extends Controller
             $PQH->execute();
             $errors = $PQH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->persist($PQ);
                 $em->flush();
 
@@ -97,7 +102,7 @@ class PriceQuotationController extends Controller
             $errors = $form->getErrors(true);
             $error = '';
 
-            foreach($errors as $k => $e) {
+            foreach ($errors as $k => $e) {
                 $error .= $e->getMessage() . '<br> ';
 
             }
@@ -112,11 +117,18 @@ class PriceQuotationController extends Controller
      */
     public function createPriceQuotationDetailAction(Request $request, int $id = null)
     {
-        //todo: l'id mi serve nel caso sto creando un dettaglio da associare ad un preventivo multiplo già esistente
+        $em = $this->getDoctrine()->getManager();
 
         $PQD = new PriceQuotationDetail();
+        $PQD->setName(PriceQuotationUtils::generatePriceQuotationDetailCode($em));
         $s = new Stage();
         $s->setRepeatedTimes(array(new RepeatedTimesType()));
+
+        if ($id != null) {
+            $PQ = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
+            if($PQ == null) return new Response('Nessun preventivo trovato', 404);
+            $PQD->setPriceQuotation($PQ);
+        }
 
         $PQD->getStages()->add($s);
 
@@ -137,15 +149,15 @@ class PriceQuotationController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $PQD = $form->getData();
 
-            //todo: eventualmente implementare un helper
+            //todo: eventualmente implementare un helper mi serve per calcolare il totale del prezzo
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($PQD);
 
-            foreach($PQD->getStages() as $ss) {
+            foreach ($PQD->getStages() as $ss) {
                 $em->persist($ss);
             }
             $em->flush();
@@ -175,7 +187,7 @@ class PriceQuotationController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $PQ = $form->getData();
 
             return $this->render('price_quotations/letter_template.html.twig', array(

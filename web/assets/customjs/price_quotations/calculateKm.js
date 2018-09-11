@@ -58,8 +58,10 @@ var calculateKm = function(jQueryButtonElement) {
                 return;
             }
             console.log(response);
-            KmField.val(response.rows[0].elements[0].distance.text);
-            TimeField.val(response.rows[0].elements[0].duration.text);
+            // KmField.val(response.rows[0].elements[0].distance.text);
+            // TimeField.val(response.rows[0].elements[0].duration.text);
+            KmField.val(response.rows[0].elements[0].distance.value / 1000);
+            TimeField.val(response.rows[0].elements[0].duration.value / 60);
             mApp.unblockPage();
         },
         error: function(e) {

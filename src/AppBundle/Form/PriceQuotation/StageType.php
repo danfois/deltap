@@ -90,7 +90,7 @@ class StageType extends AbstractType
             ))
             ->add('leftouts', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input taginput'
                 )
             ));
 

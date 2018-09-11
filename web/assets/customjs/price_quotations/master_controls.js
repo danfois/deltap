@@ -60,6 +60,14 @@ var MainControls = function () {
 };
 
 
+jQuery(document).ready(function() {
+    $('.taginput').tagsInput({
+        width:'inherit',
+        height:'inherit',
+        defaultText: 'gg/mm/yyyy'
+    });
+});
+
 /*
  Il flow deve essere:
      - Individuare e salvare i dati del main control - OK
@@ -67,6 +75,6 @@ var MainControls = function () {
      - Modificare quei campi - OK
 
  Ora è necessario fare in modo che quando le tappe vengono clonate siano già precompilate,
- ma per questo bisogna modificare price_quotation_details.js
+ ma per questo bisogna modificare price_quotation_details.js - OK
 
  */
