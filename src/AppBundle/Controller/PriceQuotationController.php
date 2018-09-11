@@ -14,6 +14,7 @@ use AppBundle\Form\CreateServiceTypeType;
 use AppBundle\Form\PriceQuotation\PriceQuotationDetailType;
 use AppBundle\Form\PriceQuotation\PriceQuotationType;
 use AppBundle\Form\PriceQuotation\RepeatedTimesType;
+use AppBundle\Helper\PriceQuotation\PriceQuotationDetailHelper;
 use AppBundle\Helper\PriceQuotation\PriceQuotationHelper;
 use AppBundle\Util\DistanceMatrixAPI;
 use AppBundle\Util\PriceQuotationUtils;
@@ -159,22 +160,47 @@ class PriceQuotationController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        /*if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            return $this->render('DEBUG/form_data.html.twig', array(
+                'data' => $data,
+                'title' => 'Price Quotation Detail Debug'
+            ));
+        }*/
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $PQD = $form->getData();
-
-            //todo: eventualmente implementare un helper mi serve per calcolare il totale del prezzo
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($PQD);
 
-            foreach ($PQD->getStages() as $ss) {
-                $em->persist($ss);
+            $PQDH = new PriceQuotationDetailHelper($PQD, $em, false);
+            $PQDH->execute();
+            $errors = $PQDH->getErrors();
+
+            if($errors == null) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PQD);
+
+                foreach ($PQD->getStages() as $ss) {
+                    $em->persist($ss);
+                }
+                $em->flush();
+                return new Response('Itinerario salvato con successo!', 200);
             }
-            $em->flush();
-
-            return new Response('ok', 200);
+            return new Response($errors, 500);
         }
-        return new Response('nessun form inviato', 500);
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
     }
 
     /**

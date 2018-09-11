@@ -61,7 +61,7 @@ var MainControls = function () {
 
 
 jQuery(document).ready(function() {
-    $('.taginput').tagsInput({
+    $('#main_leftouts').tagsInput({
         width:'inherit',
         height:'inherit',
         defaultText: 'gg/mm/yyyy'

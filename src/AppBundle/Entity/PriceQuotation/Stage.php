@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\PriceQuotation;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as MyAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\StageRepository")
@@ -91,6 +92,7 @@ class Stage
 
     /**
      * @ORM\Column(type="string", nullable=true, name="leftouts")
+     * @MyAssert\DateTags
      */
     protected $leftouts;
 

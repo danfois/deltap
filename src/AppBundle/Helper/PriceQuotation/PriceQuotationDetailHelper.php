@@ -1,44 +1,50 @@
 <?php
 
 namespace AppBundle\Helper\PriceQuotation;
-use AppBundle\Entity\PriceQuotation;
-use AppBundle\Entity\PriceQuotationDetail;
-use Doctrine\Common\Collections\ArrayCollection;
+
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
+use Doctrine\ORM\EntityManager;
 
 class PriceQuotationDetailHelper
 {
-    private $priceQuotationDetails;
-    private $priceQuotation;
+    protected $priceQuotationDetail;
+    protected $em;
+    protected $errors;
+    protected $executed = 0;
+    protected $isEdited;
 
-    public function __construct(ArrayCollection $priceQuotationDetails, PriceQuotation $PQ)
+    public function __construct(PriceQuotationDetail $priceQuotationDetail, EntityManager $em, bool $isEdited = false)
     {
-        $this->priceQuotationDetails = $priceQuotationDetails;
-        $this->priceQuotation = $PQ;
+        $this->priceQuotationDetail = $priceQuotationDetail;
+        $this->em = $em;
+        $this->isEdited = $isEdited;
     }
 
     public function execute()
     {
-        $this->iterate();
+        $this->iterateStages();
+        $this->executed = 1;
     }
 
-    private function convertDates(PriceQuotationDetail $pqd)
+    public function getErrors()
     {
-        $pqd->setDepartureDate(new \DateTime($pqd->getDepartureDate()));
-        $pqd->setArrivalDate(new \DateTime($pqd->getArrivalDate()));
+        if($this->executed === 0) throw new \Exception('Class not executed - PriceQuotationDetailHelper::getErrors()');
+        return $this->errors;
     }
 
-    private function setPriceQuotation(PriceQuotationDetail $pqd)
+    protected function iterateStages()
     {
-        $pqd->setPriceQuotation($this->priceQuotation);
-    }
+        foreach($this->priceQuotationDetail->getStages() as $s) {
+            $SH = new StageHelper($s, $this->em, $this->isEdited);
+            $SH->execute();
 
-    private function iterate()
-    {
-        foreach($this->priceQuotationDetails as $pqd) {
-            $this->convertDates($pqd);
-            $this->setPriceQuotation($pqd);
+            $errors = $SH->getErrors();
+
+            if($errors != null) {
+                $this->errors .= $errors;
+            }
+
+            $SH = null;
         }
     }
-
-
 }
