@@ -241,12 +241,35 @@ class PriceQuotationController extends Controller
     {
         $startPoint = $request->query->get('startPoint');
         $endPoint = $request->query->get('endPoint');
+        $startFromCompany = ($request->query->get('sfc') != 'false' ? $request->query->get('sfc') : false);
+        $returnToCompany  = ($request->query->get('rtc') != 'false' ? $request->query->get('rtc') : false);
 
         $DM = new DistanceMatrixAPI($startPoint, $endPoint, 'json', true);
         $DM->generateRequestUrl();
         $response = $DM->getResult();
 
+        if($startFromCompany !== false && is_array($response) !== false) {
+            $sfc = new DistanceMatrixAPI('Nuoro', $startPoint, 'json', true);
+            $sfc->generateRequestUrl();
+            $sfcResult = $sfc->getResult();
 
-        return new Response($response, 200);
+            $response['km'] = $response['km'] + $sfcResult['km'];
+            $response['time'] = $response['time'] + $sfcResult['time'];
+        }
+
+        if($returnToCompany !== false && is_array($response) !== false) {
+            $rtc = new DistanceMatrixAPI($endPoint, 'Nuoro', 'json', true);
+            $rtc->generateRequestUrl();
+            $rtcResult = $rtc->getResult();
+
+            $response['km'] = $response['km'] + $rtcResult['km'];
+            $response['time'] = $response['time'] + $rtcResult['time'];
+        }
+
+        if(is_array($response) === true) {
+            return new Response(json_encode($response));
+        }
+
+        return new Response($response, 500);
     }
 }

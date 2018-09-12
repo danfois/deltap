@@ -15,9 +15,13 @@ var calculateKm = function(jQueryButtonElement) {
     } else {
         var startLocation = undefined;
         var endLocation = undefined;
+        var sfc = undefined;
+        var rtc = undefined;
 
         startLocation = ParentElement.find("input[name*='departureLocation']").val();
         endLocation = ParentElement.find("input[name*='arrivalLocation']").val();
+        sfc = ParentElement.find('#company_departure').is(':checked');
+        rtc = ParentElement.find('#company_arrival').is(':checked');
 
         if(startLocation === undefined || endLocation === undefined) {
             swal({
@@ -32,6 +36,7 @@ var calculateKm = function(jQueryButtonElement) {
 
         var KmField = ParentElement.find('input[name*="km"]');
         var TimeField = ParentElement.find('input[name*="estimatedTime"]');
+        var PriceField = ParentElement.find("input[name*='[price]']");
 
     }
 
@@ -44,28 +49,22 @@ var calculateKm = function(jQueryButtonElement) {
     $.ajax({
         method : 'GET',
         url: '/distance-matrix',
-        data: { 'startPoint' : startLocation, 'endPoint' : endLocation},
+        data: { 'startPoint' : startLocation, 'endPoint' : endLocation, 'sfc' : sfc, 'rtc' : rtc},
         dataType : 'json',
         success: function(response) {
-            if(response.rows[0].elements[0].status === 'NOT_FOUND') {
-                swal({
-                    title: "Calcolo non riuscito",
-                    text: 'Impossibile calcolare tempo e km per questo tragitto. Provare a cambiare partenza e arrivo',
-                    type: "warning",
-                    confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                });
-                mApp.unblockPage();
-                return;
-            }
             console.log(response);
-            // KmField.val(response.rows[0].elements[0].distance.text);
-            // TimeField.val(response.rows[0].elements[0].duration.text);
-            KmField.val(response.rows[0].elements[0].distance.value / 1000);
-            TimeField.val(response.rows[0].elements[0].duration.value / 60);
+            KmField.val(Math.round(response.km / 1000));
+            TimeField.val(Math.round(response.time / 60));
             mApp.unblockPage();
         },
         error: function(e) {
             console.log(e);
+            swal({
+                title: "Calcolo non riuscito",
+                html: e.responseText,
+                type: "warning",
+                confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+            });
             mApp.unblockPage();
         }
     })

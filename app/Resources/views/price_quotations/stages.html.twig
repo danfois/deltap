@@ -265,7 +265,7 @@
                                                                             class="la la-clock-o"></i></span></span>
                                                         </div>
                                                         <span class="m-form__help">
-                                                        Inserire il tempo stimato
+                                                        Inserire il tempo stimato in minuti
                                                     </span>
                                                     </div>
 
@@ -385,10 +385,31 @@
                                                 </div>
 
 
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-md-12  m-form__group-sub">
+                                                        <label class="form-control-label">Partenza e Ritorno da/a
+                                                            Azienda</label><br>
+                                                        <div class="m-checkbox-inline">
+                                                            <label class="m-checkbox">
+                                                                <input type="checkbox" value="true" id="company_departure">Partenza dall'Azienda
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-checkbox">
+                                                                <input type="checkbox" value="true" id="company_arrival">Ritorno in Azienda
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                        <span class="m-form__help">
+                                                            Questi due campi incideranno esclusivamente sul calcolo dei km, tempo e prezzo.
+                                                        </span>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row text-right">
                                                     <div class="col-md-2">
                                                         <label class="form-control-label">&nbsp;</label>
-                                                        <div class="btn-sm btn btn-success m-btn m-btn--icon" onclick="calculateKm($(this))">
+                                                        <div class="btn-sm btn btn-success m-btn m-btn--icon"
+                                                             onclick="calculateKm($(this))">
                                                                         <span>
                                                                             <i class="la la-calculator"></i>
                                                                             <span>Calcola KM e Tempo</span>

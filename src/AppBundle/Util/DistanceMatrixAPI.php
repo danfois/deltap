@@ -18,6 +18,7 @@ class DistanceMatrixAPI
     private $outputFormat;
     private $protocol;
     private $fullUrl;
+    private $rawResponse;
 
     public function __construct(string $startPoint, string $endPoint, string $outputFormat, bool $https)
     {
@@ -56,9 +57,20 @@ class DistanceMatrixAPI
         return $this->fullUrl;
     }
 
+    protected function sendRequest()
+    {
+        $this->rawResponse = file_get_contents($this->fullUrl);
+    }
+
     public function getResult()
     {
-        return file_get_contents($this->fullUrl);
+        $this->sendRequest();
+        $responseClass = new DistanceMatrixAPIResponse($this->rawResponse);
+        $response = $responseClass->getFormattedResponse();
+
+        //if $response is an array it is ok, otherwise there has been an error
+
+        return $response;
     }
 
 
