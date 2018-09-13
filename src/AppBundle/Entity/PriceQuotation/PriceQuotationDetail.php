@@ -49,7 +49,7 @@ class PriceQuotationDetail
     protected $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceQuotation\Stage", mappedBy="priceQuotationDetail")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceQuotation\Stage", mappedBy="priceQuotationDetail", cascade={"persist"})
      */
     protected $stages;
 

@@ -9,9 +9,9 @@ class PriceQuotationDetailRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('p')
             ->select('p.priceQuotationDetailId')
-            ->orderBy('p.priceQuotationDetailId')
+            ->orderBy('p.priceQuotationDetailId', 'DESC')
             ->setMaxResults(1)
             ->getQuery();
-        return $query->getSingleScalarResult();
+        return $query->getOneOrNullResult();
     }
 }

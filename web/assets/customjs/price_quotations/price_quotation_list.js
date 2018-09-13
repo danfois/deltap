@@ -25,8 +25,97 @@ var PriceQuotationList = function () {
             search: {
                 input: $('#generalSearch')
             },
+            detail: {
+                title: "Caricamento...", content: function (t) {
+                    $("<div/>").attr("id", "child_data_ajax_" + t.data.idv).appendTo(t.detailCell).mDatatable({
+                        data: {
+                            type: "remote",
+                            source: {
+                                read: {
+                                    url: "json/price-quotation-details",
+                                    //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
+                                    params: {'id': t.data.idv}
+                                }
+                            },
+                            pageSize: 10
+                        },
+                        layout: {
+                            theme: "default",
+                            scroll: !0,
+                            height: 300,
+                            footer: !1,
+                            spinner: {type: 1, theme: "default"}
+                        },
+                        sortable: !0,
+                        columns: [{
+                            field: "id",
+                            title: "Id Itinerario"
+                        },
+                            {
+                                field: "code",
+                                title: "Codice Itinerario"
+                            },
+                            {
+                                field: "serviceType",
+                                title: "Freq. Servizio"
+                            },
+                            {
+                                field: "serviceCode",
+                                title: "Tipo Servizio"
+                            },
+
+                            {
+                                field: "stages",
+                                title: "N. Tragitti"
+                            },
+                            {
+                                field: "price",
+                                title: "Prezzo",
+                                template: function(row) {
+                                    return '&euro; ' + row.price;
+                                }
+                            },
+                            {
+                                field: 'Actions',
+                                width: 110,
+                                title: 'Azioni',
+                                sortable: false,
+                                overflow: 'visible',
+                                template: function (row, index, datatable) {
+                                    var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
+                                    return '<a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
+                                    <a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
+							<i class="la la-trash"></i>\
+						</a>\
+					';
+                                }
+                            }],
+                        translate: {
+                            records: {
+                                processing: "Caricamento...",
+                                noRecords: "Nessun Itinerario per questo Preventivo"
+                            },
+                            toolbar: {
+                                pagination: {
+                                    items: {
+                                        default: {
+                                            first: "Primo",
+                                            prev: "Precedente",
+                                            next: "Successivo",
+                                            last: "Ultimo",
+                                            more: "Più Pagine",
+                                            input: "Numero di Pagina",
+                                            select: "Seleziona il numero della pagina"
+                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} itinerari"
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            },
             columns: [
-                //todo: aggiungere le cose di scadenze bolli e assicurazioni, studiarsela bene
+                {field: "ids", title: "", sortable: !1, width: 20, textAlign: "center"},
                 {
                     field: 'id',
                     title: 'Id Preventivo',
@@ -62,10 +151,10 @@ var PriceQuotationList = function () {
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            0 : {'title': 'Attivo', 'class': 'm-badge--success'},
-                            1 : {'title': 'Licenziato', 'class': ' m-badge--danger'}
+                            'Tour': {'title': 'Toue', 'class': 'm-badge--warning'},
+                            'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--info'}
                         };
-                        return '<span class="m-badge ' + status[row.fired].class + ' m-badge--wide">' + status[row.fired].title + '</span>';
+                        return '<span class="m-badge ' + status[row.service].class + ' m-badge--wide">' + status[row.service].title + '</span>';
                     }
                 },
                 {
@@ -82,19 +171,15 @@ var PriceQuotationList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="edit-employee-'+ row.id +'"><i class="la la-edit"></i> Modifica Dipendente</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-license\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_driving_license\' });"><i class="la la-plus-circle"></i> Aggiungi Patente</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-driving-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_driving_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Conducente</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-qualification-letter\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_qualification_letter\' });"><i class="la la-plus-circle"></i> Aggiungi Carta Qualificazione Conducente</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/create-curriculum\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_curriculum\' });"><i class="la la-plus-circle"></i> Aggiungi Curriculum</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'ajax/terminate-employee\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_terminate\' });"><i class="la la-ban"></i> Cessazione Rapporto</a>\
+						    	<a class="dropdown-item" href="#"><i class="la la-edit"></i> Modifica Preventivo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick=""><i class="la la-eye"></i> Vedi Preventivo</a>\
+						    	<a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
 						  	</div>\
 						</div>\
-						<a href="edit-employee-'+ row.id +'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Dipendente">\
+						<a href="#" onclick="alert(\'Questo pulsante porterà alla schermata di modifica del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Preventivo">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-details\', { \'id\' : ' + row.id + '})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Dettagli">\
+						<a href="javascript:void(0);" onclick="alert(\'Questo pulsante servirà per stampare a video il pdf del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Preventivo">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
@@ -103,7 +188,7 @@ var PriceQuotationList = function () {
             translate: {
                 records: {
                     processing: "Caricamento...",
-                    noRecords: "Nessun dipendente trovato"
+                    noRecords: "Nessun preventivo trovato"
                 },
                 toolbar: {
                     pagination: {
@@ -116,7 +201,7 @@ var PriceQuotationList = function () {
                                 more: "Più Pagine",
                                 input: "Numero di Pagina",
                                 select: "Seleziona il numero della pagina"
-                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} dipendenti"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} preventivi"
                         }
                     }
                 }

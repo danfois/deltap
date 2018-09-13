@@ -44,6 +44,8 @@ class PriceQuotationDetailHelper
                 $this->errors .= $errors;
             }
 
+            $s->setPriceQuotationDetail($this->priceQuotationDetail);
+
             $SH = null;
         }
     }

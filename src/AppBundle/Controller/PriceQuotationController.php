@@ -36,6 +36,7 @@ class PriceQuotationController extends Controller
         $PQ = new PriceQuotation();
         $PD = new PriceQuotationDetail();
 
+        $PQ->setPriceQuotationDate(new \DateTime);
         $PQ->getPriceQuotationDetails()->add($PD);
 
         $em = $this->getDoctrine()->getManager();

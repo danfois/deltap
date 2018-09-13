@@ -240,9 +240,11 @@ class JsonController extends Controller
     /**
      * @Route("json/price-quotation-details", name="json_price_quotations_details")
      */
-    public function jsonPriceQuotationsDetailsAction()
+    public function jsonPriceQuotationsDetailsAction(Request $request)
     {
-        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findAll();
+        $id = $request->request->get('id');
+
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findBy(array('priceQuotation' => $id));
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new PriceQuotationDetailViewNormalizer()];

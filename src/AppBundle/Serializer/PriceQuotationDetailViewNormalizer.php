@@ -13,13 +13,21 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
         foreach($object as $o) {
             if($o instanceof PriceQuotationDetail) {
 
+                $price = 0;
+
+                foreach($o->getStages() as $s) {
+                    $price += $s->getPrice();
+                }
+
                 $r[] = [
                     'id' => $o->getPriceQuotationDetailId(),
                     'idv' => $o->getPriceQuotationDetailId(),
                     'ids' => $o->getPriceQuotationDetailId(),
-                    'name' => $o->getName(),
+                    'code' => $o->getName(),
                     'serviceType' => $o->getServiceType()->getServiceName(),
-                    'serviceCode' => $o->getServiceCode()->getService()
+                    'serviceCode' => $o->getServiceCode()->getService(),
+                    'stages' => count($o->getStages()),
+                    'price' => $price
                 ];
             }
         }

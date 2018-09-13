@@ -33,41 +33,41 @@ var PriceQuotation = function () {
                         });
                         mApp.unblockPage();
                     },
-                    /*submitHandler: function (e) {
-                     }*/
+                    submitHandler: function (e) {
+                    }
                 });
 
-            /*(r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
-             //e.preventDefault();
-             mApp.blockPage({
-             overlayColor: "#000000",
-             type: "loader",
-             state: "info",
-             message: "Caricamento..."
-             });
-             i.form() && (mApp.progress(r), t.ajaxSubmit({
-             success: function (response) {
-             mApp.unprogress(r);
-             swal({
-             title: "",
-             html: response,
-             type: "success",
-             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-             });
-             mApp.unblockPage();
-             },
-             error: function (e) {
-             mApp.unprogress(r);
-             swal({
-             title: "",
-             html: e.responseText,
-             type: "error",
-             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-             });
-             mApp.unblockPage();
-             }
-             }))
-             })*/
+            (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
+                e.preventDefault();
+                mApp.blockPage({
+                    overlayColor: "#000000",
+                    type: "loader",
+                    state: "info",
+                    message: "Caricamento..."
+                });
+                i.form() && (mApp.progress(r), t.ajaxSubmit({
+                    success: function (response) {
+                        mApp.unprogress(r);
+                        swal({
+                            title: "",
+                            html: response,
+                            type: "success",
+                            confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+                        });
+                        mApp.unblockPage();
+                    },
+                    error: function (e) {
+                        mApp.unprogress(r);
+                        swal({
+                            title: "",
+                            html: e.responseText,
+                            type: "error",
+                            confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+                        });
+                        mApp.unblockPage();
+                    }
+                }))
+            })
         }
     }
 }();

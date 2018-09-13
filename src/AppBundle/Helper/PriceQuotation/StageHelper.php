@@ -36,7 +36,7 @@ class StageHelper
 
     protected function checkDateCoherence()
     {
-        if ($this->stage->getDepartureDate() < $this->stage->getArrivalDate()) return true;
+        if ($this->stage->getDepartureDate() <= $this->stage->getArrivalDate()) return true;
         $this->errors .= 'La data di partenza non può essere successiva a quella di arrivo<br>';
         return false;
     }
@@ -46,7 +46,7 @@ class StageHelper
         $times = $this->stage->getRepeatedTimes();
 
         foreach ($times as $t) {
-            if ($t->getStartTime() > $t->getEndTime()) {
+            if (strtotime($t->getStartTime()) > strtotime($t->getEndTime())) {
                 $this->errors .= "L'Orario di partenza non può essere successivo a quello di arrivo<br>";
                 return false;
             }

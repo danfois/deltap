@@ -27,7 +27,7 @@
             </h4>
             <i class="m-menu__section-icon flaticon-more-v3"></i>
         </li>
-        {% if is_granted('ROLE_ADMIN') == false %}
+        {#{% if is_granted('ROLE_ADMIN') == false %}}#}
             <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
                 <a  href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-truck"></i>
@@ -225,6 +225,26 @@
 												</span>
                             </a>
                         </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_price_quotation_detail') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Nuovo Itinerario
+												</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('price_quotations_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+													Lista Preventivi
+												</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -283,7 +303,7 @@
                     </ul>
                 </div>
             </li>
-        {% endif %}
+       {# {% endif %} #}
     </ul>
 </div>
 <!-- END: Aside Menu -->
