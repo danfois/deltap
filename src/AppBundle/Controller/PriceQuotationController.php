@@ -236,6 +236,29 @@ class PriceQuotationController extends Controller
     }
 
     /**
+     * @Route("/stage-details", name="stage_details")
+     */
+    public function stageDetailsAction(Request $request)
+    {
+        $id = $request->query->get('id');
+
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o itinerario non trovato', 400);
+
+        $PQD = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
+
+        if($PQD == null) return new Response('Nessun itinerario trovato', 404);
+
+        $html = $this->renderView('price_quotations/stage_details.html.twig', array(
+            'stages' => $PQD->getStages()
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Tragitti per l\'itinerario ' . $PQD->getName(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
      * @Route("/distance-matrix", name="distance_matrix")
      */
     public function distanceMatrixAction(Request $request)

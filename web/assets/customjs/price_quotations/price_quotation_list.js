@@ -71,7 +71,7 @@ var PriceQuotationList = function () {
                             {
                                 field: "price",
                                 title: "Prezzo",
-                                template: function(row) {
+                                template: function (row) {
                                     return '&euro; ' + row.price;
                                 }
                             },
@@ -83,7 +83,18 @@ var PriceQuotationList = function () {
                                 overflow: 'visible',
                                 template: function (row, index, datatable) {
                                     var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
-                                    return '<a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
+                                    return '\
+                                \<div class="dropdown ' + dropup + '">\
+                                    <a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
+                                        <i class="la la-ellipsis-h"></i>\
+                                    </a>\
+                                    <div class="dropdown-menu dropdown-menu-right">\
+                                        <a class="dropdown-item" href="#" onclick="alert(\'In Lavorazione\')"><i class="la la-edit"></i> Modifica Itinerario</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
+                                        <a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
+                                    </div>\
+                                </div>\
+                                    <a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
                                     <a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
 							<i class="la la-trash"></i>\
 						</a>\

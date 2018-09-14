@@ -1,0 +1,58 @@
+{% for s in stages %}
+    <div class="row m--padding-20">
+        <div class="col-md-12">
+            <table class="table m-table m-table--head-separator-primary details-table">
+                <thead>
+                <tr>
+                    <th>Partenza</th>
+                    <th>Arrivo</th>
+                    <th>Data Part.</th>
+                    <th>Data Arr.</th>
+                    <th>N. Bus</th>
+                    <th>Pass.</th>
+                    <th>Km</th>
+                    <th>Tempo</th>
+                    <th>Prezzo</th>
+                    <th>Ore Part.</th>
+                    <th>Ore Arr.</th>
+                    <th>Giorni Rip.</th>
+                    <th>Tranne</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ s.departureLocation }}</td>
+                    <td>{{ s.arrivalLocation }}</td>
+                    <td>{{ s.departureDate|date('d/m/Y') }}</td>
+                    <td>{{ s.arrivalDate|date('d/m/Y') }}</td>
+                    <td>{{ s.busNumber }}</td>
+                    <td>{{ s.passengers }}</td>
+                    <td>{{ s.km }}</td>
+                    <td>{{ s.estimatedTime }}</td>
+                    <td>&euro; {{ s.price }}</td>
+                    <td>
+                        {% for rt in s.repeatedTimes %}
+                            {{ rt.start_time }} <br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for rt in s.repeatedTimes %}
+                            {{ rt.end_time }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {# Now I have to set an array in Twig that I need to convert numeric days to literal days #}
+                        {% set arrayDays = ['ArrayStartFromZero', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'] %}
+                        {% for rd in s.repeatedDays %}
+                            {{ arrayDays[rd] }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{ s.leftouts }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endfor %}
