@@ -11,7 +11,7 @@ var PriceQuotation = function () {
 
 
                 (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
-                    //if (!0 !== i.form()) return !1;
+                    if (!0 !== i.form()) return !1;
                     LastStep();
                 }),
 
@@ -33,11 +33,11 @@ var PriceQuotation = function () {
                         });
                         mApp.unblockPage();
                     },
-                    /*submitHandler: function (e) {
-                    }*/
+                    submitHandler: function (e) {
+                    }
                 });
 
-            /*(r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
+            (r = t.find('[data-wizard-action="submit"]')).on("click", function (e) {
                 e.preventDefault();
                 mApp.blockPage({
                     overlayColor: "#000000",
@@ -67,7 +67,7 @@ var PriceQuotation = function () {
                         mApp.unblockPage();
                     }
                 }))
-            })*/
+            })
         }
     }
 }();
