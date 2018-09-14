@@ -18,7 +18,7 @@ class PriceQuotation
     protected $priceQuotationId;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", mappedBy="priceQuotation", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", mappedBy="priceQuotation", cascade={"all"})
      */
     protected $priceQuotationDetails;
 
@@ -294,8 +294,8 @@ class PriceQuotation
      */
     public function removePriceQuotationDetail(\AppBundle\Entity\PriceQuotation\PriceQuotationDetail $priceQuotationDetail)
     {
-        $this->priceQuotationDetails->removeElement($priceQuotationDetail);
         $priceQuotationDetail->setPriceQuotation(null);
+        $this->priceQuotationDetails->removeElement($priceQuotationDetail);
     }
 
     /**

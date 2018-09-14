@@ -46,6 +46,7 @@ var PriceQuotation = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
+                        window.setTimeout(function(){ window.location.href = window.location.origin + '/price-quotations-list'; }, 3000);
                     },
                     error: function (e) {
                         mApp.unprogress(r);

@@ -162,7 +162,7 @@ var PriceQuotationList = function () {
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            'Tour': {'title': 'Toue', 'class': 'm-badge--warning'},
+                            'Tour': {'title': 'Tour', 'class': 'm-badge--warning'},
                             'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--info'}
                         };
                         return '<span class="m-badge ' + status[row.service].class + ' m-badge--wide">' + status[row.service].title + '</span>';
@@ -182,12 +182,12 @@ var PriceQuotationList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="#"><i class="la la-edit"></i> Modifica Preventivo</a>\
+						    	<a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '"><i class="la la-edit"></i> Modifica Preventivo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick=""><i class="la la-eye"></i> Vedi Preventivo</a>\
 						    	<a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
 						  	</div>\
 						</div>\
-						<a href="#" onclick="alert(\'Questo pulsante porterà alla schermata di modifica del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Preventivo">\
+						<a href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Preventivo">\
 							<i class="la la-edit"></i>\
 						</a>\
 						<a href="javascript:void(0);" onclick="alert(\'Questo pulsante servirà per stampare a video il pdf del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Preventivo">\

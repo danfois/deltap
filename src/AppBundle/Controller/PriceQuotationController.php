@@ -307,7 +307,6 @@ class PriceQuotationController extends Controller
 
             if ($errors == null) {
 
-
                 $em->flush();
 
                 return new Response('Preventivo modificato con successo', 200);

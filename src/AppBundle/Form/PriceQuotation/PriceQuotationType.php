@@ -91,6 +91,7 @@ class PriceQuotationType extends AbstractType
             ))
             ->add('priceQuotationDetails', CollectionType::class, array(
                 'entry_type' => EntityType::class,
+                'by_reference' => false,
                 'entry_options' => array(
                     'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
                     'choice_label' => 'name',
@@ -100,7 +101,8 @@ class PriceQuotationType extends AbstractType
                     'attr' => array(
                         'class' => 'form-control m-input'
                     ),
-                    'empty_data' => null
+                    'empty_data' => null,
+                    'placeholder' => 'Nessuno'
                 ),
                 'allow_add' => true,
                 'allow_delete' => true,
