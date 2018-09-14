@@ -45,12 +45,23 @@ class StageHelper
     {
         $times = $this->stage->getRepeatedTimes();
 
-        foreach ($times as $t) {
-            if (strtotime($t->getStartTime()) > strtotime($t->getEndTime())) {
-                $this->errors .= "L'Orario di partenza non può essere successivo a quello di arrivo<br>";
-                return false;
+        if($this->isEdited === false) {
+            foreach ($times as $t) {
+                if (strtotime($t->getStartTime()) > strtotime($t->getEndTime())) {
+                    $this->errors .= "L'Orario di partenza non può essere successivo a quello di arrivo<br>";
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            foreach ($times as $t) {
+                if (strtotime($t['start_time']) > strtotime($t['end_time'])) {
+                    $this->errors .= "L'Orario di partenza non può essere successivo a quello di arrivo<br>";
+                    return false;
+                }
+                return true;
             }
         }
-        return true;
+        throw new \Exception('Error on StageHelper::checkTimeCoherence()');
     }
 }

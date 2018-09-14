@@ -11,6 +11,7 @@ use AppBundle\Entity\ServiceType;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
+use AppBundle\Form\PriceQuotation\PriceQuotationDetailEditType;
 use AppBundle\Form\PriceQuotation\PriceQuotationDetailType;
 use AppBundle\Form\PriceQuotation\PriceQuotationType;
 use AppBundle\Form\PriceQuotation\RepeatedTimesType;
@@ -154,10 +155,14 @@ class PriceQuotationController extends Controller
 
         $form = $this->createForm(PriceQuotationDetailType::class, $PQD);
 
+        $actionUrl = $this->generateUrl('create_price_quotation_detail_ajax');
+
         return $this->render('price_quotations/create_price_quotation_detail.html.twig', array(
             'form' => $form->createView(),
             'service_form' => $serviceType->createView(),
-            'service_type_form' => $service_form_type->createView()
+            'service_type_form' => $service_form_type->createView(),
+            'action_url' => $actionUrl,
+            'title' => 'Crea Itinerario'
         ));
     }
 
@@ -184,6 +189,88 @@ class PriceQuotationController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $PQDH = new PriceQuotationDetailHelper($PQD, $em, false);
+            $PQDH->execute();
+            $errors = $PQDH->getErrors();
+
+            if($errors == null) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PQD);
+
+                foreach ($PQD->getStages() as $ss) {
+                    $em->persist($ss);
+                }
+                $em->flush();
+                return new Response('Itinerario salvato con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("edit-pq-detail-{id}", name="edit_price_quotation_detail")
+     */
+    public function editPriceQuotationDetailAction(int $id)
+    {
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
+        if($pqd == null) return new Response('Itinerario non trovato!', 404);
+
+        $form = $this->createForm(PriceQuotationDetailEditType::class, $pqd);
+
+        $st = new ServiceType();
+        $service = new Service();
+
+        $service_form_type = $this->createForm(CreateServiceTypeType::class, $st);
+        $serviceType = $this->createForm(CreateServiceType::class, $service);
+
+        $actionUrl = $this->generateUrl('ajax_edit_price_quotation_detail', array('id' => $id));
+
+        return $this->render('price_quotations/create_price_quotation_detail.html.twig', array(
+            'form' => $form->createView(),
+            'service_form' => $serviceType->createView(),
+            'service_type_form' => $service_form_type->createView(),
+            'action_url' => $actionUrl,
+            'title' => 'Modifica Itinerario'
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-pq-detail-{id}", name="ajax_edit_price_quotation_detail")
+     */
+    public function ajaxEditPriceQuotationDetailAction(Request $request, int $id)
+    {
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
+        if($pqd == null) return new Response('Itinerario non trovato!', 404);
+
+        $form = $this->createForm(PriceQuotationDetailEditType::class, $pqd);
+
+        $form->handleRequest($request);
+
+        /*if($form->isSubmitted() && $form->isValid()) {
+            $pqd = $form->getData();
+
+            return $this->render('DEBUG/modal_debug.html.twig', array(
+                'data' => $pqd
+            ));
+        }*/
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $PQD = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            $PQDH = new PriceQuotationDetailHelper($PQD, $em, true);
             $PQDH->execute();
             $errors = $PQDH->getErrors();
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block title %}Redentours | Crea Itinerario{% endblock %}
-{% block subheader_title %}Crea Itinerario{% endblock %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
 						<i class="la la-gear"></i>
 						</span>
                             <h3 class="m-portlet__head-text">
-                                Itinerario
+                                {{ title }}
                             </h3>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
 
                     <div class="m-wizard__form">
                         <form class="m-form m-form--label-align-left- m-form--state-" id="form_price_quotation_detail"
-                              action="{{ path('create_price_quotation_detail_ajax') }}" method="POST">
+                              action="{{ action_url }}" method="POST">
                             <!--begin: Form Body -->
                             <div class="m-portlet__body">
                                 {{ form_widget(form._token) }}
