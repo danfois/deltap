@@ -39,8 +39,8 @@ class PriceQuotationHelper
                 if ($p->getPriceQuotation() != null && $p->getPriceQuotation()->getPriceQuotationId() == $this->priceQuotation->getPriceQuotationId()) continue;
                 $newP = clone $p;
                 $newP->setPriceQuotation($this->priceQuotation);
-                $this->priceQuotation->getPriceQuotationDetails()->remove($p);
-                $this->priceQuotation->getPriceQuotationDetails()->add($newP);
+                $this->priceQuotation->removePriceQuotationDetailForCloning($p);
+                $this->priceQuotation->addPriceQuotationDetail($newP);
             }
         }
     }

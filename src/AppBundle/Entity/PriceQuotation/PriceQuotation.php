@@ -298,6 +298,11 @@ class PriceQuotation
         $this->priceQuotationDetails->removeElement($priceQuotationDetail);
     }
 
+    public function removePriceQuotationDetailForCloning(\AppBundle\Entity\PriceQuotation\PriceQuotationDetail $priceQuotationDetail)
+    {
+        $this->priceQuotationDetails->removeElement($priceQuotationDetail);
+    }
+
     /**
      * Get priceQuotationDetails
      *

@@ -100,6 +100,11 @@ class PriceQuotationController extends Controller
             $errors = $PQH->getErrors();
 
             if ($errors == null) {
+
+                foreach($PQ->getPriceQuotationDetails() as $d) {
+                    $em->persist($d);
+                }
+
                 $em->persist($PQ);
                 $em->flush();
 
