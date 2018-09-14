@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Form\PriceQuotation;
-use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,9 +15,6 @@ class SinglePriceQuotationDetailType extends AbstractType
         $builder->add('priceQuotationDetailId', EntityType::class, array(
             'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
             'choice_label' => 'name',
-            'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('p')->select('p');
-            },
             'attr' => array(
                 'class' => 'form-control m-input'
             )
@@ -31,4 +27,5 @@ class SinglePriceQuotationDetailType extends AbstractType
             'data_class' => PriceQuotationDetail::class
         ));
     }
+
 }

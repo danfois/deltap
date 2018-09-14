@@ -37,7 +37,11 @@ class PriceQuotationController extends Controller
         $PD = new PriceQuotationDetail();
 
         $PQ->setPriceQuotationDate(new \DateTime);
-        $PQ->getPriceQuotationDetails()->add($PD);
+        $PQ->addPriceQuotationDetail($PD);
+
+        //questo mi serve perchè altrimenti non mi fa fare il form di creazione
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($PD);
 
         $em = $this->getDoctrine()->getManager();
         $PQ->setCode(PriceQuotationUtils::generatePriceQuotationCode($em));
@@ -49,7 +53,8 @@ class PriceQuotationController extends Controller
 
         return $this->render('price_quotations/create_price_quotation.html.twig', array(
             'form' => $form->createView(),
-            'action_url' => $actionUrl
+            'action_url' => $actionUrl,
+            'title' => 'Creazione Preventivo'
         ));
     }
 
@@ -256,6 +261,71 @@ class PriceQuotationController extends Controller
             'modal_title' => 'Tragitti per l\'itinerario ' . $PQD->getName(),
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("edit-price-quotation-{id}", name="edit_price_quotation")
+     */
+    public function editPriceQuotation(int $id)
+    {
+        $PQ = $this->getDoctrine()->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
+
+        if($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
+
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        $actionUrl = $this->generateUrl('ajax_edit_price_quotation', array('id' => $id));
+        //$actionUrl = $this->generateUrl('test_submit', array('id' => $id));
+
+        return $this->render('price_quotations/create_price_quotation.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl,
+            'title' => 'Modifica Preventivo'
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-price-quotation-{id}", name="ajax_edit_price_quotation")
+     */
+    public function ajaxEditPriceQuotation(Request $request, int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $PQ = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
+        if($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
+
+        $form = $this->createForm(PriceQuotationType::class, $PQ);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $PQ = $form->getData();
+
+            $PQH = new PriceQuotationHelper($PQ, $em, $this->getUser());
+            $PQH->execute();
+            $errors = $PQH->getErrors();
+
+            if ($errors == null) {
+
+
+                $em->flush();
+
+                return new Response('Preventivo modificato con successo', 200);
+            }
+            return new Response($errors, 500);
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
     }
 
     /**

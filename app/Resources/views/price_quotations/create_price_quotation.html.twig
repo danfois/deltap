@@ -1,6 +1,6 @@
 {% extends('base.html.twig') %}
-{% block title %}Redentours | Crea Preventivo{% endblock %}
-{% block subheader_title %}Creazione Preventivo{% endblock %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
 						<i class="la la-gear"></i>
 						</span>
                             <h3 class="m-portlet__head-text">
-                                Creazione Preventivo
+                                {{ title }}
                             </h3>
                         </div>
                     </div>
@@ -132,37 +132,48 @@
                             </div>
                             <div class="form-group m-form__group row">
 
-                                {% for p in form.priceQuotationDetails %}
+                                <div class="repeater">
+                                    <div data-repeater-list="price_quotation[priceQuotationDetails]">
 
-                                    <div class="repeater">
-                                        <div data-repeater-list="price_quotation">
+                                        {% for p in form.priceQuotationDetails %}
                                             <div data-repeater-item>
-                                                <div class="col-lg-12 m-form__group-sub">
-                                                    <label>* Itinerario Singolo:</label>
-                                                    <div class="m-input-icon m-input-icon--right">
-                                                        {{ form_widget(p.priceQuotationDetailId) }}
-                                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                                        class="la la-map"></i></span></span>
+                                                <div class="row">
+                                                    <div class="col-lg-10 m-form__group-sub">
+                                                        <label>* Itinerario Singolo:</label>
+                                                        <div class="m-input-icon m-input-icon--right">
+                                                            {{ form_widget(p) }}
+                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                            class="la la-map"></i></span></span>
+                                                        </div>
+                                                        <span class="m-form__help">Scegliere un itinerario singolo da allegare a questo preventivo.</span>
                                                     </div>
-                                                    <span class="m-form__help">Scegliere un itinerario singolo da allegare a questo preventivo.</span>
+                                                    <div class="col-md-2">
+                                                        <label class="form-control-label">&nbsp;</label>
+                                                        <div data-repeater-delete=""
+                                                             class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                                                        <span>
+                                                                            <i class="la la-trash-o"></i>
+                                                                            <span>Elimina</span>
+                                                                        </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="col text-left">
-                                                <div data-repeater-create=""
-                                                     class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                        {% endfor %}
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col text-left">
+                                            <div data-repeater-create=""
+                                                 class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
                                                     <span>
                                                         <i class="la la-plus"></i>
                                                         <span>Aggiungi Itinerario Singolo</span>
                                                     </span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                {% endfor %}
-
+                                </div>
 
                             </div>
                         </div>

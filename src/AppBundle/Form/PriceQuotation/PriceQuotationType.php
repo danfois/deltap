@@ -89,30 +89,34 @@ class PriceQuotationType extends AbstractType
             ->add('letter', LetterType::class, array(
                 'required' => false
             ))
-            /*->add('priceQuotationDetails', CollectionType::class, array(
+            ->add('priceQuotationDetails', CollectionType::class, array(
                 'entry_type' => EntityType::class,
                 'entry_options' => array(
                     'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
                     'choice_label' => 'name',
-                    'empty_data' => null,
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('p')->select('p');
-                    }
+                    },
+                    'attr' => array(
+                        'class' => 'form-control m-input'
+                    ),
+                    'empty_data' => null
                 ),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
-            ))*/
-            ->add('priceQuotationDetails', CollectionType::class, array(
+            ))
+            /*->add('priceQuotationDetails', CollectionType::class, array(
                 'entry_type' => SinglePriceQuotationDetailType::class,
+                'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
-            ));
+            ))*/;
 
             $builder->get('priceQuotationDate')->addModelTransformer($this->transformer);
     }
@@ -120,7 +124,8 @@ class PriceQuotationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => PriceQuotation::class
+            'data_class' => PriceQuotation::class,
+            'allow_extra_fields' => true
         ));
     }
 }

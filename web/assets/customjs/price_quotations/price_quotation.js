@@ -7,22 +7,22 @@ var PriceQuotation = function () {
             var r;
             t = $("#form_price_quotation");
             i = t.validate({
-                    ignore: ":hidden",
-                    rules: createValidationObjects(),
-                    messages: {},
-                    invalidHandler: function (e, r) {
-                        mApp.scrollTop();
-                        swal({
-                            title: "",
-                            text: "Ci sono alcuni errori nel form.",
-                            type: "error",
-                            confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                        });
-                        mApp.unblockPage();
-                    },
-                    submitHandler: function (e) {
-                    }
-                });
+                ignore: ":hidden",
+                rules: createValidationObjects(),
+                messages: {},
+                invalidHandler: function (e, r) {
+                    mApp.scrollTop();
+                    swal({
+                        title: "",
+                        text: "Ci sono alcuni errori nel form.",
+                        type: "error",
+                        confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+                    });
+                    mApp.unblockPage();
+                },
+                submitHandler: function (e) {
+                }
+            });
 
             (r = t.find(':submit')).on("click", function (e) {
                 e.preventDefault();
@@ -32,6 +32,10 @@ var PriceQuotation = function () {
                     state: "info",
                     message: "Caricamento..."
                 });
+
+                //I need this function because jQuery Repeater is setting wrong names on repeated fields
+                adjustRepeatedForms();
+
                 i.form() && (mApp.progress(r), t.ajaxSubmit({
                     success: function (response) {
                         mApp.unprogress(r);
@@ -60,7 +64,7 @@ var PriceQuotation = function () {
 }();
 
 var PriceQuotationFormRepeater = {
-    init: function() {
+    init: function () {
         $(".repeater").repeater({
             initEmpty: !1,
             defaultValues: {"text-input": "foo"},
@@ -101,7 +105,7 @@ var generateLetter = function () {
 }();
 
 function createValidationObjects() {
-    return  {
+    return {
         'price_quotation[code]': {required: !0, maxlength: 12},
         'price_quotation[quotationDate]': {required: !0},
         'price_quotation[customer]': {required: !0, maxlength: 255},
@@ -148,6 +152,14 @@ var initializeWidgets = function () {
         decimals: 0,
         boostat: 5,
         maxboostedstep: 10
+    });
+};
+
+function adjustRepeatedForms() {
+    $('*[id*=priceQuotationDetails]').each(function () {
+        $(this).attr('name', function (i, o) {
+            return o.slice(0, -3);
+        })
     });
 };
 
