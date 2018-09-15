@@ -54,7 +54,7 @@ class PriceQuotationDetail
     protected $stages;
 
     /**
-     * @ORM\Column(type="string", name="emitte
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="emittedOrders")
      */
     protected $emittedOrders;
 

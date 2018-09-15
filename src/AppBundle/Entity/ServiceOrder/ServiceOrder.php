@@ -94,13 +94,13 @@ class ServiceOrder
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id_user")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id_user", nullable=true)
      */
     protected $driver;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle")
-     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId", nullable=true)
      */
     protected $vehicle;
 
