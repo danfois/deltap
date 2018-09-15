@@ -457,4 +457,36 @@ class PriceQuotationController extends Controller
 
         return new Response($response, 500);
     }
+
+    /**
+     * @Route("change-price-quotation-status", name="change_price_quotation_status")
+     */
+    public function changePriceQuotationStatusAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $status = $request->query->get('status');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Preventivo non trovato', 400);
+
+        $possibleStatusArray = array(
+            1 => 'da Inviare',
+            2 => 'inviato',
+            3 => 'confermato',
+            4 => 'annullato'
+        );
+
+        //todo: devo fare un check per vedere se ho gia emesso ordini di servizio per un itinerario di questo preventivo
+
+        if(array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato del preventivo richiesto NON valido!', 500);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $pq = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
+
+        if($pq == null) return new Response('Preventivo non trovato', 404);
+
+        $pq->setStatus($status);
+        $em->flush();
+
+        return new Response('Preventivo ' . $possibleStatusArray[$status] . ' con successo!', 200);
+    }
 }

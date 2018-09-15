@@ -89,13 +89,12 @@ var PriceQuotationList = function () {
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
-                                        <a class="dropdown-item" href="#" onclick="alert(\'In Lavorazione\')"><i class="la la-edit"></i> Modifica Itinerario</a>\
+                                        <a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
-                                        <a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
                                     </div>\
                                 </div>\
-                                    <a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
-                                    <a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
+                                    <a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
+                                    <a href="javascript:void(0);" onclick="alert(\'Serve questa funzionalita?\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
@@ -158,7 +157,7 @@ var PriceQuotationList = function () {
                 },
                 {
                     field: 'service',
-                    title: 'Stato',
+                    title: 'Servizio',
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
@@ -166,6 +165,20 @@ var PriceQuotationList = function () {
                             'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--info'}
                         };
                         return '<span class="m-badge ' + status[row.service].class + ' m-badge--wide">' + status[row.service].title + '</span>';
+                    }
+                },
+                {
+                    field: 'status',
+                    title: 'Stato',
+                    sortable: 'asc',
+                    template: function (row) {
+                        var status = {
+                            1: {'title': 'Da Inviare', 'class': 'warning'},
+                            2: {'title': 'Inviato', 'class': 'info'},
+                            3: {'title': 'Confermato', 'class': 'success'},
+                            4: {'title': 'Annullato', 'class': 'metal'},
+                        };
+                        return '<span class="m-badge m-badge--' + status[row.status].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.status].class + '">' + status[row.status].title + '</span>';
                     }
                 },
                 {
@@ -183,8 +196,11 @@ var PriceQuotationList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '"><i class="la la-edit"></i> Modifica Preventivo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick=""><i class="la la-eye"></i> Vedi Preventivo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Preventivo</a>\
 						    	<a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'Invierà per email il preventivo al destinatario. Il preventivo sarà compreso di un file pdf per ogni itinerario, e della `lettera` che sarà il testo della mail\')"><i class="la la-envelope"></i> Invia al Destinatario</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 3}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Preventivo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 4}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Annulla Preventivo</a>\
 						  	</div>\
 						</div>\
 						<a href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Preventivo">\

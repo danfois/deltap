@@ -22,7 +22,8 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
                     'sender' => $o->getSenderMail(),
                     'recipient' => $o->getRecipientEmail(),
                     'service' => $o->getServiceCode()->getService(),
-                    'author' => $o->getAuthor()->getUsername()
+                    'author' => $o->getAuthor()->getUsername(),
+                    'status' => $o->getStatus()
                 ];
             }
         }
