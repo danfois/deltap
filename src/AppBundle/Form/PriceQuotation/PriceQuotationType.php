@@ -102,7 +102,8 @@ class PriceQuotationType extends AbstractType
                         'class' => 'form-control m-input'
                     ),
                     'empty_data' => null,
-                    'placeholder' => 'Nessuno'
+                    'placeholder' => 'Nessuno',
+                    'required' => false
                 ),
                 'allow_add' => true,
                 'allow_delete' => true,

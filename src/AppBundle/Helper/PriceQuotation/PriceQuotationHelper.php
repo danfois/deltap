@@ -5,6 +5,7 @@ namespace AppBundle\Helper\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\User;
+use AppBundle\Util\PriceQuotationUtils;
 use Doctrine\ORM\EntityManager;
 
 class PriceQuotationHelper
@@ -31,6 +32,12 @@ class PriceQuotationHelper
         $this->executed = 1;
     }
 
+    /**
+     * This method iterate each PriceQuotationDetail.
+     * Since details can already exists, it checks if it has already a PriceQuotation associated.
+     * If it has then checks if the PriceQuotationId is the same of the current instance.
+     * If it's not then the Detail gets cloned, as well as his stages, and gets associated to the new PriceQuotation and persisted.
+     */
     private function checkDetails()
     {
         foreach ($this->priceQuotation->getPriceQuotationDetails() as $p) {
@@ -39,8 +46,15 @@ class PriceQuotationHelper
                 if ($p->getPriceQuotation() != null && $p->getPriceQuotation()->getPriceQuotationId() == $this->priceQuotation->getPriceQuotationId()) continue;
                 $newP = clone $p;
                 $newP->setPriceQuotation($this->priceQuotation);
+                $newP->setName(PriceQuotationUtils::generatePriceQuotationDetailCode($this->em));
                 $this->priceQuotation->removePriceQuotationDetailForCloning($p);
                 $this->priceQuotation->addPriceQuotationDetail($newP);
+                foreach($p->getStages() as $s) {
+                    $newS = clone $s;
+                    $newP->addStage($newS);
+                    $newS->setPriceQuotationDetail($newP);
+                    $this->em->persist($newS);
+                }
             }
         }
     }
