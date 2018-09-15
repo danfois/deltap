@@ -22,6 +22,7 @@ class PriceQuotationDetailHelper
 
     public function execute()
     {
+        if($this->isEdited === false) $this->setBaseOrderEmitted();
         $this->iterateStages();
         $this->executed = 1;
     }
@@ -30,6 +31,11 @@ class PriceQuotationDetailHelper
     {
         if($this->executed === 0) throw new \Exception('Class not executed - PriceQuotationDetailHelper::getErrors()');
         return $this->errors;
+    }
+
+    protected function setBaseOrderEmitted()
+    {
+        $this->priceQuotationDetail->setEmittedOrders(0);
     }
 
     protected function iterateStages()

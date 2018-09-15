@@ -54,6 +54,11 @@ class PriceQuotationDetail
     protected $stages;
 
     /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="emittedOrders")
+     */
+    protected $emittedOrders;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -224,4 +229,22 @@ class PriceQuotationDetail
     {
         return $this->stages;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmittedOrders()
+    {
+        return $this->emittedOrders;
+    }
+
+    /**
+     * @param mixed $emittedOrders
+     */
+    public function setEmittedOrders($emittedOrders)
+    {
+        $this->emittedOrders = $emittedOrders;
+    }
+
+
 }

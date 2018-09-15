@@ -27,7 +27,8 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                     'serviceType' => $o->getServiceType()->getServiceName(),
                     'serviceCode' => $o->getServiceCode()->getService(),
                     'stages' => count($o->getStages()),
-                    'price' => $price
+                    'price' => $price,
+                    'emittedOrders' => $o->getEmittedOrders()
                 ];
             }
         }

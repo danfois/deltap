@@ -76,6 +76,17 @@ var PriceQuotationList = function () {
                                 }
                             },
                             {
+                                field: 'emittedOrders',
+                                title: 'Ordini di Servizio',
+                                template: function (row) {
+                                    var status = {
+                                        0: {'title': 'Non Emessi', 'class': 'metal'},
+                                        1: {'title': 'Emessi', 'class': 'success'}
+                                    };
+                                    return '<span class="m-badge m-badge--' + status[row.emittedOrders].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.emittedOrders].class + '">' + status[row.emittedOrders].title + '</span>';
+                                }
+                            },
+                            {
                                 field: 'Actions',
                                 width: 110,
                                 title: 'Azioni',
@@ -91,6 +102,7 @@ var PriceQuotationList = function () {
                                     <div class="dropdown-menu dropdown-menu-right">\
                                         <a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-list-alt"></i> Emetti Ordini di Servizio</a>\
                                     </div>\
                                 </div>\
                                     <a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
