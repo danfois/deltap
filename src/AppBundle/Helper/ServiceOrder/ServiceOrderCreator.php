@@ -45,13 +45,33 @@ class ServiceOrderCreator
     {
         $repeatedDays = $this->stage->getRepeatedDays();
 
+        $leftouts = $this->stage->getLeftouts();
+
+        if($leftouts != null) {
+            $rawLeftouts = explode(',', $leftouts);
+            $dateLeftout = array();
+            foreach($rawLeftouts as $r) {
+                $dateLeftout[] = \DateTime::createFromFormat('d/m/Y', $r);
+            }
+        }
+
         $startDate = $this->stage->getDepartureDate();
         $endDate = $this->stage->getArrivalDate();
 
         for($i = $startDate; $i <= $endDate; $i = $i->modify('+1 day')) {
             if(in_array($i->format('w'), $repeatedDays)) {
                 $clonedDate = clone $i;
-                $this->repeatedDays[] = $clonedDate;
+
+                $isLeftout = false;
+
+                if(isset($dateLeftout)) {
+                    foreach ($dateLeftout as $d) {
+                        if($d->format('d/m/Y') == $clonedDate->format('d/m/Y')) $isLeftout = true;
+
+                    }
+                }
+
+                if($isLeftout === false) $this->repeatedDays[] = $clonedDate;
             }
         }
         return true;
