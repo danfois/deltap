@@ -78,6 +78,17 @@ class ServiceOrder
     protected $arrivalDate;
 
     /**
+     * @ORM\Column(type="string", nullable=false, length=6, name="startTime")
+     * @Assert\NotBlank()
+     */
+    protected $startTime;
+    /**
+     * @ORM\Column(type="string", nullable=false, length=6, name="endTime")
+     * @Assert\NotBlank()
+     */
+    protected $endTime;
+
+    /**
      * @ORM\Column(type="text", nullable=true, name="description")
      */
     protected $description;
@@ -542,5 +553,53 @@ class ServiceOrder
     public function getService()
     {
         return $this->service;
+    }
+
+    /**
+     * Set startTime
+     *
+     * @param string $startTime
+     *
+     * @return ServiceOrder
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    /**
+     * Get startTime
+     *
+     * @return string
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * Set endTime
+     *
+     * @param string $endTime
+     *
+     * @return ServiceOrder
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return string
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
     }
 }

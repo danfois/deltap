@@ -11,22 +11,23 @@ class ServiceOrderCreator
     protected $repeatedTimes;
     protected $repeatedDays;
 
-    public function __construct(Stage $stage, array $resultArray)
+    public function __construct(Stage $stage)
     {
         $this->stage = $stage;
-        $this->resultArray = $resultArray;
+        $this->resultArray = array();
+        $this->repeatedDays = array();
     }
 
     public function createOrdersAndPushInResultArray()
     {
-        if($this->checkRepeatedDays() === true) $this->setRepeatedDays();
+        if ($this->checkRepeatedDays() === true) $this->setRepeatedDays();
         $this->setRepeatedTimes();
-
+        $this->createOrders();
     }
 
     protected function checkRepeatedDays()
     {
-        if($this->stage->getDepartureDate() < $this->stage->getArrivalDate()) return true;
+        if ($this->stage->getDepartureDate() < $this->stage->getArrivalDate()) return true;
         return false;
     }
 
@@ -35,23 +36,54 @@ class ServiceOrderCreator
         $this->repeatedTimes = $this->stage->getRepeatedTimes();
     }
 
+    /**
+     * This function must create and set an array of dates.
+     * It takes departure date of the stage and the arrival date, then
+     * converts repeatedDays into weeks days
+     */
     protected function setRepeatedDays()
     {
-        $this->repeatedDays = $this->stage->getRepeatedDays();
+        $repeatedDays = $this->stage->getRepeatedDays();
+
+        $startDate = $this->stage->getDepartureDate();
+        $endDate = $this->stage->getArrivalDate();
+
+        for($i = $startDate; $i <= $endDate; $i = $i->modify('+1 day')) {
+            if(in_array($i->format('w'), $repeatedDays)) {
+                $clonedDate = clone $i;
+                $this->repeatedDays[] = $clonedDate;
+            }
+        }
+        return true;
     }
 
     protected function createOrders()
     {
-        foreach($this->repeatedTimes as $t) {
-            $SOC = new ServiceOrderCompiler($this->stage, $t);
-            $SOC->compileOrder();
-            $order = $SOC->getOrder();
-            $this->resultArray[] = $order;
+        if ($this->repeatedDays == null) {
+            foreach ($this->repeatedTimes as $t) {
+                $SOC = new ServiceOrderCompiler($this->stage, $t);
+                $SOC->compileOrder();
+                $order = $SOC->getOrder();
+                $this->resultArray[] = $order;
+                $SOC = null;
+            }
+            return true;
+        } else {
+            foreach ($this->repeatedDays as $d) {
+                foreach ($this->repeatedTimes as $t) {
+                    $SOC = new ServiceOrderCompiler($this->stage, $t, $d);
+                    $SOC->compileOrder();
+                    $order = $SOC->getOrder();
+                    $this->resultArray[] = $order;
+                    $SOC = null;
+                }
+            }
+            return true;
         }
+    }
 
-        /*
-         * Continuare da qui. Devo fare anche l'iterazione per i vari giorni.
-         * Ora stavo inserendo gli ordini di servizio nell'array dei risultati
-         */
+    public function getResultArray()
+    {
+        return $this->resultArray;
     }
 }

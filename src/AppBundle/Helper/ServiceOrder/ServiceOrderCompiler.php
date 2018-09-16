@@ -10,12 +10,14 @@ class ServiceOrderCompiler
 {
     protected $stage;
     protected $repeatedTime;
+    protected $date;
     protected $serviceOrder;
 
-    public function __construct(Stage $stage, RepeatedTimes $repeatedTime)
+    public function __construct(Stage $stage, $repeatedTime, \DateTime $date = null)
     {
         $this->stage = $stage;
         $this->repeatedTime = $repeatedTime;
+        $this->date = $date;
     }
 
     public function compileOrder()
@@ -88,13 +90,17 @@ class ServiceOrderCompiler
 
     protected function setDepartureDate()
     {
-        if($this->serviceOrder->setDepartureDate($this->stage->getDepartureDate())) return true;
+        ($this->date === null ? $date = $this->stage->getDepartureDate() : $date = $this->date);
+
+        if($this->serviceOrder->setDepartureDate($date)) return true;
         throw new \Exception("Impossibile stabilire la data di partenza");
     }
 
     protected function setArrivalDate()
     {
-        if($this->serviceOrder->setArrivalDate($this->stage->getArrivalDate())) return true;
+        ($this->date === null ? $date = $this->stage->getArrivalDate() : $date = $this->date);
+
+        if($this->serviceOrder->setArrivalDate($date)) return true;
         throw new \Exception("Impossibile stabilire la data di arrivo");
     }
 
