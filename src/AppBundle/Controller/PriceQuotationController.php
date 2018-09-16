@@ -483,7 +483,7 @@ class PriceQuotationController extends Controller
         $details = $pq->getPriceQuotationDetails();
 
         foreach($details as $d) {
-            if($d->emittedOrders == 1) return new Response("Impossibile cambiare lo status del preventivo. Sono già stati emessi ordini di servizio", 500);
+            if($d->getEmittedOrders() == 1) return new Response("Impossibile cambiare lo status del preventivo. Sono già stati emessi ordini di servizio", 500);
         }
 
         if($pq == null) return new Response('Preventivo non trovato', 404);

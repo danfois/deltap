@@ -46,13 +46,25 @@ class ServiceOrderController extends Controller
                 $em->persist($so);
             }
             $em->flush();
+
+            //todo: fare il redirect alla lista degli ordini di servizio
             return new Response('Ordini di Servizio Creati', 200);
         }
 
+        $actionUrl = $this->generateUrl('confirm_service_orders', array('id' => $id, 'confirm' => 'confirm'));
 
-        return $this->render('DEBUG/form_data.html.twig', array(
-            'title' => 'Debug Ordini di Servizio',
-            'data' => $ServiceOrders
+        return $this->render('service_orders/service_orders_preview.html.twig', array(
+            'pqd' => $pqd,
+            'serviceOrders' => $ServiceOrders,
+            'action_url' => $actionUrl
         ));
+    }
+
+    /**
+     * @Route("service-orders-list", name="service_orders_list")
+     */
+    public function serviceOrdersList()
+    {
+        return $this->render('service_orders/service_orders_list.html.twig');
     }
 }

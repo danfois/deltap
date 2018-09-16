@@ -1,0 +1,77 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Anteprima Ordini di Servizio{% endblock %}
+{% block subheader_title %}Anteprima Ordini di Servizio{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Vuoi confermare questi ordini di servizio? Itinerario <span
+                                        class="m--font-info">{{ pqd.name }}</span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+                    <div class="m-section">
+                        <div class="m-section__content">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                <tr>
+                                    <th colspan="2" class="m--bg-metal">Date</th>
+                                    <th colspan="2" class="m--bg-metal">Orari</th>
+                                    <th colspan="6" class="m--bg-metal">Dettagli</th>
+                                </tr>
+                                <th class="bg-light">Data Part.</th>
+                                <th class="bg-light">Data Arr.</th>
+                                <th class="bg-light">Ora Part.</th>
+                                <th class="bg-light">Ora Arr.</th>
+                                <th class="bg-light">Partenza</th>
+                                <th class="bg-light">Arrivo</th>
+                                <th class="bg-light">Cliente</th>
+                                <th class="bg-light">Descrizione</th>
+                                <th class="bg-light">Passeggeri</th>
+                                <th class="bg-light">Prezzo</th>
+                                </thead>
+                                <tbody>
+                                {% for s in serviceOrders %}
+                                <tr>
+                                    <td>{{ s.departureDate|date('d-m-Y') }}</td>
+                                    <td>{{ s.arrivalDate|date('d-m-Y') }}</td>
+                                    <td>{{ s.startTime }}</td>
+                                    <td>{{ s.endTime }}</td>
+                                    <td>{{ s.departureLocation }}</td>
+                                    <td>{{ s.arrivalLocation }}</td>
+                                    <td>{{ s.priceQuotationDetail.priceQuotation.customer.businessName }}</td>
+                                    <td>{{ s.description }}</td>
+                                    <td>{{ s.passengers }}</td>
+                                    <td>&euro; {{ s.price }}</td>
+                                </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="{{ action_url }}" class="btn btn-success">Emetti Ordini di Servizio</a>
+                            <a href="javascript:window.history.back();" class="btn btn-metal">Torna Indietro</a>
+                        </div>
+                    </div>
+                    <!--end::Section-->
+                </div>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+            <!--begin::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}

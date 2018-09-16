@@ -9,6 +9,7 @@ use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
+use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
@@ -24,6 +25,7 @@ use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
+use AppBundle\Serializer\ServiceOrderViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -250,6 +252,21 @@ class JsonController extends Controller
         $normalizers = [new PriceQuotationDetailViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($pqd, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/service-orders", name="json_service_orders")
+     */
+    public function jsonServiceOrdersAction()
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ServiceOrderViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($so, 'json');
 
         return new Response($json);
     }
