@@ -100,7 +100,7 @@ var PriceQuotationList = function () {
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
-                                        <a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
+                                        <a class="dropdown-item" href="' + window.location.origin + '/edit-pq-detail-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-list-alt"></i> Emetti Ordini di Servizio</a>\
                                     </div>\

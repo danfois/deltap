@@ -474,13 +474,17 @@ class PriceQuotationController extends Controller
             4 => 'annullato'
         );
 
-        //todo: devo fare un check per vedere se ho gia emesso ordini di servizio per un itinerario di questo preventivo
-
         if(array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato del preventivo richiesto NON valido!', 500);
 
         $em = $this->getDoctrine()->getManager();
 
         $pq = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
+
+        $details = $pq->getPriceQuotationDetails();
+
+        foreach($details as $d) {
+            if($d->emittedOrders == 1) return new Response("Impossibile cambiare lo status del preventivo. Sono già stati emessi ordini di servizio", 500);
+        }
 
         if($pq == null) return new Response('Preventivo non trovato', 404);
 

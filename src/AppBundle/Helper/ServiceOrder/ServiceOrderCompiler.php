@@ -34,6 +34,8 @@ class ServiceOrderCompiler
         $this->setArrivalLocation();
         $this->setDepartureDate();
         $this->setArrivalDate();
+        $this->setStartTime();
+        $this->setEndTime();
         $this->setDescription();
         $this->setPassengers();
         $this->setPrice();
@@ -141,6 +143,18 @@ class ServiceOrderCompiler
         if($service == null) throw new \Exception("Impossibile impostare il tipo di servizio per questo ordine di servizio");
         $this->serviceOrder->setService($service);
         return true;
+    }
+
+    protected function setStartTime()
+    {
+        if($this->serviceOrder->setStartTime($this->repeatedTime['start_time'])) return true;
+        throw new \Exception("Impossibile impostare l'orario di partenza per questo ordine di servizio");
+    }
+
+    protected function setEndTime()
+    {
+        if($this->serviceOrder->setEndTime($this->repeatedTime['end_time'])) return true;
+        throw new \Exception("Impossibile impostare l'orario di arrivo per questo ordine di servizio");
     }
 
 }

@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 class ServiceOrderController extends Controller
 {
     /**
-     * @Route("confirm-service-orders-{id}", name="confirm_service_orders")
+     * @Route("confirm-service-orders-{id}/{confirm}", name="confirm_service_orders")
      */
-    public function confirmServiceOrdersAction(int $id)
+    public function confirmServiceOrdersAction(int $id, string $confirm = null)
     {
         $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
+
+        if($confirm !== null && $confirm !== 'confirm') return new Response('Pagina non Trovata', 404);
 
         if($pqd == null) return new Response('Itinerario non trovato', 404);
         if($pqd->getEmittedOrders() === 1) return new Response('Sono già stati emessi ordini di servizio per questo itinerario');
@@ -35,6 +37,16 @@ class ServiceOrderController extends Controller
             foreach($results as $r) {
                 $ServiceOrders[] = $r;
             }
+        }
+
+        if($confirm === 'confirm') {
+            $em = $this->getDoctrine()->getManager();
+            $pqd->setEmittedOrders(1);
+            foreach($ServiceOrders as $so) {
+                $em->persist($so);
+            }
+            $em->flush();
+            return new Response('Ordini di Servizio Creati', 200);
         }
 
 
