@@ -23,7 +23,7 @@ class ServiceOrder
     protected $serviceOrder;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer", inversedBy="serviceOrders")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
      */
     protected $customer;

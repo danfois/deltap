@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
+use AppBundle\Entity\ServiceOrder\ServiceOrder;
+use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -66,5 +68,20 @@ class ServiceOrderController extends Controller
     public function serviceOrdersList()
     {
         return $this->render('service_orders/service_orders_list.html.twig');
+    }
+
+    /**
+     * @Route("edit-service-order-{id}", name="edit_service_order")
+     */
+    public function editServiceOrder(int $id)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        $form = $this->createForm(ServiceOrderType::class, $so, array('pqd' => $so->getPriceQuotationDetail()));
+
+        return $this->render('DEBUG/show_form.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
