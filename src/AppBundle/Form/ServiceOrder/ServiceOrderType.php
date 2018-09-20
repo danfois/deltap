@@ -143,6 +143,16 @@ class ServiceOrderType extends AbstractType
                     'class' => 'form-control m-input date_picker'
                 )
             ))
+            ->add('startTime', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input time_picker'
+                )
+            ))
+            ->add('endTime', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input time_picker'
+                )
+            ))
             ->add('passengers', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input int_touch_spin'
@@ -155,12 +165,12 @@ class ServiceOrderType extends AbstractType
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input summernote'
                 )
             ))
             ->add('dispositions', TextareaType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input summernote'
                 )
             ));
 

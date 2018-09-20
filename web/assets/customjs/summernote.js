@@ -1,6 +1,6 @@
 var SummernoteDemo = {
     init: function () {
-        $(".summernote").summernote({height: 400})
+        $(".summernote").summernote({height: 200})
     }
 };
 jQuery(document).ready(function () {

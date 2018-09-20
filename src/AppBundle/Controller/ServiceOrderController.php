@@ -80,8 +80,16 @@ class ServiceOrderController extends Controller
 
         $form = $this->createForm(ServiceOrderType::class, $so, array('pqd' => $so->getPriceQuotationDetail()));
 
-        return $this->render('DEBUG/show_form.html.twig', array(
-            'form' => $form->createView()
+        $actionUrl = '';
+
+        return $this->render('service_orders/service_order.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Modifica Ordine di Servizio',
+            'action_url' => $actionUrl
         ));
+
+        /*return $this->render('DEBUG/show_form.html.twig', array(
+            'form' => $form->createView()
+        ));*/
     }
 }

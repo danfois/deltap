@@ -82,6 +82,7 @@ class ServiceOrder
      * @Assert\NotBlank()
      */
     protected $startTime;
+
     /**
      * @ORM\Column(type="string", nullable=false, length=6, name="endTime")
      * @Assert\NotBlank()
