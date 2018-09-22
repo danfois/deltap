@@ -8,107 +8,6 @@
             </div>
 
 
-            <div class="m-portlet m-portlet--accent m-portlet--head-solid-bg m-portlet--head-sm">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                        <div class="m-portlet__head-title">
-                                            <span class="m-portlet__head-icon">
-													<i class="flaticon-map-location"></i>
-												</span>
-                            <h3 class="m-portlet__head-text">
-                                Ripetizione Dati Tragitti
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="m-portlet__body">
-
-
-                    <div class="form-group m-form__group row">
-
-                        <div class="col-md-3 m-form__group-sub">
-                            <label class="form-control-label">* Ora
-                                Partenza</label>
-                            <div class="m-input-icon m-input-icon--right">
-                                <input type="text" name="main-repeated-start" id="main_start_time"
-                                       class="form-control m-input time_picker">
-
-                                <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                class="la la-clock-o"></i></span></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 m-form__group-sub">
-                            <label class="form-control-label">* Ora
-                                Arrivo</label>
-                            <div class="m-input-icon m-input-icon--right">
-                                <input type="text" name="main-repeated-end" id="main_end_time"
-                                       class="form-control m-input time_picker">
-                                <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                class="la la-clock-o"></i></span></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 m-form__group-sub">
-                            <label class="form-control-label">Frequenza
-                                Settimanale</label><br>
-                            <div class="m-checkbox-inline">
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="1" id="repeated_day1" name="repeated_day">Lun
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="2" id="repeated_day2" name="repeated_day">Mar
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="3" id="repeated_day3" name="repeated_day">Mer
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="4" id="repeated_day4" name="repeated_day">Gio
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="5" id="repeated_day5" name="repeated_day">Ven
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="6" id="repeated_day6" name="repeated_day">Sab
-                                    <span></span>
-                                </label>
-                                <label class="m-checkbox">
-                                    <input type="checkbox" value="7" id="repeated_day7" name="repeated_day">Dom
-                                    <span></span>
-                                </label>
-                            </div>
-                            <span class="m-form__help">
-                                                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
-                                                        </span>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group m-form__group row">
-
-                        <div class="col-md-12 m-form__group-sub">
-                            <label class="form-control-label">Tranne: </label><br>
-                            <input type="text" class="form-control m-input taginput" id="main_leftouts">
-                            <span class="m-form__help">
-                                                            Scrivere (in caso di tappa ripetuta) i giorni nei quali non deve essere svolta, nel formato dd/mm/yyyy e separati da virgola ( es: 01/01/1970, 03/01/2018 )
-                                                        </span>
-                        </div>
-
-                    </div>
-
-                    <a href="javascript:MainControls();" class="btn btn-accent m-btn m-btn--custom">Applica ai Tragitti</a>
-
-
-                </div>
-            </div>
-
-
             <div class="m-accordion m-accordion--default" id="itinerari" role="tablist">
 
                 <div data-repeater-list="price_quotation_detail[stages]">
@@ -452,6 +351,107 @@
                     </span>
                 </div>
             </div>
+
+            <div class="m-portlet m-portlet--accent m-portlet--head-solid-bg m-portlet--head-sm m--margin-top-25">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+													<i class="flaticon-map-location"></i>
+												</span>
+                            <h3 class="m-portlet__head-text">
+                                Ripetizione Dati Tragitti
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+
+
+                    <div class="form-group m-form__group row">
+
+                        <div class="col-md-3 m-form__group-sub">
+                            <label class="form-control-label">* Ora
+                                Partenza</label>
+                            <div class="m-input-icon m-input-icon--right">
+                                <input type="text" name="main-repeated-start" id="main_start_time"
+                                       class="form-control m-input time_picker">
+
+                                <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                class="la la-clock-o"></i></span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 m-form__group-sub">
+                            <label class="form-control-label">* Ora
+                                Arrivo</label>
+                            <div class="m-input-icon m-input-icon--right">
+                                <input type="text" name="main-repeated-end" id="main_end_time"
+                                       class="form-control m-input time_picker">
+                                <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                class="la la-clock-o"></i></span></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 m-form__group-sub">
+                            <label class="form-control-label">Frequenza
+                                Settimanale</label><br>
+                            <div class="m-checkbox-inline">
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="1" id="repeated_day1" name="repeated_day">Lun
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="2" id="repeated_day2" name="repeated_day">Mar
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="3" id="repeated_day3" name="repeated_day">Mer
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="4" id="repeated_day4" name="repeated_day">Gio
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="5" id="repeated_day5" name="repeated_day">Ven
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="6" id="repeated_day6" name="repeated_day">Sab
+                                    <span></span>
+                                </label>
+                                <label class="m-checkbox">
+                                    <input type="checkbox" value="7" id="repeated_day7" name="repeated_day">Dom
+                                    <span></span>
+                                </label>
+                            </div>
+                            <span class="m-form__help">
+                                                            Scegliere un eventuale frequenza settimanale. Inciderà sull'emissione degli ordini di servizio.
+                                                        </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group m-form__group row">
+
+                        <div class="col-md-12 m-form__group-sub">
+                            <label class="form-control-label">Tranne: </label><br>
+                            <input type="text" class="form-control m-input taginput" id="main_leftouts">
+                            <span class="m-form__help">
+                                                            Scrivere (in caso di tappa ripetuta) i giorni nei quali non deve essere svolta, nel formato dd/mm/yyyy e separati da virgola ( es: 01/01/1970, 03/01/2018 )
+                                                        </span>
+                        </div>
+
+                    </div>
+
+                    <a href="javascript:MainControls();" class="btn btn-accent m-btn m-btn--custom">Applica ai Tragitti</a>
+
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

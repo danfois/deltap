@@ -10,7 +10,7 @@ var ServiceOrderForm = function () {
                 ignore: ":hidden",
                 rules:
                     {
-                        'create_category[category_name]': { required: !0, maxlength:64 }
+                        //todo: eventualmente aggiungere delle cose per la validazione
                     },
                 messages: {},
                 invalidHandler: function (e, r) {
@@ -34,11 +34,11 @@ var ServiceOrderForm = function () {
                     message: "Caricamento..."
                 });
                 i.form() && (mApp.progress(r), t.ajaxSubmit({
-                    success: function (url) {
+                    success: function (response) {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            html: r,
+                            html: response,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
@@ -63,4 +63,5 @@ var ServiceOrderForm = function () {
 
 jQuery(document).ready(function () {
     ServiceOrderForm().init();
+    initializeWidgets();
 });

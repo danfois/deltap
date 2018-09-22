@@ -25,7 +25,7 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'departureDate' => $o->getDepartureDate()->format('d-m-Y'),
                     'arrivalDate' => $o->getArrivalDate()->format('d-m-Y'),
                     'time' => $o->getStartTime() . ' - ' . $o->getEndTime(),
-                    'driver' => ($o->getDriver() != null ? $o->getDriver() : 'Nessuno'),
+                    'driver' => ($o->getDriver() != null ? $o->getDriver()->getUsername() : 'Nessuno'),
                     'vehicle' => ($o->getVehicle() != null ? $o->getVehicle()->getPlate() : 'Nessuno'),
                     'price' => $o->getPrice(),
                     'frequency' => $o->getServiceFrequency()->getServiceName(),

@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 m--align-right order-1 order-xl-2">
-                        <a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air" target="_blank">
+                        <a href="{{ path('create_service_order') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air" target="_blank">
 												<span>
 													<i class="la la-file"></i>
 													<span>
@@ -101,10 +101,11 @@
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
-    <script src="{{ asset('assets/customjs/price_quotations/price_quotation_list.js') }}"></script>
     <script src="{{ asset('assets/customjs/service_orders/service_orders_list.js') }}"></script>
     <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
     <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
     <script>
 
         jQuery(document).ready(function () {

@@ -173,6 +173,20 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="col text-left">
+                                            <a href="{{ path('create_price_quotation_detail') }}">
+                                                <div class="btn btn btn-warning m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Crea Itinerario</span>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -265,6 +279,7 @@
 
 
 {% block page_scripts %}
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/price_quotations/price_quotation.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
