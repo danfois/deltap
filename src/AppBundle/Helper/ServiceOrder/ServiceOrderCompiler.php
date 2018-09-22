@@ -41,11 +41,18 @@ class ServiceOrderCompiler
         $this->setPrice();
         $this->setServiceFrequency();
         $this->setService();
+        $this->setStatus();
     }
 
     public function getOrder(): ServiceOrder
     {
         return $this->serviceOrder;
+    }
+
+    protected function setStatus()
+    {
+        if($this->serviceOrder->setStatus(1)) return true;
+        throw new \Exception("Impossibile impostare lo status dell'Ordine di Servizio");
     }
 
     protected function setCustomer()

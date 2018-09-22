@@ -134,6 +134,10 @@ class ServiceOrder
      */
     protected $service;
 
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="status")
+     */
+    protected $status;
 
 
 
@@ -603,4 +607,24 @@ class ServiceOrder
     {
         return $this->endTime;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
 }

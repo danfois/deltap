@@ -52,11 +52,25 @@ var ServiceOrderList = function () {
                 },
                 {
                     field: 'driver',
-                    title: 'Autista'
+                    title: 'Autista',
+                    template: function(row) {
+                        if(row.driver === 'Nessuno') {
+                            return '<span class="m--font-danger">Nessuno</span>'
+                        } else {
+                            return '<span class="m--font-info">' + row.driver + '</span>';
+                        }
+                    }
                 },
                 {
                     field: 'vehicle',
-                    title: 'Veicolo'
+                    title: 'Veicolo',
+                    template: function(row) {
+                        if(row.vehicle === 'Nessuno') {
+                            return '<span class="m--font-danger">Nessuno</span>'
+                        } else {
+                            return '<span class="m--font-info">' + row.vehicle + '</span>';
+                        }
+                    }
                 },
                 {
                     field: 'departureLocation',
@@ -102,20 +116,20 @@ var ServiceOrderList = function () {
                     field: 'price',
                     title: 'Prezzo'
                 },
-                /*{
+                {
                     field: 'status',
                     title: 'Stato',
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            1: {'title': 'Da Inviare', 'class': 'warning'},
-                            2: {'title': 'Inviato', 'class': 'info'},
-                            3: {'title': 'Confermato', 'class': 'success'},
-                            4: {'title': 'Annullato', 'class': 'metal'},
+                            0: {'title': 'Status non Impostato', 'class': 'metal'},
+                            1: {'title': 'Da Eseguire', 'class': 'warning'},
+                            2: {'title': 'Eseguito', 'class': 'success'},
+                            3: {'title': 'Annullato', 'class': 'danger'}
                         };
                         return '<span class="m-badge m-badge--' + status[row.status].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.status].class + '">' + status[row.status].title + '</span>';
                     }
-                },*/
+                },
                 {
                     field: 'Actions',
                     width: 110,
@@ -133,12 +147,12 @@ var ServiceOrderList = function () {
 						    	<a class="dropdown-item" href="edit-service-order-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Ordine di Servizio</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'assign-driver-and-vehicle\', {\'id\' : ' + row.idv +'}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna Autista e Veicolo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-check"></i> Segna come Eseguito</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-close"></i> Segna come Annullato</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-service-order-status\', {\'id\' : ' + row.idv +', \'status\' : 2})"><i class="la la-check"></i> Segna come Eseguito</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-service-order-status\', {\'id\' : ' + row.idv +', \'status\' : 3})"><i class="la la-close"></i></i> Segna come Annullato</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'ajax/delete-service-order-' + row.idv +'\', \'Ordine di Servizio NON eliminato!\', {} )"><i class="la la-trash"></i> Elimina Ordine di Servizio</a>\
 						  	</div>\
 						</div>\
-						<a href="javascript:void(0);" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Ordine di Servizio">\
+						<a href="edit-service-order-' + row.idv +'" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Ordine di Servizio">\
 							<i class="la la-edit"></i>\
 						</a>\
 						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Ordine di Servizio">\

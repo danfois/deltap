@@ -245,4 +245,33 @@ class ServiceOrderController extends Controller
             'modal_content' => $html
         ));
     }
+
+    /**
+     * @Route("change-service-order-status", name="change_service_order_status")
+     */
+    public function changeServiceOrderStatusAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $status = $request->query->get('status');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Ordine di Servizio non trovato', 400);
+
+        $possibleStatusArray = array(
+            1 => 'da Eseguire',
+            2 => 'Eseguito',
+            3 => 'Annullato',
+        );
+
+        if(array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato dell\'Ordine di Servizio richiesto NON valido!', 500);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $so = $em->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
+
+        if($so == null) return new Response('Preventivo non trovato', 404);
+
+        $so->setStatus($status);
+        $em->flush();
+
+        return new Response('Ordine di Servizio impostato come ' . $possibleStatusArray[$status] . '!', 200);
+    }
 }

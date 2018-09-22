@@ -22,6 +22,10 @@ class ServiceOrderHelper
 
     public function execute()
     {
+        if($this->isEdited === false) {
+            $this->setStatus();
+        }
+
         $this->executed = 1;
     }
 
@@ -29,6 +33,13 @@ class ServiceOrderHelper
     {
         //todo: implement that function
         return true;
+    }
+
+    protected function setStatus()
+    {
+        if($this->serviceOrder->setStatus(1)) return true;
+        $this->errors .= 'Impossibile impostare lo status dell\'Ordine di Servizio';
+        return false;
     }
 
     public function getErrors()

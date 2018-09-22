@@ -30,7 +30,8 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'price' => $o->getPrice(),
                     'frequency' => $o->getServiceFrequency()->getServiceName(),
                     'service' => $o->getService()->getService(),
-                    'passengers' => $o->getPassengers()
+                    'passengers' => $o->getPassengers(),
+                    'status' => $o->getStatus()
                 ];
             }
         }
