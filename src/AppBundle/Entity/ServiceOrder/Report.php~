@@ -1,0 +1,88 @@
+<?php
+
+namespace AppBundle\Entity\ServiceOrder;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReportRepository")
+ * @ORM\Table(name="reports")
+ */
+class Report
+{
+    /**
+     * @ORM\Column(type="integer", name="reportId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $reportId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\ServiceOrder\ServiceOrder", inversedBy="report")
+     * @ORM\JoinColumn(name="serviceOrderId", referencedColumnName="serviceOrderId")
+     */
+    protected $serviceOrder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id_user")
+     */
+    protected $user;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="startKm")
+     * @Assert\NotBlank(message="Non hai segnalato i chilometri di partenza")
+     * @Assert\Length(max=10, maxMessage="I chilometri di partenza sono eccessivi")
+     */
+    protected $startKm;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="endKm")
+     * @Assert\NotBlank(message="Non hai segnalato i chilometri di arrivo")
+     * @Assert\Length(max=10, maxMessage="I chilometri di arrivo sono eccessivi")
+     */
+    protected $endKm;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="totalKm")
+     * @Assert\NotBlank(message="Non hai segnalato i chilometri totali")
+     * @Assert\Length(max=10, maxMessage="I chilometri totali sono eccessivi")
+     */
+    protected $totalKm;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="fuelLt")
+     * @Assert\NotBlank(message="Non hai inserito i litri di carburante")
+     * @Assert\Length(max=10, maxMessage="Il numero dei litri di carburante è troppo alto")
+     */
+    protected $fuelLt;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="fuelCost")
+     * @Assert\NotBlank(message="Non hai inserito il costo del carburante")
+     * @Assert\Length(max=10, maxMessage="Il costo del carburante è troppo elevato.")
+     */
+    protected $fuelCost;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="oilLt")
+     * @Assert\Length(max=10, maxMessage="I litri d'olio inseriti sono eccessivi")
+     */
+    protected $oilLt;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="oilCost")
+     * @Assert\Length(max=10, maxMessage="Il costo dell'olio è eccessivo")
+     */
+    protected $oilCost;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="notes")
+     */
+    protected $notes;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, length=1, name="validated")
+     */
+    protected $validated;
+}
