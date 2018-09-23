@@ -1,0 +1,190 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_report" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    {{ form_widget(form.serviceOrder) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Chilometraggio</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Km Partenza:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.startKm) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-tachometer"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero dei Chilometri del mezzo al momento della partenza</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Km Arrivo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.endKm) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-tachometer"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero dei Chilometri del mezzo al momento dell'arrivo</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Km Totali:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.totalKm) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-tachometer"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero dei Chilometri percorsi in totale. Calcolato Automaticamente</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Olio e Carburante</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Costo Carburante:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fuelCost) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Costo sostenuto per il rifornimento di carburante</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Litri Carburante:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fuelLt) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-filter"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Costo sostenuto per il rifornimento di carburante</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Costo Olio:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.oilCost) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Costo sostenuto per l'olio</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Litri Olio:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.oilLt) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-filter"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Litri di olio immessi in questo Ordine di Servizio</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Note</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>Note Aggiuntive:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.notes) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Eventuali note per l'Amministratore</span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/service_orders/report.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

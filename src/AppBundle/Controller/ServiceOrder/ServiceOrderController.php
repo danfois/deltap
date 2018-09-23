@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\ServiceOrder;
 
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
@@ -274,4 +274,5 @@ class ServiceOrderController extends Controller
 
         return new Response('Ordine di Servizio impostato come ' . $possibleStatusArray[$status] . '!', 200);
     }
+
 }

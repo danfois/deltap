@@ -1,7 +1,7 @@
-var ServiceOrderForm = function () {
+var ReportForm = function () {
     var i;
     var e;
-    var t = $('#form_service_order');
+    var t = $('#form_report');
 
     return {
         init: function () {
@@ -62,7 +62,25 @@ var ServiceOrderForm = function () {
     }
 };
 
+var calculateTotalKm = function() {
+    var startKm = $('#report_startKm').val();
+    var endKm = $('#report_endKm').val();
+
+    if(startKm != 0 && endKm != 0) {
+        $('#report_totalKm').val(Math.round((endKm - startKm) * 100) / 100);
+    }
+
+};
+
 jQuery(document).ready(function () {
-    ServiceOrderForm().init();
+    ReportForm().init();
     initializeWidgets();
+
+    $('#report_startKm').on('focusout', function() {
+        calculateTotalKm();
+    });
+
+    $('#report_endKm').on('focusout', function() {
+        calculateTotalKm();
+    })
 });
