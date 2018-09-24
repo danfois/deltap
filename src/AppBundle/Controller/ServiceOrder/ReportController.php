@@ -67,6 +67,7 @@ class ReportController extends Controller
 
             if ($errors == null) {
                 $report->setUser($user);
+                $so->setStatus(2);
                 $em->persist($report);
                 $em->flush();
 
@@ -165,6 +166,30 @@ class ReportController extends Controller
         }
 
         throw new AccessDeniedException();
+    }
+
+    /**
+     * @Route("report-detail", name="report-detail")
+     */
+    public function reportDetailAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
+        if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+        if ($so->getReport() == null) return new Response('Non esiste un report per questo Ordine di Servizio', 500);
+
+        $report = $so->getReport();
+
+        $html = $this->renderView('service_orders/report_details.html.twig', array(
+            'report' => $report
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Report per l\'Ordine di Servizio N. ' . $so->getServiceOrder(),
+            'modal_content' => $html
+        ));
     }
 
 }

@@ -1,0 +1,56 @@
+<div class="row m--padding-20">
+    <div class="col-md-12">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Id OdS</th>
+                <th>Utente</th>
+                <th>Km Partenza</th>
+                <th>Km Arrivo</th>
+                <th>Km Totali</th>
+                <th>Costo Carb.</th>
+                <th>Litri Carb.</th>
+                <th>Costo Olio</th>
+                <th>Litri Olio</th>
+                <th>Data Creazione</th>
+                <th>Data Modifica</th>
+                <th>Validato</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ report.serviceOrder.serviceOrder }}</td>
+                <td>{{ report.user.username }}</td>
+                <td>{{ report.startKm }}</td>
+                <td>{{ report.endKm }}</td>
+                <td>{{ report.totalKm }}</td>
+                <td>{{ report.fuelCost }}</td>
+                <td>{{ report.fuelLt }}</td>
+                <td>{{ report.oilCost }}</td>
+                <td>{{ report.oilLt }}</td>
+                <td>{{ report.submitDate|date('d-m-Y') }}</td>
+                <td>{{ report.editDate|date('d-m-Y') }}</td>
+                <td>{{ report.validated }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row m--padding-20">
+    <div class="col-md-12">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Note Aggiuntive</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ report.notes|raw }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
