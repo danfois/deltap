@@ -24,11 +24,15 @@ class ReportHelper
     {
         if($this->isEdited === false) {
             $this->setValidation();
+            $this->setSubmitDate();
+        } else {
+            $this->setEditDate();
         }
         $this->checkKm();
         $this->setTotalKm();
         $this->executed = 1;
     }
+
 
     protected function checkKm()
     {
@@ -51,6 +55,20 @@ class ReportHelper
     {
         if($this->report->setValidated(0)) return true;
         $this->errors .= 'Impossibile impostare lo stato di validità del report<br>';
+        return false;
+    }
+
+    protected function setSubmitDate()
+    {
+        if($this->report->setSubmitDate(new \DateTime())) return true;
+        $this->errors .= 'Impossibile impostare la data di emissione del report<br>';
+        return false;
+    }
+
+    protected function setEditDate()
+    {
+        if($this->report->setEditDate(new \DateTime())) return true;
+        $this->errors .= 'Impossibile impostare la data di modifica del report<br>';
         return false;
     }
 

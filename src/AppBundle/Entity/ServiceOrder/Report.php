@@ -87,6 +87,16 @@ class Report
     protected $validated;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false, name="submitDate")
+     */
+    protected $submitDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="editDate")
+     */
+    protected $editDate;
+
+    /**
      * Get reportId
      *
      * @return integer
@@ -359,4 +369,43 @@ class Report
     {
         return $this->user;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate;
+    }
+
+    /**
+     * @param $submitDate
+     * @return $this
+     */
+    public function setSubmitDate($submitDate)
+    {
+        $this->submitDate = $submitDate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEditDate()
+    {
+        return $this->editDate;
+    }
+
+    /**
+     * @param $editDate
+     * @return $this
+     */
+    public function setEditDate($editDate)
+    {
+        $this->editDate = $editDate;
+        return $this;
+    }
+
+
+
 }
