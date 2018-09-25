@@ -1,0 +1,231 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Ordini di Servizio{% endblock %}
+{% block subheader_title %}Ordini di Servizio{% endblock %}
+
+{% block content %}
+
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            Ordini di Servizio
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#m_tabs_1_1">
+                            Del Giorno
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#m_tabs_1_2">
+                            Da fare report
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#m_tabs_1_3">
+                            Archivio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#m_tabs_1_4">
+                            Da eseguire
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+
+
+                    <div class="tab-pane active" id="m_tabs_1_1" role="tabpanel" style="overflow-x: scroll;">
+
+                        {% for o in new_orders %}
+
+                            <table class="table table-bordered text-center new_order_table m--margin-bottom-30"
+                                   style="min-width:900px;">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2" class="head">Data</td>
+                                    <td style="width:250px" class="head">Partenza</td>
+                                    <td class="head" style="min-width:300px;">Descrizione</td>
+                                    <td class="head" style="width:400px;">Disposizioni</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
+                                    <td>{{ o.departureLocation }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="head" style="width:100px">Ora Part.</td>
+                                    <td class="head" style="width:100px">Ora Arr.</td>
+                                    <td class="head">Arrivo</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ o.startTime }}</td>
+                                    <td>{{ o.endTime }}</td>
+                                    <td>{{ o.arrivalLocation }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        {% if o.report is null %}
+                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                        class="la la-edit"></i> Compila Report</a>
+                                        {% else %}
+                                            <a href="#" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                                Report</a>
+                                        {% endif %}
+                                        <a href="#" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        <a href="#" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
+                        {% for o in to_report_orders %}
+
+                            <table class="table table-bordered text-center to_report_order m--margin-bottom-30"
+                                   style="min-width:900px;">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2" class="head">Data</td>
+                                    <td style="width:250px" class="head">Partenza</td>
+                                    <td class="head" style="min-width:300px;">Descrizione</td>
+                                    <td class="head" style="width:400px;">Disposizioni</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
+                                    <td>{{ o.departureLocation }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="head" style="width:100px">Ora Part.</td>
+                                    <td class="head" style="width:100px">Ora Arr.</td>
+                                    <td class="head">Arrivo</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ o.startTime }}</td>
+                                    <td>{{ o.endTime }}</td>
+                                    <td>{{ o.arrivalLocation }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        {% if o.report is null %}
+                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                        class="la la-edit"></i> Compila Report</a>
+                                        {% else %}
+                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                                Report</a>
+                                        {% endif %}
+                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="tab-pane" id="m_tabs_1_3" role="tabpanel">
+                        {% for o in old_orders %}
+
+                            <table class="table table-bordered text-center old_order m--margin-bottom-30"
+                                   style="min-width:900px;">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2" class="head">Data</td>
+                                    <td style="width:250px" class="head">Partenza</td>
+                                    <td class="head" style="min-width:300px;">Descrizione</td>
+                                    <td class="head" style="width:400px;">Disposizioni</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
+                                    <td>{{ o.departureLocation }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="head" style="width:100px">Ora Part.</td>
+                                    <td class="head" style="width:100px">Ora Arr.</td>
+                                    <td class="head">Arrivo</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ o.startTime }}</td>
+                                    <td>{{ o.endTime }}</td>
+                                    <td>{{ o.arrivalLocation }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        {% if o.report is null %}
+                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                        class="la la-edit"></i> Compila Report</a>
+                                        {% else %}
+                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                                Report</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="tab-pane" id="m_tabs_1_4" role="tabpanel">
+                        {% for o in future_orders %}
+
+                            <table class="table table-bordered text-center future_order m--margin-bottom-30"
+                                   style="min-width:900px;">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2" class="head">Data</td>
+                                    <td style="width:250px" class="head">Partenza</td>
+                                    <td class="head" style="min-width:300px;">Descrizione</td>
+                                    <td class="head" style="width:400px;">Disposizioni</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
+                                    <td>{{ o.departureLocation }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
+                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="head" style="width:100px">Ora Part.</td>
+                                    <td class="head" style="width:100px">Ora Arr.</td>
+                                    <td class="head">Arrivo</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ o.startTime }}</td>
+                                    <td>{{ o.endTime }}</td>
+                                    <td>{{ o.arrivalLocation }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

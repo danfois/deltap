@@ -8,7 +8,6 @@ use AppBundle\Form\ServiceOrder\DriverAndVehicleType;
 use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
 use AppBundle\Helper\ServiceOrder\ServiceOrderHelper;
-use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
