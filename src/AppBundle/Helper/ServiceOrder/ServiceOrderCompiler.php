@@ -42,11 +42,21 @@ class ServiceOrderCompiler
         $this->setServiceFrequency();
         $this->setService();
         $this->setStatus();
+        $this->setMap();
     }
 
     public function getOrder(): ServiceOrder
     {
         return $this->serviceOrder;
+    }
+
+    protected function setMap()
+    {
+        if($this->stage->getDirectionsLink() != null) {
+            if($this->serviceOrder->setDirectionsLink($this->stage->getDirectionsLink())) return true;
+            throw new \Exception("Impossibile impostare la mappa dell'Ordine di Servizio");
+        }
+        return false;
     }
 
     protected function setStatus()

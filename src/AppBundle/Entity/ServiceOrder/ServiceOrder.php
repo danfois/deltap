@@ -139,6 +139,11 @@ class ServiceOrder
      */
     protected $status;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="directionsLink")
+     */
+    protected $directionsLink;
+
 
 
 
@@ -624,4 +629,28 @@ class ServiceOrder
     }
 
 
+
+    /**
+     * Set directionsLink
+     *
+     * @param string $directionsLink
+     *
+     * @return ServiceOrder
+     */
+    public function setDirectionsLink($directionsLink)
+    {
+        $this->directionsLink = $directionsLink;
+
+        return $this;
+    }
+
+    /**
+     * Get directionsLink
+     *
+     * @return string
+     */
+    public function getDirectionsLink()
+    {
+        return $this->directionsLink;
+    }
 }

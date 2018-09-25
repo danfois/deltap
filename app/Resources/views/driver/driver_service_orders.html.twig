@@ -79,7 +79,13 @@
                                             <a href="#" class="btn btn-warning"><i class="la la-edit"></i> Modifica
                                                 Report</a>
                                         {% endif %}
-                                        <a href="#" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% if o.directionsLink is not null %}
+                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                        class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% else %}
+                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% endif %}
                                         <a href="#" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
                                     </td>
                                 </tr>
@@ -125,11 +131,19 @@
                                             <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
                                                         class="la la-edit"></i> Compila Report</a>
                                         {% else %}
-                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
+                                                        class="la la-edit"></i> Modifica
                                                 Report</a>
                                         {% endif %}
-                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
-                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                        {% if o.directionsLink is not null %}
+                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                        class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% else %}
+                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% endif %}
+                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-danger"><i
+                                                    class="la la-close"></i> Segnala Problemi</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -173,7 +187,8 @@
                                             <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
                                                         class="la la-edit"></i> Compila Report</a>
                                         {% else %}
-                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
+                                                        class="la la-edit"></i> Modifica
                                                 Report</a>
                                         {% endif %}
                                     </td>
@@ -215,7 +230,13 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5">
-                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-info"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% if o.directionsLink is not null %}
+                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                        class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% else %}
+                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 </tbody>

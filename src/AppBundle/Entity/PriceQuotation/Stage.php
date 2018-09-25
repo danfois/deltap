@@ -96,6 +96,11 @@ class Stage
      */
     protected $leftouts;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="directionsLink")
+     */
+    protected $directionsLink;
+
 
     /**
      * Get stageId
@@ -412,4 +417,28 @@ class Stage
     }
 
 
+
+    /**
+     * Set directionsLink
+     *
+     * @param string $directionsLink
+     *
+     * @return Stage
+     */
+    public function setDirectionsLink($directionsLink)
+    {
+        $this->directionsLink = $directionsLink;
+
+        return $this;
+    }
+
+    /**
+     * Get directionsLink
+     *
+     * @return string
+     */
+    public function getDirectionsLink()
+    {
+        return $this->directionsLink;
+    }
 }

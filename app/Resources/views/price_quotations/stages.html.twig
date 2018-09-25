@@ -184,6 +184,24 @@
 
                                                 </div>
 
+                                                <div class="form-group m-form__group row">
+
+                                                    <div class="col-lg-12 m-form__group-sub">
+                                                        <label class="form-control-label">
+                                                            Link Mappa
+                                                        </label>
+                                                        <div class="m-input-icon m-input-icon--right">
+                                                            {{ form_widget(s.directionsLink) }}
+                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                            class="la la-map"></i></span></span>
+                                                        </div>
+                                                        <span class="m-form__help">
+                                                    Eventualmente copiare e incollare l'indirizzo dalla barra degli indirizzi della scheda che si apre cliccando su "Controlla Mappa". Copiarlo dopo che la mappa viene eventualmente modificata. Campo non obbligatorio.
+                                                </span>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
 
 
@@ -290,11 +308,13 @@
                                                             Azienda</label><br>
                                                         <div class="m-checkbox-inline">
                                                             <label class="m-checkbox">
-                                                                <input type="checkbox" value="true" id="company_departure">Partenza dall'Azienda
+                                                                <input type="checkbox" value="true"
+                                                                       id="company_departure">Partenza dall'Azienda
                                                                 <span></span>
                                                             </label>
                                                             <label class="m-checkbox">
-                                                                <input type="checkbox" value="true" id="company_arrival">Ritorno in Azienda
+                                                                <input type="checkbox" value="true"
+                                                                       id="company_arrival">Ritorno in Azienda
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -304,16 +324,27 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row text-right">
-                                                    <div class="col-md-2">
-                                                        <label class="form-control-label">&nbsp;</label>
-                                                        <div class="btn-sm btn btn-success m-btn m-btn--icon"
-                                                             onclick="calculateKm($(this))">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                                <label class="form-control-label">&nbsp;</label>
+                                                                <div class="btn-sm btn btn-success m-btn m-btn--icon"
+                                                                     onclick="calculateKm($(this))">
                                                                         <span>
                                                                             <i class="la la-calculator"></i>
                                                                             <span>Calcola KM e Tempo</span>
                                                                         </span>
-                                                        </div>
+                                                                </div>
+
+                                                                <label class="form-control-label">&nbsp;</label>
+                                                                <div class="btn-sm btn btn-info m-btn m-btn--icon"
+                                                                     onclick="goToMap($(this))">
+                                                                        <span>
+                                                                            <i class="la la-map"></i>
+                                                                            <span>Controlla Mappa</span>
+                                                                        </span>
+                                                                </div>
+
                                                     </div>
                                                 </div>
 
@@ -446,7 +477,8 @@
 
                     </div>
 
-                    <a href="javascript:MainControls();" class="btn btn-accent m-btn m-btn--custom">Applica ai Tragitti</a>
+                    <a href="javascript:MainControls();" class="btn btn-accent m-btn m-btn--custom">Applica ai
+                        Tragitti</a>
 
 
                 </div>

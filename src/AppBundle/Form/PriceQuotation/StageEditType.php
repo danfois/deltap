@@ -93,6 +93,12 @@ class StageEditType extends AbstractType
                     'class' => 'form-control m-input taginput'
                 ),
                 'required' => false
+            ))
+            ->add('directionsLink', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
             ));
 
         //todo: implementare quel coso tipo i tag separati da virgola

@@ -23,7 +23,7 @@ class ServiceOrder
     protected $serviceOrder;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer", inversedBy="serviceOrders")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
      */
     protected $customer;
@@ -82,6 +82,7 @@ class ServiceOrder
      * @Assert\NotBlank()
      */
     protected $startTime;
+
     /**
      * @ORM\Column(type="string", nullable=false, length=6, name="endTime")
      * @Assert\NotBlank()
@@ -133,6 +134,15 @@ class ServiceOrder
      */
     protected $service;
 
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="status")
+     */
+    protected $status;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="directionsLink")
+     */
+    protected $directionsLink;
 
 
 
@@ -554,4 +564,69 @@ class ServiceOrder
     {
         return $this->service;
     }
+
+    /**
+     * Set startTime
+     *
+     * @param string $startTime
+     *
+     * @return ServiceOrder
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    /**
+     * Get startTime
+     *
+     * @return string
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * Set endTime
+     *
+     * @param string $endTime
+     *
+     * @return ServiceOrder
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return string
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
 }

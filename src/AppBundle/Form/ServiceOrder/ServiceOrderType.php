@@ -172,6 +172,12 @@ class ServiceOrderType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control m-input summernote'
                 )
+            ))
+            ->add('directionsLink', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
             ));
 
         $builder->get('departureDate')->addModelTransformer($this->transformer);
