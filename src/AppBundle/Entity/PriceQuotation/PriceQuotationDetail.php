@@ -37,6 +37,11 @@ class PriceQuotationDetail
     protected $serviceCode;
 
     /**
+     * @ORM\Column(type="decimal", precision=2, scale=2, nullable=false, name="vat")
+     */
+    protected $vat;
+
+    /**
      * @ORM\Column(type="string", length=64, nullable=false, name="name")
      * @Assert\NotBlank(message="Price Quotation Detail name cannot be null")
      * @Assert\Length(max=64, maxMessage="Price Quotation Detail name too long. Max 64 chars")
@@ -244,5 +249,29 @@ class PriceQuotationDetail
     public function setEmittedOrders($emittedOrders)
     {
         $this->emittedOrders = $emittedOrders;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string
+     */
+    public function getVat()
+    {
+        return $this->vat;
     }
 }

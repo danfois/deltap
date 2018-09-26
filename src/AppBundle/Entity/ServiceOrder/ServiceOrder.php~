@@ -52,6 +52,11 @@ class ServiceOrder
     protected $report;
 
     /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="vat")
+     */
+    protected $vat;
+
+    /**
      * @ORM\Column(type="string", nullable=false, length=64, name="departure_location")
      * @Assert\NotBlank(message="Departure Location cannot be null")
      * @Assert\Length(max=64, maxMessage="Departure location too long. Max 64 chars")
@@ -629,4 +634,28 @@ class ServiceOrder
     }
 
 
+
+    /**
+     * Set directionsLink
+     *
+     * @param string $directionsLink
+     *
+     * @return ServiceOrder
+     */
+    public function setDirectionsLink($directionsLink)
+    {
+        $this->directionsLink = $directionsLink;
+
+        return $this;
+    }
+
+    /**
+     * Get directionsLink
+     *
+     * @return string
+     */
+    public function getDirectionsLink()
+    {
+        return $this->directionsLink;
+    }
 }

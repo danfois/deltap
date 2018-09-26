@@ -18,7 +18,7 @@
                     <span class="m-form__help">Preventivo al quale associare questo itinerario</span>
                 </div>
 
-                <div class="col-lg-9 m-form__group-sub">
+                <div class="col-lg-6 m-form__group-sub">
                     <label>* Codice Itinerario:</label>
                     <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.name) }}
@@ -26,6 +26,16 @@
                                         class="la la-file"></i></span></span>
                     </div>
                     <span class="m-form__help">Il nome dell'itinerario che servirà in caso di riutilizzo nella creazione di preventivi futuri</span>
+                </div>
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>* Percentuale Iva:</label>
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.vat) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                        class="fa fa-percent"></i></span></span>
+                    </div>
+                    <span class="m-form__help">Percentuale dell'Iva da applicare</span>
                 </div>
 
             </div>

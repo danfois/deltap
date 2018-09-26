@@ -84,17 +84,27 @@
 
                             <div class="form-group m-form__group row">
 
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>* Frequenza Servizio:</label>
                                     {{ form_widget(form.serviceFrequency) }}
                                     <span class="m-form__help"></span>
                                 </div>
 
 
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>* Tipo Servizio:</label>
                                     {{ form_widget(form.service) }}
                                     <span class="m-form__help">Inserire la tipologia di servizio da eseguire.</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Percentuale Iva:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                    {{ form_widget(form.vat) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="fa fa-percent"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la percentuale IVA da applicare.</span>
                                 </div>
 
 

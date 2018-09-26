@@ -50,6 +50,11 @@ class PriceQuotationDetailEditType extends AbstractType
                     'class' => 'form-control m-input service_select'
                 )
             ))
+            ->add('vat', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
+            ))
             ->add('name', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'

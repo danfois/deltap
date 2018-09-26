@@ -178,6 +178,11 @@ class ServiceOrderType extends AbstractType
                     'class' => 'form-control m-input'
                 ),
                 'required' => false
+            ))
+            ->add('vat', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
             ));
 
         $builder->get('departureDate')->addModelTransformer($this->transformer);
