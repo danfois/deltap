@@ -24,7 +24,7 @@ class ReportController extends Controller
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
         if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
         if ($so->getReport() != null) return new Response('Esiste già un report per questo Ordine di Servizio', 500);
-        if ($so->getDriver() !== $user) return new Response('Non sei autorizzato a fare questa operazione. Il prossimo tentativo verrà segnalato all\'amministratore', 403);
+        if ($so->getDriver() !== $user && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ) return new Response('Non sei autorizzato a fare questa operazione. Il prossimo tentativo verrà segnalato all\'amministratore', 403);
 
         $report = new Report();
         $report->setServiceOrder($so);
