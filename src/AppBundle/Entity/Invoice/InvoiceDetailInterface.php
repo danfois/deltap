@@ -8,7 +8,7 @@ interface InvoiceDetailInterface
 
     public function getProductName(): string;
 
-    public function getPrice(): float;
+    public function getInvoicePrice(): float;
 
-    public function getVat();
+    public function getInvoiceVat();
 }

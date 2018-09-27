@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity\ServiceOrder;
 
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,11 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceOrderRepository")
  * @ORM\Table(name="service_orders")
  */
-class ServiceOrder
+class ServiceOrder implements InvoiceDetailInterface
 {
-    //todo: implementare l'interfaccia per la fattura
-    //todo: implementare la proprietà e la relazione per la fattura
-
     /**
      * @ORM\Column(type="integer", name="serviceOrderId")
      * @ORM\Id
@@ -682,4 +680,25 @@ class ServiceOrder
     {
         return $this->vat;
     }
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getPrice();
+    }
+
+    public function getInvoiceVat()
+    {
+        return $this->getVat();
+    }
+
+    public function getProductCode(): string
+    {
+        return $this->getPriceQuotation()->getCode();
+    }
+
+    public function getProductName(): string
+    {
+        return $this->getDepartureDate()->format('d/m/Y') . ' - Ordine di Servizio n. ' . $this->getServiceOrder() . ' da ' . $this->getDepartureLocation() . ' a ' . $this->getArrivalLocation();
+    }
+
 }
