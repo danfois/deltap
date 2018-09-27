@@ -14,6 +14,8 @@ class ReceivedInvoice extends Invoice
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="receivedInvoice")
      */
     protected $invoiceDetails;
+
+
     /**
      * Constructor
      */

@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="invoice_details")
+ * @ORM\HasLifecycleCallbacks()
  */
 class InvoiceDetail
 {
@@ -238,5 +239,15 @@ class InvoiceDetail
     public function getReceivedInvoice()
     {
         return $this->receivedInvoice;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function calculateAndSetTotTaxInc()
+    {
+        $this->totTaxInc = $this->totTaxExc + (($this->totTaxExc / 100) * $this->vat);
+        return $this;
     }
 }
