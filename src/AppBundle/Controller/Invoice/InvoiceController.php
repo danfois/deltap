@@ -22,8 +22,11 @@ class InvoiceController extends Controller
         $invoice->addInvoiceDetail($detail);
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
 
-        return $this->render('DEBUG/show_form.html.twig', array(
-            'form' => $form->createView()
+        return $this->render('invoices/invoice_form.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Emetti Fattura',
+            'action_url' => '',
+            'type' => 'issued'
         ));
     }
 }

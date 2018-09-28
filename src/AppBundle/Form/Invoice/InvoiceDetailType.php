@@ -15,12 +15,14 @@ class InvoiceDetailType extends AbstractType
         $builder
             ->add('vat', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input int_touch_spin'
+                    'class' => 'form-control m-input int_touch_spin',
+                    'onchange' => 'calculateTotal()'
                 )
             ))
             ->add('totTaxExc', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input touch_spin'
+                    'class' => 'form-control m-input touch_spin',
+                    'onchange' => 'calculateTotal()'
                 )
             ))
             ->add('productCode', TextType::class, array(

@@ -1,0 +1,314 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_invoice" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Impostazioni Fattura</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* N. Fattura:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.invoiceNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero della fattura. Cambiare solo se si è sicuri</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Fattura:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.invoiceDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Data della fattura, generata automaticamente.</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Metodo di Pagamento:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.paymentTerms) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Metodo di pagamento per questa fattura</span>
+                                </div>
+
+                                {% if form.priceQuotation is defined %}
+
+                                    <div class="col-lg-3 m-form__group-sub">
+                                        <label>* Preventivo</label>
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.priceQuotation) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-barcode"></i></span></span>
+                                        </div>
+                                        <span class="m-form__help">Preventivo da associare alla fattura</span>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                {% if type == 'issued' %}
+
+                                    <div class="col-lg-12 m-form__group-sub">
+                                        <label>* Cliente:</label>
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.customer) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-user"></i></span></span>
+                                        </div>
+                                        <span class="m-form__help">Cliente destinatario della fattura</span>
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="col-lg-12 m-form__group-sub">
+                                        <label>* Fornitore:</label>
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.provider) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-user"></i></span></span>
+                                        </div>
+                                        <span class="m-form__help">Fornitore che ha emesso la fattura</span>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>* Causale</label>
+                                    {{ form_widget(form.causal) }}
+                                    <span class="m-form__help">Inserire la causale della fattura, da non confondere con gli oggetti</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>
+                                        Fattura per PA
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        {{ form_widget(form.paInvoice) }}
+                                    </div>
+                                    <span class="m-form__help">Scegliere se la fattura è per la PA</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>N. Fattura PA:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.paInvoiceNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero fattura PA.</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Data Ricevuta:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.pa_receipt_date) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Contenuto Fattura</h3>
+                            </div>
+
+                            <div class="repeater">
+
+                                <div data-repeater-list="price_quotation_detail[stages]">
+
+                                    {% for d in form.invoiceDetails %}
+
+                                        <div data-repeater-item>
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-1 m-form__group-sub">
+                                                    <label>* Cod. :</label>
+                                                    {{ form_widget(d.productCode) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-6 m-form__group-sub">
+                                                    <label>* Oggetto o Descrizione :</label>
+                                                    {{ form_widget(d.productName) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Iva % :</label>
+                                                    {{ form_widget(d.vat) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Prezzo :</label>
+                                                    {{ form_widget(d.totTaxExc) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-md-1 m-form__group-sub">
+                                                    <label class="form-control-label">&nbsp;</label><br>
+                                                    <div data-repeater-delete=""
+                                                         class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                            <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>Rimuovi</span>
+                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col text-left">
+                                        <div data-repeater-create=""
+                                             class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Oggetto</span>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Totale Fattura</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Totale Imponibile :</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" id="tot_imponibile" readonly="readonly"
+                                               class="form-control m-input">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Totale Tasse Incluse :</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" id="tot_lordo" readonly="readonly"
+                                               class="form-control m-input">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/invoices/calculateTotal.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/invoices/invoice.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
