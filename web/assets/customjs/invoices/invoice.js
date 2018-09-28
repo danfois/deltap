@@ -65,13 +65,7 @@ var InvoiceForm = function () {
 jQuery(document).ready(function () {
     InvoiceForm().init();
 
-    $("input[name*='totTaxExc']").on('change', function() {
-        calculateTotal();
-    });
-
-    $("input[name*='vat']").on('change', function() {
-        calculateTotal();
-    });
+    $(document).on('change',"input", function(){calculateTotal()});
 
     $('.repeater').repeater({
         initEmpty: false,

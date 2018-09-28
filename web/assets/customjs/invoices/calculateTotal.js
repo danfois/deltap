@@ -10,7 +10,7 @@ var calculateTotal = function() {
 
     invoiceItems.each(function(i, e) {
         var price = parseFloat(e.value);
-        var vat = parseInt(vats[i].value)
+        var vat = parseInt(vats[i].value);
 
         totaleImponibile += price;
         totaleLordo += price + ((price / 100) * vat);
