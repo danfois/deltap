@@ -22,4 +22,13 @@ class InvoiceNumberManager
 
         return (int) $lastNumber + 1;
     }
+
+    public function getCurrentPaInvoiceNumber() : int
+    {
+        $lastNumber = $this->em->getRepository(IssuedInvoice::class)->findLastPaInvoiceNumber();
+
+        if($lastNumber == null) return 1;
+
+        return (int) $lastNumber + 1;
+    }
 }

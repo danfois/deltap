@@ -13,4 +13,13 @@ class IssuedInvoiceRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    public function findLastPaInvoiceNumber()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('MAX(i.paInvoiceNumber)')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
 }

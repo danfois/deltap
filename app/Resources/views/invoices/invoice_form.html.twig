@@ -134,25 +134,28 @@
                                     <span class="m-form__help">Scegliere se la fattura è per la PA</span>
                                 </div>
 
-                                <div class="col-lg-3 m-form__group-sub">
-                                    <label>N. Fattura PA:</label>
-                                    <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.paInvoiceNumber) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
-                                                        class="la la-barcode"></i></span></span>
-                                    </div>
-                                    <span class="m-form__help">Numero fattura PA.</span>
-                                </div>
+                                    <div class="col-lg-3 m-form__group-sub pa_detail_item hidden_opac">
 
-                                <div class="col-lg-3 m-form__group-sub">
-                                    <label>Data Ricevuta:</label>
-                                    <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.pa_receipt_date) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                        class="la la-calendar"></i></span></span>
+                                        <input type="hidden" id="hidden_pa_invoice_number" value="{{ pa_invoice_number }}">
+
+                                        <label>N. Fattura PA:</label>
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.paInvoiceNumber) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                            class="la la-barcode"></i></span></span>
+                                        </div>
+                                        <span class="m-form__help">Numero fattura PA.</span>
                                     </div>
-                                    <span class="m-form__help"></span>
-                                </div>
+
+                                    <div class="col-lg-3 m-form__group-sub pa_detail_item hidden_opac">
+                                        <label>Data Ricevuta:</label>
+                                        <div class="m-input-icon m-input-icon--right">
+                                            {{ form_widget(form.pa_receipt_date) }}
+                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                            class="la la-calendar"></i></span></span>
+                                        </div>
+                                        <span class="m-form__help"></span>
+                                    </div>
 
                             </div>
 

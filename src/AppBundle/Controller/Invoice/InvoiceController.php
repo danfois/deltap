@@ -36,7 +36,8 @@ class InvoiceController extends Controller
             'form' => $form->createView(),
             'title' => 'Emetti Fattura',
             'action_url' => $actionUrl,
-            'type' => 'issued'
+            'type' => 'issued',
+            'pa_invoice_number' => $ivm->getCurrentPaInvoiceNumber()
         ));
     }
 

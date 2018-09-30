@@ -83,6 +83,18 @@ jQuery(document).ready(function () {
         isFirstItemUndeletable: true
     });
 
+    $("#issued_invoice_paInvoice").on('switchChange.bootstrapSwitch', function() {
+        if(this.checked) {
+            $('.pa_detail_item').removeClass('hidden_opac');
+            $('#issued_invoice_paInvoiceNumber').val($('#hidden_pa_invoice_number').val());
+        } else {
+            $('.pa_detail_item').find('input[type="text"]').each(function(i, e) {
+                e.value = '';
+            });
+            $('.pa_detail_item').addClass('hidden_opac');
+        }
+    });
+
     initializeWidgets();
 
 });
