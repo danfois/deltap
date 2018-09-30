@@ -50,17 +50,16 @@ class InvoiceDetail
     protected $productName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice", inversedBy="invoiceDetails")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice", inversedBy="invoiceDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="issuedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $issuedInvoice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice", inversedBy="invoiceDetails")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice", inversedBy="invoiceDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="receivedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $receivedInvoice;
-
 
 
     /**

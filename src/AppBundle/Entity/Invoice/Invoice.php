@@ -25,7 +25,7 @@ abstract class Invoice
     protected $invoiceDate;
 
     /**
-     * @ORM\Column(type="int", nullable=false, name="invoiceNumber")
+     * @ORM\Column(type="integer", nullable=false, name="invoiceNumber")
      * @Assert\NotBlank(message="Invoice Number cannot be null")
      */
     protected $invoiceNumber;
@@ -45,12 +45,12 @@ abstract class Invoice
     protected $paymentTerms;
 
     /**
-     * @ORM\Column(type="int", nullable=false, length=1, name="pa_invoice")
+     * @ORM\Column(type="integer", nullable=false, length=1, name="pa_invoice")
      */
     protected $paInvoice;
 
     /**
-     * @ORM\Column(type="int", nullable=true, name="pa_invoice_number")
+     * @ORM\Column(type="integer", nullable=true, name="pa_invoice_number")
      */
     protected $paInvoiceNumber;
 

@@ -14,6 +14,7 @@ class StringToDateTransformer implements DataTransformerInterface
         if (null === $value) {
             return '';
         }
+
         return $value->format('d/m/Y');
     }
 

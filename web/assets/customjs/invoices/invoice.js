@@ -10,7 +10,9 @@ var InvoiceForm = function () {
                 ignore: ":hidden",
                 rules:
                     {
-                        //todo: eventualmente aggiungere delle cose per la validazione
+                        'issued_invoice[causal]' : { required : !0, maxlength : 255},
+                        'issued_invoice[invoiceNumber]' : { required : !0, maxlength : 11},
+                        'issued_invoice[paInvoiceNumber]' : { maxlength : 11}
                     },
                 messages: {},
                 invalidHandler: function (e, r) {
