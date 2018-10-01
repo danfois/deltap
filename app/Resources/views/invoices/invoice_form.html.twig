@@ -172,7 +172,13 @@
 
                             <div class="repeater">
 
+                                {% if type == 'issued' %}
                                 <div data-repeater-list="issued_invoice[invoiceDetails]">
+                                    {% endif %}
+
+                                    {% if type == 'received' %}
+                                    <div data-repeater-list="received_invoice[invoiceDetails]">
+                                        {% endif %}
 
                                     {% for d in form.invoiceDetails %}
 

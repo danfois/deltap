@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ReceivedInvoice extends Invoice
 {
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="receivedInvoice")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="receivedInvoice", cascade={"persist"})
      */
     protected $invoiceDetails;
 

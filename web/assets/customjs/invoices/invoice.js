@@ -46,7 +46,6 @@ var InvoiceForm = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
-                        //todo: inserire il redirect alla lista dopo averlo modificato
                     },
                     error: function(e) {
                         mApp.unprogress(r);
