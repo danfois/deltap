@@ -30,6 +30,14 @@ class IssuedInvoiceType extends InvoiceType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => array(new Valid())
+            ))
+            ->add('customer', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Customer',
+                'choice_label' => 'businessName',
+                'empty_data' => null,
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
             ));
     }
 

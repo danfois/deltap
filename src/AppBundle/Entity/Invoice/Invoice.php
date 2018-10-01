@@ -59,17 +59,6 @@ abstract class Invoice
      */
     protected $pa_receipt_date;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
-     * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
-     */
-    protected $customer;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
-     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
-     */
-    protected $provider;
 
     /**
      * @return mixed
@@ -215,39 +204,4 @@ abstract class Invoice
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * @param mixed $customer
-     * @return Invoice
-     */
-    public function setCustomer(\AppBundle\Entity\Customer $customer)
-    {
-        $this->customer = $customer;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-    /**
-     * @param mixed $provider
-     * @return Invoice
-     */
-    public function setProvider(\AppBundle\Entity\Provider $provider)
-    {
-        $this->provider = $provider;
-        return $this;
-    }
 }

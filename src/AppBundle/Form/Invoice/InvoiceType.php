@@ -75,22 +75,6 @@ class InvoiceType extends AbstractType
                     'class' => 'form-control m-input date_picker'
                 ),
                 'required' => false
-            ))
-            ->add('customer', EntityType::class, array(
-                'class' => 'AppBundle\Entity\Customer',
-                'choice_label' => 'businessName',
-                'empty_data' => null,
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                )
-            ))
-            ->add('provider', EntityType::class, array(
-                'class' => 'AppBundle\Entity\Provider',
-                'choice_label' => 'businessName',
-                'empty_data' => null,
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                )
             ));
 
         $builder->get('invoiceDate')->addModelTransformer($this->transformer);

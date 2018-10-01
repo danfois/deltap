@@ -15,6 +15,12 @@ class ReceivedInvoice extends Invoice
      */
     protected $invoiceDetails;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
+     */
+    protected $provider;
+
 
     /**
      * Constructor
@@ -22,6 +28,24 @@ class ReceivedInvoice extends Invoice
     public function __construct()
     {
         $this->invoiceDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @param mixed $provider
+     * @return Invoice
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider)
+    {
+        $this->provider = $provider;
+        return $this;
     }
 
     /**

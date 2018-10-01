@@ -20,12 +20,37 @@ class IssuedInvoice extends Invoice
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist"})
      */
     protected $invoiceDetails;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
+     */
+    protected $customer;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->invoiceDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param mixed $customer
+     * @return Invoice
+     */
+    public function setCustomer(\AppBundle\Entity\Customer $customer)
+    {
+        $this->customer = $customer;
+        return $this;
     }
 
     /**
