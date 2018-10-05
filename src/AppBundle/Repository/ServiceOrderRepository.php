@@ -63,7 +63,7 @@ class ServiceOrderRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('o')
             ->select('o')
-            ->where('o.serviceOrder IN :inarray')
+            ->where('o.serviceOrder IN (:inarray)')
             ->setParameter(':inarray', $inArray)
             ->getQuery();
 

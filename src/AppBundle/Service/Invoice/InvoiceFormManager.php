@@ -31,6 +31,7 @@ class InvoiceFormManager
     public function manageInvoiceData()
     {
         $this->iterateData();
+        return $this;
     }
 
     protected function iterateData()
@@ -66,5 +67,10 @@ class InvoiceFormManager
         if(!$detail instanceof InvoiceDetail) throw new \Exception('Cannot set Invoice Detail because a different class was provided');
         if($this->invoice->addInvoiceDetail($detail)) return true;
         throw new \Exception('Cannot assign detail to Invoice');
+    }
+
+    public function getInvoice() : Invoice
+    {
+        return $this->invoice;
     }
 }

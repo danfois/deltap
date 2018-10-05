@@ -467,7 +467,7 @@ class PriceQuotation implements InvoiceDetailInterface
 
         foreach($so as $s)
         {
-            $sum += $s->getTotTaxExc();
+            $sum += $s->getInvoicePrice();
         }
 
         return $sum;

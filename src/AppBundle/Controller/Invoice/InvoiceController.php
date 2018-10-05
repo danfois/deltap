@@ -57,7 +57,7 @@ class InvoiceController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $invoice = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
@@ -65,7 +65,7 @@ class InvoiceController extends Controller
             $IH->execute();
             $errors = $IH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->persist($invoice);
                 $em->flush();
 
@@ -124,7 +124,7 @@ class InvoiceController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $invoice = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
@@ -132,7 +132,7 @@ class InvoiceController extends Controller
             $IH->execute();
             $errors = $IH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->persist($invoice);
                 $em->flush();
 
@@ -158,12 +158,38 @@ class InvoiceController extends Controller
     /**
      * @Route("generate-invoice", name="generate-invoice")
      */
-    public function generateInvoiceAction(Request $request)
+    public function generateInvoiceAction(Request $request, InvoiceNumberManager $ivm)
     {
-       $em = $this->getDoctrine()->getManager();
-       $irm = new InvoiceRequestManager($em, $request);
-       $ifm = $irm->generateInvoiceFormManager()->getInvoiceFormManager();
+        $em = $this->getDoctrine()->getManager();
+        $irm = new InvoiceRequestManager($em, $request);
+        $ifm = $irm->generateInvoiceFormManager()->getInvoiceFormManager();
 
-       return new Response('ok');
+        $invoice = $ifm->manageInvoiceData()->getInvoice();
+        $invoice->setInvoiceDate(new \DateTime());
+
+        if ($invoice instanceof IssuedInvoice) {
+            $invoice->setInvoiceNumber($ivm->getCurrentInvoiceNumber());
+            $pa = $ivm->getCurrentPaInvoiceNumber();
+            $form = $this->createForm(IssuedInvoiceType::class, $invoice);
+            $type = 'issued';
+            $title = 'Emetti Fattura';
+
+        } else if ($invoice instanceof ReceivedInvoice) {
+            $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
+            $type = 'received';
+            $title = 'Ricevi Fattura';
+            $pa = '';
+
+        } else {
+            throw new \Exception('Errore durante la creazione del form');
+        }
+
+        return $this->render('invoices/invoice_form.html.twig', array(
+            'form' => $form->createView(),
+            'title' => $title,
+            'action_url' => '',
+            'type' => $type,
+            'pa_invoice_number' => $pa
+        ));
     }
 }
