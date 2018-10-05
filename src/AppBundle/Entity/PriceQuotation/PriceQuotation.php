@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\PriceQuotation;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PriceQuotationRepository")
  * @ORM\Table(name="price_quotations")
  */
-class PriceQuotation
+class PriceQuotation implements InvoiceDetailInterface
 {
     /**
      * @ORM\Column(type="integer", name="priceQuotationId")
@@ -21,6 +22,11 @@ class PriceQuotation
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", mappedBy="priceQuotation", cascade={"all"})
      */
     protected $priceQuotationDetails;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ServiceOrder\ServiceOrder", mappedBy="priceQuotation", cascade={"persist"})
+     */
+    protected $serviceOrders;
 
     /**
      * @ORM\Column(type="string", length=12, nullable=false, name="code")
@@ -407,5 +413,72 @@ class PriceQuotation
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Add serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     *
+     * @return PriceQuotation
+     */
+    public function addServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders[] = $serviceOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     */
+    public function removeServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders->removeElement($serviceOrder);
+    }
+
+    /**
+     * Get serviceOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServiceOrders()
+    {
+        return $this->serviceOrders;
+    }
+
+    public function getProductName(): string
+    {
+        return 'Preventivo N. ' . $this->getCode();
+    }
+
+    public function getProductCode(): string
+    {
+        return $this->getCode();
+    }
+
+    public function getInvoicePrice(): float
+    {
+        $so = $this->getServiceOrders();
+
+        $sum = 0;
+
+        foreach($so as $s)
+        {
+            $sum += $s->getTotTaxExc();
+        }
+
+        return $sum;
+    }
+
+    public function getInvoiceVat()
+    {
+        $so = $this->getServiceOrders();
+
+        $vat = $so[0]->getVat();
+
+        return $vat;
     }
 }

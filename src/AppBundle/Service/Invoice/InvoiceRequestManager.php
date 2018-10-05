@@ -28,6 +28,7 @@ class InvoiceRequestManager
     {
         if($this->invoiceFormManager == null) throw new \Exception('InvoiceFormManager not instantiated');
 
+        return $this->invoiceFormManager;
     }
 
     public function generateInvoiceFormManager()
