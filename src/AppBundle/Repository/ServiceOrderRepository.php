@@ -59,5 +59,16 @@ class ServiceOrderRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findServiceOrdersInArray($inArray)
+    {
+        $query = $this->createQueryBuilder('o')
+            ->select('o')
+            ->where('o.serviceOrder IN :inarray')
+            ->setParameter(':inarray', $inArray)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 
 }

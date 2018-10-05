@@ -5,11 +5,14 @@ namespace AppBundle\Controller\Invoice;
 use AppBundle\Entity\Invoice\InvoiceDetail;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Form\Invoice\IssuedInvoiceType;
 use AppBundle\Form\Invoice\ReceivedInvoiceType;
 use AppBundle\Helper\Invoice\IssuedInvoiceHelper;
 use AppBundle\Helper\Invoice\ReceivedInvoiceHelper;
 use AppBundle\Service\Invoice\InvoiceNumberManager;
+use AppBundle\Service\Invoice\InvoiceRequestManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -150,5 +153,17 @@ class InvoiceController extends Controller
         }
 
         throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("generate-invoice", name="generate-invoice")
+     */
+    public function generateInvoiceAction(Request $request)
+    {
+       $em = $this->getDoctrine()->getManager();
+       $irm = new InvoiceRequestManager($em, $request);
+       $ifm = $irm->generateInvoiceFormManager()->getInvoiceFormManager();
+
+       return new Response('ok');
     }
 }
