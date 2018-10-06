@@ -25,4 +25,15 @@ class CarReviewRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function findCarReviewsInArray($inArray)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.carReviewId IN (:inarray)')
+            ->setParameter(':inarray', $inArray)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

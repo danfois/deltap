@@ -255,7 +255,7 @@ class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
 
     public function getProductName(): string
     {
-        return 'Assicurazione Veicolo ' . $this->getVehicle()->getPlate();
+        return 'Assicurazione Veicolo ' . $this->getVehicle()->getPlate() . ' - ' . 'Polizza n. ' . $this->getNumber();
     }
 
     public function getInvoicePrice(): float

@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CarReviewRepository")
  * @ORM\Table(name="carReview")
  */
-class CarReview extends VehiclePeriodicCost implements UnavailabilityInterface
+class CarReview extends VehiclePeriodicCost implements UnavailabilityInterface, InvoiceDetailInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="carReviews")
@@ -46,5 +47,25 @@ class CarReview extends VehiclePeriodicCost implements UnavailabilityInterface
     public function setVehicle(Vehicle $vehicle)
     {
         $this->vehicle = $vehicle;
+    }
+
+    public function getProductCode(): string
+    {
+        return '';
+    }
+
+    public function getProductName(): string
+    {
+        return 'Revisione per il veicolo ' . $this->getVehicle()->getPlate();
+    }
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getPrice();
+    }
+
+    public function getInvoiceVat()
+    {
+        return 22;
     }
 }

@@ -6,6 +6,7 @@ use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
+use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\Insurance;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,6 +156,9 @@ class InvoiceRequestManager
 
     protected function fetchReviews(array $data)
     {
-        throw new \Exception('InvoiceRequestManager::fetchReviews() has to be implemented yet');
+        $dataToPass = $this->em->getRepository(CarReview::class)->findCarReviewsInArray($data);
+        if($dataToPass == null) throw new \Exception('Revisioni non trovate');
+
+        $this->data = $dataToPass;
     }
 }
