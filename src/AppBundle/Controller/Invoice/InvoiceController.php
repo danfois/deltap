@@ -173,12 +173,14 @@ class InvoiceController extends Controller
             $form = $this->createForm(IssuedInvoiceType::class, $invoice);
             $type = 'issued';
             $title = 'Emetti Fattura';
+            $actionUrl = $this->generateUrl('ajax_issue_invoice');
 
         } else if ($invoice instanceof ReceivedInvoice) {
             $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
             $type = 'received';
             $title = 'Ricevi Fattura';
             $pa = '';
+            $actionUrl = $this->generateUrl('ajax_receive_invoice');
 
         } else {
             throw new \Exception('Errore durante la creazione del form');
@@ -187,7 +189,7 @@ class InvoiceController extends Controller
         return $this->render('invoices/invoice_form.html.twig', array(
             'form' => $form->createView(),
             'title' => $title,
-            'action_url' => '',
+            'action_url' => $actionUrl,
             'type' => $type,
             'pa_invoice_number' => $pa
         ));

@@ -8,6 +8,7 @@ use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\ServiceOrder\ServiceOrder;
 
 class InvoiceFormManager
 {
@@ -36,13 +37,13 @@ class InvoiceFormManager
 
     protected function iterateData()
     {
-        //todo: controllare che non bisogni utilizzare il clone
-
         if(is_array($this->data)) {
             foreach($this->data as $d) {
                 if($d instanceof PriceQuotation && $this->invoice instanceof IssuedInvoice) $this->invoice->setPriceQuotation($d);
+                if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) $this->invoice->setPriceQuotation($d->getPriceQuotation());
                 $invoiceDetail = $this->transformData($d);
                 $this->setInvoiceDetail($invoiceDetail);
+                $invoiceDetail = null;
             }
             return true;
         }

@@ -101,7 +101,7 @@ class InvoiceRequestManager
     {
         $pa = $this->parametersArray;
 
-        $data = implode(',', json_decode($pa['data'], true));
+        $data = json_decode($pa['data'], true);
 
         switch($pa['dataType']) {
             case 'priceQuotation':
@@ -126,17 +126,17 @@ class InvoiceRequestManager
     }
 
 
-    protected function fetchPriceQuotation(string $data)
+    protected function fetchPriceQuotation(array $data)
     {
-        if(strpos(',', $data !== false)) throw new \Exception('Puoi fatturare soltanto un preventivo per volta');
+        if(count($data) > 1) throw new \Exception('Puoi fatturare soltanto un preventivo per volta');
 
-        $dataToPass = $this->em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $data));
+        $dataToPass = $this->em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $data[0]));
         if($dataToPass == null) throw new \Exception('Preventivo non trovato');
 
         $this->data = $dataToPass;
     }
 
-    protected function fetchServiceOrders(string $data)
+    protected function fetchServiceOrders(array $data)
     {
         $dataToPass = $this->em->getRepository(ServiceOrder::class)->findServiceOrdersInArray($data);
         if($dataToPass == null) throw new \Exception('Ordini di Servizio non trovati');
@@ -144,12 +144,12 @@ class InvoiceRequestManager
         $this->data = $dataToPass;
     }
 
-    protected function fetchInsurances(string $data)
+    protected function fetchInsurances(array $data)
     {
         throw new \Exception('InvoiceRequestManager::fetchInsurances() has to be implemented yet');
     }
 
-    protected function fetchReviews(string $data)
+    protected function fetchReviews(array $data)
     {
         throw new \Exception('InvoiceRequestManager::fetchReviews() has to be implemented yet');
     }
