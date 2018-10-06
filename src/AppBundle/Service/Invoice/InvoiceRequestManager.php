@@ -143,6 +143,12 @@ class InvoiceRequestManager
         $dataToPass = $this->em->getRepository(ServiceOrder::class)->findServiceOrdersInArray($data);
         if($dataToPass == null) throw new \Exception('Ordini di Servizio non trovati');
 
+        $pq = $dataToPass[0]->getPriceQuotation()->getPriceQuotationId();
+
+        foreach($dataToPass as $d) {
+            if($d->getPriceQuotation()->getPriceQuotationId() != $pq) throw new \Exception('Non puoi mettere nella stessa fattura Ordini di Servizio presi da Preventivi diversi');
+        }
+
         $this->data = $dataToPass;
     }
 
