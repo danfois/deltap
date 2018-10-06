@@ -81,16 +81,15 @@
                         <div class="row">
                             <div class="col-lg-2">
 
-                                {# todo: sistemare la cosa delle azioni di massa #}
-
-                                <select class="form-control m-input">
+                                <select class="form-control m-input" id="mass-action">
                                     <option value="">Scegli Operazione...</option>
                                     <option value="1">Registra Pagamento</option>
-                                    <option value="2">Elimina</option>
+                                    <option value="3">Registra Fattura</option>
+                                    <option value="4">Elimina</option>
                                 </select>
                             </div>
                             <div class="col-lg-1">
-                                <a href="javascript:void(0);" class="btn btn-brand">Applica</a>
+                                <a href="javascript:void(0);" class="btn btn-brand" id="apply-mass-action">Applica</a>
                             </div>
                             <div class="col-lg-9 text-right">
                                 <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
@@ -123,6 +122,7 @@
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/generateInvoiceUrl.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_form.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_view.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_edit.js') }}"></script>

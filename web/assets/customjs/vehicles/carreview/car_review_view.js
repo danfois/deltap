@@ -99,7 +99,7 @@ var CarReviewList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editCarReview('+ row.idv +')"><i class="la la-edit"></i> Modifica Revisione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteCarReview(' + row.idv + ')"><i class="la la-trash"></i> Elimina Revisione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/create-unavailability\', {\'id\' : ' + row.idv + ', \'type\' : \'carreview\'})"  title="Aggiungi Indisponibilità"><i class="la la-ban"></i>Aggiungi Indisponibilità</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'received\', \'reviews\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
 						<a href="javascript:void(0);" onclick="editCarReview('+ row.idv +')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
@@ -160,6 +160,7 @@ var CarReviewList = function () {
                 console.log(selected);
             }
             //if(select_value === '2') CarTaxRenew(selected);
+            if(select_value === '3') generateInvoiceUrl('received', 'reviews', selected);
         });
 
         $('#m_datatable_check').on('click', function () {

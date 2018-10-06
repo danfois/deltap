@@ -87,7 +87,8 @@
                                     <option value="">Scegli Operazione...</option>
                                     <option value="1">Registra Pagamento</option>
                                     <option value="2">Rinnova alle stesse condizioni</option>
-                                    <option value="3">Elimina</option>
+                                    <option value="3">Registra Fattura</option>
+                                    <option value="4">Elimina</option>
                                 </select>
                             </div>
                             <div class="col-lg-1">
@@ -123,6 +124,7 @@
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/generateInvoiceUrl.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_form.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_view.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_edit.js') }}"></script>

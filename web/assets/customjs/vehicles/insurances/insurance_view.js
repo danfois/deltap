@@ -182,7 +182,7 @@ var InsuranceList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.idv + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\
-						    	<a class="dropdown-item" href="#"><i class="la la-file"></i> Registra Fattura</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'received\', \'insurances\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
 						<a href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
@@ -232,17 +232,18 @@ var InsuranceList = function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
         });
 
-        // get checked record and get value by column name
-        $('#m_datatable_get').on('click', function () {
-            // select active rows
+        $('#apply-mass-action').on('click', function() {
+            var select_value = $('#mass-action').val();
+            var selected = [];
             datatable.rows('.m-datatable__row--active');
-            // check selected nodes
             if (datatable.nodes().length > 0) {
-                // get column by field name and get the column nodes
-                var value = datatable.columns('idv').nodes().text();
-                $('#datatable_value').html(value);
-                alert(value);
+                var value = datatable.columns('idv').nodes().each(function(element, index) {
+                    selected.push(index.childNodes[0].textContent);
+                });
+                console.log(selected);
             }
+            //if(select_value === '2') CarTaxRenew(selected);
+            if(select_value === '3') generateInvoiceUrl('received', 'insurances', selected);
         });
 
         $('#m_datatable_check').on('click', function () {
