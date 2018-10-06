@@ -147,6 +147,7 @@ var ServiceOrderList = function () {
 						    	<a class="dropdown-item" href="edit-service-order-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Ordine di Servizio</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'assign-driver-and-vehicle\', {\'id\' : ' + row.idv +'}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna Autista e Veicolo</a>\
+						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'issued\', \'serviceOrders\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
 						    	<a class="dropdown-item" href="create-report-' + row.idv +'" onclick=""><i class="la la-plus-circle"></i> Compila Report</a>\
 						    	<a class="dropdown-item" href="edit-report-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Report</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'report-detail\', {\'id\' : ' + row.idv +'}, {} )"><i class="la la-eye"></i> Visualizza Report</a>\
@@ -205,17 +206,18 @@ var ServiceOrderList = function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
         });
 
-        // get checked record and get value by column name
-        $('#m_datatable_get').on('click', function () {
-            // select active rows
+        $('#apply-mass-action').on('click', function() {
+            var select_value = $('#mass-action').val();
+            var selected = [];
             datatable.rows('.m-datatable__row--active');
-            // check selected nodes
             if (datatable.nodes().length > 0) {
-                // get column by field name and get the column nodes
-                var value = datatable.columns('idv').nodes().text();
-                $('#datatable_value').html(value);
-                alert(value);
+                var value = datatable.columns('idv').nodes().each(function(element, index) {
+                    selected.push(index.childNodes[0].textContent);
+                });
+                console.log(selected);
             }
+            //if(select_value === '2') CarTaxRenew(selected);
+            if(select_value === '3') generateInvoiceUrl('issued', 'serviceOrders', selected);
         });
 
         $('#m_datatable_check').on('click', function () {
