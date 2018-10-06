@@ -37,6 +37,11 @@ class IssuedInvoiceHelper extends InvoiceHelper
     {
         $invoice = $this->em->getRepository(IssuedInvoice::class)->findOneBy(array('invoiceNumber' => $this->invoice->getInvoiceNumber()));
         if ($invoice == null) return true;
+
+        if($this->isEdited === true) {
+            if($this->invoice == $invoice) return true;
+        }
+
         $this->errors .= 'Esiste già una fattura con questo numero<br>';
         return false;
     }
