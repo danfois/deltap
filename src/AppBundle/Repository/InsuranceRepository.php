@@ -25,4 +25,15 @@ class InsuranceRepository extends EntityRepository
             ->getQuery();
         return $query->getResult();
     }
+
+    public function findInsurancesInArray($inArray)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('i')
+            ->where('i.insuranceId IN (:inarray)')
+            ->setParameter(':inarray', $inArray)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

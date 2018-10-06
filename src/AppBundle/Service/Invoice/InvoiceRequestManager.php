@@ -6,6 +6,7 @@ use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
+use AppBundle\Entity\Vehicle\Insurance;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -146,7 +147,10 @@ class InvoiceRequestManager
 
     protected function fetchInsurances(array $data)
     {
-        throw new \Exception('InvoiceRequestManager::fetchInsurances() has to be implemented yet');
+        $dataToPass = $this->em->getRepository(Insurance::class)->findInsurancesInArray($data);
+        if($dataToPass == null) throw new \Exception('Assicurazioni non trovate');
+
+        $this->data = $dataToPass;
     }
 
     protected function fetchReviews(array $data)

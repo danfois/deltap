@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,9 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InsuranceRepository")
  * @ORM\Table(name="insurances")
  */
-class Insurance extends VehiclePeriodicCost
+class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
 {
-
     /**
      * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="insurances")
      * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
@@ -246,5 +246,25 @@ class Insurance extends VehiclePeriodicCost
     public function getSuspensions()
     {
         return $this->suspensions;
+    }
+
+    public function getProductCode(): string
+    {
+        return '';
+    }
+
+    public function getProductName(): string
+    {
+        return 'Assicurazione Veicolo ' . $this->getVehicle()->getPlate();
+    }
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getPrice();
+    }
+
+    public function getInvoiceVat()
+    {
+        return 22;
     }
 }
