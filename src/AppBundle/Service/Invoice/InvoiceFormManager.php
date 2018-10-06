@@ -39,8 +39,14 @@ class InvoiceFormManager
     {
         if(is_array($this->data)) {
             foreach($this->data as $d) {
-                if($d instanceof PriceQuotation && $this->invoice instanceof IssuedInvoice) $this->invoice->setPriceQuotation($d);
-                if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) $this->invoice->setPriceQuotation($d->getPriceQuotation());
+                if($d instanceof PriceQuotation && $this->invoice instanceof IssuedInvoice) {
+                    $this->invoice->setPriceQuotation($d);
+                    $this->invoice->setCustomer($d->getCustomer());
+                }
+                if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) {
+                    $this->invoice->setPriceQuotation($d->getPriceQuotation());
+                    $this->invoice->setCustomer($d->getPriceQuotation()->getCustomer());
+                }
                 $invoiceDetail = $this->transformData($d);
                 $this->setInvoiceDetail($invoiceDetail);
                 $invoiceDetail = null;
