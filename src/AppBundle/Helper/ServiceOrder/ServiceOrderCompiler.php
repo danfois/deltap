@@ -43,7 +43,7 @@ class ServiceOrderCompiler
         $this->setService();
         $this->setStatus();
         $this->setMap();
-        $this->setVat();
+        //$this->setVat();
     }
 
     public function getOrder(): ServiceOrder

@@ -94,7 +94,17 @@ class PriceQuotationType extends AbstractType
                 'by_reference' => false,
                 'entry_options' => array(
                     'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
-                    'choice_label' => 'name',
+                    //'choice_label' => 'name',
+                    'choice_label' => function($pqd) {
+                        $departureLocation = '';
+                        $arrivalLocation = '';
+
+                        foreach($pqd->getStages() as $s) {
+                            $departureLocation .= $s->getDepartureLocation() . ',';
+                            $arrivalLocation .= $s->getArrivalLocation(). ',';
+                        }
+                        return $pqd->getName() . ' ' . $departureLocation . ' - ' . $arrivalLocation;
+                    },
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('p')->select('p');
                     },

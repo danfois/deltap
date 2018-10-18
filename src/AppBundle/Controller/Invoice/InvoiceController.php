@@ -13,6 +13,7 @@ use AppBundle\Helper\Invoice\IssuedInvoiceHelper;
 use AppBundle\Helper\Invoice\ReceivedInvoiceHelper;
 use AppBundle\Service\Invoice\InvoiceNumberManager;
 use AppBundle\Service\Invoice\InvoiceRequestManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;

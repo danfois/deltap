@@ -29,7 +29,8 @@ class IssuedInvoiceType extends InvoiceType
                 'entry_type' => InvoiceDetailType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'constraints' => array(new Valid())
+                'constraints' => array(new Valid()),
+                'by_reference' => false
             ))
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Customer',

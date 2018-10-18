@@ -49,7 +49,8 @@ var PriceQuotationList = function () {
                         sortable: !0,
                         columns: [{
                             field: "id",
-                            title: "Id Itinerario"
+                            title: "Id Itin.",
+                            width:80
                         },
                             {
                                 field: "code",
@@ -66,11 +67,29 @@ var PriceQuotationList = function () {
 
                             {
                                 field: "stages",
-                                title: "N. Tragitti"
+                                title: "N. Tragitti",
+                                width:80
+                            },
+                            {
+                                field: "departureLocation",
+                                title: "Partenza"
+                            },
+                            {
+                                field: "arrivalLocation",
+                                title: "Arrivo"
+                            },
+                            {
+                                field: "departureDate",
+                                title: "Data Partenza"
+                            },
+                            {
+                                field: "arrivalDate",
+                                title: "Data Arrivo"
                             },
                             {
                                 field: "price",
                                 title: "Prezzo",
+                                width: 80,
                                 template: function (row) {
                                     return '&euro; ' + row.price;
                                 }
@@ -152,7 +171,12 @@ var PriceQuotationList = function () {
                 },
                 {
                     field: 'code',
-                    title: 'Codice'
+                    title: 'Codice',
+                    width:80
+                },
+                {
+                    field: 'date',
+                    title: 'Data'
                 },
                 {
                     field: 'customer',

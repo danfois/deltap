@@ -23,7 +23,8 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
                     'recipient' => $o->getRecipientEmail(),
                     'service' => $o->getServiceCode()->getService(),
                     'author' => $o->getAuthor()->getUsername(),
-                    'status' => $o->getStatus()
+                    'status' => $o->getStatus(),
+                    'date' => $o->getPriceQuotationDate()->format('d-m-Y')
                 ];
             }
         }

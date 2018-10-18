@@ -17,7 +17,7 @@ class IssuedInvoice extends Invoice
     protected $priceQuotation;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist", "remove", "refresh"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      */
     protected $invoiceDetails;
 

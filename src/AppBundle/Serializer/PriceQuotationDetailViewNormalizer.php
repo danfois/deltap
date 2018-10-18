@@ -15,8 +15,16 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
 
                 $price = 0;
 
+                $stageCount = count($o->getStages());
+
+                $departureLocation = '';
+                $arrivalLocation = '';
+
+
                 foreach($o->getStages() as $s) {
                     $price += $s->getPrice();
+                    $departureLocation .= $s->getDepartureLocation() . ', ';
+                    $arrivalLocation .= $s->getArrivalLocation() . ', ';
                 }
 
                 $r[] = [
@@ -28,7 +36,11 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                     'serviceCode' => $o->getServiceCode()->getService(),
                     'stages' => count($o->getStages()),
                     'price' => $price,
-                    'emittedOrders' => $o->getEmittedOrders()
+                    'emittedOrders' => $o->getEmittedOrders(),
+                    'departureLocation' => $departureLocation,
+                    'arrivalLocation' => $arrivalLocation,
+                    'departureDate' => $o->getStages()[0]->getDepartureDate()->format('d-m-Y'),
+                    'arrivalDate' => $o->getStages()[$stageCount-1]->getArrivalDate()->format('d-m-Y'),
                 ];
             }
         }
