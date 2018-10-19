@@ -7,6 +7,7 @@ use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
@@ -23,6 +24,7 @@ use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
+use AppBundle\Serializer\IssuedInvoiceSerializer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
 use AppBundle\Serializer\ServiceOrderViewNormalizer;
@@ -267,6 +269,21 @@ class JsonController extends Controller
         $normalizers = [new ServiceOrderViewNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($so, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/issued-invoices", name="json_issued_invoice")
+     */
+    public function jsonIssuedInvoices()
+    {
+        $i = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new IssuedInvoiceSerializer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($i, 'json');
 
         return new Response($json);
     }

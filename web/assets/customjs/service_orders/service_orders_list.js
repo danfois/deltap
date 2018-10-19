@@ -29,21 +29,18 @@ var ServiceOrderList = function () {
                     field: 'id',
                     title: 'Id OdS',
                     sortable: false,
-                    width: 40,
+                    width: 20,
                     selector: {class: 'm-checkbox--solid m-checkbox--brand'}
                 },
                 {
-                    field: 'idv',
-                    title: 'Id',
-                    width: 30
-                },
-                {
                     field: 'pq',
-                    title: 'Preventivo'
+                    title: 'Prev.',
+                    width: 50
                 },
                 {
                     field: 'pqd',
-                    title: 'Itinerario'
+                    title: 'Itin.',
+                    width:50
                 },
                 {
                     field: 'customer',
@@ -74,19 +71,23 @@ var ServiceOrderList = function () {
                 },
                 {
                     field: 'departureLocation',
-                    title: 'Partenza'
+                    title: 'Partenza',
+                    width: 80
                 },
                 {
                     field: 'arrivalLocation',
-                    title: 'Arrivo'
+                    title: 'Arrivo',
+                    width: 80
                 },
                 {
                     field: 'departureDate',
-                    title: 'Data Part.'
+                    title: 'Data Part.',
+                    width: 80
                 },
                 {
                     field: 'arrivalDate',
-                    title: 'Data Arr.'
+                    title: 'Data Arr.',
+                    width: 80
                 },
                 {
                     field: 'time',
@@ -94,11 +95,13 @@ var ServiceOrderList = function () {
                 },
                 {
                     field: 'passengers',
-                    title: 'Passeggeri'
+                    title: 'Pass.',
+                    width:50
                 },
                 {
                     field: 'frequency',
-                    title: 'Freq. Servizio'
+                    title: 'Freq.',
+                    width:50
                 },
                 {
                     field: 'service',
@@ -113,12 +116,9 @@ var ServiceOrderList = function () {
                     }
                 },
                 {
-                    field: 'price',
-                    title: 'Prezzo'
-                },
-                {
                     field: 'status',
                     title: 'Stato',
+                    width:80,
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
