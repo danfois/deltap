@@ -270,4 +270,12 @@ class InvoiceController extends Controller
         return $this->render('invoices/issued_invoice_list.html.twig');
     }
 
+    /**
+     * @Route("received-invoice-list", name="received_invoice_list")
+     */
+    public function receivedInvoiceListAction()
+    {
+        return $this->render('invoices/received_invoice_list.html.twig');
+    }
+
 }
