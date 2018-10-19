@@ -263,6 +263,75 @@ class InvoiceController extends Controller
     }
 
     /**
+     * @Route("edit-received-invoice-{n}", name="edit_received_invoice")
+     */
+    public function editReceivedInvoiceAction(int $n)
+    {
+        $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->findOneBy(array('invoiceId' => $n));
+        if($invoice == null) return new Response('Fattura non trovata', 404);
+
+        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+
+        $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
+
+        $actionUrl = $this->generateUrl('ajax_edit_received_invoice', array('n' => $n));
+
+        return $this->render('invoices/invoice_form.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Modifica Fattura Ricevuta',
+            'action_url' => $actionUrl,
+            'type' => 'received',
+            'pa_invoice_number' => ''
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-received-invoice-{n}", name="ajax_edit_received_invoice")
+     */
+    public function ajaxEditReceivedInvoiceAction(Request $request, int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $invoice = $em->getRepository(ReceivedInvoice::class)->findOneBy(array('invoiceId' => $n));
+        if($invoice == null) return new Response('Fattura non trovata', 404);
+
+        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+
+        $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $invoice = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            $IH = new ReceivedInvoiceHelper($invoice, $em, true);
+            $IH->execute();
+            $errors = $IH->getErrors();
+
+            if ($errors == null) {
+                $em->flush();
+
+                return new Response('Fattura modificata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
      * @Route("issued-invoice-list", name="issued_invoice_list")
      */
     public function issuedInvoiceListAction()
