@@ -1,0 +1,70 @@
+<?php
+
+namespace AppBundle\Entity\Payment;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BankAccountRepository")
+ * @ORM\Table(name="bank_accounts")
+ */
+class BankAccount
+{
+    /**
+     * @ORM\Column(type="integer", name="bankAccountId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $bankAccountId;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=false, name="bankName")
+     * @Assert\NotBlank(message="Bank name cannot be null")
+     * @Assert\Length(max=128, maxMessage="Bank name is too long. Max 128 chars")
+     */
+    protected $bankName;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false, name="owner")
+     * @Assert\NotBlank(message="Account owner cannot be null")
+     * @Assert\Length(max=64, maxMessage="Owner name is too long. Max 64 chars")
+     */
+    protected $owner;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=2, name="country")
+     * @Assert\NotBlank()
+     */
+    protected $country;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=2, name="check")
+     * @Assert\NotBlank()
+     */
+    protected $check;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=1, name="CIN")
+     * @Assert\NotBlank()
+     */
+    protected $cin;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=5, name="ABI")
+     * @Assert\NotBlank()
+     */
+    protected $abi;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=5, name="CAB")
+     * @Assert\NotBlank()
+     */
+    protected $cab;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=12, name="accountNumber")
+     * @Assert\NotBlank()
+     */
+    protected $accountNumber;
+}
