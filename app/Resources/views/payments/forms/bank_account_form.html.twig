@@ -1,4 +1,4 @@
-<form id="form_bank_account" method="POST" class="m-form m-form--fit m-form--label-align-right"
+<form id="form_bank_account{% if edit is defined %}_edit{% endif %}" method="POST" class="m-form m-form--fit m-form--label-align-right"
       action="{{ action_url }}"
       autocomplete="off">
     <div class="m-portlet__body m--margin-15">
@@ -31,17 +31,29 @@
 
         <div class="form-group m-form__group row">
 
-            <div class="col-lg-1 m-form__group-sub">
+            {% if edit is defined %}
+                <div class="col-lg-2 m-form__group-sub">
+            {% else %}
+                <div class="col-lg-1 m-form__group-sub">
+            {% endif %}
                 <label>* Paese:</label>
                     {{ form_widget(form.country) }}
             </div>
 
+            {% if edit is defined %}
+            <div class="col-lg-2 m-form__group-sub">
+            {% else %}
             <div class="col-lg-1 m-form__group-sub">
+            {% endif %}
                 <label>* Check:</label>
                 {{ form_widget(form.check) }}
             </div>
 
+            {% if edit is defined %}
+            <div class="col-lg-2 m-form__group-sub">
+            {% else %}
             <div class="col-lg-1 m-form__group-sub">
+            {% endif %}
                 <label>* CIN:</label>
                 {{ form_widget(form.cin) }}
             </div>
@@ -56,8 +68,12 @@
                 {{ form_widget(form.cab) }}
             </div>
 
+            {% if edit is defined %}
+            <div class="col-lg-2 m-form__group-sub">
+            {% else %}
             <div class="col-lg-5 m-form__group-sub">
-                <label>* Numero Conto:</label>
+            {% endif %}
+                <label>* N. Conto:</label>
                 {{ form_widget(form.accountNumber) }}
             </div>
 
