@@ -9,6 +9,7 @@ use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Payment\BankAccount;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
@@ -17,6 +18,7 @@ use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
 use AppBundle\Entity\Vehicle\InsuranceSuspension;
 use AppBundle\Entity\Vehicle\Unavailability;
+use AppBundle\Serializer\BankAccountNormalizer;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
 use AppBundle\Serializer\CurriculumViewNormalizer;
@@ -301,6 +303,21 @@ class JsonController extends Controller
         $normalizers = [new ReceivedInvoiceSerializer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($i, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/bank-accounts", name="json_bank_accounts")
+     */
+    public function jsonBankAccountsAction()
+    {
+        $ba = $this->getDoctrine()->getRepository(BankAccount::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new BankAccountNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($ba, 'json');
 
         return new Response($json);
     }

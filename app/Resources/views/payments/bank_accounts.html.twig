@@ -114,10 +114,12 @@
     <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
     <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
+    <script src="{{ asset('assets/customjs/payments/bank_accounts_list.js') }}"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}"></script>
     <script>
         jQuery(document).ready(function(){
             GenericFormSubmission($('#form_bank_account')).init();
+            BankAccountList.init();
             initializeWidgets();
         });
     </script>
