@@ -1,0 +1,229 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_payment" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dati Pagamento</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Pagamento:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.paymentDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data del pagamento.</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Direzione:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.direction) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-arrows-v"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scegliere se il pagamento che si sta registrando è in entrata o in uscita</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Tipo di Pagamento:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.paymentType) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scegliere la tipologia di pagamento</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Importo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.amount) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'importo del pagamento</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>* Causale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.causal) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la causale del pagamento</span>
+                                </div>
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>Descrizione:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.description) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire una eventuale descrizione del pagamento</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Clienti, Fornitori e Fatture</h3>
+                                <p class="m-form__heading-sub">In questa sezione bisogna selezionare un <u>fornitore in caso di pagamento in uscita</u>, o un <u>cliente in caso di pagamento in entrata</u>, ma <u>non entrambi</u>, altrimenti verrà visualizzato un messaggio di errore.
+                                    <br>Si ha anche la possibilità di associare questo pagamento ad una fattura emessa o ad una fattura registrata, <u>ma non ad entrambe</u>, infatti in tal caso verrà visualizzato un messaggio di errore.</p>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Cliente:</label>
+                                    {{ form_widget(form.customer) }}
+                                    <span class="m-form__help">Scegliere eventualmente il cliente in caso di pagamento in entrata</span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Fornitore:</label>
+                                    {{ form_widget(form.provider) }}
+                                    <span class="m-form__help">Scegliere eventualmente il fornitore in caso di pagamento in uscita</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Fattura Emessa:</label>
+                                    {{ form_widget(form.issuedInvoice) }}
+                                    <span class="m-form__help">Scegliere eventualmente una fattura emessa alla quale associare il pagamento</span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Fattura Ricevuta:</label>
+                                    {{ form_widget(form.receivedInvoice) }}
+                                    <span class="m-form__help">Scegliere eventualmente una fattura ricevuta alla quale associare il pagamento</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Dati Assegno</h3>
+                                <p class="m-form__heading-sub">Nel caso la tipologia di pagamento sia <strong>Assegno</strong>, compilare anche questi due campi, altrimenti verrà visualizzato un messaggo di errore</p>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Numero Assegno:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.checkNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>Data Assegno:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.checkDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            GenericFormSubmission($('#form_payment')).init();
+            initializeWidgets();
+        });
+    </script>
+{% endblock %}

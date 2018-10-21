@@ -122,7 +122,8 @@ class PaymentType extends AbstractType
                 'placeholder' => 'Nessuno',
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('receivedInvoice', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Invoice\ReceivedInvoice',
@@ -133,7 +134,8 @@ class PaymentType extends AbstractType
                 'placeholder' => 'Nessuno',
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ));
 
         $builder->get('checkDate')->addModelTransformer($this->transformer);

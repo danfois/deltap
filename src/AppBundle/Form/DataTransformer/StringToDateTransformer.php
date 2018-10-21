@@ -23,6 +23,7 @@ class StringToDateTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
+        if($value == null) return null;
         return \DateTime::createFromFormat('d/m/Y', $value);
     }
 }
