@@ -1,0 +1,99 @@
+<?php
+
+namespace AppBundle\Entity\Payment;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PaymentRepository")
+ * @ORM\Table(name="payments")
+ */
+class Payment
+{
+    /**
+     * @ORM\Column(type="integer", name="paymentId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $paymentId;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="paymentDate")
+     * @Assert\NotBlank()
+     */
+    protected $paymentDate;
+
+    /**
+     * @ORM\Column(type="string", length=12, nullable=false, name="direction")
+     * @Assert\NotBlank()
+     */
+    protected $direction;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=32, name="paymentType")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=32, maxMessage="Payment type is too long. Max 32 chars")
+     */
+    protected $paymentType;
+
+    /**
+     * @ORM\Column(type="string", length=12, nullable=true, name="checkNumber")
+     * @Assert\Length(max=12, maxMessage="Check Number is too long. Max 12 chars")
+     */
+    protected $checkNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="checkDate")
+     */
+    protected $checkDate;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="amout")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=10)
+     */
+    protected $amount;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="causal")
+     * @Assert\NotBlank()
+     */
+    protected $causal;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="description")
+     */
+    protected $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
+     */
+    protected $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider", nullable=true)
+     */
+    protected $provider;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Payment\BankAccount")
+     * @ORM\JoinColumn(name="bankAccountId", referencedColumnName="bankAccountId", nullable=true)
+     */
+    protected $bankAccount;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice")
+     * @ORM\JoinColumn(name="issuedInvoiceId", referencedColumnName="invoiceId", nullable=true)
+     */
+    protected $issuedInvoice;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice")
+     * @ORM\JoinColumn(name="receivedInvoiceId", referencedColumnName="invoiceId", nullable=true)
+     */
+    protected $receivedInvoice;
+
+
+}
