@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Invoice;
+use AppBundle\Entity\Payment\PayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\IssuedInvoiceRepository")
  * @ORM\Table(name="issued_invoices")
  */
-class IssuedInvoice extends Invoice
+class IssuedInvoice extends Invoice implements PayableInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation")
@@ -110,4 +111,52 @@ class IssuedInvoice extends Invoice
     {
         return $this->invoiceDetails;
     }
+
+    /*
+     * START OF PAYABLE INTERFACE METHODS
+     */
+    public function getAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxInc();
+        }
+
+        return $sum;
+    }
+
+    public function getCausal()
+    {
+        return 'Pagamento Fattura emessa N. ' . $this->getInvoiceNumber();
+    }
+
+    public function getDirection()
+    {
+        return 'IN';
+    }
+
+    public function getIssuedInvoice()
+    {
+        return $this;
+    }
+
+    public function getReceivedInvoice()
+    {
+        return null;
+    }
+
+    public function getPaymentDate()
+    {
+        return $this->getInvoiceDate();
+    }
+
+    public function getProvider()
+    {
+        return null;
+    }
+
+    /*
+     * END OF PAYABLE INTERFACE METHODS
+     */
 }

@@ -3,7 +3,9 @@
 namespace AppBundle\Controller\Payment;
 use AppBundle\Entity\Payment\Payment;
 use AppBundle\Form\Payment\PaymentType;
+use AppBundle\Helper\Payment\PaymentCompiler;
 use AppBundle\Helper\Payment\PaymentHelper;
+use AppBundle\Util\ClassResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -127,6 +129,28 @@ class PaymentController extends Controller
         }
 
         throw new AccessDeniedException('Accesso Negato');
+    }
 
+    /**
+     * @Route("create-payment-from/{type}/{n}", name="create_payment_from")
+     */
+    public function createPaymentFrom(string $type, int $n)
+    {
+        $class = ClassResolver::resolveClass($type);
+        if($class === false) return new Response('Richiesta effettuata in maniera non corretta'. 400);
+
+        $classData = $this->getDoctrine()->getRepository($class)->find($n);
+        if($classData == null) return new Response('Dati non trovati', 404);
+
+        $PaymentCompiler = new PaymentCompiler($classData);
+        $payment = $PaymentCompiler->compile()->getPayment();
+
+        $form = $this->createForm(PaymentType::class, $payment);
+
+        return $this->render('payments/payment.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Registra Pagamento',
+            'action_url' => $this->generateUrl('ajax_create_payment')
+        ));
     }
 }
