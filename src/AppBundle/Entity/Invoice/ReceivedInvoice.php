@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Invoice;
+use AppBundle\Entity\Payment\PayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReceivedInvoiceRepository")
  * @ORM\Table(name="received_invoices")
  */
-class ReceivedInvoice extends Invoice
+class ReceivedInvoice extends Invoice implements PayableInterface
 {
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="receivedInvoice", cascade={"persist"})
@@ -81,4 +82,52 @@ class ReceivedInvoice extends Invoice
     {
         return $this->invoiceDetails;
     }
+
+    /*
+     * START OF PAYABLE INTERFACE METHODS
+     */
+    public function getAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxInc();
+        }
+
+        return $sum;
+    }
+
+    public function getCausal()
+    {
+        return 'Pagamento Fattura Ricevuta N. ' . $this->getInvoiceNumber() . ' da ' . $this->getProvider()->getBusinessName();
+    }
+
+    public function getDirection()
+    {
+        return 'OUT';
+    }
+
+    public function getIssuedInvoice()
+    {
+        return null;
+    }
+
+    public function getReceivedInvoice()
+    {
+        return $this;
+    }
+
+    public function getPaymentDate()
+    {
+        return $this->getInvoiceDate();
+    }
+
+    public function getCustomer()
+    {
+        return null;
+    }
+
+    /*
+     * END OF PAYABLE INTERFACE METHODS
+     */
 }
