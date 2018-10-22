@@ -87,7 +87,7 @@ var InvoiceList = function () {
 						    	<a class="dropdown-item" href="edit-issued-invoice-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Fattura</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Fattura</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Invia al Cliente</a>\
-						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-money"></i> Registra Pagamento</a>\
+						    	\<a class="dropdown-item" href="create-payment-from/issuedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
 						  	</div>\
 						</div>\
