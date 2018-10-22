@@ -10,6 +10,7 @@ use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Payment\BankAccount;
+use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
@@ -28,6 +29,7 @@ use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\IssuedInvoiceSerializer;
+use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
 use AppBundle\Serializer\ReceivedInvoiceSerializer;
@@ -322,5 +324,19 @@ class JsonController extends Controller
         return new Response($json);
     }
 
+    /**
+     * @Route("json/payments", name="json_payments")
+     */
+    public function jsonPaymentsAction()
+    {
+        $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new PaymentNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($payments, 'json');
+
+        return new Response($json);
+    }
 
 }

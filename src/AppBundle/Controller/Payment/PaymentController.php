@@ -153,4 +153,14 @@ class PaymentController extends Controller
             'action_url' => $this->generateUrl('ajax_create_payment')
         ));
     }
+
+    /**
+     * @Route("payments-list", name="payments_list")
+     */
+    public function paymentsListAction()
+    {
+        return $this->render('payments/payments_list.html.twig', array(
+            'title' => 'Pagamenti'
+        ));
+    }
 }
