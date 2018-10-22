@@ -68,4 +68,65 @@ class PaymentController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("edit-payment-{n}", name="edit_payment")
+     */
+    public function editPaymentAction(int $n)
+    {
+        $payment = $this->getDoctrine()->getRepository(Payment::class)->findOneBy(array('paymentId' => $n));
+        if($payment == null) return new Response('Pagamento non trovato', 404);
+
+        $form = $this->createForm(PaymentType::class, $payment);
+
+        return $this->render('payments/payment.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Modifica Pagamento - N. ' . $payment->getPaymentId(),
+            'action_url' => $this->generateUrl('ajax_edit_payment', array('n' => $n))
+        ));
+    }
+
+    /**
+     * @Route("ajax-edit-payment-{n}", name="ajax_edit_payment")
+     */
+    public function ajaxEditPaymentAction(Request $request, int $n)
+    {
+        $payment = $this->getDoctrine()->getRepository(Payment::class)->findOneBy(array('paymentId' => $n));
+        if($payment == null) return new Response('Pagamento non trovato', 404);
+
+        $form = $this->createForm(PaymentType::class, $payment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $payment = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            $PH = new PaymentHelper($payment, $em, true);
+            $PH->execute();
+            $errors = $PH->getErrors();
+
+            if($errors == null) {
+                $em->persist($payment);
+                $em->flush();
+
+                return new Response('Pagamento modificato con successo', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+
+    }
 }
