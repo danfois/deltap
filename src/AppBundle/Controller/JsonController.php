@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\Document;
 use AppBundle\Entity\Employee\Curriculum;
 use AppBundle\Entity\Employee\DriverQualificationLetter;
@@ -127,7 +128,7 @@ class JsonController extends Controller
      */
     public function jsonUnavailabilitiesAction()
     {
-        $u= $this->getDoctrine()->getRepository(Unavailability::class)->findAll();
+        $u = $this->getDoctrine()->getRepository(Unavailability::class)->findAll();
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new UnavailabilityViewNormalizer()];
@@ -159,7 +160,7 @@ class JsonController extends Controller
     {
         $repositoryClass = '';
 
-        switch($type) {
+        switch ($type) {
             case 'driving-license':
                 $repositoryClass = DrivingLicense::class;
                 break;
@@ -187,12 +188,12 @@ class JsonController extends Controller
     public function jsonDocuments(Request $request)
     {
         $id = $request->request->get('id');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $type = $request->request->get('type');
-        if($type == null) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if ($type == null) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
-        switch($type) {
+        switch ($type) {
             case 'driving-license':
                 $data = $this->getDoctrine()->getRepository(Document::class)->findBy(array('drivingLicense' => $id));
                 break;
@@ -207,7 +208,7 @@ class JsonController extends Controller
                 break;
         }
 
-        if(!isset($data)) return new Response('Nessun Documento trovato', 404);
+        if (!isset($data)) return new Response('Nessun Documento trovato', 404);
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new DocumentViewNormalizer()];
@@ -327,9 +328,16 @@ class JsonController extends Controller
     /**
      * @Route("json/payments", name="json_payments")
      */
-    public function jsonPaymentsAction()
+    public function jsonPaymentsAction(Request $request)
     {
-        $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
+        $id = $request->request->get('id');
+        $invoiceType = $request->request->get('invoiceType');
+
+        if(is_numeric($id) !== false && $id != '' && $invoiceType != '') {
+            $payments = $this->getDoctrine()->getRepository(Payment::class)->findBy(array($invoiceType => $id));
+        } else {
+            $payments = $this->getDoctrine()->getRepository(Payment::class)->findAll();
+        }
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new PaymentNormalizer()];
