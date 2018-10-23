@@ -54,7 +54,7 @@ var CustomerForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: data,
+                            html: data,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
@@ -64,7 +64,7 @@ var CustomerForm = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: e.responseText,
+                            html: e.responseText,
                             type: "error",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });

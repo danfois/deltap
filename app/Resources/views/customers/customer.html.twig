@@ -1,6 +1,6 @@
 {% extends('base.html.twig') %}
-{% block title %}Redentours | Crea Cliente{% endblock %}
-{% block subheader_title %}Crea Cliente{% endblock %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
 
 {% block content %}
 
@@ -16,14 +16,14 @@
 						<i class="la la-gear"></i>
 						</span>
                             <h3 class="m-portlet__head-text">
-                                Creazione Cliente
+                                {{ title }}
                             </h3>
                         </div>
                     </div>
                 </div>
                 <!--begin::Form-->
                 <form id="form_customer" method="POST" class="m-form m-form--fit m-form--label-align-right"
-                      action="{{ path('create_customer_ajax') }}">
+                      action="{{ action_url }}">
                     {{ form_widget(form._token) }}
                     <div class="m-portlet__body">
                         <div class="m-form__section m-form__section--first">
