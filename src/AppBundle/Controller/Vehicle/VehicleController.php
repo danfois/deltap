@@ -17,8 +17,6 @@ use Symfony\Component\Serializer\Serializer;
 
 class VehicleController extends Controller
 {
-    //todo: aggiugere crud per i veicoli
-
     /**
      * @Route("create-vehicle", name="create_vehicle")
      */

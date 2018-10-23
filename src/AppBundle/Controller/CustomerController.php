@@ -123,4 +123,24 @@ class CustomerController extends Controller
         return $this->render('customers/customer_list.html.twig');
     }
 
+    /**
+     * @Route("customer-details", name="customer_details")
+     */
+    public function customerDetailsAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $customer = $this->getDoctrine()->getRepository(Customer::class)->find($id);
+
+        if($customer == null) return new Response('Questo cliente non è registrato', 404);
+
+        $html = $this->renderView('customers/customer_details.html.twig', array(
+            'c' => $customer
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Dettagli Cliente -' . $customer->getBusinessName(),
+            'modal_content' => $html
+        ));
+    }
+
 }

@@ -67,7 +67,7 @@ var CustomerList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-customer-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Cliente</a>\
-						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Dettagli Cliente</a>\
+						    	<a class="dropdown-item" href="" onclick="genericModalFunction(\'GET\', \'customer-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Dettagli Cliente</a>\
 						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Fatture del Cliente</a>\
 						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Preventivi del Cliente</a>\
 						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> OdS del Cliente</a>\
@@ -76,7 +76,7 @@ var CustomerList = function () {
 						<a href="edit-customer-' + row.idv +'" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Cliente">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Dettagli Cliente">\
+						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'customer-details\', { \'id\' : ' + row.id + '})" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Dettagli Cliente">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
