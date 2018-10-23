@@ -163,4 +163,20 @@ class PaymentController extends Controller
             'title' => 'Pagamenti'
         ));
     }
+
+    /**
+     * @Route("ajax/delete-payment-{n}", name="delete_payment")
+     */
+    public function deletePaymentAction(Request $request, int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $payment = $em->getRepository(Payment::class)->findOneBy(array('paymentId' => $n));
+
+        if($payment == null) return new Response('Pagamento non trovato', 404);
+
+        $em->remove($payment);
+        $em->flush();
+
+        return new Response('Pagamento eliminato correttamente');
+    }
 }
