@@ -23,10 +23,11 @@ class PaymentNormalizer implements NormalizerInterface
                     'amount' => $o->getAmount(),
                     'causal' => $o->getCausal(),
                     'description' => $o->getDescription(),
-                    'checkDate' => $o->getCheckDate(),
+                    'checkDate' => ($o->getCheckDate() != null ? $o->getCheckDate()->format('d-m-Y') : ''),
                     'checkNumber' => $o->getCheckNumber(),
                     'customer' => ($o->getCustomer() != null ? $o->getCustomer()->getBusinessName() : ''),
-                    'provider' => ($o->getProvider() != null ? $o->getProvider()->getBusinessName() : '')
+                    'provider' => ($o->getProvider() != null ? $o->getProvider()->getBusinessName() : ''),
+                    'bank' => ($o->getBankAccount() != null ? $o->getBankAccount()->getBankName() . ' - ' . $o->getBankAccount()->getAccountNumber() : '')
                 ];
             }
         }

@@ -108,6 +108,10 @@ var PaymentList = function () {
                     }
                 },
                 {
+                    field: 'bank',
+                    title: 'Conto'
+                },
+                {
                     field: 'checkDate',
                     title: 'Dati Assegno',
                     width:100,

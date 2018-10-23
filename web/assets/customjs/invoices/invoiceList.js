@@ -227,6 +227,7 @@ var InvoiceList = function () {
                         return '<span class="m-badge m-badge--metal m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-metal">Nessuno</span></span>';
                     }
                 },
+
                 {
                     field: 'payment',
                     title: 'Tipo di Pagamento',
@@ -238,6 +239,17 @@ var InvoiceList = function () {
                     sortable: true,
                     template: function (row) {
                         return '&euro; ' + row.totTaxInc;
+                    }
+                },
+                {
+                    field: 'balance',
+                    title: 'Saldo',
+                    template: function(row) {
+                        if(row.remaining != '0') {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>' + ' / ' + '<span class="m--font-danger">&euro; '+row.remaining+'</span>';
+                        } else {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>';
+                        }
                     }
                 },
                 {

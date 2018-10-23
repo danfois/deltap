@@ -23,7 +23,17 @@ class PaymentHelper extends AbstractHelper
         $this->checkSingleInvoiceType();
         $this->validateCheckPaymentType();
         $this->checkInvoiceCoherence();
+        $this->checkBankAccount();
         $this->executed = 1;
+    }
+
+    protected function checkBankAccount()
+    {
+        if($this->instance->getBankAccount() == null && $this->instance->getPaymentType() != 'CASH') {
+            $this->errors .= 'Devi selezionare un conto corrente per i pagamenti diversi dai contanti<br>';
+            return false;
+        }
+        return true;
     }
 
     protected function checkCustomerOrProvider()

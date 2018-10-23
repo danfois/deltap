@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Invoice;
+use AppBundle\Entity\Payment\PayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\IssuedInvoiceRepository")
  * @ORM\Table(name="issued_invoices")
  */
-class IssuedInvoice extends Invoice
+class IssuedInvoice extends Invoice implements PayableInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation")
@@ -17,15 +18,45 @@ class IssuedInvoice extends Invoice
     protected $priceQuotation;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      */
     protected $invoiceDetails;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
+     */
+    protected $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment\Payment", mappedBy="issuedInvoice")
+     */
+    protected $payments;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->invoiceDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param mixed $customer
+     * @return Invoice
+     */
+    public function setCustomer(\AppBundle\Entity\Customer $customer)
+    {
+        $this->customer = $customer;
+        return $this;
     }
 
     /**
@@ -63,8 +94,6 @@ class IssuedInvoice extends Invoice
     {
         $this->invoiceDetails[] = $invoiceDetail;
 
-        $invoiceDetail->setIssuedInvoice($this);
-
         return $this;
     }
 
@@ -87,4 +116,52 @@ class IssuedInvoice extends Invoice
     {
         return $this->invoiceDetails;
     }
+
+    /*
+     * START OF PAYABLE INTERFACE METHODS
+     */
+    public function getAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxInc();
+        }
+
+        return $sum;
+    }
+
+    public function getCausal()
+    {
+        return 'Pagamento Fattura emessa N. ' . $this->getInvoiceNumber();
+    }
+
+    public function getDirection()
+    {
+        return 'IN';
+    }
+
+    public function getIssuedInvoice()
+    {
+        return $this;
+    }
+
+    public function getReceivedInvoice()
+    {
+        return null;
+    }
+
+    public function getPaymentDate()
+    {
+        return $this->getInvoiceDate();
+    }
+
+    public function getProvider()
+    {
+        return null;
+    }
+
+    /*
+     * END OF PAYABLE INTERFACE METHODS
+     */
 }

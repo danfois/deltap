@@ -36,7 +36,7 @@
 
                             <div class="form-group m-form__group row">
 
-                                <div class="col-lg-3 m-form__group-sub">
+                                <div class="col-lg-2 m-form__group-sub">
                                     <label>* Data Pagamento:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.paymentDate) }}
@@ -46,8 +46,18 @@
                                     <span class="m-form__help">Inserire la data del pagamento.</span>
                                 </div>
 
-                                <div class="col-lg-3 m-form__group-sub">
-                                    <label>* Direzione:</label>
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Importo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.amount) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-money"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'importo del pagamento</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* <i class="la la-exchange"></i></label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.direction) }}
                                         <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
@@ -67,13 +77,13 @@
                                 </div>
 
                                 <div class="col-lg-3 m-form__group-sub">
-                                    <label>* Importo:</label>
+                                    <label>Conto:</label>
                                     <div class="m-input-icon m-input-icon--right">
-                                        {{ form_widget(form.amount) }}
+                                        {{ form_widget(form.bankAccount) }}
                                         <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
                                                         class="la la-money"></i></span></span>
                                     </div>
-                                    <span class="m-form__help">Inserire l'importo del pagamento</span>
+                                    <span class="m-form__help">Scegliere il conto di riferimento</span>
                                 </div>
 
                             </div>

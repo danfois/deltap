@@ -29,6 +29,11 @@ class IssuedInvoice extends Invoice implements PayableInterface
     protected $customer;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment\Payment", mappedBy="issuedInvoice")
+     */
+    protected $payments;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -159,4 +164,38 @@ class IssuedInvoice extends Invoice implements PayableInterface
     /*
      * END OF PAYABLE INTERFACE METHODS
      */
+
+    /**
+     * Add payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     *
+     * @return IssuedInvoice
+     */
+    public function addPayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments[] = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Remove payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     */
+    public function removePayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments->removeElement($payment);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
 }
