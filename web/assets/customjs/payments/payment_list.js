@@ -172,6 +172,18 @@ var PaymentList = function () {
 
         var datatable = $('.m_datatable').mDatatable(options);
 
+        var query = datatable.getDataSourceQuery();
+
+        $('#m_form_direction').on('change', function () {
+            datatable.search($(this).val(), 'direction');
+        }).val(typeof query.direction !== 'undefined' ? query.direction : '');
+
+        $('#m_form_type').on('change', function () {
+            datatable.search($(this).val(), 'Type');
+        }).val(typeof query.Type !== 'undefined' ? query.Type : '');
+
+        $('#m_form_status_ordine, #m_form_direction').selectpicker();
+
         $('#m_datatable_destroy').on('click', function () {
             $('.m_datatable').mDatatable('destroy');
         });
