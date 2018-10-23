@@ -1,0 +1,126 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | Clienti{% endblock %}
+{% block subheader_title %}Clienti{% endblock %}
+
+{% block content %}
+    <div class="m-alert m-alert--icon m-alert--air m-alert--square alert alert-dismissible m--margin-bottom-30"
+         role="alert">
+        <div class="m-alert__icon">
+            <i class="flaticon-exclamation m--font-info"></i>
+        </div>
+        <div class="m-alert__text">
+            Lista dei Clienti caricata dal database
+        </div>
+    </div>
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Clienti
+                        <small>
+                            versione interattiva
+                        </small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="form-group m-form__group row align-items-center">
+                            <div class="col-md-3">
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="text" class="form-control m-input" placeholder="Cerca..."
+                                           id="generalSearch">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+															<span>
+																<i class="la la-search"></i>
+															</span>
+														</span>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <button class="btn btn-success" type="button" id="m_datatable_init">
+                                    Inizializza
+                                </button>
+                                <button class="btn btn-danger" type="button" id="m_datatable_destroy">
+                                    Distruggi
+                                </button>
+                                <button class="btn btn-info" type="button" id="m_datatable_reload">
+                                    Ricarica Dati
+                                </button>
+                                <span id="datatable_value"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 m--align-right order-1 order-xl-2">
+                        <a href="{{ path('create_customer') }}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air" target="_blank">
+												<span>
+													<i class="la la-user"></i>
+													<span>
+														Nuovo Cliente
+													</span>
+												</span>
+                        </a>
+                        <div class="m-separator m-separator--dashed d-xl-none"></div>
+                    </div>
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Search Form -->
+            <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
+                <div class="row">
+                    <!--<div class="col-lg-2">
+
+                        <select class="form-control m-input" id="mass-action">
+                            <option value="">Scegli Operazione...</option>
+                            <option value="1">Registra Pagamento</option>
+                            <option value="3">Registra Fattura</option>
+                            <option value="4">Elimina</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="javascript:void(0);" class="btn btn-brand" id="apply-mass-action">Applica</a>
+                    </div>-->
+                    <div class="col-lg-9">
+                        <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
+                            Seleziona Tutto
+                        </button>
+                        <button class="btn btn-secondary" type="button" id="m_datatable_uncheck_all">
+                            Deseleziona Tutto
+                        </button>
+                        <button class="btn btn-secondary" type="button" id="m_datatable_remove_row">
+                            Nascondi Selezionati
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--end: Search Form -->
+            <!--begin: Datatable -->
+            <div class="m_datatable" id="api_methods"></div>
+            <!--end: Datatable -->
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    {% include('includes/generic_modal.html.twig') %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
+    <script src="{{ asset('assets/customjs/customers/customer_list.js') }}"></script>
+    <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
+    <script>
+
+        jQuery(document).ready(function () {
+            CustomerList.init();
+        });
+    </script>
+{% endblock %}

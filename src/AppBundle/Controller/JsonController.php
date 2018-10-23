@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Customer;
 use AppBundle\Entity\Document;
 use AppBundle\Entity\Employee\Curriculum;
 use AppBundle\Entity\Employee\DriverQualificationLetter;
@@ -24,6 +25,7 @@ use AppBundle\Serializer\BankAccountNormalizer;
 use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
 use AppBundle\Serializer\CurriculumViewNormalizer;
+use AppBundle\Serializer\CustomerNormalizer;
 use AppBundle\Serializer\DocumentViewNormalizer;
 use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
@@ -47,6 +49,21 @@ use AppBundle\Serializer\VehicleViewNormalizer;
 
 class JsonController extends Controller
 {
+    /**
+     * @Route("json/customers", name="customers_json")
+     */
+    public function jsonCustomersAction()
+    {
+        $customers = $this->getDoctrine()->getRepository(Customer::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new CustomerNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($customers, 'json');
+
+        return new Response($json);
+    }
+
     /**
      * @Route("json/vehicles", name="vehicles_json")
      */

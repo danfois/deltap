@@ -115,4 +115,12 @@ class CustomerController extends Controller
         throw new AccessDeniedException('Accesso Negato');
     }
 
+    /**
+     * @Route("customer-list", name="customer_list")
+     */
+    public function customerListAction()
+    {
+        return $this->render('customers/customer_list.html.twig');
+    }
+
 }

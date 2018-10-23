@@ -150,7 +150,7 @@ var PaymentList = function () {
             translate: {
                 records: {
                     processing: "Caricamento...",
-                    noRecords: "Nessun Ordine di Servizio trovato"
+                    noRecords: "Nessun Pagamento trovato"
                 },
                 toolbar: {
                     pagination: {
@@ -163,7 +163,7 @@ var PaymentList = function () {
                                 more: "Più Pagine",
                                 input: "Numero di Pagina",
                                 select: "Seleziona il numero della pagina"
-                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Ordini di Servizio"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Pagamenti"
                         }
                     }
                 }
@@ -198,20 +198,6 @@ var PaymentList = function () {
 
         $('#m_datatable_sort').on('click', function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
-        });
-
-        $('#apply-mass-action').on('click', function() {
-            var select_value = $('#mass-action').val();
-            var selected = [];
-            datatable.rows('.m-datatable__row--active');
-            if (datatable.nodes().length > 0) {
-                var value = datatable.columns('idv').nodes().each(function(element, index) {
-                    selected.push(index.childNodes[0].textContent);
-                });
-                console.log(selected);
-            }
-            //if(select_value === '2') CarTaxRenew(selected);
-            if(select_value === '3') generateInvoiceUrl('issued', 'serviceOrders', selected);
         });
 
         $('#m_datatable_check').on('click', function () {
