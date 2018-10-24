@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Customer;
+use AppBundle\Entity\Invoice\IssuedInvoice;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateCustomerType;
 use AppBundle\Helper\Customer\CustomerHelper;
@@ -143,4 +145,36 @@ class CustomerController extends Controller
         ));
     }
 
+    /**
+     * @Route("customer-invoices-{n}", name="customer_invoices")
+     */
+    public function customerInvoicesAction(int $n)
+    {
+        $invoices = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findBy(array('customer' => $n));
+
+        $html = $this->renderView('invoices/invoice_list_modal.html.twig', array(
+            'invoices' => $invoices
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Lista Fatture per Cliente',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("customer-price-quotations-{n}", name="customer_price_quotations")
+     */
+    public function customerPriceQuotationAction(int $n) {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->findBy(array('customer' => $n));
+
+        $html = $this->renderView('price_quotations/price_quotation_list_modal.html.twig', array(
+            'priceQuotations' => $pq
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Preventivi per Cliente',
+            'modal_content' => $html
+        ));
+    }
 }

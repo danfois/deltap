@@ -1,0 +1,45 @@
+<div class="row m--padding-20">
+    <div class="col-md-12">
+        <table class="table m-table m-table--head-separator-info table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cliente / Fornitore</th>
+                <th>N. Fatt</th>
+                <th>N. Fatt PA</th>
+                <th>Tipo Pag.</th>
+                <th>Importo</th>
+                <th>Saldato</th>
+                <th>Da Pagare</th>
+                <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in invoices %}
+                <tr>
+                    <td>{{ i.invoiceId }}</td>
+                    <td>{% if i.customer is not empty %}{{ i.customer.businessName }}{% endif %}{% if i.provider is not empty %}{{ i.provider.businessName }}{% endif %}</td>
+                    <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                class="m--font-bold m--font-accent">{{ i.invoiceNumber }}</span></td>
+                    <td>{% if i.paInvoiceNumber is not empty %}<span
+                                class="m-badge m-badge--warning m-badge--dot"></span>&nbsp;<span
+                                class="m--font-bold m--font-warning">{{ i.paInvoiceNumber }}</span>{% endif %}</td>
+                    <td>{{ i.paymentTerms }}</td>
+                    <td>&euro; {{ i.amount }}</td>
+                    {% set totalPayment = 0 %}
+                    {% for p in i.payments %}
+                        {% set totalPayment = totalPayment + p.amount %}
+                    {% endfor %}
+                    <td class="m--font-success m--font-bold">&euro; {{ totalPayment }}</td>
+                    <td class="m--font-danger m--font-bold">&euro; {{ i.amount - totalPayment }}</td>
+                    <td><a href="javascript:void(0);"
+                           onclick="alert('In Lavorazione');"
+                           class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"
+                           title="Vedi Fattura"> <i class="la la-eye"></i> </a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
