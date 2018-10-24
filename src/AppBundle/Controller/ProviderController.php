@@ -113,7 +113,7 @@ class ProviderController extends Controller
     }
 
     /**
-     * @Route("providers-list", name="providers_list")
+     * @Route("provider-list", name="provider_list")
      */
     public function providersListAction()
     {
