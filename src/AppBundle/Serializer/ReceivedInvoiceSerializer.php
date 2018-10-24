@@ -15,6 +15,12 @@ class ReceivedInvoiceSerializer implements NormalizerInterface
 
                 $totTaxInc = 0;
 
+                $balance = 0;
+
+                foreach($o->getPayments() as $p) {
+                    $balance += $p->getAmount();
+                }
+
                 foreach($o->getInvoiceDetails() as $d) {
                     $totTaxInc = $totTaxInc + $d->getTotTaxInc();
                 }
@@ -27,7 +33,9 @@ class ReceivedInvoiceSerializer implements NormalizerInterface
                     'payment' => $o->getPaymentTerms(),
                     'paInvoiceNumber' => $o->getPaInvoiceNumber(),
                     'provider' => $o->getProvider()->getBusinessName(),
-                    'totTaxInc' => $totTaxInc
+                    'totTaxInc' => $totTaxInc,
+                    'balance' => $balance,
+                    'remaining' => $totTaxInc - $balance
                 );
             }
         }

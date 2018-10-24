@@ -84,13 +84,13 @@ class Payment
     protected $bankAccount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice", inversedBy="payments")
      * @ORM\JoinColumn(name="issuedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $issuedInvoice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice", inversedBy="payments")
      * @ORM\JoinColumn(name="receivedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $receivedInvoice;

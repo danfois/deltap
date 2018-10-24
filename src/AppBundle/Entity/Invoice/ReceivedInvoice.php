@@ -22,6 +22,11 @@ class ReceivedInvoice extends Invoice implements PayableInterface
      */
     protected $provider;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment\Payment", mappedBy="receivedInvoice")
+     */
+    protected $payments;
+
 
     /**
      * Constructor
@@ -130,4 +135,38 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     /*
      * END OF PAYABLE INTERFACE METHODS
      */
+
+    /**
+     * Add payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     *
+     * @return ReceivedInvoice
+     */
+    public function addPayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments[] = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Remove payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     */
+    public function removePayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments->removeElement($payment);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
 }

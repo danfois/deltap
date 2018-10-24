@@ -241,6 +241,17 @@ var InvoiceList = function () {
                     }
                 },
                 {
+                    field: 'balance',
+                    title: 'Saldo',
+                    template: function(row) {
+                        if(row.remaining != '0') {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>' + ' / ' + '<span class="m--font-danger">&euro; '+row.remaining+'</span>';
+                        } else {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>';
+                        }
+                    }
+                },
+                {
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',
