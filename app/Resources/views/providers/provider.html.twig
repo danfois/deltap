@@ -1,0 +1,245 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_provider" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dettagli Fornitore</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Nome o Ragione Sociale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.business_name) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il nome o la ragione sociale del fornitore</span>
+                                </div>
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Categoria:</label>
+                                    {{ form_widget(form.category) }}
+                                    <span class="m-form__help">Scegliere la categoria del fornitore o crearne una nuova</span>
+                                </div>
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>&nbsp;</label><br>
+                                    <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                                         data-toggle="modal" data-target="#create_category">
+                                <span>
+                                    <i class="la la-plus"></i>
+                                    <span>Nuova Categoria</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>P. Iva / VAT:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.vat) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-legal"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire una eventuale Partita Iva o Vat</span>
+                                </div>
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Codice Fiscale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.cf) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale Codice Fiscale se non si ha a disposizione la P.Iva</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Tags</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.tags) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-tags"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Eventualmente, scrivere delle tags separate da virgola (es: scuola, trasporti, ecc) che possono servire per la ricerca del fornitore</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Dettagli Indirizzo</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Indirizzo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.address) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo del fornitore</span>
+                                </div>
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Zona:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.zone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire zona se diversa dall'indirizzo</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label class="">* Codice Postale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.cap) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-bookmark-o"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il CAP</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Citta:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <div class="m-typeahead">
+                                            {{ form_widget(form.fullAddress.city) }}
+                                        </div>
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la città del fornitore</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Provincia:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.region) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scrivere la provincia del fornitore</span>
+                                </div>
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Stato:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fullAddress.country) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-map-marker"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire lo Stato nel quale si trova il fornitore</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Recapiti</h3>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Email:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.email) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo email del fornitore</span>
+                                </div>
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Telefono:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.phone) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono fisso</span>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label class="">Cellulare:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.mobile) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-mobile-phone"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire il numero di telefono cellulare</span>
+                                </div>
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>Fax:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.fax) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-fax"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale fax</span>
+                                </div>
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>Sito Web:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.website) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-globe"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire un eventuale sito web</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+    {% include('categories/modal_create_category.html.twig') %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/modals/modal_create_category.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/providers/create_provider.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
