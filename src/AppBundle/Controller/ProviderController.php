@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Provider;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\ProviderType;
@@ -109,5 +110,50 @@ class ProviderController extends Controller
             return new Response($error, 500);
         }
         throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("providers-list", name="providers_list")
+     */
+    public function providersListAction()
+    {
+        return $this->render('providers/provider_list.html.twig');
+    }
+
+    /**
+     * @Route("provider-details", name="provider_details")
+     */
+    public function providerDetailsAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $provider = $this->getDoctrine()->getRepository(Provider::class)->find($id);
+
+        if($provider == null) return new Response('Questo Fornitore non è registrato', 404);
+
+        $html = $this->renderView('providers/provider_details.html.twig', array(
+            'c' => $provider
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Dettagli Fornitore - ' . $provider->getBusinessName(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("provider-invoices-{n}", name="provider_invoices")
+     */
+    public function providerInvoicesAction(int $n)
+    {
+        $invoices = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->findBy(array('provider' => $n));
+
+        $html = $this->renderView('invoices/invoice_list_modal.html.twig', array(
+            'invoices' => $invoices
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Lista Fatture per Fornitore',
+            'modal_content' => $html
+        ));
     }
 }

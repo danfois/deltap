@@ -15,6 +15,7 @@ use AppBundle\Entity\Payment\BankAccount;
 use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
+use AppBundle\Entity\Provider;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
@@ -35,6 +36,7 @@ use AppBundle\Serializer\IssuedInvoiceSerializer;
 use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
+use AppBundle\Serializer\ProviderNormalizer;
 use AppBundle\Serializer\ReceivedInvoiceSerializer;
 use AppBundle\Serializer\ServiceOrderViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
@@ -60,6 +62,21 @@ class JsonController extends Controller
         $normalizers = [new CustomerNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($customers, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/providers", name="providers_json")
+     */
+    public function jsonProvidersAction()
+    {
+        $providers = $this->getDoctrine()->getRepository(Provider::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ProviderNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($providers, 'json');
 
         return new Response($json);
     }

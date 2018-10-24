@@ -1,0 +1,55 @@
+<div class="row m--padding-20">
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary">
+            <tr>
+                <td class="bg-light m--font-bold">Rag. Soc.</td>
+                <td>{{ c.businessName }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">P. Iva</td>
+                <td>{{ c.vat }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">CF</td>
+                <td>{{ c.cf }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Indirizzo</td>
+                <td>{{ c.fullAddress.address }}, {{ c.fullAddress.city }}, {{ c.FullAddress.cap }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Categoria</td>
+                <td>{{ c.category.categoryName }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Data Reg.</td>
+                <td>{{ c.registrationDate|date('d/m/Y') }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table m-table m-table--head-separator-primary">
+            <tr>
+                <td class="bg-light m--font-bold">Email</td>
+                <td>{{ c.email }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Telefono</td>
+                <td>{{ c.phone }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Cellulare</td>
+                <td>{{ c.mobile }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Fax</td>
+                <td>{{ c.fax }}</td>
+            </tr>
+            <tr>
+                <td class="bg-light m--font-bold">Sito Web</td>
+                <td>{{ c.website }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
