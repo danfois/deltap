@@ -1,0 +1,405 @@
+<?php
+
+namespace AppBundle\Entity\PurchaseOrder;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PurchaseOrderRepository")
+ * @ORM\Table(name="purchase_orders")
+ */
+class PurchaseOrder
+{
+    /**
+     * @ORM\Column(type="integer", name="purchaseOrderId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $purchaseOrderId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
+     */
+    protected $provider;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=32, name="referencePerson")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=32)
+     */
+    protected $referencePerson;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    protected $employee;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="orderDate")
+     * @Assert\NotBlank()
+     */
+    protected $orderDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="expirationDate")
+     */
+    protected $expirationDate;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="orderNotes")
+     */
+    protected $orderNotes;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="footerNotes")
+     */
+    protected $footerNotes;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="paymentTerms")
+     * @Assert\NotBlank()
+     */
+    protected $paymentTerms;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=false, name="deliveryPlace")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=64)
+     */
+    protected $deliveryPlace;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="deliveryDate")
+     * @Assert\NotBlank()
+     */
+    protected $deliveryDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="referentId", referencedColumnName="employeeId")
+     */
+    protected $referent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail", mappedBy="purchaseOrder")
+     */
+    protected $purchaseOrderDetails;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->purchaseOrderDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get purchaseOrderId
+     *
+     * @return integer
+     */
+    public function getPurchaseOrderId()
+    {
+        return $this->purchaseOrderId;
+    }
+
+    /**
+     * Set referencePerson
+     *
+     * @param string $referencePerson
+     *
+     * @return PurchaseOrder
+     */
+    public function setReferencePerson($referencePerson)
+    {
+        $this->referencePerson = $referencePerson;
+
+        return $this;
+    }
+
+    /**
+     * Get referencePerson
+     *
+     * @return string
+     */
+    public function getReferencePerson()
+    {
+        return $this->referencePerson;
+    }
+
+    /**
+     * Set orderDate
+     *
+     * @param \DateTime $orderDate
+     *
+     * @return PurchaseOrder
+     */
+    public function setOrderDate($orderDate)
+    {
+        $this->orderDate = $orderDate;
+
+        return $this;
+    }
+
+    /**
+     * Get orderDate
+     *
+     * @return \DateTime
+     */
+    public function getOrderDate()
+    {
+        return $this->orderDate;
+    }
+
+    /**
+     * Set expirationDate
+     *
+     * @param \DateTime $expirationDate
+     *
+     * @return PurchaseOrder
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expirationDate
+     *
+     * @return \DateTime
+     */
+    public function getExpirationDate()
+    {
+        return $this->expirationDate;
+    }
+
+    /**
+     * Set orderNotes
+     *
+     * @param string $orderNotes
+     *
+     * @return PurchaseOrder
+     */
+    public function setOrderNotes($orderNotes)
+    {
+        $this->orderNotes = $orderNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNotes
+     *
+     * @return string
+     */
+    public function getOrderNotes()
+    {
+        return $this->orderNotes;
+    }
+
+    /**
+     * Set footerNotes
+     *
+     * @param string $footerNotes
+     *
+     * @return PurchaseOrder
+     */
+    public function setFooterNotes($footerNotes)
+    {
+        $this->footerNotes = $footerNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get footerNotes
+     *
+     * @return string
+     */
+    public function getFooterNotes()
+    {
+        return $this->footerNotes;
+    }
+
+    /**
+     * Set paymentTerms
+     *
+     * @param string $paymentTerms
+     *
+     * @return PurchaseOrder
+     */
+    public function setPaymentTerms($paymentTerms)
+    {
+        $this->paymentTerms = $paymentTerms;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentTerms
+     *
+     * @return string
+     */
+    public function getPaymentTerms()
+    {
+        return $this->paymentTerms;
+    }
+
+    /**
+     * Set deliveryPlace
+     *
+     * @param string $deliveryPlace
+     *
+     * @return PurchaseOrder
+     */
+    public function setDeliveryPlace($deliveryPlace)
+    {
+        $this->deliveryPlace = $deliveryPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryPlace
+     *
+     * @return string
+     */
+    public function getDeliveryPlace()
+    {
+        return $this->deliveryPlace;
+    }
+
+    /**
+     * Set deliveryDate
+     *
+     * @param \DateTime $deliveryDate
+     *
+     * @return PurchaseOrder
+     */
+    public function setDeliveryDate($deliveryDate)
+    {
+        $this->deliveryDate = $deliveryDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryDate
+     *
+     * @return \DateTime
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
+     * Set provider
+     *
+     * @param \AppBundle\Entity\Provider $provider
+     *
+     * @return PurchaseOrder
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return \AppBundle\Entity\Provider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return PurchaseOrder
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
+    /**
+     * Set referent
+     *
+     * @param \AppBundle\Entity\Employee\Employee $referent
+     *
+     * @return PurchaseOrder
+     */
+    public function setReferent(\AppBundle\Entity\Employee\Employee $referent = null)
+    {
+        $this->referent = $referent;
+
+        return $this;
+    }
+
+    /**
+     * Get referent
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getReferent()
+    {
+        return $this->referent;
+    }
+
+    /**
+     * Add purchaseOrderDetail
+     *
+     * @param \AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail $purchaseOrderDetail
+     *
+     * @return PurchaseOrder
+     */
+    public function addPurchaseOrderDetail(\AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail $purchaseOrderDetail)
+    {
+        $this->purchaseOrderDetails[] = $purchaseOrderDetail;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchaseOrderDetail
+     *
+     * @param \AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail $purchaseOrderDetail
+     */
+    public function removePurchaseOrderDetail(\AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail $purchaseOrderDetail)
+    {
+        $this->purchaseOrderDetails->removeElement($purchaseOrderDetail);
+    }
+
+    /**
+     * Get purchaseOrderDetails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPurchaseOrderDetails()
+    {
+        return $this->purchaseOrderDetails;
+    }
+}
