@@ -69,4 +69,60 @@ class PurchaseOrderController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("edit-purchase-order-{n}", name="edit_purchase_order")
+     */
+    public function editPurchaseOrderAction(int $n)
+    {
+        $po = $this->getDoctrine()->getRepository(PurchaseOrder::class)->find($n);
+        if($po == null) return new Response('Ordine di Acquisto non trovato', 404);
+
+        $form = $this->createForm(PurchaseOrderType::class, $po);
+
+        return $this->render('purchase_orders/purchase_order_form.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Modifica Ordine di Acquisto',
+            'action_url' => $this->generateUrl('ajax_edit_purchase_order', array('n' => $n))
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-purchase-order-{n}", name="ajax_edit_purchase_order")
+     */
+    public function ajaxEditPurchaseOrder(Request $request, int $n)
+    {
+        $po = $this->getDoctrine()->getRepository(PurchaseOrder::class)->find($n);
+        if($po == null) return new Response('Ordine di Acquisto non trovato', 404);
+
+        $form = $this->createForm(PurchaseOrderType::class, $po);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $po = $form->getData();
+
+            foreach($po->getPurchaseOrderDetails() as $d) {
+                $d->setPurchaseOrder($po);
+            }
+
+            $em->flush();
+
+            return new Response('Ordine di Acquisto modificato con successo!', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+    }
 }
