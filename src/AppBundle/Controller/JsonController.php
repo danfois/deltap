@@ -16,6 +16,8 @@ use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\Provider;
+use AppBundle\Entity\PurchaseOrder\PurchaseOrder;
+use AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
@@ -37,6 +39,8 @@ use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
 use AppBundle\Serializer\ProviderNormalizer;
+use AppBundle\Serializer\PurchaseOrderDetailNormalizer;
+use AppBundle\Serializer\PurchaseOrderNormalizer;
 use AppBundle\Serializer\ReceivedInvoiceSerializer;
 use AppBundle\Serializer\ServiceOrderViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
@@ -377,6 +381,39 @@ class JsonController extends Controller
         $normalizers = [new PaymentNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($payments, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/purchase-orders", name="json_purchase_orders")
+     */
+    public function jsonPurchaseOrders()
+    {
+        $po = $this->getDoctrine()->getRepository(PurchaseOrder::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new PurchaseOrderNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($po, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/purchase-order-details", name="json_purchase_order_details")
+     */
+    public function jsonPurchaseOrderDetails(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettutata in maniera non corretta', 400);
+
+        $pod = $this->getDoctrine()->getRepository(PurchaseOrderDetail::class)->findBy(array('purchaseOrder' => $id));
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new PurchaseOrderDetailNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($pod, 'json');
 
         return new Response($json);
     }

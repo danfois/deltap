@@ -125,4 +125,12 @@ class PurchaseOrderController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("purchase-order-list", name="purchase_order_list")
+     */
+    public function purchaseOrderListAction()
+    {
+        return $this->render('purchase_orders/purchase_order_list.html.twig');
+    }
 }
