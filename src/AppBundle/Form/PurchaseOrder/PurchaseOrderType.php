@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\PurchaseOrder;
 use AppBundle\Entity\PurchaseOrder\PurchaseOrder;
+use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -12,6 +13,13 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class PurchaseOrderType extends AbstractType
 {
+    protected $transformer;
+
+    public function __construct(StringToDateTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -46,6 +54,11 @@ class PurchaseOrderType extends AbstractType
                 )
             ))
             ->add('expirationDate', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input date_picker'
+                )
+            ))
+            ->add('deliveryDate', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input date_picker'
                 )
@@ -90,6 +103,10 @@ class PurchaseOrderType extends AbstractType
                 'constraints' => array(new Valid()),
                 'by_reference' => false
             ));
+
+        $builder->get('deliveryDate')->addModelTransformer($this->transformer);
+        $builder->get('orderDate')->addModelTransformer($this->transformer);
+        $builder->get('expirationDate')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

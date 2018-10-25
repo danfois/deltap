@@ -84,7 +84,7 @@ class PurchaseOrder
     protected $referent;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail", mappedBy="purchaseOrder")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail", mappedBy="purchaseOrder", cascade={"persist"}, orphanRemoval=true)
      */
     protected $purchaseOrderDetails;
     /**

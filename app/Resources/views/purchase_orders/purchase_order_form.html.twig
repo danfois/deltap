@@ -1,0 +1,270 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_purchase_order" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Generalità Ordine di Acquisto</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Fornitore:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.provider) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scegliere il fornitore al quale dovrà arrivare questo ordine di acquisto</span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Referente:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.referencePerson) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scrivere il nome del subordinato del fornitore al quale arriverà questo ordine</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Mittente:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.employee) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Selezionare chi si sta occupando i inviare l'ordine</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Ordine:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.orderDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data dell'ordine di acquisto</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Scadenza:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.expirationDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data di scadenza validità dell'ordine di acquisto</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Consegna:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.deliveryDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data di consegna</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Contenuto Ordine di Acquisto</h3>
+                            </div>
+
+                            <div class="repeater">
+
+                                <div data-repeater-list="purchase_order[purchaseOrderDetails]">
+
+                                    {% for d in form.purchaseOrderDetails %}
+
+                                        <div data-repeater-item>
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Qtà:</label>
+                                                    {{ form_widget(d.quantity) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-5 m-form__group-sub">
+                                                    <label>* Oggetto o Descrizione :</label>
+                                                    {{ form_widget(d.description) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-4 m-form__group-sub">
+                                                    <label>* Veicolo:</label>
+                                                    {{ form_widget(d.vehicle) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-md-1 m-form__group-sub">
+                                                    <label class="form-control-label">&nbsp;</label><br>
+                                                    <div data-repeater-delete=""
+                                                         class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                            <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>Rimuovi</span>
+                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col text-left">
+                                        <div data-repeater-create=""
+                                             class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Oggetto</span>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Note Ordine Acquisto</h3>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>Note :</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        {{ form_widget(form.footerNotes) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>Termini di Pagamento:</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        {{ form_widget(form.paymentTerms) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Referente:</label>
+                                    {{ form_widget(form.referent) }}
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Luogo di Consegna:</label>
+                                    {{ form_widget(form.deliveryPlace) }}
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/purchase_orders/purchase_order.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

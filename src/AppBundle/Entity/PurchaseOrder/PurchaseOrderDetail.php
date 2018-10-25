@@ -18,7 +18,7 @@ class PurchaseOrderDetail
     protected $purchaseOrderDetailId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PurchaseOrder\PurchaseOrder", inversedBy="purchaseOrderDetails")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PurchaseOrder\PurchaseOrder", inversedBy="purchaseOrderDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="purchaseOrderId", referencedColumnName="purchaseOrderId")
      */
     protected $purchaseOrder;
