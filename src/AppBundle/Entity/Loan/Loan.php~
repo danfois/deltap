@@ -1,0 +1,146 @@
+<?php
+
+namespace AppBundle\Entity\Loan;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LoanRepository")
+ * @ORM\Table(name="loans")
+ */
+class Loan
+{
+    /**
+     * @ORM\Column(type="integer", name="loanId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $loanId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
+     */
+    protected $provider;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=12, name="loanNumber")
+     * @Assert\NotBlank(message="Loan number must not be null")
+     * @Assert\Length(max=12, maxMessage="Loan Number is too long. Max 12 chars")
+     */
+    protected $loanNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="loanDate")
+     * @Assert\NotBlank(message="Loan Date must not be null")
+     */
+    protected $loanDate;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="financedAmount")
+     * @Assert\NotBlank(message="Loan Financed Amount must not be null")
+     */
+    protected $financedAmount;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=false, name="interestRate")
+     * @Assert\NotBlank(message="Interest Rate must not be null")
+     */
+    protected $interestRate;
+
+    /**
+     * @ORM\Column(type="string", length=12, nullable=false, name="interestType")
+     * @Assert\NotBlank(message="Interest Type must not be null")
+     */
+    protected $interestType;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=16, name="instalmentType")
+     * @Assert\NotBlank(message="Instalment Type must not be null")
+     */
+    protected $instalmentType;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, length=4, name="instalmentNumber")
+     * @Assert\NotBlank(message="Instalment Number must not be null")
+     * @Assert\Length(max=4, maxMessage="Instalment Number must not be higher than 9999")
+     */
+    protected $instalmentNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="firstInstalmentDate")
+     * @Assert\NotBlank(message="First Instalment Date must not be null")
+     */
+    protected $firstInstalmentDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="lastInstalmentDate")
+     * @Assert\NotBlank(message="Last Instalment Date must not be null")
+     */
+    protected $lastInstalmentDate;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, length=16, name="paymentType")
+     * @Assert\NotBlank(message="Payment Type must not be null")
+     */
+    protected $paymentType;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="anticipation")
+     * @Assert\NotBlank(message="Anticipation must not be null")
+     */
+    protected $anticipation;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="redemption")
+     * @Assert\NotBlank(message="Redemption must not be nulL")
+     */
+    protected $redemption;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="mortgages")
+     */
+    protected $mortgages;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="notes")
+     */
+    protected $notes;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="pre_amortization")
+     * @Assert\NotBlank(message="Pre Amortization must not be null")
+     */
+    protected $preAmortization;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="operationCost")
+     * @Assert\NotBlank(message="Operation Cost must not be nulL")
+     */
+    protected $operationCost;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="expectedInterests")
+     * @Assert\NotBlank(message="Expected Interests cannot be null")
+     */
+    protected $expectedInterests;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="loanCost")
+     * @Assert\NotBlank(message="Loan Cost cannot be null")
+     */
+    protected $loanCost;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="instalmentAmount")
+     * @Assert\NotBlank(message="Instalment Amount cannot be null")
+     */
+    protected $instalmentAmount;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Loan\LoanInstalment", mappedBy="loan")
+     */
+    protected $loanInstalments;
+
+}
