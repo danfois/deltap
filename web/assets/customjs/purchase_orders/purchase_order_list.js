@@ -136,6 +136,18 @@ var PurchaseOrderList = function () {
                     title: 'Referente'
                 },
                 {
+                    field: 'orderType',
+                    title: 'Tipologia',
+                    template: function (row) {
+                        var status = {
+                            1: {'title': 'Richiesta Prev.', 'class': 'brand'},
+                            2: {'title': 'Ordine Acquisto', 'class': 'info'},
+                            3: {'title': 'Ordine Verbale', 'class': 'accent'}
+                        };
+                        return '<span class="m-badge m-badge--' + status[row.orderType].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.orderType].class + '">' + status[row.orderType].title + '</span>';
+                    }
+                },
+                {
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',

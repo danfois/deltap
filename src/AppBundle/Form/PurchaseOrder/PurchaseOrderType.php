@@ -5,6 +5,7 @@ use AppBundle\Entity\PurchaseOrder\PurchaseOrder;
 use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +34,18 @@ class PurchaseOrderType extends AbstractType
                 )
             ))
             ->add('referencePerson', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))
+            ->add('orderType', ChoiceType::class, array(
+                'choices' => array(
+                    'Richiesta Preventivo' => 1,
+                    'Ordine di Acquisto' => 2,
+                    'Ordine Verbale' => 3
+                ),
+                'empty_data' => null,
+                'placeholder' => 'Scegli la tipologia',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )

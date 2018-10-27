@@ -36,7 +36,7 @@
 
                             <div class="form-group m-form__group row">
 
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>* Fornitore:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.provider) }}
@@ -46,7 +46,7 @@
                                     <span class="m-form__help">Scegliere il fornitore al quale dovrà arrivare questo ordine di acquisto</span>
                                 </div>
 
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>* Referente:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.referencePerson) }}
@@ -54,6 +54,12 @@
                                                         class="la la-user"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Scrivere il nome del subordinato del fornitore al quale arriverà questo ordine</span>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Tipo Ordine:</label>
+                                        {{ form_widget(form.orderType) }}
+                                    <span class="m-form__help">Scegliere se è una richiesta di preventivo, un ordine, o un ordine verbale</span>
                                 </div>
 
                             </div>

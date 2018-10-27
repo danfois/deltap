@@ -23,7 +23,8 @@ class PurchaseOrderNormalizer implements NormalizerInterface
                     'orderDate' => $o->getOrderDate()->format('d-m-Y'),
                     'expirationDate' => $o->getExpirationDate()->format('d-m-Y'),
                     'deliveryDate' => $o->getDeliveryDate()->format('d-m-Y'),
-                    'referent' => $o->getReferent()->getName() . ' ' . $o->getReferent()->getSurname()
+                    'referent' => $o->getReferent()->getName() . ' ' . $o->getReferent()->getSurname(),
+                    'orderType' => $o->getOrderType()
                 ];
             }
         }

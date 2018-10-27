@@ -19,6 +19,13 @@ class PurchaseOrder
     protected $purchaseOrderId;
 
     /**
+     * @ORM\Column(type="integer", nullable=false, length=1, name="orderType")
+     * @Assert\NotBlank(message="Order type must not be null")
+     * @Assert\Length(max=1, maxMessage="Order Type is invalid")
+     */
+    protected $orderType;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
      */
@@ -401,5 +408,29 @@ class PurchaseOrder
     public function getPurchaseOrderDetails()
     {
         return $this->purchaseOrderDetails;
+    }
+
+    /**
+     * Set orderType
+     *
+     * @param integer $orderType
+     *
+     * @return PurchaseOrder
+     */
+    public function setOrderType($orderType)
+    {
+        $this->orderType = $orderType;
+
+        return $this;
+    }
+
+    /**
+     * Get orderType
+     *
+     * @return integer
+     */
+    public function getOrderType()
+    {
+        return $this->orderType;
     }
 }
