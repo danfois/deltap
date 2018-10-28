@@ -1,0 +1,366 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_loan" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dettagli Mutuo</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Banca:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.provider) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-bank"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Selezionare la banca che ha concesso il mutuo</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* N. Mutuo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.loanNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero del mutuo</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Data Mutuo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.loanDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Importo Finanziato</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.financedAmount) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="fa fa-percent"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Importo finanziato dalla banca</span>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Tasso %:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.interestRate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="fa fa-percent"></i></span></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Tipo Tasso:</label>
+                                    {{ form_widget(form.interestType) }}
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Rateizzazione:</label>
+                                    {{ form_widget(form.instalmentType) }}
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* N. Rate:</label>
+                                    {{ form_widget(form.instalmentNumber) }}
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Prima Rata</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                    {{ form_widget(form.firstInstalmentDate) }}
+                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    class="la la-calendar"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Data Ultima Rata</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                    {{ form_widget(form.lastInstalmentDate) }}
+                                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                    class="la la-calendar"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Tipo Pagamento</label>
+                                    {{ form_widget(form.paymentType) }}
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Importo Rata</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.instalmentAmount) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Anticipo</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.anticipation) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Riscatto</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.redemption) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Preammortamento</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.preAmortization) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Spese Pratica</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.operationCost) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Interessi Previsti</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.expectedInterests) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Costo Finanziamento</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.loanCost) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>* Ipoteche</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.mortgages) }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-12 m-form__group-sub">
+                                    <label>Note:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.notes) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+                    <div class="m-form__section">
+                        <div class="m-form__heading">
+                            <h3 class="m-form__heading-title">2. Rate Mutuo</h3>
+                            <p class="m-form__heading-sub">E' possibile gestire le rate del mutuo da questa schermata, anche se consigliabile farlo dalla <strong><u>Lista dei Mutui</u></strong></p>
+                        </div>
+
+                        <div class="repeater">
+
+                                <div data-repeater-list="loan[loanInstalments]">
+
+                                    {% for d in form.loanInstalments %}
+
+                                        <div data-repeater-item class="border border-secondary m--padding-top-10">
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Data Pag. :</label>
+                                                    {{ form_widget(d.paymentDate) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Importo:</label>
+                                                    {{ form_widget(d.amount) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Capitale :</label>
+                                                    {{ form_widget(d.capital) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Interessi &euro; :</label>
+                                                    {{ form_widget(d.interests) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Interessi % :</label>
+                                                    {{ form_widget(d.interestRate) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Tipo Pag. :</label>
+                                                    {{ form_widget(d.paymentType) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-6 m-form__group-sub">
+                                                    <label>* Conto Corrente:</label>
+                                                    {{ form_widget(d.bankAccount) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-md-1 m-form__group-sub">
+                                                    <label class="form-control-label">&nbsp;</label><br>
+                                                    <div data-repeater-delete=""
+                                                         class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                            <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>Rimuovi</span>
+                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col text-left">
+                                        <div data-repeater-create=""
+                                             class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Oggetto</span>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/loans/loan.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/crm/default/custom/components/forms/widgets/bootstrap-switch.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

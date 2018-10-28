@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Loan;
 
 use AppBundle\Entity\Loan\Loan;
+use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,6 +15,13 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class LoanType extends AbstractType
 {
+    protected $transformer;
+
+    public function __construct(StringToDateTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -58,14 +66,22 @@ class LoanType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('instalmentType', TextType::class, array(
+            ->add('instalmentType', ChoiceType::class, array(
+                'choices' => array(
+                    'Mensile' => 'MONTHLY',
+                    'Trimestrale' => 'QUARTERLY',
+                    'Semestrale' => 'HALFYEARLY',
+                    'Annuale' => 'YEARLY'
+                ),
+                'empty_data' => null,
+                'placeholder' => 'Tipo Rateizzazione',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
             ))
             ->add('instalmentNumber', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input int_touch-spin'
+                    'class' => 'form-control m-input int_touch_spin'
                 )
             ))
             ->add('firstInstalmentDate', TextType::class, array(
@@ -160,6 +176,10 @@ class LoanType extends AbstractType
                 'constraints' => array(new Valid()),
                 'by_reference' => false
             ));
+
+        $builder->get('loanDate')->addModelTransformer($this->transformer);
+        $builder->get('firstInstalmentDate')->addModelTransformer($this->transformer);
+        $builder->get('lastInstalmentDate')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

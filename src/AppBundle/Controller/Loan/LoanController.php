@@ -22,8 +22,10 @@ class LoanController extends Controller
         $loan->addLoanInstalment($li);
         $form = $this->createForm(LoanType::class, $loan);
 
-        return $this->render('DEBUG/show_form.html.twig', array(
-            'form' => $form->createView()
+        return $this->render('loans/loan.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Crea Mutuo',
+            'action_url' => ''
         ));
     }
 }
