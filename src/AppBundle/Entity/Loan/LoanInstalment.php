@@ -19,7 +19,7 @@ class LoanInstalment
     protected $loanInstalmentId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Loan\Loan", inversedBy="loanInstalments")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Loan\Loan", inversedBy="loanInstalments", cascade={"persist"})
      * @ORM\JoinColumn(name="loanId", referencedColumnName="loanId")
      */
     protected $loan;

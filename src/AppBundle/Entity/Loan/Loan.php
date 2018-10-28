@@ -139,7 +139,7 @@ class Loan
     protected $instalmentAmount;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Loan\LoanInstalment", mappedBy="loan")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Loan\LoanInstalment", mappedBy="loan", cascade={"persist"}, orphanRemoval=true)
      */
     protected $loanInstalments;
 
