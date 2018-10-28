@@ -6,9 +6,11 @@ use AppBundle\Entity\Loan\Loan;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class LoanType extends AbstractType
 {
@@ -24,7 +26,7 @@ class LoanType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
-            ->add('loalNumber', TextType::class, array(
+            ->add('loanNumber', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
@@ -88,6 +90,75 @@ class LoanType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
+            ))
+            ->add('anticipation', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin',
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('redemption', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('mortgages', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
+            ))
+            ->add('notes', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
+            ))
+            ->add('preAmortization', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('operationCost', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('expectedInterests', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('loanCost', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'empty_data' => 0,
+                'required' => false
+            ))
+            ->add('instalmentAmount', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
+            ))
+            ->add('loanInstalments', CollectionType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                ),
+                'entry_type' => LoanInstalmentType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'constraints' => array(new Valid()),
+                'by_reference' => false
             ));
     }
 
