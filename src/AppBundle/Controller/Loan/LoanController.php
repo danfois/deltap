@@ -152,12 +152,46 @@ class LoanController extends Controller
 
         $html = $this->renderView('loans/instalment_form.html.twig', array(
             'form' => $form->createView(),
-            'action_url' => ''
+            'action_url' => $this->generateUrl('ajax_create_instalment')
         ));
 
         return $this->render('includes/generic_modal_content.html.twig', array(
             'modal_title' => 'Aggiungi rata a mutuo ' . $loan->getLoanNumber(),
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("ajax/create-instalment", name="ajax_create_instalment")
+     */
+    public function ajaxCreateInstalmentAction(Request $request)
+    {
+        $instalment = new LoanInstalment();
+        $form = $this->createForm(LoanInstalmentType::class, $instalment, array('addingInstalmentOnly' => true));
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $instalment = $form->getData();
+
+            $em->persist($instalment);
+            $em->flush();
+
+            return new Response('Rata creata con succcesso', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
     }
 }

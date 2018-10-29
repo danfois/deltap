@@ -4,6 +4,8 @@
     <div class="m-portlet__body">
         <div class="form-group m-form__group row">
 
+            {{ form_widget(form._token) }}
+
             <div class="col-lg-4 m-form__group-sub">
                 <label>* Mutuo:</label>
                 {{ form_widget(form.loan) }}
