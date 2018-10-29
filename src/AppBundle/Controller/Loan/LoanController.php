@@ -123,4 +123,12 @@ class LoanController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("loan-list", name="loan_list")
+     */
+    public function loanListAction()
+    {
+        return $this->render('loans/loan_list.html.twig');
+    }
 }

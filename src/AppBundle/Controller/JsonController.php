@@ -11,6 +11,8 @@ use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Loan\Loan;
+use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\Payment\BankAccount;
 use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
@@ -35,6 +37,8 @@ use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\IssuedInvoiceSerializer;
+use AppBundle\Serializer\LoanInstalmentNormalizer;
+use AppBundle\Serializer\LoanNormalizer;
 use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
@@ -414,6 +418,39 @@ class JsonController extends Controller
         $normalizers = [new PurchaseOrderDetailNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($pod, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/loans", name="json_loans")
+     */
+    public function jsonLoansAction()
+    {
+        $loans = $this->getDoctrine()->getRepository(Loan::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new LoanNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($loans, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/loan-instalments", name="json_loan_instalments")
+     */
+    public function jsonLoansInstalments(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Mutuo non trovato', 404);
+
+        $instalments = $this->getDoctrine()->getRepository(LoanInstalment::class)->findBy(array('loan' => $id));
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new LoanInstalmentNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($instalments, 'json');
 
         return new Response($json);
     }
