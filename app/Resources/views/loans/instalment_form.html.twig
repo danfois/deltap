@@ -1,0 +1,69 @@
+<form id="form_instalment" method="POST" class="m-form m-form--fit m-form--label-align-right m--margin-top-15"
+      action="{{ action_url }}"
+      autocomplete="off">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group row">
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Mutuo:</label>
+                {{ form_widget(form.loan) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Data Pag. :</label>
+                {{ form_widget(form.paymentDate) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Importo:</label>
+                {{ form_widget(form.amount) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Capitale :</label>
+                {{ form_widget(form.capital) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Interessi &euro; :</label>
+                {{ form_widget(form.interests) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Interessi % :</label>
+                {{ form_widget(form.interestRate) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Tipo Pag. :</label>
+                {{ form_widget(form.paymentType) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Conto Corrente:</label>
+                {{ form_widget(form.bankAccount) }}
+                <span class="m-form__help"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

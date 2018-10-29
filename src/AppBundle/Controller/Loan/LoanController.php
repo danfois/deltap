@@ -3,7 +3,9 @@
 namespace AppBundle\Controller\Loan;
 use AppBundle\Entity\Loan\Loan;
 use AppBundle\Entity\Loan\LoanInstalment;
+use AppBundle\Form\Loan\LoanInstalmentType;
 use AppBundle\Form\Loan\LoanType;
+use AppBundle\Helper\Loan\InstalmentCompiler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,5 +132,32 @@ class LoanController extends Controller
     public function loanListAction()
     {
         return $this->render('loans/loan_list.html.twig');
+    }
+
+    /**
+     * @Route("create-instalment", name="create_instalment")
+     */
+    public function createInstalmentAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $loan = $this->getDoctrine()->getRepository(Loan::class)->find($id);
+        if($loan == null) return new Response('Mutuo non trovato', 404);
+
+        $InstalmentCompiler = new InstalmentCompiler($loan);
+        $instalment = $InstalmentCompiler->compile()->getInstalment();
+
+        $form = $this->createForm(LoanInstalmentType::class, $instalment, array('addingInstalmentOnly' => true));
+
+        $html = $this->renderView('loans/instalment_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => ''
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Aggiungi rata a mutuo ' . $loan->getLoanNumber(),
+            'modal_content' => $html
+        ));
     }
 }

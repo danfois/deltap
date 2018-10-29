@@ -63,8 +63,6 @@ var LoanForm = function () {
 jQuery(document).ready(function () {
     LoanForm().init();
 
-    $(document).on('change',"input", function(){calculateTotal()});
-
     $('.repeater').repeater({
         initEmpty: false,
         show: function () {

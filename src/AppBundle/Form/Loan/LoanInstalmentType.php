@@ -22,6 +22,9 @@ class LoanInstalmentType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $addingInstalmentOnly = $options['addingInstalmentOnly'];
+
         $builder
             ->add('paymentDate', TextType::class, array(
                 'attr' => array(
@@ -77,13 +80,28 @@ class LoanInstalmentType extends AbstractType
                 )
             ));
 
+        if($addingInstalmentOnly === true) {
+            $builder
+                ->add('loan', EntityType::class, array(
+                    'class' => 'AppBundle\Entity\Loan\Loan',
+                    'choice_label' => function ($loan) {
+                        return $loan->getProvider()->getBusinessName() . ' - ' . $loan->getLoanNumber();
+                    },
+                    'empty_data' => null,
+                    'attr' => array(
+                        'class' => 'form-control m-input'
+                    )
+            ));
+        }
+
         $builder->get('paymentDate')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => LoanInstalment::class
+            'data_class' => LoanInstalment::class,
+            'addingInstalmentOnly' => false
         ));
     }
 }
