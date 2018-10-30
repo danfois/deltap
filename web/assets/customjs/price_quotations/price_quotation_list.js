@@ -213,6 +213,7 @@ var PriceQuotationList = function () {
                             2: {'title': 'Inviato', 'class': 'info'},
                             3: {'title': 'Confermato', 'class': 'success'},
                             4: {'title': 'Annullato', 'class': 'metal'},
+                            5: {'title': 'No Itinerari', 'class': 'danger'}
                         };
                         return '<span class="m-badge m-badge--' + status[row.status].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.status].class + '">' + status[row.status].title + '</span>';
                     }

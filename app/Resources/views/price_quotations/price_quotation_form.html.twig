@@ -1,0 +1,105 @@
+<form id="form_price_quotation" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ path('create_price_quotation_ajax') }}"
+      autocomplete="off">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group row">
+
+            {{ form_widget(form._token) }}
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Codice:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.code) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-user"></i></span></span>
+                </div>
+                <span class="m-form__help">Codice del preventivo</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Data Preventivo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.priceQuotationDate) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire la data del preventivo</span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Cliente:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.customer) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-user"></i></span></span>
+                </div>
+                <span class="m-form__help">Scegliere il cliente</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>&nbsp;</label><br>
+                <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span><a href="{{ path('create_customer') }}"
+                                                     style="color:inherit; text-decoration: inherit;">Nuovo Cliente</a></span>
+                                        </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group m-form__group row">
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>Richiesta:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.request) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-phone"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire una eventuale richiesta di riferimento</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>Contratto:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.contract) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-legal"></i></span></span>
+                </div>
+                <span class="m-form__help">Inserire un eventuale contratto</span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Servizio:</label>
+                {{ form_widget(form.serviceCode) }}
+                <span class="m-form__help">Scegliere il tipo di servizio richiesto</span>
+            </div>
+
+            <div class="col-lg-2 m-form__group-sub">
+                <label>&nbsp;</label><br>
+                <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal"
+                     data-toggle="modal" data-target="#create_service">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Nuovo Servizio</span>
+                                        </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

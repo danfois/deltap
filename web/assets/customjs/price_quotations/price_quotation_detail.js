@@ -55,6 +55,7 @@ var PriceQuotation = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
+                        setTimeout(window.location.href='price-quotations-list', 2500);
                     },
                     error: function (e) {
                         mApp.unprogress(r);

@@ -306,7 +306,17 @@ class PriceQuotationController extends Controller
      */
     public function priceQuotationListAction()
     {
-        return $this->render('price_quotations/price_quotation_list.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $pq = new PriceQuotation();
+        $pq->setCode(PriceQuotationUtils::generatePriceQuotationCode($em));
+        $pq->setPriceQuotationDate(new \DateTime);
+
+        $form = $this->createForm(PriceQuotationType::class, $pq);
+
+        return $this->render('price_quotations/price_quotation_list.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**

@@ -13,6 +13,12 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
         foreach($object as $o) {
             if($o instanceof PriceQuotation) {
 
+                if(count($o->getPriceQuotationDetails()) == 0 ) {
+                    $status = 5;
+                } else {
+                    $status = $o->getStatus();
+                }
+
                 $r[] = [
                     'id' => $o->getPriceQuotationId(),
                     'idv' => $o->getPriceQuotationId(),
@@ -23,7 +29,7 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
                     'recipient' => $o->getRecipientEmail(),
                     'service' => $o->getServiceCode()->getService(),
                     'author' => $o->getAuthor()->getUsername(),
-                    'status' => $o->getStatus(),
+                    'status' => $status,
                     'date' => $o->getPriceQuotationDate()->format('d-m-Y')
                 ];
             }

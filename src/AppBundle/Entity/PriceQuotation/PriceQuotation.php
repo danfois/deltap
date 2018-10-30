@@ -64,9 +64,8 @@ class PriceQuotation implements InvoiceDetailInterface
     protected $request;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=false, name="receiver_mail")
+     * @ORM\Column(type="string", length=64, nullable=true, name="receiver_mail")
      * @Assert\Email(message="The email address you provided is not valid", checkMX=false)
-     * @Assert\NotBlank(message="The email cannot be empty")
      */
     protected $recipientEmail;
 
