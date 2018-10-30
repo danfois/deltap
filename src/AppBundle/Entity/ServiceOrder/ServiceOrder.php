@@ -50,7 +50,7 @@ class ServiceOrder implements InvoiceDetailInterface
     protected $report;
 
     /**
-     * @ORM\Column(type="decimal", precision=2, scale=2, nullable=false, name="vat")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="vat")
      */
     protected $vat;
 

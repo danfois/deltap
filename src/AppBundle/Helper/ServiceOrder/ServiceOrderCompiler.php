@@ -43,7 +43,7 @@ class ServiceOrderCompiler
         $this->setService();
         $this->setStatus();
         $this->setMap();
-        //$this->setVat();
+        $this->setVat();
     }
 
     public function getOrder(): ServiceOrder
@@ -53,7 +53,7 @@ class ServiceOrderCompiler
 
     protected function setVat()
     {
-        if($this->serviceOrder->setVat($this->stage->getVat())) return true;
+        if($this->serviceOrder->setVat($this->stage->getPriceQuotationDetail()->getVat())) return true;
         throw new \Exception('Impossibile impostare la percentuale IVA');
     }
 

@@ -476,6 +476,8 @@ class PriceQuotation implements InvoiceDetailInterface
     {
         $so = $this->getServiceOrders();
 
+        if(count($so) == 0) return 0;
+
         $vat = $so[0]->getVat();
 
         return $vat;
