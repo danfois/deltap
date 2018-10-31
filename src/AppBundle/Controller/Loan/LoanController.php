@@ -162,6 +162,62 @@ class LoanController extends Controller
     }
 
     /**
+     * @Route("edit-instalment-{n}", name="edit_instalment")
+     */
+    public function editInstalmentAction(int $n)
+    {
+        $instalment = $this->getDoctrine()->getRepository(LoanInstalment::class)->find($n);
+        if($instalment == null) return new Response('Rata non trovata', 404);
+
+        $form = $this->createForm(LoanInstalmentType::class, $instalment, array('addingInstalmentOnly' => true));
+
+        $html = $this->renderView('loans/instalment_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_edit_instalment', array('n' => $n))
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Modifica rata del mutuo ' . $instalment->getLoan()->getLoanNumber(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-instalment-{n}", name="ajax_edit_instalment")
+     */
+    public function editInstalmentAjaxAction(Request $request, int $n)
+    {
+        $instalment = $this->getDoctrine()->getRepository(LoanInstalment::class)->find($n);
+        if($instalment == null) return new Response('Rata non trovata', 404);
+
+        $form = $this->createForm(LoanInstalmentType::class, $instalment, array('addingInstalmentOnly' => true));
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $instalment = $form->getData();
+
+            $em->flush();
+
+            return new Response('Rata Modificata con successo!', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
      * @Route("ajax/create-instalment", name="ajax_create_instalment")
      */
     public function ajaxCreateInstalmentAction(Request $request)
