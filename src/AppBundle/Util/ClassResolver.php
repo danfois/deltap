@@ -4,6 +4,7 @@ namespace AppBundle\Util;
 
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
@@ -21,7 +22,8 @@ class ClassResolver
             'serviceOrder' => ServiceOrder::class,
             'insurance' => Insurance::class,
             'cartax' => CarTax::class,
-            'carreview' => CarReview::class
+            'carreview' => CarReview::class,
+            'loanInstalment' => LoanInstalment::class
         );
 
         if($availableClasses[$class] === null) return false;

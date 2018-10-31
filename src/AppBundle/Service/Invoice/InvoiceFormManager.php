@@ -7,6 +7,7 @@ use AppBundle\Entity\Invoice\InvoiceDetail;
 use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Invoice\IssuedInvoice;
+use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 
@@ -46,6 +47,9 @@ class InvoiceFormManager
                 if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) {
                     $this->invoice->setPriceQuotation($d->getPriceQuotation());
                     $this->invoice->setCustomer($d->getPriceQuotation()->getCustomer());
+                }
+                if($d instanceof LoanInstalment) {
+                    $this->invoice->setProvider($d->getLoan()->getProvider());
                 }
                 $invoiceDetail = $this->transformData($d);
                 $this->setInvoiceDetail($invoiceDetail);

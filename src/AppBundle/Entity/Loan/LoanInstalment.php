@@ -2,14 +2,16 @@
 
 namespace AppBundle\Entity\Loan;
 
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
+use AppBundle\Entity\Payment\PayableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LoanInstalmentRepository")
  * @ORM\Table(name="loan_instalments")
  */
-class LoanInstalment
+class LoanInstalment implements PayableInterface, InvoiceDetailInterface
 {
     /**
      * @ORM\Column(type="integer", name="loanInstalmentId")
@@ -268,4 +270,70 @@ class LoanInstalment
     {
         return $this->bankAccount;
     }
+
+    /*
+     * START OF PAYABLE INTERFACE
+     */
+
+    public function getReceivedInvoice()
+    {
+        return null;
+    }
+
+    public function getIssuedInvoice()
+    {
+        return null;
+    }
+
+    public function getDirection()
+    {
+        return 'OUT';
+    }
+
+    public function getCausal()
+    {
+        return 'Pagamento Rata del mutuo ' . $this->getLoan()->getLoanNumber();
+    }
+
+    public function getCustomer()
+    {
+        return null;
+    }
+
+    public function getProvider()
+    {
+        return $this->getLoan()->getProvider();
+    }
+
+    /*
+     * END OF PAYABLE INTERFACE
+     */
+
+    /*
+     * START OF INVOICEINTERFACE
+     */
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getAmount();
+    }
+
+    public function getProductName(): string
+    {
+        return $this->getCausal();
+    }
+
+    public function getProductCode(): string
+    {
+        return '000';
+    }
+
+    public function getInvoiceVat()
+    {
+        return '22';
+    }
+
+    /*
+     * END OF INVOICEINTERFACE
+     */
 }

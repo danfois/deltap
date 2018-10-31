@@ -4,6 +4,7 @@ namespace AppBundle\Service\Invoice;
 
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
@@ -71,7 +72,8 @@ class InvoiceRequestManager
             'priceQuotation' => 'issued',
             'serviceOrders' => 'issued',
             'insurances' => 'received',
-            'reviews' => 'received'
+            'reviews' => 'received',
+            'loans' => 'received'
         );
 
         if ($pa['type'] == null)                                                throw new \Exception('Specificare il tipo della fattura');
@@ -121,6 +123,9 @@ class InvoiceRequestManager
             case 'reviews':
                 $this->fetchReviews($data);
                 return true;
+            case 'loans':
+                $this->fetchLoanInstalments($data);
+                return true;
                 break;
         }
 
@@ -164,6 +169,14 @@ class InvoiceRequestManager
     {
         $dataToPass = $this->em->getRepository(CarReview::class)->findCarReviewsInArray($data);
         if($dataToPass == null) throw new \Exception('Revisioni non trovate');
+
+        $this->data = $dataToPass;
+    }
+
+    protected function fetchLoanInstalments(array $data)
+    {
+        $dataToPass = $this->em->getRepository(LoanInstalment::class)->findLoanInstalmentsInArray($data);
+        if($dataToPass == null) throw new \Exception('Rate del mutuo non trovate');
 
         $this->data = $dataToPass;
     }
