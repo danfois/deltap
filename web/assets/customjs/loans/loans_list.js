@@ -105,7 +105,7 @@ var LoanList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="create-payment-from/loanInstalment/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
 						    	<a class="dropdown-item" href="generate-invoice?type=received&datatype=loans&data=['+row.idv+']" onclick="" target="_blank"><i class="la la-file"></i> Registra Fattura</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-instalment\', {\'id\' : ' + row.idv + '}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_instalment\'})"><i class="la la-plus-circle"></i> Aggiungi Rata</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-instalment\', \'La rata non è stata rimossa\', {\'id\' : '+row.idv+'})"><i class="la la-trash"></i> Rimuovi Rata</a>\
 						  	</div>\
 						</div>\
 					';

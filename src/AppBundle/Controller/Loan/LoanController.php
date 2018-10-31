@@ -194,4 +194,23 @@ class LoanController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("delete-instalment", name="delete_instalment")
+     */
+    public function deleteInstalmentAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $instalment = $em->getRepository(LoanInstalment::class)->find($id);
+        if($instalment == null) return new Response('Rata mutuo non trovata', 404);
+
+        $em->remove($instalment);
+        $em->flush();
+
+        return new Response('Rata del mutuo rimossa con successo', 200);
+    }
 }
