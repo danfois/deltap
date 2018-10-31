@@ -269,4 +269,22 @@ class LoanController extends Controller
 
         return new Response('Rata del mutuo rimossa con successo', 200);
     }
+
+    /**
+     * @Route("delete-loan", name="delete_loan")
+     */
+    public function deleteLoanAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $loan = $this->getDoctrine()->getRepository(Loan::class)->find($id);
+        if($loan == null) return new Response('Mutuo non trovato', 404);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($loan);
+        $em->flush();
+
+        return new Response('Mutuo eliminato correttamente', 200);
+    }
 }

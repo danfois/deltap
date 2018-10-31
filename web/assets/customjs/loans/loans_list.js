@@ -220,6 +220,7 @@ var LoanList = function () {
 						    	<a class="dropdown-item" href="edit-loan-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Mutuo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Mutuo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-instalment\', {\'id\' : ' + row.idv + '}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_instalment\'})"><i class="la la-plus-circle"></i> Aggiungi Rata</a>\
+						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-loan\', \'Il mutuo non è stato rimosso\', {\'id\' : '+row.idv+'})"><i class="la la-trash"></i> Elimina Mutuo</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-loan-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Mutuo">\
