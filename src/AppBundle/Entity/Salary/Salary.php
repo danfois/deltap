@@ -42,7 +42,7 @@ class Salary
     protected $causal;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary", cascade={"persist"})
      */
     protected $salaryDetails;
 

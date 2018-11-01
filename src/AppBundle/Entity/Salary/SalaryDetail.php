@@ -19,13 +19,13 @@ class SalaryDetail
     protected $salaryDetailId;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment", cascade={"persist"})
      * @ORM\JoinColumn(name="paymentId", referencedColumnName="paymentId")
      */
     protected $payment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Salary\Salary", inversedBy="salaryDetails")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Salary\Salary", inversedBy="salaryDetails", cascade={"persist"})
      * @ORM\JoinColumn(name="salaryId", referencedColumnName="salaryId")
      */
     protected $salary;

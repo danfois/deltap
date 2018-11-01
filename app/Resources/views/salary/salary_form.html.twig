@@ -1,0 +1,234 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_salary" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dettagli Stipendio</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Impiegato:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.employee) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1 m-form__group-sub">
+                                    <label>* Anno:</label>
+                                        {{ form_widget(form.year) }}
+                                </div>
+
+                                <div class="col-lg-1 m-form__group-sub">
+                                    <label>* Mese:</label>
+                                    {{ form_widget(form.month) }}
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Importo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.amount) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>* Causale:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.causal) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-edit"></i></span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Saldi e Acconti</h3>
+                            </div>
+
+                            <div class="repeater">
+
+                                    <div data-repeater-list="salary[salaryDetails]">
+
+                                    {% for d in form.salaryDetails %}
+
+                                        <div data-repeater-item>
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Importo :</label>
+                                                    {{ form_widget(d.payment.amount) }}
+                                                </div>
+
+                                                <div class="col-lg-1 m-form__group-sub">
+                                                    <label>* Data Pag. :</label>
+                                                    {{ form_widget(d.payment.paymentDate) }}
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* Tipo Pag. :</label>
+                                                    {{ form_widget(d.payment.paymentType) }}
+                                                </div>
+
+                                                <div class="col-lg-3 m-form__group-sub">
+                                                    <label>* Causale :</label>
+                                                    {{ form_widget(d.payment.causal) }}
+                                                </div>
+
+                                                <div class="col-lg-3 m-form__group-sub">
+                                                    <label>* Conto :</label>
+                                                    {{ form_widget(d.payment.bankAccount) }}
+                                                </div>
+
+                                                <div class="col-md-1 m-form__group-sub">
+                                                    <label class="form-control-label">&nbsp;</label><br>
+                                                    <div data-repeater-delete=""
+                                                         class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                            <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>Rimuovi</span>
+                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col text-left">
+                                        <div data-repeater-create=""
+                                             class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Oggetto</span>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">3. Totale</h3>
+                                <p class="m-form__heading-sub">Questa parte serve solo come riepilogo</p>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Totale da Pagare :</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" id="da_pagare" readonly="readonly"
+                                               class="form-control m-input" style="background-color: #ffc9c6; font-weight:600;">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Totale Pagato :</label>
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" id="pagato" readonly="readonly"
+                                               class="form-control m-input" style="background-color: #bcffb7; font-weight:600;">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
+                                                        class="la la-euro"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/salary/calculateTotal.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/salary/salary.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

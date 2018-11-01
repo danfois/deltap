@@ -37,28 +37,28 @@ class SalaryType extends AbstractType
             ->add('year', ChoiceType::class, array(
                 'choices' => $yearsArray,
                 'empty_data' => null,
-                'placeholder' => 'Scegli anno',
+                'placeholder' => 'Anno',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
             ))
             ->add('month', ChoiceType::class, array(
                 'choices' => array(
-                    'Gennaio' => '01',
-                    'Febbraio' => '02',
-                    'Marzo' => '03',
-                    'Aprile' => '04',
-                    'Maggio' => '05',
-                    'Giugno' => '06',
-                    'Luglio' => '07',
-                    'Agosto' => '08',
-                    'Settembre' => '09',
-                    'Ottobre' => '10',
-                    'Novembre' => '11',
-                    'Dicembre' => '12',
+                    '01' => '01',
+                    '02' => '02',
+                    '03' => '03',
+                    '04' => '04',
+                    '05' => '05',
+                    '06' => '06',
+                    '07' => '07',
+                    '08' => '08',
+                    '09' => '09',
+                    '10' => '10',
+                    '11' => '11',
+                    '12' => '12',
                 ),
                 'empty_data' => null,
-                'placeholder' => 'Seleziona Mese',
+                'placeholder' => 'Mese',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
