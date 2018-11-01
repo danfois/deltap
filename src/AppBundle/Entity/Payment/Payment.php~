@@ -78,22 +78,350 @@ class Payment
     protected $provider;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId", nullable=true)
+     */
+    protected $employee;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Payment\BankAccount")
      * @ORM\JoinColumn(name="bankAccountId", referencedColumnName="bankAccountId", nullable=true)
      */
     protected $bankAccount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice", inversedBy="payments")
      * @ORM\JoinColumn(name="issuedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $issuedInvoice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice", inversedBy="payments")
      * @ORM\JoinColumn(name="receivedInvoiceId", referencedColumnName="invoiceId", nullable=true)
      */
     protected $receivedInvoice;
 
 
+
+    /**
+     * Get paymentId
+     *
+     * @return integer
+     */
+    public function getPaymentId()
+    {
+        return $this->paymentId;
+    }
+
+    /**
+     * Set paymentDate
+     *
+     * @param \DateTime $paymentDate
+     *
+     * @return Payment
+     */
+    public function setPaymentDate($paymentDate)
+    {
+        $this->paymentDate = $paymentDate;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentDate
+     *
+     * @return \DateTime
+     */
+    public function getPaymentDate()
+    {
+        return $this->paymentDate;
+    }
+
+    /**
+     * Set direction
+     *
+     * @param string $direction
+     *
+     * @return Payment
+     */
+    public function setDirection($direction)
+    {
+        $this->direction = $direction;
+
+        return $this;
+    }
+
+    /**
+     * Get direction
+     *
+     * @return string
+     */
+    public function getDirection()
+    {
+        return $this->direction;
+    }
+
+    /**
+     * Set paymentType
+     *
+     * @param string $paymentType
+     *
+     * @return Payment
+     */
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentType
+     *
+     * @return string
+     */
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    /**
+     * Set checkNumber
+     *
+     * @param string $checkNumber
+     *
+     * @return Payment
+     */
+    public function setCheckNumber($checkNumber)
+    {
+        $this->checkNumber = $checkNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get checkNumber
+     *
+     * @return string
+     */
+    public function getCheckNumber()
+    {
+        return $this->checkNumber;
+    }
+
+    /**
+     * Set checkDate
+     *
+     * @param \DateTime $checkDate
+     *
+     * @return Payment
+     */
+    public function setCheckDate($checkDate)
+    {
+        $this->checkDate = $checkDate;
+
+        return $this;
+    }
+
+    /**
+     * Get checkDate
+     *
+     * @return \DateTime
+     */
+    public function getCheckDate()
+    {
+        return $this->checkDate;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return Payment
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set causal
+     *
+     * @param string $causal
+     *
+     * @return Payment
+     */
+    public function setCausal($causal)
+    {
+        $this->causal = $causal;
+
+        return $this;
+    }
+
+    /**
+     * Get causal
+     *
+     * @return string
+     */
+    public function getCausal()
+    {
+        return $this->causal;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Payment
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\Customer $customer
+     *
+     * @return Payment
+     */
+    public function setCustomer(\AppBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set provider
+     *
+     * @param \AppBundle\Entity\Provider $provider
+     *
+     * @return Payment
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return \AppBundle\Entity\Provider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set bankAccount
+     *
+     * @param \AppBundle\Entity\Payment\BankAccount $bankAccount
+     *
+     * @return Payment
+     */
+    public function setBankAccount(\AppBundle\Entity\Payment\BankAccount $bankAccount = null)
+    {
+        $this->bankAccount = $bankAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get bankAccount
+     *
+     * @return \AppBundle\Entity\Payment\BankAccount
+     */
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
+    }
+
+    /**
+     * Set issuedInvoice
+     *
+     * @param \AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice
+     *
+     * @return Payment
+     */
+    public function setIssuedInvoice(\AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice = null)
+    {
+        $this->issuedInvoice = $issuedInvoice;
+
+        return $this;
+    }
+
+    /**
+     * Get issuedInvoice
+     *
+     * @return \AppBundle\Entity\Invoice\IssuedInvoice
+     */
+    public function getIssuedInvoice()
+    {
+        return $this->issuedInvoice;
+    }
+
+    /**
+     * Set receivedInvoice
+     *
+     * @param \AppBundle\Entity\Invoice\ReceivedInvoice $receivedInvoice
+     *
+     * @return Payment
+     */
+    public function setReceivedInvoice(\AppBundle\Entity\Invoice\ReceivedInvoice $receivedInvoice = null)
+    {
+        $this->receivedInvoice = $receivedInvoice;
+
+        return $this;
+    }
+
+    /**
+     * Get receivedInvoice
+     *
+     * @return \AppBundle\Entity\Invoice\ReceivedInvoice
+     */
+    public function getReceivedInvoice()
+    {
+        return $this->receivedInvoice;
+    }
 }

@@ -78,6 +78,12 @@ class Payment
     protected $provider;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId", nullable=true)
+     */
+    protected $employee;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Payment\BankAccount")
      * @ORM\JoinColumn(name="bankAccountId", referencedColumnName="bankAccountId", nullable=true)
      */
@@ -417,5 +423,29 @@ class Payment
     public function getReceivedInvoice()
     {
         return $this->receivedInvoice;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return Payment
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
     }
 }
