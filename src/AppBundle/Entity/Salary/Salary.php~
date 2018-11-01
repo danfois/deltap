@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="SalaryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SalaryRepository")
  * @ORM\Table(name="salaries")
  */
 class Salary
@@ -44,11 +44,142 @@ class Salary
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
      */
-    protected $salary;
+    protected $salaryDetails;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     protected $employee;
+
+    /**
+     * Get salaryId
+     *
+     * @return integer
+     */
+    public function getSalaryId()
+    {
+        return $this->salaryId;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     *
+     * @return Salary
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set month
+     *
+     * @param integer $month
+     *
+     * @return Salary
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return integer
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return Salary
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set causal
+     *
+     * @param string $causal
+     *
+     * @return Salary
+     */
+    public function setCausal($causal)
+    {
+        $this->causal = $causal;
+
+        return $this;
+    }
+
+    /**
+     * Get causal
+     *
+     * @return string
+     */
+    public function getCausal()
+    {
+        return $this->causal;
+    }
+
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return Salary
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
 }

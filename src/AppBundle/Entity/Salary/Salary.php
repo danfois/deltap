@@ -44,20 +44,13 @@ class Salary
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
      */
-    protected $salary;
+    protected $salaryDetails;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     protected $employee;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->salary = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get salaryId
@@ -165,39 +158,6 @@ class Salary
         return $this->causal;
     }
 
-    /**
-     * Add salary
-     *
-     * @param \AppBundle\Entity\Salary\SalaryDetail $salary
-     *
-     * @return Salary
-     */
-    public function addSalary(\AppBundle\Entity\Salary\SalaryDetail $salary)
-    {
-        $this->salary[] = $salary;
-
-        return $this;
-    }
-
-    /**
-     * Remove salary
-     *
-     * @param \AppBundle\Entity\Salary\SalaryDetail $salary
-     */
-    public function removeSalary(\AppBundle\Entity\Salary\SalaryDetail $salary)
-    {
-        $this->salary->removeElement($salary);
-    }
-
-    /**
-     * Get salary
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSalary()
-    {
-        return $this->salary;
-    }
 
     /**
      * Set employee
@@ -221,5 +181,46 @@ class Salary
     public function getEmployee()
     {
         return $this->employee;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->salaryDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add salaryDetail
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salaryDetail
+     *
+     * @return Salary
+     */
+    public function addSalaryDetail(\AppBundle\Entity\Salary\SalaryDetail $salaryDetail)
+    {
+        $this->salaryDetails[] = $salaryDetail;
+
+        return $this;
+    }
+
+    /**
+     * Remove salaryDetail
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salaryDetail
+     */
+    public function removeSalaryDetail(\AppBundle\Entity\Salary\SalaryDetail $salaryDetail)
+    {
+        $this->salaryDetails->removeElement($salaryDetail);
+    }
+
+    /**
+     * Get salaryDetails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalaryDetails()
+    {
+        return $this->salaryDetails;
     }
 }
