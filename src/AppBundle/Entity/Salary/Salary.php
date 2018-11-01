@@ -1,0 +1,225 @@
+<?php
+
+namespace AppBundle\Entity\Salary;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SalaryRepository")
+ * @ORM\Table(name="salaries")
+ */
+class Salary
+{
+    /**
+     * @ORM\Column(type="integer", name="salaryId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $salaryId;
+
+    /**
+     * @ORM\Column(type="integer", length=4, name="year", nullable=false)
+     * @Assert\NotBlank(message="Salary year cannot be null")
+     * @Assert\Length(max=4, maxMessage="Salary year too long. Max 4 chars")
+     */
+    protected $year;
+
+    /**
+     * @ORM\Column(type="integer", length=2, nullable=false, name="month")
+     * @Assert\NotBlank(message="Salary month cannot be nulL")
+     */
+    protected $month;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="amount")
+     * @Assert\NotBlank(message="Salary amount cannot be null")
+     */
+    protected $amount;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="causal")
+     */
+    protected $causal;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
+     */
+    protected $salary;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    protected $employee;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->salary = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get salaryId
+     *
+     * @return integer
+     */
+    public function getSalaryId()
+    {
+        return $this->salaryId;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     *
+     * @return Salary
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set month
+     *
+     * @param integer $month
+     *
+     * @return Salary
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return integer
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return Salary
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set causal
+     *
+     * @param string $causal
+     *
+     * @return Salary
+     */
+    public function setCausal($causal)
+    {
+        $this->causal = $causal;
+
+        return $this;
+    }
+
+    /**
+     * Get causal
+     *
+     * @return string
+     */
+    public function getCausal()
+    {
+        return $this->causal;
+    }
+
+    /**
+     * Add salary
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salary
+     *
+     * @return Salary
+     */
+    public function addSalary(\AppBundle\Entity\Salary\SalaryDetail $salary)
+    {
+        $this->salary[] = $salary;
+
+        return $this;
+    }
+
+    /**
+     * Remove salary
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salary
+     */
+    public function removeSalary(\AppBundle\Entity\Salary\SalaryDetail $salary)
+    {
+        $this->salary->removeElement($salary);
+    }
+
+    /**
+     * Get salary
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalary()
+    {
+        return $this->salary;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return Salary
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+}

@@ -1,0 +1,54 @@
+<?php
+
+namespace AppBundle\Entity\Salary;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="SalaryRepository")
+ * @ORM\Table(name="salaries")
+ */
+class Salary
+{
+    /**
+     * @ORM\Column(type="integer", name="salaryId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $salaryId;
+
+    /**
+     * @ORM\Column(type="integer", length=4, name="year", nullable=false)
+     * @Assert\NotBlank(message="Salary year cannot be null")
+     * @Assert\Length(max=4, maxMessage="Salary year too long. Max 4 chars")
+     */
+    protected $year;
+
+    /**
+     * @ORM\Column(type="integer", length=2, nullable=false, name="month")
+     * @Assert\NotBlank(message="Salary month cannot be nulL")
+     */
+    protected $month;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="amount")
+     * @Assert\NotBlank(message="Salary amount cannot be null")
+     */
+    protected $amount;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="causal")
+     */
+    protected $causal;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
+     */
+    protected $salary;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    protected $employee;
+}

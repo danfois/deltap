@@ -1,0 +1,32 @@
+<?php
+
+namespace AppBundle\Entity\Salary;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="salary_details")
+ */
+class SalaryDetail
+{
+    /**
+     * @ORM\Column(type="integer", name="salaryDetailId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $salaryDetailId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment")
+     * @ORM\JoinColumn(name="paymentId", referencedColumnName="paymentId")
+     */
+    protected $payment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Salary\Salary", inversedBy="salaryDetails")
+     * @ORM\JoinColumn(name="salaryId", referencedColumnName="salaryId")
+     */
+    protected $salary;
+}
