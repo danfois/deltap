@@ -38,6 +38,14 @@ class PaymentHelper extends AbstractHelper
 
     protected function checkCustomerOrProvider()
     {
+        if($this->instance->getEmployee() != null) {
+            if($this->instance->getCustomer() != null || $this->instance->getProvider()) {
+                $this->errors .= 'Se scegli un dipendente, devi lasciare vuoti i campi Cliente e Fornitore<br>';
+                return false;
+            }
+            return true;
+        }
+
         if($this->instance->getCustomer() != null && $this->instance->getProvider() != null) {
             $this->errors .= 'Devi scegliere o un cliente, o un fornitore ma NON entrambi<br>';
             return false;
@@ -52,6 +60,8 @@ class PaymentHelper extends AbstractHelper
 
     protected function checkPaymentDirectionCoherence()
     {
+        if($this->instance->getEmployee() != null && $this->instance->getDirection() === 'OUT') return true;
+
         if($this->instance->getDirection() === 'IN' && $this->instance->getCustomer() == null) {
             $this->errors .= 'Devi scegliere un cliente in caso di pagamento in entrata<br>';
             return false;

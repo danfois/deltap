@@ -4,10 +4,12 @@ namespace AppBundle\Controller\Salary;
 use AppBundle\Entity\Salary\Salary;
 use AppBundle\Entity\Salary\SalaryDetail;
 use AppBundle\Form\Salary\SalaryType;
+use AppBundle\Helper\Salary\SalaryHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SalaryController extends Controller
 {
@@ -45,10 +47,31 @@ class SalaryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $salary = $form->getData();
 
-            $em->persist($salary);
-            $em->flush();
+            $SH = new SalaryHelper($salary, $em, false);
+            $SH->execute();
+            $errors = $SH->getErrors();
 
-            return new Response('ok', 200);
+            if($errors == null) {
+                $em->persist($salary);
+                $em->flush();
+
+                return new Response('Stipendio creato con successo!', 200);
+            } else {
+                return new Response($errors, 500);
+            }
         }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
     }
 }

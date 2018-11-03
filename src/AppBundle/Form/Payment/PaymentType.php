@@ -102,6 +102,17 @@ class PaymentType extends AbstractType
                 ),
                 'required' => false
             ))
+            ->add('employee', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Employee\Employee',
+                'choice_label' => function($e) {
+                    return $e->getName() . ' ' . $e->getSurname();
+                },
+                'empty_data' => null,
+                'placeholder' => 'Scegli Dipendente',
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))
             ->add('bankAccount', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Payment\BankAccount',
                 'choice_label' => function ($obj) {
