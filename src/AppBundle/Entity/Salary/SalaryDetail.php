@@ -19,7 +19,7 @@ class SalaryDetail
     protected $salaryDetailId;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="paymentId", referencedColumnName="paymentId")
      */
     protected $payment;

@@ -13,7 +13,9 @@ class SalaryDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('payment', PaymentType::class);
+            ->add('payment', PaymentType::class, array(
+                'by_reference' => false
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

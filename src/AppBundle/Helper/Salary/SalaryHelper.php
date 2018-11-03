@@ -23,6 +23,21 @@ class SalaryHelper extends AbstractHelper
         $this->executed = 1;
     }
 
+    public function removeOldPayments($oldDetails)
+    {
+        $newDetails = array();
+        foreach($this->instance->getSalaryDetails() as $d) {
+            $newDetails[] = $d->getSalaryDetailId();
+        }
+
+        foreach($oldDetails as $k => $od) {
+            if(in_array($od, $newDetails) === false) {
+                $detail = $this->em->getRepository(SalaryDetail::class)->find($od);
+                $this->em->remove($detail);
+            }
+        }
+    }
+
     protected function compilePayments($detail)
     {
         if($detail instanceof SalaryDetail) {

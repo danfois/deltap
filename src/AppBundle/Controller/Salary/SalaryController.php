@@ -74,4 +74,73 @@ class SalaryController extends Controller
 
         throw new AccessDeniedException('Accesso Negato');
     }
+
+    /**
+     * @Route("edit-salary-{n}", name="edit_salary")
+     */
+    public function editSalary(int $n)
+    {
+        $salary = $this->getDoctrine()->getRepository(Salary::class)->find($n);
+        if($salary == null) return new Response('Stipendio non trovato', 404);
+
+        $form = $this->createForm(SalaryType::class, $salary);
+
+        return $this->render('salary/salary_form.html.twig', array(
+            'title' => 'Modifica Stipendio',
+            'action_url' => $this->generateUrl('edit_salary_ajax', array('n' => $n)),
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-salary-{n}", name="edit_salary_ajax")
+     */
+    public function editSalaryAction(Request $request, int $n)
+    {
+        $salary = $this->getDoctrine()->getRepository(Salary::class)->find($n);
+        if($salary == null) return new Response('Stipendio non trovato', 404);
+
+        $form = $this->createForm(SalaryType::class, $salary);
+
+        $oldSalary = clone $salary;
+        $oldDetails = array();
+
+        foreach($oldSalary->getSalaryDetails() as $d) {
+            $oldDetails[] = $d->getSalaryDetailId();
+        }
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $salary = $form->getData();
+
+            $SH = new SalaryHelper($salary, $em, true);
+            $SH->execute();
+            $SH->removeOldPayments($oldDetails);
+            $errors = $SH->getErrors();
+
+            if($errors == null) {
+                $em->flush();
+
+                return new Response('Stipendio modificato con successo!', 200);
+            } else {
+                return new Response($errors, 500);
+            }
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        throw new AccessDeniedException('Accesso Negato');
+    }
 }
