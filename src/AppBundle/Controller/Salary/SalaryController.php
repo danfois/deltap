@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Controller\Salary;
+
 use AppBundle\Entity\Salary\Salary;
 use AppBundle\Entity\Salary\SalaryDetail;
 use AppBundle\Form\Salary\SalaryType;
@@ -43,7 +44,7 @@ class SalaryController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $salary = $form->getData();
 
@@ -51,7 +52,7 @@ class SalaryController extends Controller
             $SH->execute();
             $errors = $SH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->persist($salary);
                 $em->flush();
 
@@ -81,7 +82,7 @@ class SalaryController extends Controller
     public function editSalary(int $n)
     {
         $salary = $this->getDoctrine()->getRepository(Salary::class)->find($n);
-        if($salary == null) return new Response('Stipendio non trovato', 404);
+        if ($salary == null) return new Response('Stipendio non trovato', 404);
 
         $form = $this->createForm(SalaryType::class, $salary);
 
@@ -98,21 +99,20 @@ class SalaryController extends Controller
     public function editSalaryAction(Request $request, int $n)
     {
         $salary = $this->getDoctrine()->getRepository(Salary::class)->find($n);
-        if($salary == null) return new Response('Stipendio non trovato', 404);
+        if ($salary == null) return new Response('Stipendio non trovato', 404);
 
         $form = $this->createForm(SalaryType::class, $salary);
 
         $oldSalary = clone $salary;
         $oldDetails = array();
 
-        foreach($oldSalary->getSalaryDetails() as $d) {
+        foreach ($oldSalary->getSalaryDetails() as $d) {
             $oldDetails[] = $d->getSalaryDetailId();
         }
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $salary = $form->getData();
 
@@ -121,7 +121,7 @@ class SalaryController extends Controller
             $SH->removeOldPayments($oldDetails);
             $errors = $SH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->flush();
 
                 return new Response('Stipendio modificato con successo!', 200);
@@ -142,5 +142,47 @@ class SalaryController extends Controller
         }
 
         throw new AccessDeniedException('Accesso Negato');
+    }
+
+    /**
+     * @Route("salaries-list", name="salaries_list")
+     */
+    public function salariesListAction()
+    {
+        return $this->render('salary/salary_list.html.twig');
+    }
+
+    /**
+     * @Route("delete-salary-detail-{n}", name="delete_salary_detail")
+     */
+    public function deleteSalaryDetailAction(int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $salary = $em->getRepository(SalaryDetail::class)->find($n);
+        if ($salary == null) return new Response('Questo pagamento non esiste', 404);
+
+        $em->remove($salary);
+        $em->flush();
+
+        return new Response('Dettaglio Pagamento rimosso con successo!', 200);
+    }
+
+    /**
+     * @Route("delete-salary-{n}", name="delete_salary")
+     */
+    public function deleteSalaryAction(int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $salary = $em->getRepository(Salary::class)->find($n);
+        if ($salary == null) return new Response('Questo stipendio non esiste', 404);
+
+        try {
+            $em->remove($salary);
+            $em->flush();
+        } catch(\Exception $e) {
+            return new Response('Per eliminare lo stipendio devi prima eliminare i pagamenti associati', 500);
+        }
+
+        return new Response('Stipendio rimosso con successo!', 200);
     }
 }

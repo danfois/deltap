@@ -20,6 +20,8 @@ use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\Provider;
 use AppBundle\Entity\PurchaseOrder\PurchaseOrder;
 use AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail;
+use AppBundle\Entity\Salary\Salary;
+use AppBundle\Entity\Salary\SalaryDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
@@ -46,6 +48,8 @@ use AppBundle\Serializer\ProviderNormalizer;
 use AppBundle\Serializer\PurchaseOrderDetailNormalizer;
 use AppBundle\Serializer\PurchaseOrderNormalizer;
 use AppBundle\Serializer\ReceivedInvoiceSerializer;
+use AppBundle\Serializer\SalaryDetailNormalizer;
+use AppBundle\Serializer\SalaryNormalizer;
 use AppBundle\Serializer\ServiceOrderViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -443,7 +447,7 @@ class JsonController extends Controller
     public function jsonLoansInstalments(Request $request)
     {
         $id = $request->request->get('id');
-        if(is_numeric($id) === false) return new Response('Mutuo non trovato', 404);
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $instalments = $this->getDoctrine()->getRepository(LoanInstalment::class)->findBy(array('loan' => $id));
 
@@ -451,6 +455,39 @@ class JsonController extends Controller
         $normalizers = [new LoanInstalmentNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($instalments, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/salaries", name="json_salaries")
+     */
+    public function jsonSalariesAction()
+    {
+        $salaries = $this->getDoctrine()->getRepository(Salary::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new SalaryNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($salaries, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/salary-details", name="json_salary_details")
+     */
+    public function jsonSalaryDetailsAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $details = $this->getDoctrine()->getRepository(SalaryDetail::class)->findBy(array('salary' => $id));
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new SalaryDetailNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($details, 'json');
 
         return new Response($json);
     }
