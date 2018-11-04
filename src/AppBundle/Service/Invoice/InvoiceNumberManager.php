@@ -31,4 +31,13 @@ class InvoiceNumberManager
 
         return (int) $lastNumber + 1;
     }
+
+    public function getCurrentProformaNumber() : int
+    {
+        $lastNumber = $this->em->getRepository(IssuedInvoice::class)->findLastProformaNumber();
+
+        if($lastNumber == null) return 1;
+
+        return (int) $lastNumber + 1;
+    }
 }

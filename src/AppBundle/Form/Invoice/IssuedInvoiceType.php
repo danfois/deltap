@@ -4,7 +4,9 @@ namespace AppBundle\Form\Invoice;
 
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -39,6 +41,23 @@ class IssuedInvoiceType extends InvoiceType
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
+            ))
+            ->add('isProforma', CheckboxType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input',
+                    'data-switch' => 'true',
+                    'data-on-color' => 'success',
+                    'data-off-color' => 'metal',
+                    'data-on-text' => 'Si',
+                    'data-off-text' => 'No'
+                ),
+                'required' => false
+            ))
+            ->add('proformaNumber', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input int_touch_spin'
+                ),
+                'required' => false
             ));
     }
 

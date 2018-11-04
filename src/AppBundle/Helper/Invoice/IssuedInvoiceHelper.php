@@ -15,11 +15,21 @@ class IssuedInvoiceHelper extends InvoiceHelper
 
     public function execute()
     {
+        $this->setProforma();
         $this->checkInvoiceNumber();
         $this->checkPaInvoiceNumber();
         $this->checkPaReceiptDate();
         $this->iterateDetails();
         $this->executed = 1;
+    }
+
+    protected function setProforma()
+    {
+        if($this->invoice->getIsProforma() == 1) {
+            $this->invoice->setInvoiceNumber(0);
+            return true;
+        }
+        return false;
     }
 
     protected function iterateDetails()
@@ -36,7 +46,7 @@ class IssuedInvoiceHelper extends InvoiceHelper
     protected function checkInvoiceNumber()
     {
         $invoice = $this->em->getRepository(IssuedInvoice::class)->findOneBy(array('invoiceNumber' => $this->invoice->getInvoiceNumber()));
-        if ($invoice == null) return true;
+        if ($invoice == null || $invoice->getInvoiceNumber() == 0) return true;
 
         if($this->isEdited === true) {
             if($this->invoice == $invoice) return true;

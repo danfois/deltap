@@ -212,6 +212,18 @@ var InvoiceList = function () {
                     title: 'Cliente'
                 },
                 {
+                    field:'proforma',
+                    title: 'Tipo',
+                    template: function (row) {
+                        var status = {
+                            '0': {'title': 'Fattura', 'class': 'm-badge--success'},
+                            '1': {'title': 'Proforma', 'class': ' m-badge--info'}
+
+                        };
+                        return '<span class="m-badge ' + status[row.proforma].class + ' m-badge--wide">' + status[row.proforma].title + '</span>';
+                    }
+                },
+                {
                     field: 'number',
                     title: 'N. Fatt.',
                     template: function (row) {
@@ -306,6 +318,14 @@ var InvoiceList = function () {
         };
 
         var datatable = $('.m_datatable').mDatatable(options);
+
+        var query = datatable.getDataSourceQuery();
+
+        $('#m_form_proforma').on('change', function () {
+            datatable.search($(this).val(), 'proforma');
+        }).val(typeof query.proforma !== 'undefined' ? query.proforma : '');
+
+        $('#m_form_proforma').selectpicker();
 
         $('#m_datatable_destroy').on('click', function () {
             $('.m_datatable').mDatatable('destroy');

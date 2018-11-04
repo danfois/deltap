@@ -34,6 +34,16 @@ class IssuedInvoice extends Invoice implements PayableInterface
     protected $payments;
 
     /**
+     * @ORM\Column(type="integer", length=1, nullable=true, name="isProforma")
+     */
+    protected $isProforma;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="proformaNumber")
+     */
+    protected $proformaNumber;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -131,10 +141,10 @@ class IssuedInvoice extends Invoice implements PayableInterface
         return $sum;
     }
 
-    public function getCausal()
-    {
-        return 'Pagamento Fattura emessa N. ' . $this->getInvoiceNumber();
-    }
+//    public function getCausal()
+//    {
+//        return 'Pagamento Fattura emessa N. ' . $this->getInvoiceNumber();
+//    }
 
     public function getDirection()
     {
@@ -197,5 +207,53 @@ class IssuedInvoice extends Invoice implements PayableInterface
     public function getPayments()
     {
         return $this->payments;
+    }
+
+    /**
+     * Set isProforma
+     *
+     * @param integer $isProforma
+     *
+     * @return IssuedInvoice
+     */
+    public function setIsProforma($isProforma)
+    {
+        $this->isProforma = $isProforma;
+
+        return $this;
+    }
+
+    /**
+     * Get isProforma
+     *
+     * @return integer
+     */
+    public function getIsProforma()
+    {
+        return $this->isProforma;
+    }
+
+    /**
+     * Set proformaNumber
+     *
+     * @param integer $proformaNumber
+     *
+     * @return IssuedInvoice
+     */
+    public function setProformaNumber($proformaNumber)
+    {
+        $this->proformaNumber = $proformaNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get proformaNumber
+     *
+     * @return integer
+     */
+    public function getProformaNumber()
+    {
+        return $this->proformaNumber;
     }
 }

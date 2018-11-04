@@ -22,4 +22,13 @@ class IssuedInvoiceRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    public function findLastProformaNumber()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('MAX(i.proformaNumber)')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
 }

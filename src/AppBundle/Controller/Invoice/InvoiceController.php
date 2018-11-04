@@ -41,7 +41,8 @@ class InvoiceController extends Controller
             'title' => 'Emetti Fattura',
             'action_url' => $actionUrl,
             'type' => 'issued',
-            'pa_invoice_number' => $ivm->getCurrentPaInvoiceNumber()
+            'pa_invoice_number' => $ivm->getCurrentPaInvoiceNumber(),
+            'proforma_number' => $ivm->getCurrentProformaNumber()
         ));
     }
 
@@ -204,6 +205,9 @@ class InvoiceController extends Controller
         if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
         if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
 
+        if($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
+        if($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
+
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
 
         $actionUrl = $this->generateUrl('ajax_edit_issued_invoice', array('n' => $n));
@@ -213,7 +217,8 @@ class InvoiceController extends Controller
             'title' => 'Modifica Fattura Emessa',
             'action_url' => $actionUrl,
             'type' => 'issued',
-            'pa_invoice_number' => ''
+            'pa_invoice_number' => '',
+            'proforma_number' => $invoice->getProformaNumber()
         ));
     }
 
@@ -228,6 +233,9 @@ class InvoiceController extends Controller
 
         if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
         if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+
+        if($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
+        if($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
 
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
         $form->handleRequest($request);

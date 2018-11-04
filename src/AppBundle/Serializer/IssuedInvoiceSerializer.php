@@ -35,7 +35,8 @@ class IssuedInvoiceSerializer implements NormalizerInterface
                     'customer' => $o->getCustomer()->getBusinessName(),
                     'totTaxInc' => $totTaxInc,
                     'balance' => $balance,
-                    'remaining' => $totTaxInc - $balance
+                    'remaining' => $totTaxInc - $balance,
+                    'proforma' => ($o->getIsProforma() != null ? '1' : '0')
                 );
             }
         }

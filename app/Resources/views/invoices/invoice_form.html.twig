@@ -159,6 +159,37 @@
 
                             </div>
 
+                            {% if type == 'issued' %}
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>
+                                        Fattura per Proforma
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        {{ form_widget(form.isProforma) }}
+                                    </div>
+                                    <span class="m-form__help">Scegliere se la fattura è soltanto un proforma. In tal caso il numero di fattura nel campo sopra non sarà preso in considerazione</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub proforma_item hidden_opac">
+
+                                    <input type="hidden" id="hidden_proforma_number" value="{{ proforma_number }}">
+
+                                    <label>N. Proforma:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.proformaNumber) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-barcode"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Numero del proforma generato automaticamente.</span>
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
                         </div>
 
 

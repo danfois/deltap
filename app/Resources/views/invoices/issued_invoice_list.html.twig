@@ -72,8 +72,31 @@
             <!--begin: Search Form -->
             <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
                 <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-10">
+                    <div class="col-md-3">
+                        <div class="m-form__group m-form__group--inline">
+                            <div class="m-form__label">
+                                <label class="m-label m-label--single">
+                                    Tipologia
+                                </label>
+                            </div>
+                            <div class="m-form__control">
+                                <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
+                                        id="m_form_proforma">
+                                    <option value="">
+                                        Tutti
+                                    </option>
+                                    <option value="0">
+                                        Fatture
+                                    </option>
+                                    <option value="1">
+                                        Proforma
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-md-none m--margin-bottom-10"></div>
+                    </div>
+                    <div class="col-lg-9">
                         <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
                             Seleziona Tutto
                         </button>

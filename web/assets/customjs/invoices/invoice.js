@@ -94,6 +94,18 @@ jQuery(document).ready(function () {
         }
     });
 
+    $("#issued_invoice_isProforma").on('switchChange.bootstrapSwitch', function() {
+        if(this.checked) {
+            $('.proforma_item').removeClass('hidden_opac');
+            $('#issued_invoice_proformaNumber').val($('#hidden_proforma_number').val());
+        } else {
+            $('.proforma_item').find('input[type="text"]').each(function(i, e) {
+                e.value = '';
+            });
+            $('.proforma_item').addClass('hidden_opac');
+        }
+    });
+
     initializeWidgets();
 
 });
