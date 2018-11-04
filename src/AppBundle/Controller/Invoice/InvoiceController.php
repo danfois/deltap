@@ -355,4 +355,21 @@ class InvoiceController extends Controller
         return $this->render('invoices/received_invoice_list.html.twig');
     }
 
+    /**
+     * @Route("proforma-to-invoice-{n}", name="proforma_to_invoice")
+     */
+    public function proformaToInvoice(int $n, InvoiceNumberManager $ivm)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $proforma = $em->getRepository(IssuedInvoice::class)->findBy(array('invoiceId' => $n, 'isProforma' => 1))[0];
+        if($proforma == null) return new Response('Proforma non trovato', 404);
+
+        $proforma->setInvoiceNumber($ivm->getCurrentInvoiceNumber());
+        $proforma->setIsProforma(null);
+
+        $em->flush();
+
+        return new Response('Trasformazione avvenuta con successo!', 200);
+    }
+
 }

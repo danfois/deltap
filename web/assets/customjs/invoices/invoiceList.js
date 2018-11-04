@@ -271,6 +271,30 @@ var InvoiceList = function () {
                     sortable: false,
                     overflow: 'visible',
                     template: function (row, index, datatable) {
+                        if(row.proforma != '0') {
+                            var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
+                            return '\
+						<div class="dropdown ' + dropup + '">\
+							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
+                                <i class="la la-ellipsis-h"></i>\
+                            </a>\
+						  	<div class="dropdown-menu dropdown-menu-right">\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'proforma-to-invoice-'+row.idv+'\', {}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-file"></i> Trasforma in Fattura</a>\
+						    	<a class="dropdown-item" href="edit-issued-invoice-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Proforma</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Proforma</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Invia al Cliente</a>\
+						    	\<a class="dropdown-item" href="create-payment-from/issuedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
+						  	</div>\
+						</div>\
+						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
+							<i class="la la-edit"></i>\
+						</a>\
+						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
+							<i class="la la-eye"></i>\
+						</a>\
+					';
+                        }
                         var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
 						<div class="dropdown ' + dropup + '">\
