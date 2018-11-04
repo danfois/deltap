@@ -83,6 +83,11 @@ class Employee extends Person
     private $terminationDate;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\EmployeeUnavailability", mappedBy="employee")
+     */
+    private $unavailabilities;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -405,5 +410,39 @@ class Employee extends Person
     public function getTerminationDate()
     {
         return $this->terminationDate;
+    }
+
+    /**
+     * Add unavailability
+     *
+     * @param \AppBundle\Entity\Employee\EmployeeUnavailability $unavailability
+     *
+     * @return Employee
+     */
+    public function addUnavailability(\AppBundle\Entity\Employee\EmployeeUnavailability $unavailability)
+    {
+        $this->unavailabilities[] = $unavailability;
+
+        return $this;
+    }
+
+    /**
+     * Remove unavailability
+     *
+     * @param \AppBundle\Entity\Employee\EmployeeUnavailability $unavailability
+     */
+    public function removeUnavailability(\AppBundle\Entity\Employee\EmployeeUnavailability $unavailability)
+    {
+        $this->unavailabilities->removeElement($unavailability);
+    }
+
+    /**
+     * Get unavailabilities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUnavailabilities()
+    {
+        return $this->unavailabilities;
     }
 }

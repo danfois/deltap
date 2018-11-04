@@ -3,9 +3,12 @@
 namespace AppBundle\Controller\Employee;
 
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Entity\Employee\EmployeeUnavailability;
 use AppBundle\Form\Employee\EmployeeType;
+use AppBundle\Form\Employee\EmployeeUnavailabilityType;
 use AppBundle\Form\Employee\TerminateEmployeeType;
 use AppBundle\Helper\Employee\EmployeeHelper;
+use AppBundle\Helper\Employee\UnavailabilityHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -220,6 +223,61 @@ class EmployeeController extends Controller
             return new Response('Cessazione rapporto registrata', 200);
         }
         return new Response('Errore durante la registrazione della cessazione del rapporto', 500);
+    }
+
+    /**
+     * @Route("create-employee-unavailability", name="create_employee_unavailability")
+     */
+    public function createEmployeeUnavailability()
+    {
+        $eu = new EmployeeUnavailability();
+        $form = $this->createForm(EmployeeUnavailabilityType::class, $eu);
+
+        return $this->render('employees/unavailabilities.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("ajax/create-employee-unavailability", name="ajax_create_employee_unavailability")
+     */
+    public function ajaxCreateEmployeeUnavailability(Request $request)
+    {
+        $eu = new EmployeeUnavailability();
+        $form = $this->createForm(EmployeeUnavailabilityType::class, $eu);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $eu = $form->getData();
+
+            $EH = new UnavailabilityHelper($eu, $em, false);
+            $EH->execute();
+            $errors = $EH->getErrors();
+
+            if($errors == null) {
+                $em->persist($eu);
+                $em->flush();
+
+                return new Response('Indisponibilità creata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            if ($form->isSubmitted() && !$form->isValid()) {
+                $errors = $form->getErrors(true);
+                $error = '';
+
+                foreach ($errors as $k => $e) {
+                    $error .= $e->getMessage() . '<br> ';
+
+                }
+                return new Response($error, 500);
+            }
+        }
+        return new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
     }
 
 }
