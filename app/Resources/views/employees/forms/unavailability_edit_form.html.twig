@@ -1,17 +1,17 @@
 <form id="form_unavailability_edit" method="POST" class="m-form m-form--fit m-form--label-align-right"
-      action="{{ path('edit_unavailability_ajax', { 'idU' : idU }) }}"
+      action="{{ action_url }}"
       autocomplete="off">
     <div class="m-portlet__body m--padding-bottom-15 m--padding-top-15">
         <div class="form-group m-form__group row">
             {{ form_widget(form._token) }}
             <div class="col-lg-4 m-form__group-sub">
-                <label>* Veicolo:</label>
+                <label>* Dipendente:</label>
                 <div class="m-input-icon m-input-icon--right">
-                    {{ form_widget(form.vehicle) }}
+                    {{ form_widget(form.employee) }}
                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                     class="la la-barcode"></i></span></span>
                 </div>
-                <span class="m-form__help">Inserire la targa del veicolo</span>
+                <span class="m-form__help">Scegliere il dipendente</span>
             </div>
 
             <div class="col-lg-4 m-form__group-sub">

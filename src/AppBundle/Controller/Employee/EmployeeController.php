@@ -280,4 +280,68 @@ class EmployeeController extends Controller
         return new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
     }
 
+    /**
+     * @Route("edit-employeeUnavailability-{n}", name="edit_employee_unavailability")
+     */
+    public function editEmployeeUnavailabilityAction(int $n)
+    {
+        $eu = $this->getDoctrine()->getRepository(EmployeeUnavailability::class)->find($n);
+        if($eu == null) return new Response('Indisponibilità non trovata', 404);
+
+        $form = $this->createForm(EmployeeUnavailabilityType::class, $eu);
+
+        $html = $this->renderView('employees/forms/unavailability_edit_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_edit_employee_unavailability', array('n' => $n))
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Modifica Indisponibilità',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-employeeUnavailability-{n}", name="ajax_edit_employee_unavailability")
+     */
+    public function ajaxEditEmployeeUnavailability(Request $request, int $n)
+    {
+        $eu = $this->getDoctrine()->getRepository(EmployeeUnavailability::class)->find($n);
+        if($eu == null) return new Response('Indisponibilità non trovata', 404);
+
+        $form = $this->createForm(EmployeeUnavailabilityType::class, $eu);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $eu = $form->getData();
+
+            $EH = new UnavailabilityHelper($eu, $em, true);
+            $EH->execute();
+            $errors = $EH->getErrors();
+
+            if($errors == null) {
+                $em->flush();
+
+                return new Response('Indisponibilità modificata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            if ($form->isSubmitted() && !$form->isValid()) {
+                $errors = $form->getErrors(true);
+                $error = '';
+
+                foreach ($errors as $k => $e) {
+                    $error .= $e->getMessage() . '<br> ';
+
+                }
+                return new Response($error, 500);
+            }
+        }
+        return new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
+    }
+
 }

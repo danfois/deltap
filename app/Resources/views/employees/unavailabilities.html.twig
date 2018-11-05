@@ -116,13 +116,21 @@
 {% endblock %}
 
 {% block modals %}
-    {% include('vehicles/forms/modal_edit_unavailability.html.twig') %}
+    {% include('includes/generic_modal.html.twig') %}
 {% endblock %}
 
 {% block page_scripts %}
-    <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_form.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_view.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_edit.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_delete.js') }}"></script>
-    <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_batch_delete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
+    <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
+    <script src="{{ asset('assets/customjs/employees/unavailability_view.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            GenericFormSubmission($('#form_unavailability')).init();
+            initializeWidgets();
+        });
+    </script>
 {% endblock %}

@@ -9,6 +9,7 @@ use AppBundle\Entity\Employee\DriverQualificationLetter;
 use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
+use AppBundle\Entity\Employee\EmployeeUnavailability;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Loan\Loan;
@@ -35,6 +36,7 @@ use AppBundle\Serializer\CurriculumViewNormalizer;
 use AppBundle\Serializer\CustomerNormalizer;
 use AppBundle\Serializer\DocumentViewNormalizer;
 use AppBundle\Serializer\DrivingDocumentViewNormalizer;
+use AppBundle\Serializer\EmployeeUnavailabilityNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
@@ -488,6 +490,21 @@ class JsonController extends Controller
         $normalizers = [new SalaryDetailNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($details, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/employee-unavailabilities", name="json_employee_unavailabilities")
+     */
+    public function jsonEmployeeUnavailabilities()
+    {
+        $u = $this->getDoctrine()->getRepository(EmployeeUnavailability::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new EmployeeUnavailabilityNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($u, 'json');
 
         return new Response($json);
     }
