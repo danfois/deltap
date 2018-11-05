@@ -281,6 +281,8 @@ class LoanController extends Controller
         $loan = $this->getDoctrine()->getRepository(Loan::class)->find($id);
         if($loan == null) return new Response('Mutuo non trovato', 404);
 
+        if($loan->getLoanInstalments() != null) return new Response('Non puoi eliminare un mutuo che contiene delle rate', 500);
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($loan);
         $em->flush();

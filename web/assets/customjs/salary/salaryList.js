@@ -258,7 +258,7 @@ var SalaryList = function () {
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-salary-' + row.idv + '\', \'Stipendio NON eliminato!\', {} )"><i class="la la-trash"></i> Elimina Stipendio</a>\
 						  	</div>\
 						</div>\
-						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Stipendio">\
+						<a href="edit-salary-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Stipendio">\
 							<i class="la la-edit"></i>\
 						</a>\
 					';

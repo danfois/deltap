@@ -102,10 +102,10 @@ class ReceivedInvoice extends Invoice implements PayableInterface
         return $sum;
     }
 
-    public function getCausal()
-    {
-        return 'Pagamento Fattura Ricevuta N. ' . $this->getInvoiceNumber() . ' da ' . $this->getProvider()->getBusinessName();
-    }
+//    public function getCausal()
+//    {
+//        return 'Pagamento Fattura Ricevuta N. ' . $this->getInvoiceNumber() . ' da ' . $this->getProvider()->getBusinessName();
+//    }
 
     public function getDirection()
     {
