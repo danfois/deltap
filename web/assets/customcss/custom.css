@@ -161,3 +161,27 @@ div.tagsinput div {
     color:#fff;
     font-weight:500;
 }
+
+.m-portlet .m-portlet__head {
+    height:4.1rem;
+}
+
+.m-form .m-form__actions {
+    padding: 15px 30px;
+}
+
+.m-portlet .m-portlet__body {
+    padding: 1.2rem 2.2rem;
+}
+
+.m-body .m-content {
+    padding: 30px 30px;
+}
+
+.m-subheader {
+    padding: 15px 30px 0 30px;
+}
+
+.nodisplay {
+    display:none;
+}
