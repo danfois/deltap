@@ -344,4 +344,19 @@ class EmployeeController extends Controller
         return new AccessDeniedException('Non sei autorizzato a vedere questa pagina');
     }
 
+    /**
+     * @Route("delete-employeeUnavailability-{n}", name="delete_employee_unavailability")
+     */
+    public function deleteEmployeeUnavailabilityAction(int $n)
+    {
+        $eu = $this->getDoctrine()->getRepository(EmployeeUnavailability::class)->find($n);
+        if($eu == null) return new Response('Indisponibilità non trovata', 404);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($eu);
+        $em->flush();
+
+        return new Response('Indisponibilità rimossa con successo', 200);
+    }
+
 }

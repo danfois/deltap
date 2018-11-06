@@ -85,13 +85,13 @@ var UnavailabilityList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'edit-employeeUnavailability-'+row.idv+'\', {}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_unavailability_edit\'})"><i class="la la-edit"></i> Modifica Indisponibilità</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteUnavailability(' + row.idv + ')"><i class="la la-trash"></i> Elimina Indisponibilità</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-employeeUnavailability-' + row.idv + '\', \'Indisponibilità NON eliminata!\', {} )"><i class="la la-trash"></i> Elimina Indisponibilità</a>\
 						  	</div>\
 						</div>\
-						<a href="javascript:void(0);" onclick="editUnavailability('+ row.idv +')" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
+						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'edit-employeeUnavailability-'+row.idv+'\', {}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_unavailability_edit\'})" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="deleteUnavailability(' + row.idv + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
+						<a href="javascript:void(0);" onclick="genericDelete(\'delete-employeeUnavailability-' + row.idv + '\', \'Indisponibilità NON eliminata!\', {} )" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
