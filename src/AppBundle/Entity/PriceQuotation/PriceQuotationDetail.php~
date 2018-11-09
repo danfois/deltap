@@ -64,6 +64,12 @@ class PriceQuotationDetail
     protected $emittedOrders;
 
     /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="price")
+     * @Assert\NotBlank(message="Price must not be null")
+     */
+    protected $price;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -249,5 +255,29 @@ class PriceQuotationDetail
     public function setEmittedOrders($emittedOrders)
     {
         $this->emittedOrders = $emittedOrders;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string
+     */
+    public function getVat()
+    {
+        return $this->vat;
     }
 }

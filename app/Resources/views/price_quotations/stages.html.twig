@@ -1,11 +1,11 @@
 <div class="row repeater">
     <div class="col-xl-10 offset-xl-1">
         <div class="m-form__section m-form__section--first">
-            <div class="m-form__heading">
-                <h3 class="m-form__heading-title">
-                    2. Tragitti
-                </h3>
-            </div>
+            {#<div class="m-form__heading">#}
+                {#<h3 class="m-form__heading-title">#}
+                    {#2. Tragitti#}
+                {#</h3>#}
+            {#</div>#}
 
 
             <div class="m-accordion m-accordion--default" id="itinerari" role="tablist">
@@ -29,7 +29,7 @@
                                     <span class="m-accordion__item-mode"></span>
                                 </div>
 
-                                <div class="m-accordion__item-body itiner_class collapse"
+                                <div class="m-accordion__item-body itiner_class collapse show"
                                      id="itinerariBody_{{ loop.index }}"
                                      role="tabpanel" aria-labelledby="itinerari_{{ loop.index }}_head"
                                      data-parent="#itinerari">
@@ -37,7 +37,7 @@
 
                                         <div class="row">
 
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-6 bg-itinerario">
                                                 <div class="form-group m-form__group row">
 
                                                     <div class="col-lg-6 m-form__group-sub">
@@ -207,7 +207,7 @@
 
                                             <div class="col-lg-6 border-left">
 
-                                                <div class="repeated-times-repeater">
+                                                <div class="repeated-times-repeater bg-itinerario">
                                                     <div data-repeater-list="repeatedTimes">
 
                                                         <div data-repeater-item>

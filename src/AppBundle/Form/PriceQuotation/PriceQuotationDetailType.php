@@ -19,11 +19,13 @@ class PriceQuotationDetailType extends AbstractType
         $builder
             ->add('priceQuotation', EntityType::class, array(
                 'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotation',
-                'choice_label' => 'code',
+                'choice_label' => function ($p) {
+                    return $p->getCode() . ' - ' . $p->getCustomer()->getBusinessName() . ' - ' . $p->getServiceCode()->getService();
+                },
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
+                    'class' => 'form-control m-input bg-aliceblue'
                 ),
                 'required' => false
             ))
@@ -71,6 +73,11 @@ class PriceQuotationDetailType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => array(new Valid()),
+            ))
+            ->add('price', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
             ));
     }
 

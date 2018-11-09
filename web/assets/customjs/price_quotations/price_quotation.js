@@ -41,11 +41,12 @@ var PriceQuotation = function () {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            html: response,
+                            html: 'Preventivo Multiplo creato con successo!',
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
+                        setTimeout(window.location.href = 'create-price-quotation-detail-' + response, 2500);
                         $('.m_datatable').mDatatable('reload');
                     },
                     error: function (e) {

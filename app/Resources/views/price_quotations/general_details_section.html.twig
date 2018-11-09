@@ -8,17 +8,17 @@
 
             <div class="form-group m-form__group row">
 
-                <div class="col-lg-3 m-form__group-sub">
-                    <label>* Numero Preventivo:</label>
+                <div class="col-lg-5 m-form__group-sub">
+                    <label>* Preventivo:</label>
                     <div class="m-input-icon m-input-icon--right">
                         {{ form_widget(form.priceQuotation) }}
                         <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                         class="la la-barcode"></i></span></span>
                     </div>
-                    <span class="m-form__help">Preventivo al quale associare questo itinerario</span>
+                    <span class="m-form__help">Preventivo al quale associare questo itinerario. <u>Sono visualizzati come: Codice - Cliente - Servizio</u></span>
                 </div>
 
-                <div class="col-lg-6 m-form__group-sub">
+                <div class="col-lg-2 m-form__group-sub">
                     <label>* Codice Itinerario:</label>
                     <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.name) }}
@@ -28,7 +28,7 @@
                     <span class="m-form__help">Il nome dell'itinerario che servirà in caso di riutilizzo nella creazione di preventivi futuri</span>
                 </div>
 
-                <div class="col-lg-3 m-form__group-sub">
+                <div class="col-lg-2 m-form__group-sub">
                     <label>* Percentuale Iva:</label>
                     <div class="m-input-icon m-input-icon--right">
                         {{ form_widget(form.vat) }}
@@ -36,6 +36,16 @@
                                         class="fa fa-percent"></i></span></span>
                     </div>
                     <span class="m-form__help">Percentuale dell'Iva da applicare</span>
+                </div>
+
+                <div class="col-lg-3 m-form__group-sub">
+                    <label>* Prezzo:</label>
+                    <div class="m-input-icon m-input-icon--right">
+                        {{ form_widget(form.price) }}
+                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                        class="fa fa-euro"></i></span></span>
+                    </div>
+                    <span class="m-form__help">Prezzo dell'itinerario</span>
                 </div>
 
             </div>

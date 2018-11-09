@@ -109,7 +109,8 @@ class PriceQuotationController extends Controller
                 $em->persist($PQ);
                 $em->flush();
 
-                return new Response('Preventivo Multiplo creato con successo', 200);
+                //return new Response('Preventivo Multiplo creato con successo', 200);
+                return new Response($PQ->getPriceQuotationId(), 200);
             }
             return new Response($errors, 500);
         }
@@ -143,6 +144,7 @@ class PriceQuotationController extends Controller
         $PQD = new PriceQuotationDetail();
         $PQD->setName(PriceQuotationUtils::generatePriceQuotationDetailCode($em));
         $s = new Stage();
+        $s->setBusNumber(1);
         $s->setRepeatedTimes(array(new RepeatedTimesType()));
 
         if ($id != null) {
@@ -302,9 +304,9 @@ class PriceQuotationController extends Controller
     }
 
     /**
-     * @Route("price-quotations-list", name="price_quotations_list")
+     * @Route("price-quotations-list/{valore}", name="price_quotations_list")
      */
-    public function priceQuotationListAction()
+    public function priceQuotationListAction(string $valore = '')
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -315,7 +317,8 @@ class PriceQuotationController extends Controller
         $form = $this->createForm(PriceQuotationType::class, $pq);
 
         return $this->render('price_quotations/price_quotation_list.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'valore' => $valore
         ));
     }
 

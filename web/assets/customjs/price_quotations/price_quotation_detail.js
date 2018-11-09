@@ -55,7 +55,8 @@ var PriceQuotation = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
-                        setTimeout(window.location.href='price-quotations-list', 2500);
+                        var valore = $('#price_quotation_detail_priceQuotation').val().split('-');
+                        setTimeout(window.location.href='price-quotations-list/' + valore[0] + valore[1] , 2500);
                     },
                     error: function (e) {
                         mApp.unprogress(r);
