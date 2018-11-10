@@ -1,0 +1,52 @@
+<form id="form_maintenance_type{{ edit }}" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ action_url }}"
+      autocomplete="off">
+    <div class="m-portlet__body m--margin-15">
+
+        <div class="form-group m-form__group row">
+
+            {{ form_widget(form._token) }}
+
+            <div class="col-lg-5 m-form__group-sub">
+                <label>* Nome Intervento:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.maintenanceName) }}
+                </div>
+                <span class="m-form__help">Nome dell'intervento di manutenzione</span>
+            </div>
+
+            <div class="col-lg-3 m-form__group-sub">
+                <label>* Intervallo Date:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.dateInterval) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                    class="la la-calendar"></i></span></span>
+                </div>
+                <span class="m-form__help">Facoltativo. Scegliere l'intervallo di date per il quale deve essere eseguita questa manutenzione</span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Intervallo Km:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.kmInterval) }}
+                    <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                    class="la la-tachometer"></i></span></span>
+                </div>
+                <span class="m-form__help">Facoltativo. Scegliere l'intervallo di km per il quale deve essere eseguita questa manutenzione</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

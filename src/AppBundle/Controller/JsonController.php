@@ -28,6 +28,7 @@ use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
 use AppBundle\Entity\Vehicle\InsuranceSuspension;
+use AppBundle\Entity\Vehicle\MaintenanceType;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\BankAccountNormalizer;
 use AppBundle\Serializer\CarReviewViewNormalizer;
@@ -43,6 +44,7 @@ use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\IssuedInvoiceSerializer;
 use AppBundle\Serializer\LoanInstalmentNormalizer;
 use AppBundle\Serializer\LoanNormalizer;
+use AppBundle\Serializer\MaintenanceTypeNormalizer;
 use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
 use AppBundle\Serializer\PriceQuotationViewNormalizer;
@@ -505,6 +507,21 @@ class JsonController extends Controller
         $normalizers = [new EmployeeUnavailabilityNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($u, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/maintenance-types", name="json_maintenance_types")
+     */
+    public function jsonMaintenanceTypes()
+    {
+        $m = $this->getDoctrine()->getRepository(MaintenanceType::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new MaintenanceTypeNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($m, 'json');
 
         return new Response($json);
     }
