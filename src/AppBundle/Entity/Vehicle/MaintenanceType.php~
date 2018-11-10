@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MaintenanceTypeRepository")
+ * @ORM\Table(name="maintenance_types")
+ */
+class MaintenanceType
+{
+    /**
+     * @ORM\Column(type="integer", name="maintenanceTypeId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $maintenanceTypeId;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="maintenanceName")
+     * @Assert\NotBlank(message="Maintenance Name cannot be null")
+     */
+    protected $maintenanceName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, name="dateInterval")
+     */
+    protected $dateInterval;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="kmInterval")
+     */
+    protected $kmInterval;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenanceType")
+     */
+    protected $maintenanceDetails;
+}

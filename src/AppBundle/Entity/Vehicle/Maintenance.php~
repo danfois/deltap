@@ -1,0 +1,64 @@
+<?php
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MaintenanceRepository")
+ * @ORM\Table(name="maintenances")
+ */
+class Maintenance
+{
+    /**
+     * @ORM\Column(type="integer", name="maintenanceId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $maintenanceId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle")
+     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     */
+    protected $vehicle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
+     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
+     */
+    protected $provider;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    protected $employee;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="startKm")
+     * @Assert\NotBlank(message="Start Km must not be nulL")
+     */
+    protected $startKm;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="endKm")
+     */
+    protected $endKm;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="startDate")
+     * @Assert\NotBlank(message="Start Date cannot be null")
+     */
+    protected $startDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="endDate")
+     */
+    protected $endDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\Maintenance", mappedBy="maintenance")
+     */
+    protected $maintenanceDetails;
+}

@@ -1,0 +1,55 @@
+<?php
+
+namespace AppBundle\Entity\Vehicle;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MaintenanceDetailRepository")
+ * @ORM\Table(name="maintenance_details")
+ */
+class MaintenanceDetail
+{
+    /**
+     * @ORM\Column(type="integer", name="maintenanceDetailId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $maintenanceDetailId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Maintenance", inversedBy="maintenanceDetails")
+     * @ORM\JoinColumn(name="maintenanceId", referencedColumnName="maintenanceId")
+     */
+    protected $maintenance;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\MaintenanceType", inversedBy="maintenanceDetails")
+     * @ORM\JoinColumn(name="maintenanceTypeId", referencedColumnName="maintenanceTypeId")
+     */
+    protected $maintenanceType;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, name="description")
+     * @Assert\NotBlank(message="Maintenance Detail description cannot be null")
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="amount")
+     * @Assert\NotBlank(message="Maintenance Detail amount cannot be nulL")
+     */
+    protected $amount;
+
+    /**
+     * @ORM\Column(type="integer", length=2, nullable=false, name="vat")
+     * @Assert\NotBlank(message="Maintenance Detail VAT percentage cannot be null")
+     * @Assert\Length(max=2, maxMessage="Vat percentage cannot be higher than 99%")
+     */
+    protected $vat;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="totalAmount")
+     */
+    protected $totalAmount;
+}
