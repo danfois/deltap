@@ -48,7 +48,7 @@ class Maintenance
     protected $startDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $maintenanceDetails;
     /**

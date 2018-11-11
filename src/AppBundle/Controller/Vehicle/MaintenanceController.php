@@ -104,7 +104,7 @@ class MaintenanceController extends Controller
     /**
      * @Route("ajax/edit-maintenance-type-{n}", name="ajax_edit_maintenance")
      */
-    public function ajaxEditMaintenanceAction(Request $request, int $n)
+    public function ajaxEditMaintenanceTypeAction(Request $request, int $n)
     {
         $m = $this->getDoctrine()->getRepository(MaintenanceType::class)->find($n);
         if($m == null) return new Response('Tipo manutenzione non trovato', 404);
@@ -171,6 +171,65 @@ class MaintenanceController extends Controller
                 $em->flush();
 
                 return new Response('Scheda Manutenzione creata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        return new Response('Accesso Negato', 403);
+    }
+
+    /**
+     * @Route("edit-maintenance-{n}", name="edit_maintenance")
+     */
+    public function editMaintenanceAction(int $n)
+    {
+        $m = $this->getDoctrine()->getRepository(Maintenance::class)->find($n);
+        if($m == null) return new Response('Manutenzione non trovata', 404);
+
+        $form = $this->createForm(VehicleMaintenanceType::class, $m);
+
+        return $this->render('vehicles/maintenance.html.twig', array(
+            'title' => 'Modifica Scheda Manutenzione',
+            'action_url' => $this->generateUrl('ajax_edit_maintenance', array('n' => $n)),
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("ajax/edit-maintenance-{n}", name="ajax_edit_maintenance")
+     */
+    public function ajaxEditMaintenanceAction(Request $request, int $n)
+    {
+        $m = $this->getDoctrine()->getRepository(Maintenance::class)->find($n);
+        if($m == null) return new Response('Manutenzione non trovata', 404);
+
+        $form = $this->createForm(VehicleMaintenanceType::class, $m);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $m = $form->getData();
+
+            $MH = new MaintenanceHelper($m, $em, true);
+            $MH->execute();
+            $errors = $MH->getErrors();
+
+            if($errors == null) {
+                $em->flush();
+
+                return new Response('Scheda Manutenzione modificata con successo!', 200);
             }
             return new Response($errors, 500);
         }
