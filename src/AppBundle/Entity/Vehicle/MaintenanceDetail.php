@@ -54,6 +54,16 @@ class MaintenanceDetail
     protected $totalAmount;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true, name="expirationDate")
+     */
+    protected $expirationDate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="expirationKm")
+     */
+    protected $expirationKm;
+
+    /**
      * Get maintenanceDetailId
      *
      * @return integer
@@ -205,5 +215,53 @@ class MaintenanceDetail
     public function getMaintenanceType()
     {
         return $this->maintenanceType;
+    }
+
+    /**
+     * Set expirationDate
+     *
+     * @param \DateTime $expirationDate
+     *
+     * @return MaintenanceDetail
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expirationDate
+     *
+     * @return \DateTime
+     */
+    public function getExpirationDate()
+    {
+        return $this->expirationDate;
+    }
+
+    /**
+     * Set expirationKm
+     *
+     * @param integer $expirationKm
+     *
+     * @return MaintenanceDetail
+     */
+    public function setExpirationKm($expirationKm)
+    {
+        $this->expirationKm = $expirationKm;
+
+        return $this;
+    }
+
+    /**
+     * Get expirationKm
+     *
+     * @return integer
+     */
+    public function getExpirationKm()
+    {
+        return $this->expirationKm;
     }
 }

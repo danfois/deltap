@@ -6,6 +6,7 @@ use AppBundle\Entity\Vehicle\MaintenanceDetail;
 use AppBundle\Entity\Vehicle\MaintenanceType;
 use AppBundle\Form\Vehicle\MaintenanceTypeType;
 use AppBundle\Form\Vehicle\VehicleMaintenanceType;
+use AppBundle\Helper\Vehicle\MaintenanceHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -140,8 +141,51 @@ class MaintenanceController extends Controller
 
         $form = $this->createForm(VehicleMaintenanceType::class, $m);
 
-        return $this->render('DEBUG/show_form.html.twig', array(
+        return $this->render('vehicles/maintenance.html.twig', array(
+            'title' => 'Scheda Manutenzione',
+            'action_url' => $this->generateUrl('ajax_create_maintenance'),
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("ajax/create-maintenance", name="ajax_create_maintenance")
+     */
+    public function ajaxCreateMaintenance(Request $request)
+    {
+        $m = new Maintenance();
+        $form = $this->createForm(VehicleMaintenanceType::class, $m);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $m = $form->getData();
+
+            $MH = new MaintenanceHelper($m, $em, false);
+            $MH->execute();
+            $errors = $MH->getErrors();
+
+            if($errors == null) {
+                $em->persist($m);
+                $em->flush();
+
+                return new Response('Scheda Manutenzione creata con successo!', 200);
+            }
+            return new Response($errors, 500);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        return new Response('Accesso Negato', 403);
     }
 }

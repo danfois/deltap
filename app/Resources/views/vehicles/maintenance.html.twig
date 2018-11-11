@@ -1,0 +1,218 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_maintenance" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+                        <div class="m-form__section m-form__section--first">
+
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">1. Dati Scheda Manutenzione</h3>
+                            </div>
+
+
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Veicolo:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.vehicle) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-truck"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Selezionare il veicolo oggetto della manutenzione</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Fornitore:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.provider) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Scegliere il fornitore che ha eseguito la manutenzione</span>
+                                </div>
+
+                                <div class="col-lg-3 m-form__group-sub">
+                                    <label>* Esecutore Interno</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.employee) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-user-secret"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Selezionare soltanto se la manutenzione è stata fatta da un dipendende dell'azienda</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Km:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.startKm) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                                        class="la la-tachometer"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire i Km del veicolo quando è stata effettuata la manutenzione</span>
+                                </div>
+
+                                <div class="col-lg-2 m-form__group-sub">
+                                    <label>* Data:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.startDate) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-calendar"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire la data nella quale è stata effettuata la manutenzione</span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+                        <div class="m-form__section">
+                            <div class="m-form__heading">
+                                <h3 class="m-form__heading-title">2. Dettagli Manutenzione</h3>
+                                <p class="m-form__heading-sub">Inserire i vari interventi che sono presenti in questa
+                                    manutenzione. <u>Per tutti questi interventi, verranno prese in considerazione la
+                                        data e il chilometraggio inseriti nella sezione precedente</u>.</p>
+                            </div>
+
+                            <div class="repeater">
+
+                                <div data-repeater-list="vehicle_maintenance[maintenanceDetails]">
+
+                                    {% for d in form.maintenanceDetails %}
+
+                                        <div data-repeater-item>
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-3 m-form__group-sub">
+                                                    <label>* Tipo Manutenzione:</label>
+                                                    <div class="m-input-icon m-input-icon--right">
+                                                        {{ form_widget(d.maintenanceType) }}
+                                                    </div>
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-4 m-form__group-sub">
+                                                    <label>Descrizione:</label>
+                                                    <div class="m-input-icon m-input-icon--right">
+                                                        {{ form_widget(d.description) }}
+                                                    </div>
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>Imponibile:</label>
+                                                    <div class="m-input-icon m-input-icon--right">
+                                                        {{ form_widget(d.amount) }}
+                                                    </div>
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
+                                                    <label>% Iva:</label>
+                                                    <div class="m-input-icon m-input-icon--right">
+                                                        {{ form_widget(d.vat) }}
+                                                    </div>
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-md-1 m-form__group-sub">
+                                                    <label class="form-control-label">&nbsp;</label><br>
+                                                    <div data-repeater-delete=""
+                                                         class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                                    <span>
+                                                        <i class="la la-trash-o"></i><span>Rimuovi</span>
+                                                    </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col text-left">
+                                        <div data-repeater-create=""
+                                             class="btn btn btn-primary m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Aggiungi Oggetto</span>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="m-form__seperator m-form__seperator--dashed"></div>
+
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/vehicles/maintenance/maintenance.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -52,4 +52,168 @@ class MaintenanceDetail
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="totalAmount")
      */
     protected $totalAmount;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="expirationDate")
+     */
+    protected $expirationDate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="expirationKm")
+     */
+    protected $expirationKm;
+
+    /**
+     * Get maintenanceDetailId
+     *
+     * @return integer
+     */
+    public function getMaintenanceDetailId()
+    {
+        return $this->maintenanceDetailId;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return MaintenanceDetail
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param string $amount
+     *
+     * @return MaintenanceDetail
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param integer $vat
+     *
+     * @return MaintenanceDetail
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return integer
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set totalAmount
+     *
+     * @param string $totalAmount
+     *
+     * @return MaintenanceDetail
+     */
+    public function setTotalAmount($totalAmount)
+    {
+        $this->totalAmount = $totalAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get totalAmount
+     *
+     * @return string
+     */
+    public function getTotalAmount()
+    {
+        return $this->totalAmount;
+    }
+
+    /**
+     * Set maintenance
+     *
+     * @param \AppBundle\Entity\Vehicle\Maintenance $maintenance
+     *
+     * @return MaintenanceDetail
+     */
+    public function setMaintenance(\AppBundle\Entity\Vehicle\Maintenance $maintenance = null)
+    {
+        $this->maintenance = $maintenance;
+
+        return $this;
+    }
+
+    /**
+     * Get maintenance
+     *
+     * @return \AppBundle\Entity\Vehicle\Maintenance
+     */
+    public function getMaintenance()
+    {
+        return $this->maintenance;
+    }
+
+    /**
+     * Set maintenanceType
+     *
+     * @param \AppBundle\Entity\Vehicle\MaintenanceType $maintenanceType
+     *
+     * @return MaintenanceDetail
+     */
+    public function setMaintenanceType(\AppBundle\Entity\Vehicle\MaintenanceType $maintenanceType = null)
+    {
+        $this->maintenanceType = $maintenanceType;
+
+        return $this;
+    }
+
+    /**
+     * Get maintenanceType
+     *
+     * @return \AppBundle\Entity\Vehicle\MaintenanceType
+     */
+    public function getMaintenanceType()
+    {
+        return $this->maintenanceType;
+    }
 }

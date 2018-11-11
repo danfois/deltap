@@ -42,23 +42,13 @@ class Maintenance
     protected $startKm;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="endKm")
-     */
-    protected $endKm;
-
-    /**
      * @ORM\Column(type="datetime", nullable=false, name="startDate")
      * @Assert\NotBlank(message="Start Date cannot be null")
      */
     protected $startDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false, name="endDate")
-     */
-    protected $endDate;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance", cascade={"persist", "remove"})
      */
     protected $maintenanceDetails;
     /**
@@ -104,30 +94,6 @@ class Maintenance
     }
 
     /**
-     * Set endKm
-     *
-     * @param string $endKm
-     *
-     * @return Maintenance
-     */
-    public function setEndKm($endKm)
-    {
-        $this->endKm = $endKm;
-
-        return $this;
-    }
-
-    /**
-     * Get endKm
-     *
-     * @return string
-     */
-    public function getEndKm()
-    {
-        return $this->endKm;
-    }
-
-    /**
      * Set startDate
      *
      * @param \DateTime $startDate
@@ -149,30 +115,6 @@ class Maintenance
     public function getStartDate()
     {
         return $this->startDate;
-    }
-
-    /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     *
-     * @return Maintenance
-     */
-    public function setEndDate($endDate)
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    /**
-     * Get endDate
-     *
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
     }
 
     /**

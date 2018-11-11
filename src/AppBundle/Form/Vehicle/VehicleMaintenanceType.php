@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Vehicle;
 use AppBundle\Entity\Vehicle\Maintenance;
+use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -12,6 +13,13 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 class VehicleMaintenanceType extends AbstractType
 {
+    protected $transformer;
+
+    public function __construct(StringToDateTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -42,7 +50,8 @@ class VehicleMaintenanceType extends AbstractType
                 'placeholder' => 'Esecutore Interno',
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('startKm', TextType::class, array(
                 'attr' => array(
@@ -61,6 +70,8 @@ class VehicleMaintenanceType extends AbstractType
                 'constraints' => array(new Valid()),
                 'by_reference' => false
             ));
+
+        $builder->get('startDate')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)
