@@ -58,7 +58,7 @@ class Maintenance
     protected $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\Maintenance", mappedBy="maintenance")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance")
      */
     protected $maintenanceDetails;
     /**
@@ -247,14 +247,15 @@ class Maintenance
         return $this->employee;
     }
 
+
     /**
      * Add maintenanceDetail
      *
-     * @param \AppBundle\Entity\Vehicle\Maintenance $maintenanceDetail
+     * @param \AppBundle\Entity\Vehicle\MaintenanceDetail $maintenanceDetail
      *
      * @return Maintenance
      */
-    public function addMaintenanceDetail(\AppBundle\Entity\Vehicle\Maintenance $maintenanceDetail)
+    public function addMaintenanceDetail(\AppBundle\Entity\Vehicle\MaintenanceDetail $maintenanceDetail)
     {
         $this->maintenanceDetails[] = $maintenanceDetail;
 
@@ -264,9 +265,9 @@ class Maintenance
     /**
      * Remove maintenanceDetail
      *
-     * @param \AppBundle\Entity\Vehicle\Maintenance $maintenanceDetail
+     * @param \AppBundle\Entity\Vehicle\MaintenanceDetail $maintenanceDetail
      */
-    public function removeMaintenanceDetail(\AppBundle\Entity\Vehicle\Maintenance $maintenanceDetail)
+    public function removeMaintenanceDetail(\AppBundle\Entity\Vehicle\MaintenanceDetail $maintenanceDetail)
     {
         $this->maintenanceDetails->removeElement($maintenanceDetail);
     }

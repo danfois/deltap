@@ -58,7 +58,193 @@ class Maintenance
     protected $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\Maintenance", mappedBy="maintenance")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance")
      */
     protected $maintenanceDetails;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->maintenanceDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get maintenanceId
+     *
+     * @return integer
+     */
+    public function getMaintenanceId()
+    {
+        return $this->maintenanceId;
+    }
+
+    /**
+     * Set startKm
+     *
+     * @param string $startKm
+     *
+     * @return Maintenance
+     */
+    public function setStartKm($startKm)
+    {
+        $this->startKm = $startKm;
+
+        return $this;
+    }
+
+    /**
+     * Get startKm
+     *
+     * @return string
+     */
+    public function getStartKm()
+    {
+        return $this->startKm;
+    }
+
+    /**
+     * Set endKm
+     *
+     * @param string $endKm
+     *
+     * @return Maintenance
+     */
+    public function setEndKm($endKm)
+    {
+        $this->endKm = $endKm;
+
+        return $this;
+    }
+
+    /**
+     * Get endKm
+     *
+     * @return string
+     */
+    public function getEndKm()
+    {
+        return $this->endKm;
+    }
+
+    /**
+     * Set startDate
+     *
+     * @param \DateTime $startDate
+     *
+     * @return Maintenance
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Get startDate
+     *
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     *
+     * @return Maintenance
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * Set vehicle
+     *
+     * @param \AppBundle\Entity\Vehicle\Vehicle $vehicle
+     *
+     * @return Maintenance
+     */
+    public function setVehicle(\AppBundle\Entity\Vehicle\Vehicle $vehicle = null)
+    {
+        $this->vehicle = $vehicle;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicle
+     *
+     * @return \AppBundle\Entity\Vehicle\Vehicle
+     */
+    public function getVehicle()
+    {
+        return $this->vehicle;
+    }
+
+    /**
+     * Set provider
+     *
+     * @param \AppBundle\Entity\Provider $provider
+     *
+     * @return Maintenance
+     */
+    public function setProvider(\AppBundle\Entity\Provider $provider = null)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return \AppBundle\Entity\Provider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return Maintenance
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
 }

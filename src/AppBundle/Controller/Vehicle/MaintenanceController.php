@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Maintenance;
+use AppBundle\Entity\Vehicle\MaintenanceDetail;
 use AppBundle\Entity\Vehicle\MaintenanceType;
 use AppBundle\Form\Vehicle\MaintenanceTypeType;
+use AppBundle\Form\Vehicle\VehicleMaintenanceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -132,6 +134,14 @@ class MaintenanceController extends Controller
      */
     public function createMaintenanceAction()
     {
+        $m = new Maintenance();
+        $md = new MaintenanceDetail();
+        $m->addMaintenanceDetail($md);
 
+        $form = $this->createForm(VehicleMaintenanceType::class, $m);
+
+        return $this->render('DEBUG/show_form.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
