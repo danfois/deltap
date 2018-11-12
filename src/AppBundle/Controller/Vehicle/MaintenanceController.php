@@ -247,4 +247,19 @@ class MaintenanceController extends Controller
 
         return new Response('Accesso Negato', 403);
     }
+
+    /**
+     * @Route("delete-maintenance-{n}", name="delete_maintenance")
+     */
+    public function deleteMaintenanceAction(int $n)
+    {
+        $m = $this->getDoctrine()->getRepository(Maintenance::class)->find($n);
+        if($m == null) return new Response('Manutenzione non trovata', 404);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($m);
+        $em->flush();
+
+        return new Response('Manutenzione Rimossa con successo', 200);
+    }
 }
