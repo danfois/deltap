@@ -9,6 +9,7 @@ use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Entity\Vehicle\Maintenance;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,12 +20,14 @@ class InvoiceRequestManager
     protected $parametersArray;
     protected $invoice;
     protected $data;
+    protected $rawData;
     protected $invoiceFormManager;
 
     public function __construct(EntityManager $entityManager, Request $request)
     {
         $this->em = $entityManager;
         $this->request = $request;
+        $this->rawData = null;
     }
 
     public function getInvoiceFormManager() : InvoiceFormManager
@@ -73,7 +76,8 @@ class InvoiceRequestManager
             'serviceOrders' => 'issued',
             'insurances' => 'received',
             'reviews' => 'received',
-            'loans' => 'received'
+            'loans' => 'received',
+            'maintenance' => 'received'
         );
 
         if ($pa['type'] == null)                                                throw new \Exception('Specificare il tipo della fattura');
@@ -126,10 +130,30 @@ class InvoiceRequestManager
             case 'loans':
                 $this->fetchLoanInstalments($data);
                 return true;
+            case 'maintenance':
+                $this->fetchMaintenance($data);
+                return true;
                 break;
         }
 
         return false;
+    }
+
+    protected function fetchMaintenance(array $data)
+    {
+        if(count($data) > 1) throw new \Exception('Puoi fatturare soltanto una scheda manutenzione per volta');
+
+        $this->rawData = $this->em->getRepository(Maintenance::class)->find($data[0]);
+        $dataToPass = $this->rawData->getMaintenanceDetails();
+
+        $array = [];
+
+        foreach($dataToPass as $d) {
+            $array[] = $d;
+        }
+        if($dataToPass == null) throw new \Exception('Scheda Manutenzione non trovata');
+
+        $this->data = $array;
     }
 
 
@@ -138,6 +162,7 @@ class InvoiceRequestManager
         if(count($data) > 1) throw new \Exception('Puoi fatturare soltanto un preventivo per volta');
 
         $dataToPass = $this->em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $data[0]));
+        $this->rawData = $dataToPass;
         if($dataToPass == null) throw new \Exception('Preventivo non trovato');
 
         $this->data = $dataToPass;
@@ -179,5 +204,15 @@ class InvoiceRequestManager
         if($dataToPass == null) throw new \Exception('Rate del mutuo non trovate');
 
         $this->data = $dataToPass;
+    }
+
+    public function getRawData()
+    {
+        return $this->rawData;
+    }
+
+    public function getParametersArray()
+    {
+        return $this->parametersArray;
     }
 }

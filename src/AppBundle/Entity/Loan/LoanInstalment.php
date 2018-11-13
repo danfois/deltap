@@ -333,6 +333,11 @@ class LoanInstalment implements PayableInterface, InvoiceDetailInterface
         return '22';
     }
 
+    public function getParentProvider()
+    {
+        return $this->getLoan()->getProvider();
+    }
+
     /*
      * END OF INVOICEINTERFACE
      */

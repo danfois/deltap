@@ -51,6 +51,13 @@ class Maintenance
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceDetail", mappedBy="maintenance", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $maintenanceDetails;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice")
+     * @ORM\JoinColumn(name="invoiceId", referencedColumnName="invoiceId")
+     */
+    protected $invoice;
+
     /**
      * Constructor
      */
@@ -222,5 +229,29 @@ class Maintenance
     public function getMaintenanceDetails()
     {
         return $this->maintenanceDetails;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param \AppBundle\Entity\Invoice\ReceivedInvoice $invoice
+     *
+     * @return Maintenance
+     */
+    public function setInvoice(\AppBundle\Entity\Invoice\ReceivedInvoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \AppBundle\Entity\Invoice\ReceivedInvoice
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
     }
 }

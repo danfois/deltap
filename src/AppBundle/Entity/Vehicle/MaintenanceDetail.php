@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MaintenanceDetailRepository")
  * @ORM\Table(name="maintenance_details")
  */
-class MaintenanceDetail
+class MaintenanceDetail implements InvoiceDetailInterface
 {
     /**
      * @ORM\Column(type="integer", name="maintenanceDetailId")
@@ -264,4 +265,37 @@ class MaintenanceDetail
     {
         return $this->expirationKm;
     }
+
+    /*
+     * Start of InvoiceDetailInterface
+     */
+
+    public function getInvoiceVat()
+    {
+        return $this->getVat();
+    }
+
+    public function getProductCode(): string
+    {
+        return '000';
+    }
+
+    public function getProductName(): string
+    {
+        return $this->getDescription();
+    }
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getAmount();
+    }
+
+    public function getParentProvider()
+    {
+        return $this->getMaintenance()->getProvider();
+    }
+
+    /*
+     * End of InvoiceDetailInterface
+     */
 }

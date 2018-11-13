@@ -10,6 +10,7 @@ use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
+use AppBundle\Entity\Vehicle\Maintenance;
 
 class ClassResolver
 {
@@ -23,7 +24,8 @@ class ClassResolver
             'insurance' => Insurance::class,
             'cartax' => CarTax::class,
             'carreview' => CarReview::class,
-            'loanInstalment' => LoanInstalment::class
+            'loanInstalment' => LoanInstalment::class,
+            'maintenance' => Maintenance::class
         );
 
         if($availableClasses[$class] === null) return false;

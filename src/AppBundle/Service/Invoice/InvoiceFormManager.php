@@ -48,9 +48,14 @@ class InvoiceFormManager
                     $this->invoice->setPriceQuotation($d->getPriceQuotation());
                     $this->invoice->setCustomer($d->getPriceQuotation()->getCustomer());
                 }
-                if($d instanceof LoanInstalment) {
-                    $this->invoice->setProvider($d->getLoan()->getProvider());
+
+                if(method_exists($d, 'getParentProvider')) {
+                    $this->invoice->setProvider($d->getParentProvider());
                 }
+                if(method_exists($d, 'getParentCustomer')) {
+                    $this->invoice->setCustomer($d->getParentCustomer());
+                }
+
                 $invoiceDetail = $this->transformData($d);
                 $this->setInvoiceDetail($invoiceDetail);
                 $invoiceDetail = null;

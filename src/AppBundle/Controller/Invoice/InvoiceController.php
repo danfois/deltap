@@ -11,6 +11,7 @@ use AppBundle\Helper\Invoice\IssuedInvoiceHelper;
 use AppBundle\Helper\Invoice\ReceivedInvoiceHelper;
 use AppBundle\Service\Invoice\InvoiceNumberManager;
 use AppBundle\Service\Invoice\InvoiceRequestManager;
+use AppBundle\Util\ClassResolver;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -47,9 +48,9 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("ajax/issue-invoice", name="ajax_issue_invoice")
+     * @Route("ajax/issue-invoice/{type}/{id}", name="ajax_issue_invoice")
      */
-    public function ajaxIssueInvoiceAction(Request $request)
+    public function ajaxIssueInvoiceAction(Request $request, $type = null, $id = null)
     {
         $invoice = new IssuedInvoice();
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
@@ -66,6 +67,16 @@ class InvoiceController extends Controller
 
             if ($errors == null) {
                 $em->persist($invoice);
+
+                if($type != null && $id != null)
+                {
+                    $class = ClassResolver::resolveClass($type);
+                    $associatedObject = $em->getRepository($class)->find($id);
+                    if($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
+                        $associatedObject->setInvoice($invoice);
+                    }
+                }
+
                 $em->flush();
 
                 return new Response('Fattura emessa con successo!', 200);
@@ -113,9 +124,9 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("ajax/receive-invoice", name="ajax_receive_invoice")
+     * @Route("ajax/receive-invoice/{type}/{id}", name="ajax_receive_invoice")
      */
-    public function ajaxReceiveInvoiceAction(Request $request)
+    public function ajaxReceiveInvoiceAction(Request $request, $type = null, $id = null)
     {
         $invoice = new ReceivedInvoice();
 
@@ -133,6 +144,16 @@ class InvoiceController extends Controller
 
             if ($errors == null) {
                 $em->persist($invoice);
+
+                if($type != null && $id != null)
+                {
+                    $class = ClassResolver::resolveClass($type);
+                    $associatedObject = $em->getRepository($class)->find($id);
+                    if($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
+                        $associatedObject->setInvoice($invoice);
+                    }
+                }
+
                 $em->flush();
 
                 return new Response('Fattura registrata con successo!', 200);
@@ -166,20 +187,27 @@ class InvoiceController extends Controller
         $invoice = $ifm->manageInvoiceData()->getInvoice();
         $invoice->setInvoiceDate(new \DateTime());
 
+        if($irm->getRawData() != null) {
+            $idMethod = 'get' . ucwords($em->getClassMetadata(get_class($irm->getRawData()))->getSingleIdentifierFieldName());
+            $id = $irm->getRawData()->$idMethod();
+        } else {
+            $id = null;
+        }
+
         if ($invoice instanceof IssuedInvoice) {
             $invoice->setInvoiceNumber($ivm->getCurrentInvoiceNumber());
             $pa = $ivm->getCurrentPaInvoiceNumber();
             $form = $this->createForm(IssuedInvoiceType::class, $invoice);
             $type = 'issued';
             $title = 'Emetti Fattura';
-            $actionUrl = $this->generateUrl('ajax_issue_invoice');
+            $actionUrl = $this->generateUrl('ajax_issue_invoice', array('type' => $irm->getParametersArray()['dataType'], 'id' => $id));
 
         } else if ($invoice instanceof ReceivedInvoice) {
             $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
             $type = 'received';
             $title = 'Ricevi Fattura';
             $pa = '';
-            $actionUrl = $this->generateUrl('ajax_receive_invoice');
+            $actionUrl = $this->generateUrl('ajax_receive_invoice', array('type' => $irm->getParametersArray()['dataType'], 'id' => $id));
 
         } else {
             throw new \Exception('Errore durante la creazione del form');
@@ -190,7 +218,8 @@ class InvoiceController extends Controller
             'title' => $title,
             'action_url' => $actionUrl,
             'type' => $type,
-            'pa_invoice_number' => $pa
+            'pa_invoice_number' => $pa,
+            'proforma_number' => $ivm->getCurrentProformaNumber()
         ));
     }
 
