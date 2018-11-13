@@ -80,7 +80,9 @@ class MaintenanceDetailHelper extends AbstractHelper
             return false;
         }
 
-        $this->instance->setExpirationDate($this->instance->getMaintenance()->getStartDate()->modify($this->maintenanceType->getDateInterval()));
+        $startDate = clone $this->instance->getMaintenance()->getStartDate();
+
+        $this->instance->setExpirationDate($startDate->modify($this->maintenanceType->getDateInterval()));
         return true;
     }
 

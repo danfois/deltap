@@ -262,4 +262,16 @@ class MaintenanceController extends Controller
 
         return new Response('Manutenzione Rimossa con successo', 200);
     }
+
+    /**
+     * @Route("maintenance-list", name="maintenance_list")
+     */
+    public function maintenanceListAction()
+    {
+        return $this->render('vehicles/maintenance_list.html.twig', array(
+            'title' => 'Manutenzioni',
+            'new_button_path' => $this->generateUrl('create_maintenance'),
+            'new_button_name' => 'Nuova Scheda Manutenzione'
+        ));
+    }
 }

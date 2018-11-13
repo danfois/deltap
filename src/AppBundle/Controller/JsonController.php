@@ -28,6 +28,7 @@ use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
 use AppBundle\Entity\Vehicle\InsuranceSuspension;
+use AppBundle\Entity\Vehicle\Maintenance;
 use AppBundle\Entity\Vehicle\MaintenanceType;
 use AppBundle\Entity\Vehicle\Unavailability;
 use AppBundle\Serializer\BankAccountNormalizer;
@@ -44,6 +45,8 @@ use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\IssuedInvoiceSerializer;
 use AppBundle\Serializer\LoanInstalmentNormalizer;
 use AppBundle\Serializer\LoanNormalizer;
+use AppBundle\Serializer\MaintenanceDetailNormalizer;
+use AppBundle\Serializer\MaintenanceNormalizer;
 use AppBundle\Serializer\MaintenanceTypeNormalizer;
 use AppBundle\Serializer\PaymentNormalizer;
 use AppBundle\Serializer\PriceQuotationDetailViewNormalizer;
@@ -522,6 +525,40 @@ class JsonController extends Controller
         $normalizers = [new MaintenanceTypeNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($m, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/maintenances", name="json_maintenances")
+     */
+    public function jsonMaintenancesAction()
+    {
+        $m = $this->getDoctrine()->getRepository(Maintenance::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new MaintenanceNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($m, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/maintenance-details", name="maintenance-details")
+     */
+    public function maintenanceDetailsAction(Request $request)
+    {
+        $id = $request->request->get('id');
+        if(is_numeric($id) === false) return new Response('Richiesta effettata in maniera non corretta', 400);
+
+        $m = $this->getDoctrine()->getRepository(Maintenance::class)->find($id);
+        $md = $m->getMaintenanceDetails();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new MaintenanceDetailNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($md, 'json');
 
         return new Response($json);
     }
