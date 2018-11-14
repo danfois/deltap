@@ -116,12 +116,8 @@
 {% endblock %}
 
 {% block page_scripts %}
-    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
     <script src="{{ asset('assets/customjs/employees/driving_letters/driving_letters_view.js') }}"></script>
-    <script src="{{ asset('assets/customjs/validate_translations.js') }}"></script>
     <script>
         jQuery(document).ready(function(){
             GenericFormSubmission($('#form_driving_letter')).init();
