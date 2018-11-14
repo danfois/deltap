@@ -94,19 +94,11 @@
     </div>
 {% endblock %}
 
-{% block modals %}
-    {% include('includes/generic_modal.html.twig') %}
-{% endblock %}
-
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
     <script src="{{ asset('assets/customjs/generateInvoiceUrl.js') }}"></script>
     <script src="{{ asset('assets/customjs/loans/loans_list.js') }}"></script>
-    <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
     <script>
 
         jQuery(document).ready(function () {

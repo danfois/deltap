@@ -104,6 +104,7 @@
 {% endblock %}#}
 
 {% block modals %}
+    {% include('includes/generic_modal.html.twig') %}
 {% endblock %}
 
 {% block javascripts %}
@@ -119,6 +120,14 @@
 
     {% block page_scripts %}
         <script src="{{ asset('assets/app/js/dashboard.js') }}" type="text/javascript"></script>
+    {% endblock %}
+
+    {% block standard_scripts %}
+        <script src="{{ asset('assets/customjs/genericDelete.js') }}"></script>
+        <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}"></script>
+        <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
+        <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
+        <script src="{{ asset('assets/customjs/validate_translations.js') }}"></script>
     {% endblock %}
 
 {% endblock %}

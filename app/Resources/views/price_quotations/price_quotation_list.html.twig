@@ -116,19 +116,12 @@
     </div>
 {% endblock %}
 
-{% block modals %}
-    {% include('includes/generic_modal.html.twig') %}
-{% endblock %}
-
 
 {% block page_scripts %}
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}"></script>
     <script src="{{ asset('assets/customjs/generateInvoiceUrl.js') }}"></script>
     <script src="{{ asset('assets/customjs/price_quotations/price_quotation_list.js') }}"></script>
     <script src="{{ asset('assets/customjs/price_quotations/price_quotation.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/customjs/generic_modal.js') }}"></script>
-    <script src="{{ asset('assets/customjs/genericAjaxRequest.js') }}"></script>
     <script>
 
         jQuery(document).ready(function () {
