@@ -23,14 +23,9 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+            pattern: ^/
+            # other settings
+            anonymous:    true
 
             form_login:
               login_path: login
@@ -49,3 +44,7 @@ security:
               delete_cookies:
                     a: { path: null, domain: null }
                     b: { path: null, domain: null }
+
+    access_control:
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/, role: ROLE_ADMIN }
