@@ -143,6 +143,13 @@ var MaintenanceList = function () {
                     title: 'Date'
                 },
                 {
+                    field: 'invoice',
+                    title: 'Fattura',
+                    template: function(row) {
+                        return '<a href="edit-received-invoice-'+row.invoice+'"><span class="m-badge m-badge--info m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-info">'+row.invoice+'</span></span></a>';
+                    }
+                },
+                {
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',
@@ -151,6 +158,14 @@ var MaintenanceList = function () {
                     template: function (row, index, datatable) {
                         var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
+                        \<div class="dropdown ' + dropup + '">\
+							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
+                                <i class="la la-ellipsis-h"></i>\
+                            </a>\
+						  	<div class="dropdown-menu dropdown-menu-right">\
+						    	<a class="dropdown-item" href="generate-invoice?type=received&datatype=maintenance&data=['+row.idv+']"><i class="la la-file"></i> Registra Fattura</a>\
+						  	</div>\
+						</div>\
 						<a href="edit-maintenance-'+row.idv+'" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Scheda Manutenzione">\
 							<i class="la la-edit"></i>\
 						</a>\

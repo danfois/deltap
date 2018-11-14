@@ -46,7 +46,7 @@ var PriceQuotation = function () {
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
                         mApp.unblockPage();
-                        setTimeout(window.location.href = 'create-price-quotation-detail-' + response, 2500);
+                        setTimeout(window.location.href =  window.location.origin + '/create-price-quotation-detail-' + response, 2500);
                         $('.m_datatable').mDatatable('reload');
                     },
                     error: function (e) {

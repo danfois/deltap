@@ -21,7 +21,8 @@ class MaintenanceNormalizer implements NormalizerInterface
                     'provider' => $o->getProvider()->getBusinessName(),
                     'employee' => ($o->getEmployee() != null ? $o->getEmployee()->getName() . ' ' . $o->getEmployee()->getSurname() : ''),
                     'km' => $o->getStartKm(),
-                    'startDate' => $o->getStartDate()->format('d-m-Y')
+                    'startDate' => $o->getStartDate()->format('d-m-Y'),
+                    'invoice' => ($o->getInvoice() != null ? $o->getInvoice()->getInvoiceId() : '')
                 ];
             }
         }

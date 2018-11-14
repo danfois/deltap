@@ -32,7 +32,7 @@ var PriceQuotationList = function () {
                             type: "remote",
                             source: {
                                 read: {
-                                    url: "json/price-quotation-details",
+                                    url: window.location.origin + "/json/price-quotation-details",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
                                     params: {'id': t.data.idv}
                                 }
@@ -225,7 +225,7 @@ var PriceQuotationList = function () {
                 },
                 {
                     field: 'Actions',
-                    width: 110,
+                    width: 150,
                     title: 'Azioni',
                     sortable: false,
                     overflow: 'visible',
@@ -239,7 +239,7 @@ var PriceQuotationList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '"><i class="la la-edit"></i> Modifica Preventivo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Preventivo</a>\
-						    	<a class="dropdown-item" href="create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
+						    	<a class="dropdown-item" href="' + window.location.origin + '/create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'Invierà per email il preventivo al destinatario. Il preventivo sarà compreso di un file pdf per ogni itinerario, e della `lettera` che sarà il testo della mail\')"><i class="la la-envelope"></i> Invia al Destinatario</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 3}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Preventivo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 4}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Annulla Preventivo</a>\
@@ -248,6 +248,9 @@ var PriceQuotationList = function () {
 						</div>\
 						<a href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Preventivo">\
 							<i class="la la-edit"></i>\
+						</a>\
+						\<a href="' + window.location.origin + '/create-price-quotation-detail-' + row.idv + ' " onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Aggiungi Itinerario">\
+							<i class="la la-plus-circle"></i>\
 						</a>\
 						<a href="javascript:void(0);" onclick="alert(\'Questo pulsante servirà per stampare a video il pdf del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Preventivo">\
 							<i class="la la-eye"></i>\
