@@ -3,7 +3,7 @@
 namespace AppBundle\Form\PriceQuotation;
 
 use AppBundle\Entity\PriceQuotation\Demand;
-use AppBundle\Form\DataTransformer\StringToDateTransformer;
+use AppBundle\Form\DataTransformer\StringToDateTimeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,7 +16,7 @@ class DemandType extends AbstractType
 {
     protected $transformer;
 
-    public function __construct(StringToDateTransformer $transformer)
+    public function __construct(StringToDateTimeTransformer $transformer)
     {
         $this->transformer = $transformer;
     }

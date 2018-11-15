@@ -63,4 +63,88 @@ class DemandController extends Controller
 
         return new Response('Non sei autorizzato a fare questa operazione', 500);
     }
+
+    /**
+     * @Route("edit-demand-{n}", name="edit_demand")
+     */
+    public function editDemandAction(int $n)
+    {
+        $d = $this->getDoctrine()->getRepository(Demand::class)->find($n);
+        if($d == null) return new Response('Richiesta non trovata', 404);
+
+        $form = $this->createForm(DemandType::class, $d);
+
+        $html = $this->renderView('price_quotations/demand_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_edit_demand', array('n' => $n)),
+            'edit' => '_edit'
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Modifica Richiesta',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/delete-demand-{n}", name="ajax_delete_demand")
+     */
+    public function ajaxDeleteDemandAction(int $n)
+    {
+        $d = $this->getDoctrine()->getRepository(Demand::class)->find($n);
+        if($d == null) return new Response('Richiesta non trovata', 404);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($d);
+        $em->flush();
+
+        return new Response('Richiesta eliminata con successo!', 200);
+    }
+
+    /**
+     * @Route("ajax/edit-demand-{n}", name="ajax_edit_demand")
+     */
+    public function ajaxEditDemandAction(Request $request, int $n)
+    {
+        $d = $this->getDoctrine()->getRepository(Demand::class)->find($n);
+        if($d == null) return new Response('Richiesta non trovata', 404);
+
+        $form = $this->createForm(DemandType::class, $d);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $d = $form->getData();
+
+            $em->flush();
+
+            return new Response('Richiesta modificata con successo', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        return new Response('Non sei autorizzato a fare questa operazione', 500);
+    }
+
+    /**
+     * @Route("demand-list", name="demand_list")
+     */
+    public function demandListAction()
+    {
+        return $this->render('price_quotations/demand_list.html.twig', array(
+            'title' => 'Richieste Clienti',
+            'new_button_name' => 'Nuova Richiesta',
+            'new_button_path' => "javascript:genericModalFunction('GET', window.location.origin + '/create-demand', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_demand'} )"
+        ));
+    }
 }

@@ -16,6 +16,7 @@ use AppBundle\Entity\Loan\Loan;
 use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\Payment\BankAccount;
 use AppBundle\Entity\Payment\Payment;
+use AppBundle\Entity\PriceQuotation\Demand;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\Provider;
@@ -36,6 +37,7 @@ use AppBundle\Serializer\CarReviewViewNormalizer;
 use AppBundle\Serializer\CarTaxViewNormalizer;
 use AppBundle\Serializer\CurriculumViewNormalizer;
 use AppBundle\Serializer\CustomerNormalizer;
+use AppBundle\Serializer\DemandNormalizer;
 use AppBundle\Serializer\DocumentViewNormalizer;
 use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeUnavailabilityNormalizer;
@@ -559,6 +561,21 @@ class JsonController extends Controller
         $normalizers = [new MaintenanceDetailNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($md, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/demands", name="json_demands")
+     */
+    public function jsonDemandsAction()
+    {
+        $d = $this->getDoctrine()->getRepository(Demand::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new DemandNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($d, 'json');
 
         return new Response($json);
     }
