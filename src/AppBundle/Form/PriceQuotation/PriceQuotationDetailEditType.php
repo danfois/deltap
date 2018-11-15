@@ -70,6 +70,11 @@ class PriceQuotationDetailEditType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => array(new Valid()),
+            ))
+            ->add('price', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
             ));
     }
 

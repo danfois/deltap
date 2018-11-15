@@ -19,8 +19,48 @@ class DemandController extends Controller
         $d = new Demand();
         $form = $this->createForm(DemandType::class, $d);
 
-        return $this->render('DEBUG/show_form.html.twig', array(
-            'form' => $form->createView()
+        $html = $this->renderView('price_quotations/demand_form.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_create_demand')
         ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Nuova Richiesta',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/create-demand", name="ajax_create_demand")
+     */
+    public function ajaxCreateDemandAction(Request $request)
+    {
+        $d = new Demand();
+        $form = $this->createForm(DemandType::class, $d);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $d = $form->getData();
+
+            $em->persist($d);
+            $em->flush();
+
+            return new Response('Richiesta salvata con successo', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach ($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        return new Response('Non sei autorizzato a fare questa operazione', 500);
     }
 }

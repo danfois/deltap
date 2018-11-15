@@ -6,6 +6,12 @@ var initializeWidgets = function () {
         templates: {leftArrow: '<i class="la la-angle-left"></i>', rightArrow: '<i class="la la-angle-right"></i>'}
     });
 
+    $(".date_time_picker").datetimepicker({
+        todayHighlight: !0,
+        autoclose: !0,
+        format: "dd/mm/yyyy hh:ii"
+    });
+
     $(".time_picker").timepicker({
         minuteStep: 1,
         defaultTime: "",
@@ -36,3 +42,4 @@ var initializeWidgets = function () {
         maxboostedstep: 10
     });
 };
+
