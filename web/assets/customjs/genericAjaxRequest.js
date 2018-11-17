@@ -28,5 +28,7 @@ var genericAjaxRequest = function(method, url, data, callback) {
             mApp.unblockPage();
         }
     });
-    callback();
+    if(callback !== undefined) {
+        callback();
+    }
 };

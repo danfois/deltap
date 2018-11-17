@@ -3,6 +3,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation\Demand;
+use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Form\PriceQuotation\DemandType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -172,5 +173,21 @@ class DemandController extends Controller
         $em->flush();
 
         return new Response('Stato richiesta modificato con successo', 200);
+    }
+
+    /**
+     * @Route("set-demand-pq", name="set_demand_pq")
+     */
+    public function setDemandPq(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $demandId = $request->query->get('demand');
+        $pqId = $request->query->get('pq');
+        $pq = $em->getRepository(PriceQuotation::class)->find($pqId);
+        $demand = $em->getRepository(Demand::class)->find($demandId);
+
+        $demand->setPriceQuotation($pq);
+        $em->flush();
+        return new Response('Preventivo associato con successo', 200);
     }
 }

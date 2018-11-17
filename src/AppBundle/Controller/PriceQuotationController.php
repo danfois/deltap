@@ -323,6 +323,27 @@ class PriceQuotationController extends Controller
     }
 
     /**
+     * @Route("popup-create-price-quotation", name="popup_create_price_quotation")
+     */
+    public function popupCreatePriceQuotation()
+    {
+        $pq = new PriceQuotation();
+        $em = $this->getDoctrine()->getManager();
+        $pq->setCode(PriceQuotationUtils::generatePriceQuotationCode($em));
+        $pq->setPriceQuotationDate(new \DateTime());
+        $form = $this->createForm(PriceQuotationType::class, $pq);
+
+        $html = $this->renderView('price_quotations/price_quotation_form_from_demand.html.twig', array(
+            'form' => $form->createView()
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Creazione Preventivo',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
      * @Route("generate-letter", name="generate_letter")
      */
     public function generateLetterAction(Request $request)

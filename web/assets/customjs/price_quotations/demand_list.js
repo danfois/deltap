@@ -100,6 +100,7 @@ var DemandList = function () {
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="window.idDemand = '+row.idv+'; genericModalFunction(\'GET\', \'popup-create-price-quotation\', {}, {\'initializeWidgets\' : true, \'callbackInit\' : PriceQuotation});"><i class="la la-file"></i> Emetti Preventivo</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 1, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-warning"></i> Segna come Non Risolta</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 2, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-exclamation"></i> Segna come In Lavorazione</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 3, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Segna come Risolta</a>\
