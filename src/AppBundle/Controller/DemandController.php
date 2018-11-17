@@ -44,6 +44,8 @@ class DemandController extends Controller
             $em = $this->getDoctrine()->getManager();
             $d = $form->getData();
 
+            $d->setStatus(Demand::UNRESOLVED);
+
             $em->persist($d);
             $em->flush();
 
@@ -93,6 +95,8 @@ class DemandController extends Controller
     {
         $d = $this->getDoctrine()->getRepository(Demand::class)->find($n);
         if($d == null) return new Response('Richiesta non trovata', 404);
+
+        if($d->getPriceQuotation() != null) return new Response('Non puoi eliminare una richiesta associata ad un preventivo', 403);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($d);
@@ -146,5 +150,27 @@ class DemandController extends Controller
             'new_button_name' => 'Nuova Richiesta',
             'new_button_path' => "javascript:genericModalFunction('GET', window.location.origin + '/create-demand', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_demand'} )"
         ));
+    }
+
+    /**
+     * @Route("demand-status", name="demand_status")
+     */
+    public function demandStatusAction(Request $request)
+    {
+        $status = $request->query->get('status');
+        if(is_numeric($status) === false || !in_array($status, [1,2,3,4])) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $id = $request->query->get('id');
+        if(!is_numeric($id)) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $demand = $em->getRepository(Demand::class)->find($id);
+
+        if($demand == null) return new Response('Richiesta non trovata', 404);
+
+        $demand->setStatus($status);
+        $em->flush();
+
+        return new Response('Stato richiesta modificato con successo', 200);
     }
 }

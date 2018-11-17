@@ -10,6 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Demand
 {
+    const UNRESOLVED = 1;
+    const IN_PROGRESS = 2;
+    const RESOLVED = 3;
+    const ABORTED = 4;
+
     /**
      * @ORM\Column(type="integer", name="demandId")
      * @ORM\Id
@@ -57,6 +62,11 @@ class Demand
      * @ORM\Column(type="string", length=32, nullable=true, name="comunication")
      */
     protected $comunication;
+
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="status")
+     */
+    protected $status;
 
     /**
      * Get demandId
@@ -234,5 +244,29 @@ class Demand
     public function getComunication()
     {
         return $this->comunication;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Demand
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

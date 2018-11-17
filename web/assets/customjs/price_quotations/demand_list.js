@@ -74,6 +74,19 @@ var DemandList = function () {
                     }
                 },
                 {
+                    field: 'status',
+                    title: 'Stato',
+                    template: function (row) {
+                        var status = {
+                            1: {'title': 'Non Risolta', 'class': 'danger'},
+                            2: {'title': 'In Lavorazione', 'class': 'warning'},
+                            3: {'title': 'Risolta', 'class': 'success'},
+                            4: {'title': 'Annullata', 'class': 'metal'}
+                        };
+                        return '<span class="m-badge m-badge--' + status[row.status].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.status].class + '">' + status[row.status].title + '</span>';
+                    }
+                },
+                {
                     field: 'Actions',
                     width: 110,
                     title: 'Azioni',
@@ -82,6 +95,17 @@ var DemandList = function () {
                     template: function (row, index, datatable) {
                         var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
+                        \<div class="dropdown ' + dropup + '">\
+                                    <a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
+                                        <i class="la la-ellipsis-h"></i>\
+                                    </a>\
+                                    <div class="dropdown-menu dropdown-menu-right">\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 1, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-warning"></i> Segna come Non Risolta</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 2, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-exclamation"></i> Segna come In Lavorazione</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 3, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Segna come Risolta</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 4, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Segna come Annullata</a>\
+                                    </div>\
+                                </div>\
 						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'edit-demand-' + row.id + '\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_demand_edit\' });" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Richiesta">\
 							<i class="la la-edit"></i>\
 						</a>\

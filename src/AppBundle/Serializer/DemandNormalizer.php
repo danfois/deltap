@@ -22,7 +22,8 @@ class DemandNormalizer implements NormalizerInterface
                     'requestedBy' => $o->getRequestedBy(),
                     'receiver' => $o->getReceiver()->getUsername(),
                     'demandType' => $o->getDemandType(),
-                    'subject' => $o->getSubject()
+                    'subject' => $o->getSubject(),
+                    'status' => $o->getStatus()
                 ];
             }
         }
