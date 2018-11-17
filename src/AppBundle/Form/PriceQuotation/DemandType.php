@@ -39,6 +39,19 @@ class DemandType extends AbstractType
                     'class' => 'form-control m-input date_time_picker'
                 )
             ))
+            ->add('comunication', ChoiceType::class, array(
+                'choices' => array(
+                    'Telefono' => 'Telefono',
+                    'Email' => 'Email',
+                    'Fax' => 'Fax',
+                    'Verbale' => 'Verbale'
+                ),
+                'empty_data' => null,
+                'placeholder' => 'Scegli Modalità',
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                )
+            ))
             ->add('requestedBy', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'

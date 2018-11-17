@@ -328,7 +328,7 @@ class JsonController extends Controller
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findAll();
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ServiceOrderViewNormalizer()];
+        $normalizers = [new ServiceOrderViewNormalizer($this->getDoctrine()->getManager())];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($so, 'json');
 

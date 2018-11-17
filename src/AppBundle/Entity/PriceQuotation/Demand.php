@@ -54,6 +54,11 @@ class Demand
     protected $demandType;
 
     /**
+     * @ORM\Column(type="string", length=32, nullable=true, name="comunication")
+     */
+    protected $comunication;
+
+    /**
      * Get demandId
      *
      * @return integer
@@ -205,5 +210,29 @@ class Demand
     public function getReceiver()
     {
         return $this->receiver;
+    }
+
+    /**
+     * Set comunication
+     *
+     * @param string $comunication
+     *
+     * @return Demand
+     */
+    public function setComunication($comunication)
+    {
+        $this->comunication = $comunication;
+
+        return $this;
+    }
+
+    /**
+     * Get comunication
+     *
+     * @return string
+     */
+    public function getComunication()
+    {
+        return $this->comunication;
     }
 }

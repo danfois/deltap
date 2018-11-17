@@ -3,6 +3,7 @@ var ServiceOrderList = function () {
     var serviceOrderList = function () {
 
         var options = {
+
             data: {
                 type: 'remote',
                 source: {
@@ -24,6 +25,17 @@ var ServiceOrderList = function () {
             search: {
                 input: $('#generalSearch')
             },
+
+            rows: {
+                afterTemplate: function(row, data, index) {
+                    $(row).find('.driver_select').on('change', function () {
+                        var id = $(this).attr('data-so');
+                        var idUser = $(this).children("option:selected").val();
+                        genericAjaxRequestToastr('GET', 'ajax/assign-driver-' + id, {'idUser' : idUser });
+                    })
+                }
+            },
+
             columns: [
                 {
                     field: 'id',
@@ -91,7 +103,14 @@ var ServiceOrderList = function () {
                 },
                 {
                     field: 'time',
-                    title: 'Orari'
+                    title: 'Orari',
+                    template: function(row) {
+                        if(row.lessThanFive === 1) {
+                            return '<span class="m--font-danger">' + row.time + '</span>';
+                        } else {
+                            return '<span class="">' + row.time + '</span>';
+                        }
+                    }
                 },
                 {
                     field: 'passengers',

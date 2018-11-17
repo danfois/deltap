@@ -50,7 +50,8 @@ class StageType extends AbstractType
             ->add('km', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false
             ))
             ->add('passengers', TextType::class, array(
                 'attr' => array(

@@ -4,6 +4,7 @@ namespace AppBundle\Controller\ServiceOrder;
 
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
+use AppBundle\Entity\User;
 use AppBundle\Form\ServiceOrder\DriverAndVehicleType;
 use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
@@ -243,6 +244,27 @@ class ServiceOrderController extends Controller
             'modal_title' => 'Assegna Autista e Veicolo',
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("ajax/assign-driver-{n}", name="ajax_assign_driver")
+     */
+    public function ajaxAssignDriverAction(Request $request, int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $so = $em->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+
+        $driverId = $request->query->get('idUser');
+        if(is_numeric($driverId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $driver = $em->getRepository(User::class)->find($driverId);
+
+        $so->setDriver($driver);
+        $em->flush();
+
+        return new Response('Autista assegnato correttamente', 200);
     }
 
     /**

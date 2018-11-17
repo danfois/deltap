@@ -52,4 +52,163 @@ class Demand
      * @Assert\NotBlank(message="Demand type cannot be null")
      */
     protected $demandType;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true, name="comunication")
+     */
+    protected $comunication;
+
+    /**
+     * Get demandId
+     *
+     * @return integer
+     */
+    public function getDemandId()
+    {
+        return $this->demandId;
+    }
+
+    /**
+     * Set demandDateTime
+     *
+     * @param \DateTime $demandDateTime
+     *
+     * @return Demand
+     */
+    public function setDemandDateTime($demandDateTime)
+    {
+        $this->demandDateTime = $demandDateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get demandDateTime
+     *
+     * @return \DateTime
+     */
+    public function getDemandDateTime()
+    {
+        return $this->demandDateTime;
+    }
+
+    /**
+     * Set requestedBy
+     *
+     * @param string $requestedBy
+     *
+     * @return Demand
+     */
+    public function setRequestedBy($requestedBy)
+    {
+        $this->requestedBy = $requestedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get requestedBy
+     *
+     * @return string
+     */
+    public function getRequestedBy()
+    {
+        return $this->requestedBy;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     *
+     * @return Demand
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set demandType
+     *
+     * @param integer $demandType
+     *
+     * @return Demand
+     */
+    public function setDemandType($demandType)
+    {
+        $this->demandType = $demandType;
+
+        return $this;
+    }
+
+    /**
+     * Get demandType
+     *
+     * @return integer
+     */
+    public function getDemandType()
+    {
+        return $this->demandType;
+    }
+
+    /**
+     * Set priceQuotation
+     *
+     * @param \AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation
+     *
+     * @return Demand
+     */
+    public function setPriceQuotation(\AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation = null)
+    {
+        $this->priceQuotation = $priceQuotation;
+
+        return $this;
+    }
+
+    /**
+     * Get priceQuotation
+     *
+     * @return \AppBundle\Entity\PriceQuotation\PriceQuotation
+     */
+    public function getPriceQuotation()
+    {
+        return $this->priceQuotation;
+    }
+
+    /**
+     * Set receiver
+     *
+     * @param \AppBundle\Entity\User $receiver
+     *
+     * @return Demand
+     */
+    public function setReceiver(\AppBundle\Entity\User $receiver = null)
+    {
+        $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    /**
+     * Get receiver
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getReceiver()
+    {
+        return $this->receiver;
+    }
 }

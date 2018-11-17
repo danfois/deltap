@@ -7,7 +7,7 @@
 
             {{ form_widget(form._token) }}
 
-            <div class="col-lg-6 m-form__group-sub">
+            <div class="col-lg-4 m-form__group-sub">
                 <label>Preventivo:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.priceQuotation) }}
@@ -15,7 +15,7 @@
                 <span class="m-form__help">Facoltativo. Scegliere il preventivo oggetto della richiesta</span>
             </div>
 
-            <div class="col-lg-6 m-form__group-sub">
+            <div class="col-lg-4 m-form__group-sub">
                 <label>* Richiesta da:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.requestedBy) }}
@@ -23,6 +23,14 @@
                                     class="la la-user"></i></span></span>
                 </div>
                 <span class="m-form__help">Chi ha effettuato la richiesta</span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>Modalità:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.comunication) }}
+                </div>
+                <span class="m-form__help">Modalità con cui è stata eseguita la richiesta</span>
             </div>
 
         </div>
