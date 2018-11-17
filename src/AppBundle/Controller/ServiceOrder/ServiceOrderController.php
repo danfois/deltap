@@ -5,6 +5,7 @@ namespace AppBundle\Controller\ServiceOrder;
 use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\ServiceOrder\DriverAndVehicleType;
 use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
@@ -265,6 +266,27 @@ class ServiceOrderController extends Controller
         $em->flush();
 
         return new Response('Autista assegnato correttamente', 200);
+    }
+
+    /**
+     * @Route("ajax/assign-vehicle-{n}", name="ajax_assign_vehicle")
+     */
+    public function ajaxAssignVehicleAction(Request $request, int $n)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $so = $em->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+
+        $vehicleId = $request->query->get('idVehicle');
+        if(is_numeric($vehicleId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $vehicle = $em->getRepository(Vehicle::class)->find($vehicleId);
+
+        $so->setVehicle($vehicle);
+        $em->flush();
+
+        return new Response('Veicolo assegnato correttamente', 200);
     }
 
     /**

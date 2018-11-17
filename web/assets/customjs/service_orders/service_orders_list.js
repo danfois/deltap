@@ -32,7 +32,13 @@ var ServiceOrderList = function () {
                         var id = $(this).attr('data-so');
                         var idUser = $(this).children("option:selected").val();
                         genericAjaxRequestToastr('GET', 'ajax/assign-driver-' + id, {'idUser' : idUser });
-                    })
+                    });
+
+                    $(row).find('.vehicle_select').on('change', function () {
+                        var id = $(this).attr('data-so');
+                        var idVehicle = $(this).children("option:selected").val();
+                        genericAjaxRequestToastr('GET', 'ajax/assign-vehicle-' + id, {'idVehicle' : idVehicle });
+                    });
                 }
             },
 

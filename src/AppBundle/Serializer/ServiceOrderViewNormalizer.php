@@ -3,6 +3,7 @@
 namespace AppBundle\Serializer;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Vehicle\Vehicle;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -23,7 +24,12 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
         $this->employees = $this->em->getRepository(User::class)->findAll();
     }
 
-    protected function prepareOptions($id)
+    public function getVehicleSelect()
+    {
+        $this->vehicles = $this->em->getRepository(Vehicle::class)->findAll();
+    }
+
+    protected function prepareUserOptions($id)
     {
         $options = null;
         $options .= '<option value="">Nessuno</option>';
@@ -39,11 +45,28 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
         return $options;
     }
 
+    protected function prepareVehicleOptions($id)
+    {
+        $options = null;
+        $options .= '<option value="">Nessuno</option>';
+
+        foreach($this->vehicles as $e) {
+            if($id === $e->getVehicleId()) {
+                $options .= '<option selected="selected" value=' . $e->getVehicleId() . '>' . $e->getPlate() . ' </option>';
+            } else {
+                $options .= '<option value="' . $e->getVehicleId() . '">' . $e->getPlate() .  ' </option>';
+            }
+        }
+
+        return $options;
+    }
+
     public function normalize($object, $format = null, array $context = array())
     {
         $r = array();
 
         $this->getEmployeeSelect();
+        $this->getVehicleSelect();
 
         foreach($object as $o) {
             if($o instanceof ServiceOrder) {
@@ -67,8 +90,9 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'time' => $o->getStartTime() . ' - ' . $o->getEndTime(),
                     'lessThanFive' => $totalTime,
 //                    'driver' => ($o->getDriver() != null ? $o->getDriver()->getUsername() : 'Nessuno'),
-                    'driver' => '<select class="driver_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareOptions($o->getDriver() != null ? $o->getDriver()->getIdUser() : '') . '</select>',
-                    'vehicle' => ($o->getVehicle() != null ? $o->getVehicle()->getPlate() : 'Nessuno'),
+                    'driver' => '<select class="driver_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareUserOptions($o->getDriver() != null ? $o->getDriver()->getIdUser() : '') . '</select>',
+                    'vehicle' => '<select class="vehicle_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareVehicleOptions($o->getVehicle() != null ? $o->getVehicle()->getVehicleId() : '') . '</select>',
+                    //'vehicle' => ($o->getVehicle() != null ? $o->getVehicle()->getPlate() : 'Nessuno'),
                     'price' => $o->getPrice(),
                     'frequency' => $o->getServiceFrequency()->getServiceName(),
                     'service' => $o->getService()->getService(),
