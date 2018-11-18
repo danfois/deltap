@@ -25,7 +25,8 @@ class IssuedInvoiceType extends InvoiceType
                 'placeholder' => 'Scegli il Preventivo',
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('invoiceDetails', CollectionType::class, array(
                 'entry_type' => InvoiceDetailType::class,
@@ -40,7 +41,9 @@ class IssuedInvoiceType extends InvoiceType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'placeholder' => 'Scegli Cliente',
+                'required' => true
             ))
             ->add('isProforma', CheckboxType::class, array(
                 'attr' => array(

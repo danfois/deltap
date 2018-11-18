@@ -45,6 +45,12 @@ class ProviderType extends AbstractType
                     'class' => 'form-control m-input'
                 )
             ))
+            ->add('pec', EmailType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
+            ))
             ->add('vat', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'

@@ -28,7 +28,9 @@ class ReceivedInvoiceType extends InvoiceType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'placeholder' => 'Scegli Fornitore',
+                'required' => true
             ));
     }
 

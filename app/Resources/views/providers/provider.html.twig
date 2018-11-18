@@ -160,7 +160,7 @@
                                 <h3 class="m-form__heading-title">3. Recapiti</h3>
                             </div>
                             <div class="form-group m-form__group row">
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>* Email:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.email) }}
@@ -169,7 +169,16 @@
                                     </div>
                                     <span class="m-form__help">Inserire l'indirizzo email del fornitore</span>
                                 </div>
-                                <div class="col-lg-6 m-form__group-sub">
+                                <div class="col-lg-4 m-form__group-sub">
+                                    <label>Pec:</label>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        {{ form_widget(form.pec) }}
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                        class="la la-envelope"></i></span></span>
+                                    </div>
+                                    <span class="m-form__help">Inserire l'indirizzo pec del fornitore</span>
+                                </div>
+                                <div class="col-lg-4 m-form__group-sub">
                                     <label>Telefono:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.phone) }}

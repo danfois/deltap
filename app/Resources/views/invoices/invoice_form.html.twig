@@ -66,6 +66,21 @@
                                     <span class="m-form__help">Metodo di pagamento per questa fattura</span>
                                 </div>
 
+                                {% if type == 'received' %}
+
+                                    <div class="col-lg-3 m-form__group-sub">
+                                        <label>&nbsp;</label><br>
+                                        <div class="btn-md btn btn-warning m-btn m-btn--icon m-btn--gradient-to-metal">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span><a href="{{ path('create_provider') }}"
+                                                     style="color:inherit; text-decoration: inherit;" target="_blank">Nuovo Fornitore</a></span>
+                                        </span>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+
                                 {% if form.priceQuotation is defined %}
 
                                     <div class="col-lg-3 m-form__group-sub">

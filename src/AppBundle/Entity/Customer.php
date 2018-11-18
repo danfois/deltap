@@ -69,6 +69,12 @@ class Customer
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=true, name="pec")
+     * @Assert\Email(message="The pec address you provided is not valid.", checkMX=false)
+     */
+    private $pec;
+
+    /**
      * @ORM\Column(type="string", length=12, nullable=true, name="vat")
      * @Assert\Length(
      *     max=12,
@@ -438,5 +444,29 @@ class Customer
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set pec
+     *
+     * @param string $pec
+     *
+     * @return Customer
+     */
+    public function setPec($pec)
+    {
+        $this->pec = $pec;
+
+        return $this;
+    }
+
+    /**
+     * Get pec
+     *
+     * @return string
+     */
+    public function getPec()
+    {
+        return $this->pec;
     }
 }
