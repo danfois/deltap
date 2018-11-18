@@ -1,0 +1,27 @@
+<div class="row m--padding-20">
+    <div class="col-md-12">
+        <table class="table m-table m-table--head-separator-primary details-table">
+            <thead>
+            <tr>
+                <th>Data / Ora</th>
+                <th>Chiesta da</th>
+                <th>Ricevuta Da</th>
+                <th>Mezzo</th>
+                <th>Oggetto</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in demands %}
+                <tr>
+                    <td>{{ d.demandDateTime|date('d-m-Y H:i') }}</td>
+                    <td>{{ d.requestedBy }}</td>
+                    <td>{{ d.receiver.username }}</td>
+                    <td>{{ d.comunication }}</td>
+                    <td>{{ d.subject }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+

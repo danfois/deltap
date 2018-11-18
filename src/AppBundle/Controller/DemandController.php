@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\PriceQuotation\Demand;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Form\PriceQuotation\DemandType;
+use AppBundle\Util\TableMaker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -189,5 +190,26 @@ class DemandController extends Controller
         $demand->setPriceQuotation($pq);
         $em->flush();
         return new Response('Preventivo associato con successo', 200);
+    }
+
+    /**
+     * @Route("associated-demands-{n}", name="associated_demands")
+     */
+    public function associatedDemandsAction(int $n)
+    {
+        $d = $this->getDoctrine()->getRepository(Demand::class)->findBy(array(
+            'priceQuotation' => $n
+        ));
+
+        if($d == null) return new Response('Nessuna richiesta trovata per questo preventivo', 404);
+
+        $html = $this->renderView('price_quotations/demand_details.html.twig', array(
+            'demands' => $d
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Richieste associate',
+            'modal_content' => $html
+        ));
     }
 }
