@@ -106,6 +106,18 @@ var PriceQuotationList = function () {
                                 }
                             },
                             {
+                                field: 'status',
+                                title: 'Stato',
+                                template: function (row) {
+                                    if(row.status === undefined) return '';
+                                    var status = {
+                                        1: {'title': 'Non Confermato', 'class': 'warning'},
+                                        2: {'title': 'Confermato', 'class': 'success'}
+                                    };
+                                    return '<span class="m-badge m-badge--' + status[row.status].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.status].class + '">' + status[row.status].title + '</span>';
+                                }
+                            },
+                            {
                                 field: 'Actions',
                                 width: 110,
                                 title: 'Azioni',
@@ -120,6 +132,8 @@ var PriceQuotationList = function () {
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
                                         <a class="dropdown-item" href="' + window.location.origin + '/edit-pq-detail-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 2}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Itinerario</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 1}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Rimuovi Conferma</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
                                         <a class="dropdown-item" href="/confirm-service-orders-' + row.idv +'" onclick=""><i class="la la-list-alt"></i> Emetti Ordini di Servizio</a>\
                                     </div>\

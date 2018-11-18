@@ -527,4 +527,25 @@ class PriceQuotationController extends Controller
 
         return new Response('Preventivo ' . $possibleStatusArray[$status] . ' con successo!', 200);
     }
+
+    /**
+     * @Route("change-price-quotation-detail-status", name="change_price_quotation_detail_status")
+     */
+    public function changePqdStatusAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $id = $request->query->get('id');
+        $status = $request->query->get('status');
+
+        if(!is_numeric($id) || !in_array($status, [1,2,3])) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $pqd = $em->getRepository(PriceQuotationDetail::class)->find($id);
+        if($pqd == null) return new Response('Itinerario non trovato', 404);
+
+        $pqd->setStatus($status);
+        $em->flush();
+
+        return new Response('Status preventivo modificato', 200);
+    }
 }

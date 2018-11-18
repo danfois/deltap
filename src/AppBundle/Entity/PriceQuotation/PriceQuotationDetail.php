@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PriceQuotationDetail
 {
+    const UNCONFIRMED = 1;
+    const CONFIRMED = 2;
+
     /**
      * @ORM\Column(type="integer", name="priceQuotationDetailId")
      * @ORM\Id
@@ -68,6 +71,11 @@ class PriceQuotationDetail
      * @Assert\NotBlank(message="Price must not be null")
      */
     protected $price;
+
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=true, name="status")
+     */
+    protected $status;
 
     /**
      * Constructor
@@ -303,5 +311,29 @@ class PriceQuotationDetail
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
