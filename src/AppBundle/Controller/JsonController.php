@@ -25,6 +25,7 @@ use AppBundle\Entity\PurchaseOrder\PurchaseOrderDetail;
 use AppBundle\Entity\Salary\Salary;
 use AppBundle\Entity\Salary\SalaryDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
+use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\CarTax;
 use AppBundle\Entity\Vehicle\Insurance;
@@ -61,6 +62,7 @@ use AppBundle\Serializer\SalaryDetailNormalizer;
 use AppBundle\Serializer\SalaryNormalizer;
 use AppBundle\Serializer\ServiceOrderViewNormalizer;
 use AppBundle\Serializer\UnavailabilityViewNormalizer;
+use AppBundle\Serializer\UserNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +74,21 @@ use AppBundle\Serializer\VehicleViewNormalizer;
 
 class JsonController extends Controller
 {
+    /**
+     * @Route("json/users", name="users_json")
+     */
+    public function jsonUsersAction()
+    {
+        $u = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new UserNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($u, 'json');
+
+        return new Response($json);
+    }
+
     /**
      * @Route("json/customers", name="customers_json")
      */

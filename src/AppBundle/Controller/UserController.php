@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-
-    //TODO: AGGIUNGERE CRUD
-
     /**
      * @Route("create-user", name="create_user")
      */
@@ -52,5 +49,32 @@ class UserController extends Controller
         }
 
         return new Response('OK', 200);
+    }
+
+    /**
+     * @Route("edit-user-{n}", name="edit_user")
+     */
+    public function editUserAction(int $n)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($n);
+        if($user == null) return new Response('Utente non trovato', 404);
+
+        $form = $this->createForm(CreateUserType::class, $user);
+
+        return $this->render('users/create_user.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("users-list", name="users_list")
+     */
+    public function userListAction()
+    {
+        return $this->render('users/user_list.html.twig', array(
+            'title' => 'Utenti',
+            'new_button_name' => 'Nuovo Utente',
+            'new_button_path' => $this->generateUrl('create_user')
+        ));
     }
 }

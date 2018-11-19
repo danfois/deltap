@@ -1,0 +1,11 @@
+{% extends('BASE/base_list.html.twig') %}
+
+{% block extended_page_scripts %}
+    <script src="{{ asset('assets/customjs/user_list.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            initializeWidgets();
+            UserList.init();
+        });
+    </script>
+{% endblock %}

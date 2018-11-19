@@ -468,7 +468,7 @@ class PriceQuotationController extends Controller
         $response = $DM->getResult();
 
         if($startFromCompany !== false && is_array($response) !== false) {
-            $sfc = new DistanceMatrixAPI('Nuoro', $startPoint, 'json', true);
+            $sfc = new DistanceMatrixAPI('Pratosardo, via Caruledda', $startPoint, 'json', true);
             $sfc->generateRequestUrl();
             $sfcResult = $sfc->getResult();
 

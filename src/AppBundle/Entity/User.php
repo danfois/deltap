@@ -68,6 +68,12 @@ class User implements UserInterface
      */
     private $registration_date;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId", nullable=true)
+     */
+    private $employee;
+
 
     /**
      * Set username
@@ -224,5 +230,29 @@ class User implements UserInterface
     public function getRegistrationDate()
     {
         return $this->registration_date;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return User
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
     }
 }

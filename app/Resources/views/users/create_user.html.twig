@@ -24,7 +24,7 @@
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
                         <div class="form-group m-form__group row">
-                            <div class="col-lg-6 form-group m-form__group-sub">
+                            <div class="col-lg-4 form-group m-form__group-sub">
                                 <label for="example_input_full_name">
                                     * Username:
                                 </label>
@@ -34,13 +34,23 @@
 													</span>
                             </div>
 
-                            <div class="col-lg-6 form-group m-form__group-sub">
+                            <div class="col-lg-4 form-group m-form__group-sub">
                                 <label for="example_input_full_name">
                                     * Password:
                                 </label>
                                 {{ form_widget(form.password) }}
                                 <span class="m-form__help">
 														Inserire una password da 4 a 16 cifre.
+													</span>
+                            </div>
+
+                            <div class="col-lg-4 form-group m-form__group-sub">
+                                <label for="example_input_full_name">
+                                    * Dipendente:
+                                </label>
+                                {{ form_widget(form.employee) }}
+                                <span class="m-form__help">
+														Scegliere il dipendente da associare a questo account.
 													</span>
                             </div>
                         </div>

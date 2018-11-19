@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 use AppBundle\Entity\User;
 use AppBundle\Form\DataTransformer\StringToArrayTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,8 +38,19 @@ class CreateUserType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
+            )))
+            ->add('employee', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Employee\Employee',
+                'choice_label' => function($e) {
+                    return $e->getName() . ' ' . $e->getSurname();
+                },
+                'empty_data' => null,
+                'placeholder' => 'Scegli Dipendente',
+                'attr' => array(
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
             ))
-            /*->addModelTransformer($transformer)*/)
             ->add('status', CheckboxType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input',
