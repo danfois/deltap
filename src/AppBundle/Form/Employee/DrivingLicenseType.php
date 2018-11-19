@@ -27,6 +27,7 @@ class DrivingLicenseType extends DrivingDocumentType
                     return $choice->getName() . ' ' . $choice->getSurname();
                 },
                 'empty_data' => null,
+                'placeholder' => 'Scegli Dipendente',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 )
@@ -42,7 +43,8 @@ class DrivingLicenseType extends DrivingDocumentType
                     'class' => 'form-control m-input',
                     'multiple' => 'multiple'
                 ),
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ));
     }
 
