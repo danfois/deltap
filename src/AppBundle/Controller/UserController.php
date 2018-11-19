@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\CreateUserType;
+use AppBundle\Form\EmployeeToUser;
 use AppBundle\Helper\User\UserCreationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -76,5 +77,74 @@ class UserController extends Controller
             'new_button_name' => 'Nuovo Utente',
             'new_button_path' => $this->generateUrl('create_user')
         ));
+    }
+
+    /**
+     * @Route("employee-to-user-{n}", name="employee_to_user")
+     */
+    public function employeeToUser(int $n)
+    {
+        $u = $this->getDoctrine()->getRepository(User::class)->find($n);
+        if($u == null) return new Response('Utente non trovato', 404);
+
+        $form = $this->createForm(EmployeeToUser::class, $u);
+
+        $html = $this->renderView('users/employee_to_user.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_employee_to_user', array(
+                'n' => $n
+            ))
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Associa Dipendente a ' . $u->getUsername(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/employee-to-user-{n}", name="ajax_employee_to_user")
+     */
+    public function ajaxEmployeeToUser(Request $request, int $n)
+    {
+        $u = $this->getDoctrine()->getRepository(User::class)->find($n);
+        if($u == null) return new Response('Utente non trovato', 404);
+
+        $form = $this->createForm(EmployeeToUser::class, $u);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $u = $form->getData();
+
+            $em->flush();
+            return new Response('Dipendente associato con successo!', 200);
+        }
+
+        return new Response('Errore durante la associazione del dipendente', 500);
+    }
+
+    /**
+     * @Route("change-user-status", name="change_user_status")
+     */
+    public function changeUserStatusAction(Request $request)
+    {
+        $id = $request->query->get('id');
+        $status = $request->query->get('status');
+
+        $possibleStatus = [0,1,2];
+
+        if(!is_numeric($id) || $id == null || !in_array($status, $possibleStatus)) return new Response('Richiesta effettuata in maniera non corretta', 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $u = $em->getRepository(User::class)->find($id);
+
+        if($u == null) return new Response('Utente non trovato', 404);
+
+        $u->setStatus($status);
+        $em->flush();
+
+        return new Response('Status modificato con successo', 200);
     }
 }

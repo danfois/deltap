@@ -30,12 +30,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=4096, nullable=false)
      * @Assert\NotBlank(message="You must provide a valid password")
-     * @Assert\Length(
-     *     min = 8,
-     *     max = 16,
-     *     minMessage = "Password has to be long at least 8 chars",
-     *     maxMessage = "Password cannot exceed 16 chars"
-     * )
      */
     private $password;
 

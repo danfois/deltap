@@ -69,19 +69,11 @@ var UserList = function () {
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="window.idDemand = '+row.idv+'; genericModalFunction(\'GET\', \'popup-create-price-quotation\', {}, {\'initializeWidgets\' : true, \'callbackInit\' : PriceQuotation});"><i class="la la-file"></i> Emetti Preventivo</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 1, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-warning"></i> Segna come Non Risolta</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 2, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-exclamation"></i> Segna come In Lavorazione</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 3, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Segna come Risolta</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'demand-status\', {\'status\' : 4, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Segna come Annullata</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-to-user-'+row.idv+'\', {}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_employee_to_user\'});"><i class="la la-user-plus"></i> Associa Dipendente</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-user-status\', {\'status\' : 1, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Imposta come Attivo</a>\
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-user-status\', {\'status\' : 0, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Imposta come Disattivo</a>\
                                     </div>\
                                 </div>\
-						<a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'edit-demand-' + row.id + '\', {\'id\': \'' + row.id + '\'}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_demand_edit\' });" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Richiesta">\
-							<i class="la la-edit"></i>\
-						</a>\
-						<a href="javascript:void(0);" onclick="genericDelete(\'ajax/delete-demand-' + row.idv +'\', \'Richiesta NON eliminata!\', {} )" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Richiesta">\
-							<i class="la la-trash"></i>\
-						</a>\
 					';
                     }
                 }],
