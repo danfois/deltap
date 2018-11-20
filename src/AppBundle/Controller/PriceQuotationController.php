@@ -197,6 +197,7 @@ class PriceQuotationController extends Controller
             if($errors == null) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($PQD);
+                $PQD->setStatus(1);
 
                 foreach ($PQD->getStages() as $ss) {
                     $em->persist($ss);
