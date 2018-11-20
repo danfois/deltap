@@ -17,6 +17,12 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     protected $invoiceDetails;
 
     /**
+     * @ORM\Column(type="string", nullable=false, name="invoiceNumber")
+     * @Assert\NotBlank(message="Invoice Number cannot be null")
+     */
+    protected $invoiceNumber;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
      */
@@ -102,10 +108,10 @@ class ReceivedInvoice extends Invoice implements PayableInterface
         return $sum;
     }
 
-    public function getCausal()
-    {
-        return 'Pagamento Fattura Ricevuta N. ' . $this->getInvoiceNumber() . ' da ' . $this->getProvider()->getBusinessName();
-    }
+//    public function getCausal()
+//    {
+//        return 'Pagamento Fattura Ricevuta N. ' . $this->getInvoiceNumber() . ' da ' . $this->getProvider()->getBusinessName();
+//    }
 
     public function getDirection()
     {
@@ -135,4 +141,38 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     /*
      * END OF PAYABLE INTERFACE METHODS
      */
+
+    /**
+     * Add payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     *
+     * @return ReceivedInvoice
+     */
+    public function addPayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments[] = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Remove payment
+     *
+     * @param \AppBundle\Entity\Payment\Payment $payment
+     */
+    public function removePayment(\AppBundle\Entity\Payment\Payment $payment)
+    {
+        $this->payments->removeElement($payment);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
 }

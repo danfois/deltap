@@ -30,11 +30,6 @@ class InvoiceType extends AbstractType
                     'class' => 'form-control m-input date_picker'
                 )
             ))
-            ->add('invoiceNumber', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input int_touch_spin'
-                )
-            ))
             ->add('causal', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'

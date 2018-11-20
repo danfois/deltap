@@ -6,6 +6,7 @@ use AppBundle\Entity\Invoice\IssuedInvoice;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,6 +28,11 @@ class IssuedInvoiceType extends InvoiceType
                     'class' => 'form-control m-input'
                 ),
                 'required' => false
+            ))
+            ->add('invoiceNumber', NumberType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input int_touch_spin'
+                )
             ))
             ->add('invoiceDetails', CollectionType::class, array(
                 'entry_type' => InvoiceDetailType::class,

@@ -17,6 +17,12 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     protected $invoiceDetails;
 
     /**
+     * @ORM\Column(type="string", nullable=false, name="invoiceNumber")
+     * @Assert\NotBlank(message="Invoice Number cannot be null")
+     */
+    protected $invoiceNumber;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
      */
@@ -168,5 +174,29 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     public function getPayments()
     {
         return $this->payments;
+    }
+
+    /**
+     * Set invoiceNumber
+     *
+     * @param string $invoiceNumber
+     *
+     * @return ReceivedInvoice
+     */
+    public function setInvoiceNumber($invoiceNumber)
+    {
+        $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNumber
+     *
+     * @return string
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoiceNumber;
     }
 }

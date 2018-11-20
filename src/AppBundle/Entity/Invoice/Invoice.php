@@ -25,14 +25,6 @@ abstract class Invoice
     protected $invoiceDate;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, name="invoiceNumber")
-     * @Assert\NotBlank(message="Invoice Number cannot be null")
-     */
-    protected $invoiceNumber;
-
-    //todo: inserire OneToMany per i pagamenti
-
-    /**
      * @ORM\Column(type="text", nullable=false, name="causal")
      * @Assert\NotBlank(message="Invoice causal cannot be null")
      */
@@ -93,24 +85,6 @@ abstract class Invoice
     public function setInvoiceDate($invoiceDate)
     {
         $this->invoiceDate = $invoiceDate;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInvoiceNumber()
-    {
-        return $this->invoiceNumber;
-    }
-
-    /**
-     * @param mixed $invoiceNumber
-     * @return Invoice
-     */
-    public function setInvoiceNumber($invoiceNumber)
-    {
-        $this->invoiceNumber = $invoiceNumber;
         return $this;
     }
 

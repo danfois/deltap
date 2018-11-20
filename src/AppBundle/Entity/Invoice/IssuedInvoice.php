@@ -23,6 +23,12 @@ class IssuedInvoice extends Invoice implements PayableInterface
     protected $invoiceDetails;
 
     /**
+     * @ORM\Column(type="integer", nullable=false, name="invoiceNumber")
+     * @Assert\NotBlank(message="Invoice Number cannot be null")
+     */
+    protected $invoiceNumber;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
      */
@@ -255,5 +261,29 @@ class IssuedInvoice extends Invoice implements PayableInterface
     public function getProformaNumber()
     {
         return $this->proformaNumber;
+    }
+
+    /**
+     * Set invoiceNumber
+     *
+     * @param integer $invoiceNumber
+     *
+     * @return IssuedInvoice
+     */
+    public function setInvoiceNumber($invoiceNumber)
+    {
+        $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNumber
+     *
+     * @return integer
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoiceNumber;
     }
 }
