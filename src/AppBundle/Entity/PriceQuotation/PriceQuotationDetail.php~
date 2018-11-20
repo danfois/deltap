@@ -78,6 +78,12 @@ class PriceQuotationDetail
     protected $status;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\PriceQuotation\Attachment")
+     * @ORM\JoinColumn(name="attachmentId", referencedColumnName="attachmentId")
+     */
+    protected $attachment;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -311,5 +317,29 @@ class PriceQuotationDetail
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

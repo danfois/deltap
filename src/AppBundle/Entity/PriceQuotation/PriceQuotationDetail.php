@@ -78,6 +78,12 @@ class PriceQuotationDetail
     protected $status;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\PriceQuotation\Attachment", cascade={"persist"})
+     * @ORM\JoinColumn(name="attachmentId", referencedColumnName="attachmentId")
+     */
+    protected $attachment;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -335,5 +341,29 @@ class PriceQuotationDetail
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set attachment
+     *
+     * @param \AppBundle\Entity\PriceQuotation\Attachment $attachment
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setAttachment(\AppBundle\Entity\PriceQuotation\Attachment $attachment = null)
+    {
+        $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    /**
+     * Get attachment
+     *
+     * @return \AppBundle\Entity\PriceQuotation\Attachment
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
     }
 }

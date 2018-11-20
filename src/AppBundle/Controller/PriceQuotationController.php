@@ -60,28 +60,6 @@ class PriceQuotationController extends Controller
     }
 
     /**
-     * @Route("create-price-quotation-ajax-test", name="create_price_quotation_ajax_test")
-     */
-    public function createPriceQuotationAjaxTest(Request $request)
-    {
-        $PQ = new PriceQuotation();
-        $form = $this->createForm(PriceQuotationType::class, $PQ);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $data = $form->getData();
-
-            return $this->render('DEBUG/form_data.html.twig', array(
-                'data' => $data,
-                'title' => 'DEBUG di preventivo'
-            ));
-        }
-
-        return new Response('NON VA BENE', 200);
-    }
-
-    /**
      * @Route("create-price-quotation-ajax", name="create_price_quotation_ajax")
      */
     public function createPriceQuotationAjaxAction(Request $request)
@@ -177,14 +155,6 @@ class PriceQuotationController extends Controller
         $form = $this->createForm(PriceQuotationDetailType::class, $PQD);
 
         $form->handleRequest($request);
-
-        /*if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            return $this->render('DEBUG/form_data.html.twig', array(
-                'data' => $data,
-                'title' => 'Price Quotation Detail Debug'
-            ));
-        }*/
 
         if ($form->isSubmitted() && $form->isValid()) {
             $PQD = $form->getData();

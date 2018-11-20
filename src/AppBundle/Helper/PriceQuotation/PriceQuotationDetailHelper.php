@@ -24,6 +24,7 @@ class PriceQuotationDetailHelper
     {
         if($this->isEdited === false) $this->setBaseOrderEmitted();
         $this->iterateStages();
+        $this->prepareAndUploadAttachment();
         $this->executed = 1;
     }
 
@@ -31,6 +32,18 @@ class PriceQuotationDetailHelper
     {
         if($this->executed === 0) throw new \Exception('Class not executed - PriceQuotationDetailHelper::getErrors()');
         return $this->errors;
+    }
+
+    protected function prepareAndUploadAttachment()
+    {
+        $f = $this->priceQuotationDetail->getAttachment();
+        if($f != null) {
+            if($f->getFile() != null) {
+                $this->priceQuotationDetail->setAttachment($f);
+                $f->setName($this->priceQuotationDetail->getName() . '_allegato_' . substr(md5(rand(1, 100)), 0, 8) . '.' . $f->getFile()->guessExtension());
+                $f->upload();
+            }
+        }
     }
 
     protected function setBaseOrderEmitted()
