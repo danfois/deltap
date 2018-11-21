@@ -147,6 +147,11 @@ class ServiceOrder implements InvoiceDetailInterface
      */
     protected $directionsLink;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="problems")
+     */
+    protected $problems;
+
 
 
 
@@ -701,4 +706,28 @@ class ServiceOrder implements InvoiceDetailInterface
         return $this->getDepartureDate()->format('d/m/Y') . ' - Ordine di Servizio n. ' . $this->getServiceOrder() . ' da ' . $this->getDepartureLocation() . ' a ' . $this->getArrivalLocation();
     }
 
+
+    /**
+     * Set problems
+     *
+     * @param string $problems
+     *
+     * @return ServiceOrder
+     */
+    public function setProblems($problems)
+    {
+        $this->problems = $problems;
+
+        return $this;
+    }
+
+    /**
+     * Get problems
+     *
+     * @return string
+     */
+    public function getProblems()
+    {
+        return $this->problems;
+    }
 }

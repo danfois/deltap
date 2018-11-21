@@ -90,7 +90,7 @@
                                             <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
-                                        <a href="#" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                        <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -150,8 +150,7 @@
                                             <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
-                                        <a href="javascript:alert('In Lavorazione')" class="btn btn-danger"><i
-                                                    class="la la-close"></i> Segnala Problemi</a>
+                                        <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
                                     </td>
                                 </tr>
                                 </tbody>

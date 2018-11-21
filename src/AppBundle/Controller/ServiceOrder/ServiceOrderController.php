@@ -7,6 +7,7 @@ use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\ServiceOrder\DriverAndVehicleType;
+use AppBundle\Form\ServiceOrder\ProblemType;
 use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
 use AppBundle\Helper\ServiceOrder\ServiceOrderHelper;
@@ -56,8 +57,7 @@ class ServiceOrderController extends Controller
             }
             $em->flush();
 
-            //todo: fare il redirect alla lista degli ordini di servizio
-            return new Response('Ordini di Servizio Creati', 200);
+            return $this->redirectToRoute('service_orders_list');
         }
 
         $actionUrl = $this->generateUrl('confirm_service_orders', array('id' => $id, 'confirm' => 'confirm'));
@@ -161,9 +161,6 @@ class ServiceOrderController extends Controller
      */
     public function ajaxEditServiceOrderAction(Request $request, int $id, $assigning = false)
     {
-
-        //todo: se l'ordine è stato fatturato non può essere modificato per nessun motivo
-
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
         if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
@@ -317,6 +314,67 @@ class ServiceOrderController extends Controller
         $em->flush();
 
         return new Response('Ordine di Servizio impostato come ' . $possibleStatusArray[$status] . '!', 200);
+    }
+
+    /**
+     * @Route("report-problems-{n}", name="report_problems")
+     */
+    public function reportProblemsAction(int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+
+        $form = $this->createForm(ProblemType::class, $so);
+
+        return $this->render('service_orders/problems.html.twig', array(
+            'form' => $form->createView(),
+            'title' => 'Segnalazione Problemi per Ods N. ' . $so->getServiceOrder(),
+            'action_url' => $this->generateUrl('ajax_report_problems', array('n' => $n))
+        ));
+    }
+
+    /**
+     * @Route("ajax/report-problems-{n}", name="ajax_report_problems")
+     */
+    public function ajaxReportProblemsAction(Request $request, int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+
+        $form = $this->createForm(ProblemType::class, $so);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $so = $form->getData();
+
+            $em->flush();
+            return new Response('Segnalazione inviata con successo', 200);
+        }
+
+        return new Response('Errore durante la segnalazione dell\'errore', 500);
+    }
+
+    /**
+     * @Route("view-problems-{n}", name="view_problems")
+     */
+    public function viewProblemsAction(int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+
+        if($so->getProblems() == null) {
+            return $this->render('includes/generic_modal_content.html.twig', array(
+                'modal_title' => 'Problemi Ordine di Servizio n.' . $so->getServiceOrder(),
+                'modal_content' => '<h5 class="m--padding-20 m--font-success">Nessun problema per questo Ordine di Servizio</h5>'
+            ));
+        }
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Problemi Ordine di Servizio n.' . $so->getServiceOrder(),
+            'modal_content' => '<div class="m--padding-20">' . $so->getProblems() . '</div>'
+        ));
     }
 
 }
