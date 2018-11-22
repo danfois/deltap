@@ -42,7 +42,9 @@ var PriceQuotationList = function () {
                         layout: {
                             theme: "default",
                             scroll: !0,
-                            height: 300,
+
+                            height: fixChildTableHeight(),
+
                             footer: !1,
                             spinner: {type: 1, theme: "default"}
                         },
