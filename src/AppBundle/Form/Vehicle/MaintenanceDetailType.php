@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Vehicle;
 use AppBundle\Entity\Vehicle\MaintenanceDetail;
+use AppBundle\Entity\Vehicle\MaintenanceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,7 +16,11 @@ class MaintenanceDetailType extends AbstractType
         $builder
             ->add('maintenanceType', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Vehicle\MaintenanceType',
-                'choice_label' => 'maintenanceName',
+                'choice_label' => function($m) {
+                    if($m instanceof MaintenanceType) {
+                        return $m->getMaintenanceName() . ' ' . ($m->getDateInterval() != null ? $m->getDateInterval() : '') . ' ' . ($m->getKmInterval() != null ? (int)$m->getKmInterval() : '');
+                    }
+                },
                 'empty_data' => null,
                 'placeholder' => 'Tipo Manutenzione',
                 'attr' => array(

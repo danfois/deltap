@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Vehicle;
 use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -10,6 +11,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VehicleType extends AbstractType
 {
+    protected $transformer;
+
+    public function __construct(StringToDateTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -234,6 +242,8 @@ class VehicleType extends AbstractType
                 ),
                 'required' => false
             ));
+
+        $builder->get('fireExtinguisherExpiration')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

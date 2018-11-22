@@ -93,7 +93,6 @@ class VehicleController extends Controller
         $vehicle->setRegistrationCardDate($vehicle->getRegistrationCardDate()->format('d/m/Y'));
         $vehicle->setPurchaseDate($vehicle->getPurchaseDate()->format('d/m/Y'));
         if ($vehicle->getSaleDate() != null) $vehicle->setSaleDate($vehicle->getSaleDate()->format('d/m/Y'));
-        $vehicle->setFireExtinguisherExpiration($vehicle->getFireExtinguisherExpiration()->format('d/m/Y'));
 
         $form = $this->createForm(VehicleType::class, $vehicle);
 
