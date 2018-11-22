@@ -205,3 +205,12 @@ div.tagsinput div {
 .form-control {
     font-weight:600;
 }
+
+.dropdown-menu>.dropdown-item, .dropdown-menu>li>a {
+    display: block;
+    padding: 0.4rem 1.2rem;
+}
+
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__foot .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell {
+    padding: 6px 10px;
+}
