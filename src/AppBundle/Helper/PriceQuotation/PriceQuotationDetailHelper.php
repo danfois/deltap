@@ -42,6 +42,8 @@ class PriceQuotationDetailHelper
                 $this->priceQuotationDetail->setAttachment($f);
                 $f->setName($this->priceQuotationDetail->getName() . '_allegato_' . substr(md5(rand(1, 100)), 0, 8) . '.' . $f->getFile()->guessExtension());
                 $f->upload();
+            } else {
+                $this->priceQuotationDetail->setAttachment(null);
             }
         }
     }

@@ -79,7 +79,7 @@ class PriceQuotationDetail
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\PriceQuotation\Attachment", cascade={"persist"})
-     * @ORM\JoinColumn(name="attachmentId", referencedColumnName="attachmentId")
+     * @ORM\JoinColumn(name="attachmentId", referencedColumnName="attachmentId", nullable=true)
      */
     protected $attachment;
 
