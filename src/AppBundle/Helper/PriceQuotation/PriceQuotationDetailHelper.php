@@ -23,6 +23,7 @@ class PriceQuotationDetailHelper
     public function execute()
     {
         if($this->isEdited === false) $this->setBaseOrderEmitted();
+        $this->checkCodeUnique();
         $this->iterateStages();
         $this->prepareAndUploadAttachment();
         $this->executed = 1;
@@ -32,6 +33,14 @@ class PriceQuotationDetailHelper
     {
         if($this->executed === 0) throw new \Exception('Class not executed - PriceQuotationDetailHelper::getErrors()');
         return $this->errors;
+    }
+
+    protected function checkCodeUnique()
+    {
+        $pqd = $this->em->getRepository(PriceQuotationDetail::class)->findBy(array('name' => $this->priceQuotationDetail->getName()));
+        if($pqd == null) return true;
+        $this->errors .= 'Esiste già un itinerario con questo codice<br>';
+        return false;
     }
 
     protected function prepareAndUploadAttachment()
