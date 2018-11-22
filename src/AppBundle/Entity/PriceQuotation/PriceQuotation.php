@@ -460,13 +460,14 @@ class PriceQuotation implements InvoiceDetailInterface
 
     public function getInvoicePrice(): float
     {
-        $so = $this->getServiceOrders();
+        $pqd = $this->getPriceQuotationDetails();
 
         $sum = 0;
 
-        foreach($so as $s)
-        {
-            $sum += $s->getInvoicePrice();
+        foreach($pqd as $p) {
+            if($p->getStatus() == PriceQuotationDetail::CONFIRMED) {
+                $sum += $p->getPrice();
+            }
         }
 
         return $sum;
@@ -474,11 +475,11 @@ class PriceQuotation implements InvoiceDetailInterface
 
     public function getInvoiceVat()
     {
-        $so = $this->getServiceOrders();
+        $pqd = $this->getPriceQuotationDetails();
 
-        if(count($so) == 0) return 0;
+        if(count($pqd) == 0) return 0;
 
-        $vat = $so[0]->getVat();
+        $vat = $pqd[0]->getVat();
 
         return $vat;
     }

@@ -79,37 +79,6 @@
 
                                                     <div class="col-lg-6 m-form__group-sub">
                                                         <label class="form-control-label">
-                                                            * Data Partenza:
-                                                        </label>
-                                                        <div class="m-input-icon m-input-icon--right">
-                                                            {{ form_widget(s.departureDate) }}
-                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                                            class="la la-calendar"></i></span></span>
-                                                        </div>
-                                                        <span class="m-form__help">
-                                                    Scegliere la data di partenza
-                                                </span>
-                                                    </div>
-
-                                                    <div class="col-lg-6 m-form__group-sub">
-                                                        <label class="form-control-label">
-                                                            * Data Arrivo:
-                                                        </label>
-                                                        <div class="m-input-icon m-input-icon--right">
-                                                            {{ form_widget(s.arrivalDate) }}
-                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                                                            class="la la-calendar"></i></span></span>
-                                                        </div>
-                                                        <span class="m-form__help">
-                                                        Scegliere la data di arrivo
-                                                    </span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group m-form__group row">
-
-                                                    <div class="col-lg-4 m-form__group-sub">
-                                                        <label class="form-control-label">
                                                             * N. Bus
                                                         </label>
                                                         <div class="m-input-icon m-input-icon--right">
@@ -122,7 +91,7 @@
                                                     </span>
                                                     </div>
 
-                                                    <div class="col-lg-4 m-form__group-sub">
+                                                    <div class="col-lg-6 m-form__group-sub">
                                                         <label class="form-control-label">
                                                             * Passeggeri
                                                         </label>
@@ -133,20 +102,6 @@
                                                         </div>
                                                         <span class="m-form__help">
                                                         Inserire il N. di Passeggeri
-                                                    </span>
-                                                    </div>
-
-                                                    <div class="col-lg-4 m-form__group-sub">
-                                                        <label class="form-control-label">
-                                                            * Km Stimati
-                                                        </label>
-                                                        <div class="m-input-icon m-input-icon--right">
-                                                            {{ form_widget(s.km) }}
-                                                            <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
-                                                                            class="la la-dashboard"></i></span></span>
-                                                        </div>
-                                                        <span class="m-form__help">
-                                                        Inserire Km stimati
                                                     </span>
                                                     </div>
 
@@ -170,17 +125,31 @@
 
                                                     <div class="col-lg-6 m-form__group-sub">
                                                         <label class="form-control-label">
-                                                            * Prezzo
+                                                            * Km Stimati
                                                         </label>
                                                         <div class="m-input-icon m-input-icon--right">
-                                                            {{ form_widget(s.price) }}
+                                                            {{ form_widget(s.km) }}
                                                             <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
-                                                                            class="la la-euro"></i></span></span>
+                                                                            class="la la-dashboard"></i></span></span>
                                                         </div>
                                                         <span class="m-form__help">
-                                                    Inserire prezzo
-                                                </span>
+                                                        Inserire Km stimati
+                                                    </span>
                                                     </div>
+
+                                                    {#<div class="col-lg-6 m-form__group-sub">#}
+                                                        {#<label class="form-control-label">#}
+                                                            {#* Prezzo#}
+                                                        {#</label>#}
+                                                        {#<div class="m-input-icon m-input-icon--right">#}
+                                                            {#{{ form_widget(s.price) }}#}
+                                                            {#<span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i#}
+                                                                            {#class="la la-euro"></i></span></span>#}
+                                                        {#</div>#}
+                                                        {#<span class="m-form__help">#}
+                                                    {#Inserire prezzo#}
+                                                {#</span>#}
+                                                    {#</div>#}
 
                                                 </div>
 
@@ -207,14 +176,45 @@
 
                                             <div class="col-lg-6 border-left">
 
-                                                <div class="repeated-times-repeater bg-itinerario">
+                                                <div class="form-group m-form__group row bg-itinerario">
+
+                                                    <div class="col-lg-5 m-form__group-sub">
+                                                        <label class="form-control-label">
+                                                            * Data Partenza:
+                                                        </label>
+                                                        <div class="m-input-icon m-input-icon--right">
+                                                            {{ form_widget(s.departureDate) }}
+                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                            class="la la-calendar"></i></span></span>
+                                                        </div>
+                                                        <span class="m-form__help">
+                                                    Scegliere la data di partenza
+                                                </span>
+                                                    </div>
+
+                                                    <div class="col-lg-5 m-form__group-sub">
+                                                        <label class="form-control-label">
+                                                            * Data Arrivo:
+                                                        </label>
+                                                        <div class="m-input-icon m-input-icon--right">
+                                                            {{ form_widget(s.arrivalDate) }}
+                                                            <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
+                                                                            class="la la-calendar"></i></span></span>
+                                                        </div>
+                                                        <span class="m-form__help">
+                                                        Scegliere la data di arrivo
+                                                    </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="repeated-times-repeater">
                                                     <div data-repeater-list="repeatedTimes">
 
                                                         <div data-repeater-item>
 
                                                             {% for rt in s.repeatedTimes %}
 
-                                                                <div class="form-group m-form__group row">
+                                                                <div class="form-group m-form__group row bg-itinerario m--padding-bottom-10">
 
                                                                     <div class="col-md-5 m-form__group-sub">
                                                                         <label class="form-control-label">* Ora
