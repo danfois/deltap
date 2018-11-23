@@ -18,41 +18,22 @@ class EmployeeTurn
     protected $turnId;
 
     /**
-     * @ORM\Column(type="time", nullable=true, name="startTime")
+     * @ORM\Column(type="date", nullable=false, name="turnDate")
      */
-    protected $startTime;
+    protected $turnDate;
 
     /**
-     * @ORM\Column(type="time", nullable=true, name="endTime")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\EmployeeTurnDetail", mappedBy="turn")
      */
-    protected $endTime;
+    protected $turnDetails;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
-     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     * Constructor
      */
-    protected $employee;
-
-    /**
-     * @ORM\Column(type="time", nullable=true, name="workingHours")
-     */
-    protected $workingHours;
-
-    /**
-     * @ORM\Column(type="time", nullable=true, name="illnessTime")
-     */
-    protected $illnessTime;
-
-    /**
-     * @ORM\Column(type="time", nullable=true, name="permissionTime")
-     */
-    protected $permissionTime;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="idUser", referencedColumnName="id_user")
-     */
-    protected $user;
+    public function __construct()
+    {
+        $this->turnDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get turnId
@@ -65,170 +46,60 @@ class EmployeeTurn
     }
 
     /**
-     * Set startTime
+     * Set turnDate
      *
-     * @param \DateTime $startTime
+     * @param \DateTime $turnDate
      *
      * @return EmployeeTurn
      */
-    public function setStartTime($startTime)
+    public function setTurnDate($turnDate)
     {
-        $this->startTime = $startTime;
+        $this->turnDate = $turnDate;
 
         return $this;
     }
 
     /**
-     * Get startTime
+     * Get turnDate
      *
      * @return \DateTime
      */
-    public function getStartTime()
+    public function getTurnDate()
     {
-        return $this->startTime;
+        return $this->turnDate;
     }
 
     /**
-     * Set endTime
+     * Add turnDetail
      *
-     * @param \DateTime $endTime
+     * @param \AppBundle\Entity\Employee\EmployeeTurnDetail $turnDetail
      *
      * @return EmployeeTurn
      */
-    public function setEndTime($endTime)
+    public function addTurnDetail(\AppBundle\Entity\Employee\EmployeeTurnDetail $turnDetail)
     {
-        $this->endTime = $endTime;
+        $this->turnDetails[] = $turnDetail;
 
         return $this;
     }
 
     /**
-     * Get endTime
+     * Remove turnDetail
      *
-     * @return \DateTime
+     * @param \AppBundle\Entity\Employee\EmployeeTurnDetail $turnDetail
      */
-    public function getEndTime()
+    public function removeTurnDetail(\AppBundle\Entity\Employee\EmployeeTurnDetail $turnDetail)
     {
-        return $this->endTime;
+        $this->turnDetails->removeElement($turnDetail);
     }
 
     /**
-     * Set workingHours
+     * Get turnDetails
      *
-     * @param \DateTime $workingHours
-     *
-     * @return EmployeeTurn
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setWorkingHours($workingHours)
+    public function getTurnDetails()
     {
-        $this->workingHours = $workingHours;
-
-        return $this;
-    }
-
-    /**
-     * Get workingHours
-     *
-     * @return \DateTime
-     */
-    public function getWorkingHours()
-    {
-        return $this->workingHours;
-    }
-
-    /**
-     * Set illnessTime
-     *
-     * @param \DateTime $illnessTime
-     *
-     * @return EmployeeTurn
-     */
-    public function setIllnessTime($illnessTime)
-    {
-        $this->illnessTime = $illnessTime;
-
-        return $this;
-    }
-
-    /**
-     * Get illnessTime
-     *
-     * @return \DateTime
-     */
-    public function getIllnessTime()
-    {
-        return $this->illnessTime;
-    }
-
-    /**
-     * Set permissionTime
-     *
-     * @param \DateTime $permissionTime
-     *
-     * @return EmployeeTurn
-     */
-    public function setPermissionTime($permissionTime)
-    {
-        $this->permissionTime = $permissionTime;
-
-        return $this;
-    }
-
-    /**
-     * Get permissionTime
-     *
-     * @return \DateTime
-     */
-    public function getPermissionTime()
-    {
-        return $this->permissionTime;
-    }
-
-    /**
-     * Set employee
-     *
-     * @param \AppBundle\Entity\Employee\Employee $employee
-     *
-     * @return EmployeeTurn
-     */
-    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
-
-    /**
-     * Get employee
-     *
-     * @return \AppBundle\Entity\Employee\Employee
-     */
-    public function getEmployee()
-    {
-        return $this->employee;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return EmployeeTurn
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
+        return $this->turnDetails;
     }
 }
