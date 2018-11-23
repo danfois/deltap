@@ -1,0 +1,56 @@
+<?php
+
+namespace AppBundle\Entity\Employee;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EmployeeTurnRepository")
+ * @ORM\Table(name="turns")
+ */
+class EmployeeTurn
+{
+    /**
+     * @ORM\Column(type="integer", name="turnId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $turnId;
+
+    /**
+     * @ORM\Column(type="time", nullable=true, name="startTime")
+     */
+    protected $startTime;
+
+    /**
+     * @ORM\Column(type="time", nullable=true, name="endTime")
+     */
+    protected $endTime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    protected $employee;
+
+    /**
+     * @ORM\Column(type="time", nullable=true, name="workingHours")
+     */
+    protected $workingHours;
+
+    /**
+     * @ORM\Column(type="time", nullable=true, name="illnessTime")
+     */
+    protected $illnessTime;
+
+    /**
+     * @ORM\Column(type="time", nullable=true, name="permissionTime")
+     */
+    protected $permissionTime;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="idUser", referencedColumnName="idUser")
+     */
+    protected $user;
+}
