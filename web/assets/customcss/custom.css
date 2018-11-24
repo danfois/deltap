@@ -61,10 +61,10 @@ div.tagsinput {
     width: inherit;
     height: inherit;
     overflow-y: auto;
-    line-height:17.5px;
-    border:1px rgb(235, 237, 242) solid;
+    line-height: 17.5px;
+    border: 1px rgb(235, 237, 242) solid;
     border-radius: 3.5px;
-    padding:0;
+    padding: 0;
 }
 
 div.tagsinput span.tag {
@@ -73,17 +73,17 @@ div.tagsinput span.tag {
     -webkit-border-radius: 2px;
     display: block;
     float: left;
-    padding:0 0 0 5px;
+    padding: 0 0 0 5px;
     text-decoration: none;
     background: #5867dd;
     color: #fff;
     margin-right: 5px;
-    margin-left:5px;
+    margin-left: 5px;
     font-family: sans-serif, Arial;
     font-size: 14px;
-    height:30px;
+    height: 30px;
     margin-top: 2.75px;
-    line-height:30px;
+    line-height: 30px;
 }
 
 div.tagsinput span.tag a {
@@ -91,21 +91,21 @@ div.tagsinput span.tag a {
     color: #fff;
     text-decoration: none;
     font-size: 11px;
-    margin-right:5px;
+    margin-right: 5px;
 }
 
 div.tagsinput input {
     width: 250px;
-    height:35.5px;
+    height: 35.5px;
     margin: 0 5px 0 0;
     font-family: sans-serif, Arial;
     font-size: 14px;
-    line-height:17.5px;
+    line-height: 17.5px;
     border: 1px solid transparent;
     background: transparent;
     color: inherit;
     outline: 0;
-    padding-left:5px;
+    padding-left: 5px;
 }
 
 div.tagsinput div {
@@ -125,11 +125,11 @@ div.tagsinput div {
 }
 
 .hidden {
-    display:none !important;
+    display: none !important;
 }
 
 .hidden_opac {
-    opacity:0 !important;
+    opacity: 0 !important;
 }
 
 .new_order_table td {
@@ -138,8 +138,8 @@ div.tagsinput div {
 
 .new_order_table .head {
     background-color: #7aceff;
-    color:#fff;
-    font-weight:500;
+    color: #fff;
+    font-weight: 500;
 }
 
 .responsive-table-custom {
@@ -147,23 +147,23 @@ div.tagsinput div {
 }
 
 .to_report_order .head {
-    font-weight:500;
+    font-weight: 500;
     background-color: #ffb822;
 }
 
 .old_order .head {
-    font-weight:500;
+    font-weight: 500;
     background-color: #c4c5d6;
 }
 
 .future_order .head {
     background-color: #34bfa3;
-    color:#fff;
-    font-weight:500;
+    color: #fff;
+    font-weight: 500;
 }
 
 .m-portlet .m-portlet__head {
-    height:4.1rem;
+    height: 4.1rem;
 }
 
 .m-form .m-form__actions {
@@ -183,7 +183,7 @@ div.tagsinput div {
 }
 
 .nodisplay {
-    display:none;
+    display: none;
 }
 
 .bg-aliceblue {
@@ -196,21 +196,42 @@ div.tagsinput div {
 
 .m-form .m-form__group {
     margin-bottom: 0;
-    padding-top:5px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     /* padding-top: 15px; */
     /* padding-bottom: 15px; */
 }
 
 .form-control {
-    font-weight:600;
+    font-weight: 600;
 }
 
-.dropdown-menu>.dropdown-item, .dropdown-menu>li>a {
+.dropdown-menu > .dropdown-item, .dropdown-menu > li > a {
     display: block;
     padding: 0.4rem 1.2rem;
 }
 
-.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__foot .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell {
+.m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell, .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__head .m-datatable__row > .m-datatable__cell {
     padding: 6px 10px;
+}
+
+.turn_employee_name {
+    font-size: 14px;
+    padding-top: 7px;
+    padding-left:0;
+    padding-right:0;
+}
+
+.turn_body .m-form__group-sub {
+
+}
+
+.turn_heading .m-form__group-sub {
+    font-size:14px;
+    color:#333;
+    font-weight:600;
+    padding: 0 15px;
+    text-align:center;
+    border-bottom: 1px #ccc solid;
+    padding-bottom:15px;
 }

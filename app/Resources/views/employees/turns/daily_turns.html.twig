@@ -1,0 +1,141 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_turns" method="POST" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+
+                        <div class="m-form__section">
+
+                            <div class="form-group m-form__group row turn_heading">
+
+                                <div class="col-md-2 col-lg-1 m-form__group-sub">
+                                    Dipendente
+                                </div>
+
+                                <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    Ora Inizio
+                                </div>
+
+                                <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    Ora Fine
+                                </div>
+
+                                <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    Ore Lavorative
+                                </div>
+
+                                <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    Ore Permesso
+                                </div>
+
+                                <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    Ore Malattia
+                                </div>
+
+                            </div>
+
+                            {% for f in form.turnDetails %}
+
+
+                                <div class="form-group m-form__group row turn_body">
+
+                                    <div class="col-md-2 col-lg-1 m-form__group-sub turn_employee_name">
+                                        {{ f.vars.value.employee.name }} {{ f.vars.value.employee.surname }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub d-none">
+                                        {{ form_widget(f.employee) }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    {{ form_widget(f.startTime) }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                        {{ form_widget(f.endTime) }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                        {{ form_widget(f.workingHours) }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                        {{ form_widget(f.permissionTime) }}
+                                    </div>
+
+                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                        {{ form_widget(f.illnessTime) }}
+                                    </div>
+
+                                </div>
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+                    </div>
+
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                <div class="m-form__actions m-form__actions--solid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-primary">Salva</button>
+                            <button type="reset" class="btn btn-secondary">Annulla</button>
+                        </div>
+                        <div class="col-lg-6 m--align-right">
+                            <button type="reset" class="btn btn-danger">Elimina</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!--end::Form-->
+        </div>
+        <!--end::Portlet-->
+    </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/genericFormSubmission.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            initializeWidgets();
+            GenericFormSubmission($('#form_turns')).init();
+        })
+    </script>
+{% endblock %}

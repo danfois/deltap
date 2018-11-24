@@ -41,5 +41,9 @@ var initializeWidgets = function () {
         boostat: 5,
         maxboostedstep: 10
     });
+
+    $('.time_picker').on('click', function() {
+        $(this).val('');
+    });
 };
 
