@@ -45,9 +45,14 @@ class EmployeeTurnDetail
     protected $workingHours;
 
     /**
-     * @ORM\Column(type="time", nullable=true, name="illnessTime")
+     * @ORM\Column(type="boolean", nullable=false, name="illness")
      */
-    protected $illnessTime;
+    protected $illness;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, name="holiday")
+     */
+    protected $holiday;
 
     /**
      * @ORM\Column(type="time", nullable=true, name="permissionTime")
@@ -59,6 +64,7 @@ class EmployeeTurnDetail
      * @ORM\JoinColumn(name="idUser", referencedColumnName="id_user")
      */
     protected $user;
+
 
 
     /**
@@ -144,27 +150,51 @@ class EmployeeTurnDetail
     }
 
     /**
-     * Set illnessTime
+     * Set illness
      *
-     * @param \DateTime $illnessTime
+     * @param boolean $illness
      *
      * @return EmployeeTurnDetail
      */
-    public function setIllnessTime($illnessTime)
+    public function setIllness($illness)
     {
-        $this->illnessTime = $illnessTime;
+        $this->illness = $illness;
 
         return $this;
     }
 
     /**
-     * Get illnessTime
+     * Get illness
      *
-     * @return \DateTime
+     * @return boolean
      */
-    public function getIllnessTime()
+    public function getIllness()
     {
-        return $this->illnessTime;
+        return $this->illness;
+    }
+
+    /**
+     * Set holiday
+     *
+     * @param boolean $holiday
+     *
+     * @return EmployeeTurnDetail
+     */
+    public function setHoliday($holiday)
+    {
+        $this->holiday = $holiday;
+
+        return $this;
+    }
+
+    /**
+     * Get holiday
+     *
+     * @return boolean
+     */
+    public function getHoliday()
+    {
+        return $this->holiday;
     }
 
     /**

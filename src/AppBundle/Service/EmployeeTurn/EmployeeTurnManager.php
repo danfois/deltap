@@ -38,6 +38,8 @@ class EmployeeTurnManager
         foreach($employees as $e) {
             $td = new EmployeeTurnDetail();
             $td->setEmployee($e);
+            $td->setIllness(false);
+            $td->setHoliday(false);
             $td->setTurn($turn);
             $this->em->persist($td);
         }

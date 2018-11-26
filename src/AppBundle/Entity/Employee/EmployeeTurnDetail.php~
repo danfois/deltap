@@ -45,9 +45,14 @@ class EmployeeTurnDetail
     protected $workingHours;
 
     /**
-     * @ORM\Column(type="time", nullable=true, name="illnessTime")
+     * @ORM\Column(type="boolean", nullable=false, name="illness")
      */
-    protected $illnessTime;
+    protected $illness;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, name="holiday")
+     */
+    protected $holiday;
 
     /**
      * @ORM\Column(type="time", nullable=true, name="permissionTime")
@@ -59,5 +64,6 @@ class EmployeeTurnDetail
      * @ORM\JoinColumn(name="idUser", referencedColumnName="id_user")
      */
     protected $user;
+
 
 }

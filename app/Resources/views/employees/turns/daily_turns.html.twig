@@ -52,8 +52,12 @@
                                     Ore Permesso
                                 </div>
 
-                                <div class="col-md-2 col-lg-2 m-form__group-sub">
-                                    Ore Malattia
+                                <div class="col-md-1 col-lg-1 m-form__group-sub">
+                                    Malattia
+                                </div>
+
+                                <div class="col-md-1 col-lg-1 m-form__group-sub">
+                                    Ferie
                                 </div>
 
                             </div>
@@ -71,24 +75,34 @@
                                         {{ form_widget(f.employee) }}
                                     </div>
 
-                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    <div class="col-md-1 col-lg-2 m-form__group-sub">
                                     {{ form_widget(f.startTime) }}
                                     </div>
 
-                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    <div class="col-md-1 col-lg-2 m-form__group-sub">
                                         {{ form_widget(f.endTime) }}
                                     </div>
 
-                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    <div class="col-md-1 col-lg-2 m-form__group-sub">
                                         {{ form_widget(f.workingHours) }}
                                     </div>
 
-                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
+                                    <div class="col-md-1 col-lg-2 m-form__group-sub">
                                         {{ form_widget(f.permissionTime) }}
                                     </div>
 
-                                    <div class="col-md-2 col-lg-2 m-form__group-sub">
-                                        {{ form_widget(f.illnessTime) }}
+                                    <div class="col-md-1 col-lg-1 m-form__group-sub text-center">
+                                        <label class="m-checkbox">
+                                        {{ form_widget(f.illness) }}
+                                            <span></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1 col-lg-1 m-form__group-sub text-center">
+                                        <label class="m-checkbox">
+                                            {{ form_widget(f.holiday) }}
+                                            <span></span>
+                                        </label>
                                     </div>
 
                                 </div>

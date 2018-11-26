@@ -6,6 +6,7 @@ use AppBundle\Entity\Employee\EmployeeTurnDetail;
 use AppBundle\Form\DataTransformer\StringToTimeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,9 +50,15 @@ class EmployeeTurnDetailType extends AbstractType
                 ),
                 'required' => false
             ))
-            ->add('illnessTime', TextType::class, array(
+            ->add('illness', CheckboxType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input time_picker'
+                    'class' => 'form-control m-input'
+                ),
+                'required' => false
+            ))
+            ->add('holiday', CheckboxType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input'
                 ),
                 'required' => false
             ))
@@ -65,7 +72,6 @@ class EmployeeTurnDetailType extends AbstractType
         $builder->get('startTime')->addModelTransformer($this->transformer);
         $builder->get('endTime')->addModelTransformer($this->transformer);
         $builder->get('workingHours')->addModelTransformer($this->transformer);
-        $builder->get('illnessTime')->addModelTransformer($this->transformer);
         $builder->get('permissionTime')->addModelTransformer($this->transformer);
     }
 
