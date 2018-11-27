@@ -239,3 +239,16 @@ div.tagsinput div {
 .date-navigator {
     font-size:2.2rem !important;
 }
+
+.turn_table td, .turn_table th {
+    border-color: #999;
+    padding:0 5px;
+}
+
+.turn_table tr {
+    transition: 0.5s all;
+}
+
+.turn_table tr:hover {
+    background-color:#eee;
+}

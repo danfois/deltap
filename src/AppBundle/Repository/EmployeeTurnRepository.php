@@ -13,6 +13,7 @@ class EmployeeTurnRepository extends EntityRepository
             ->where('t.turnDate BETWEEN :m AND :y')
             ->setParameter(':m', $m)
             ->setParameter(':y', $y)
+            ->orderBy('t.turnDate')
             ->getQuery();
 
         return $query->getResult();

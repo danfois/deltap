@@ -180,10 +180,13 @@ class TurnController extends Controller
         }
 
         $TVT = new TurnViewTransformer($turns);
-        $turns = $TVT->prepareDataArray()->getTransformedData();
+        $data = $TVT->prepareDataArray()->getTransformedData();
 
         return $this->render('employees/turns/monthly_turn_views.html.twig', array(
-            'data' => $turns
+            'data' => $data,
+            'turns' => $turns,
+            'month' => $m,
+            'year' => $y
         ));
     }
 }

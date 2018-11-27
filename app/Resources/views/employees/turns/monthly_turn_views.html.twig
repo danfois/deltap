@@ -4,6 +4,77 @@
 
 {% block content %}
 
-    {{ dump(data) }}
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                Turni Mensili <span class="m--font-info m--font-boldest">{{ month }}/{{ year }}</span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+
+
+                    <table class="table-bordered turn_table text-center">
+
+                        <tr>
+
+                                <th>Autista</th>
+
+                            {% for t in turns %}
+
+                                <th class="">
+                                    <a href="{{ path('daily_turns') }}/{{ t.turnDate|date('d-m-Y') }}">
+                                    {{ t.turnDate|date('d/m') }}
+                                    </a>
+                                </th>
+
+                            {% endfor %}
+
+                        </tr>
+
+                        {% for d in data %}
+
+
+                            <tr>
+
+                                <td class="text-left">{{ d.name }}</td>
+
+                                {% for td in d.turns %}
+
+                                    <td>
+
+                                        {% if td.workingHours is not null %}<span class="">{{ td.workingHours|date('H:i') }}</span>{% endif %}
+                                        {% if td.permissionTime is not null %}<span class="m--font-danger">{{ td.permissionTime|date('H:i') }}</span>{% endif %}
+                                        {% if td.illness is not null and td.illness == true %}<span class="m--font-danger m--font-boldest">M</span>{% endif %}
+                                        {% if td.holiday is not null and td.holiday == true %}<span class="m--font-success m--font-boldest">F</span>{% endif %}
+
+
+                                    </td>
+
+                                {% endfor %}
+
+
+                            </tr>
+
+
+                        {% endfor %}
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

@@ -21,7 +21,25 @@ class TurnDetailHelper extends AbstractHelper
         $this->checkTimeCoherence();
         $this->checkWorkingHours();
         $this->setWorkingHours();
+        $this->checkIllnessOrHoliday();
         $this->executed = 1;
+    }
+
+    protected function checkIllnessOrHoliday()
+    {
+        if($this->instance->getIllness() === true && $this->instance->getHoliday() === true) {
+            $this->errors .= 'Non puoi scegliere malattia e ferie contemporaneamente per ' . $this->instance->getEmployee()->getName() . ' ' . $this->instance->getEmployee()->getSurname() . '<br>';
+            return false;
+        }
+
+        if($this->instance->getIllness() === true || $this->instance->getHoliday() === true) {
+            $this->instance->setWorkingHours(null);
+            $this->instance->setStartTime(null);
+            $this->instance->setEndTime(null);
+            $this->instance->setPermissionTime(null);
+            return true;
+        }
+        return true;
     }
 
     protected function checkTimeCoherence()
