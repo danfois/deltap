@@ -8,6 +8,7 @@ use AppBundle\Form\Employee\EmployeeTurnDetailDriverType;
 use AppBundle\Form\Employee\EmployeeTurnType;
 use AppBundle\Helper\Employee\TurnDetailHelper;
 use AppBundle\Helper\Employee\TurnHelper;
+use AppBundle\Helper\Employee\TurnViewTransformer;
 use AppBundle\Service\EmployeeTurn\EmployeeTurnManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,13 +23,13 @@ class TurnController extends Controller
      */
     public function dailyTurnsAction(EmployeeTurnManager $etm, string $n = null)
     {
-        if($n !== null) {
+        if ($n !== null) {
 
             $date = \DateTime::createFromFormat('d-m-Y', $n);
-            if($date === false) return new Response('Data non corretta', 500);
+            if ($date === false) return new Response('Data non corretta', 500);
 
             $turn = $this->getDoctrine()->getRepository(EmployeeTurn::class)->findOneBy(array('turnDate' => $date));
-            if($turn == null) return new Response('Nessun turno esistente per questa data', 404);
+            if ($turn == null) return new Response('Nessun turno esistente per questa data', 404);
 
         } else {
             $date = new \DateTime();
@@ -50,13 +51,13 @@ class TurnController extends Controller
      */
     public function submitdailyTurnsAction(Request $request, EmployeeTurnManager $etm, $n = null)
     {
-        if($n !== null) {
+        if ($n !== null) {
 
             $date = \DateTime::createFromFormat('d-m-Y', $n);
-            if($date === false) return new Response('Data non corretta', 500);
+            if ($date === false) return new Response('Data non corretta', 500);
 
             $turn = $this->getDoctrine()->getRepository(EmployeeTurn::class)->findOneBy(array('turnDate' => $date));
-            if($turn == null) return new Response('Nessun turno esistente per questa data', 404);
+            if ($turn == null) return new Response('Nessun turno esistente per questa data', 404);
 
         } else {
             $date = new \DateTime();
@@ -67,7 +68,7 @@ class TurnController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $turn = $form->getData();
 
@@ -75,7 +76,7 @@ class TurnController extends Controller
             $TH->execute();
             $errors = $TH->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->flush();
                 return new Response('Turni salvati', 200);
             }
@@ -104,7 +105,7 @@ class TurnController extends Controller
     public function dailyDriverTurnAction(EmployeeTurnManager $etm)
     {
         $user = $this->getUser();
-        if($user == null) return new Response('Non sei autorizzato a fare questa operazione');
+        if ($user == null) return new Response('Non sei autorizzato a fare questa operazione');
 
         $turn = $etm->getTodayDriverTurn($user);
 
@@ -123,7 +124,7 @@ class TurnController extends Controller
     public function ajaxDailyDriverTurnAction(Request $request, EmployeeTurnManager $etm)
     {
         $user = $this->getUser();
-        if($user == null) return new Response('Non sei autorizzato a fare questa operazione');
+        if ($user == null) return new Response('Non sei autorizzato a fare questa operazione');
 
         $turn = $etm->getTodayDriverTurn($user);
 
@@ -131,7 +132,7 @@ class TurnController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $turn = $form->getData();
 
@@ -139,7 +140,7 @@ class TurnController extends Controller
             $THD->execute();
             $errors = $THD->getErrors();
 
-            if($errors == null) {
+            if ($errors == null) {
                 $em->flush();
                 return new Response('Turno salvato', 200);
             }
@@ -160,5 +161,29 @@ class TurnController extends Controller
         }
 
         throw new AccessDeniedException('Non sei autorizzato a fare questa operazione');
+    }
+
+    /**
+     * @Route("monthly-turn-view/{m}/{y}", name="monthly_turn_view")
+     */
+    public function monthlyTurnView(int $m, int $y)
+    {
+        if ($m > 12) return new Response('Non ci sono altri mesi dopo Dicembre', 500);
+
+        $startDate = $y . '/' . $m . '/' . '01';
+        $endDate = $y . '/' . $m . '/' . '31';
+
+        try {
+            $turns = $this->getDoctrine()->getRepository(EmployeeTurn::class)->findTurnsInMonthAndYear($startDate, $endDate);
+        } catch (\Exception $e) {
+            return new Response('Errore durante il recupero dei turni', 500);
+        }
+
+        $TVT = new TurnViewTransformer($turns);
+        $turns = $TVT->prepareDataArray()->getTransformedData();
+
+        return $this->render('employees/turns/monthly_turn_views.html.twig', array(
+            'data' => $turns
+        ));
     }
 }
