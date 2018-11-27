@@ -235,3 +235,7 @@ div.tagsinput div {
     border-bottom: 1px #ccc solid;
     padding-bottom:15px;
 }
+
+.date-navigator {
+    font-size:2.2rem !important;
+}

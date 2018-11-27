@@ -18,27 +18,50 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class TurnController extends Controller
 {
     /**
-     * @Route("daily-turns", name="daily_turns")
+     * @Route("daily-turns/{n}", name="daily_turns")
      */
-    public function dailyTurnsAction(EmployeeTurnManager $etm)
+    public function dailyTurnsAction(EmployeeTurnManager $etm, string $n = null)
     {
-        $turn = $etm->getTodayTurn();
+        if($n !== null) {
+
+            $date = \DateTime::createFromFormat('d-m-Y', $n);
+            if($date === false) return new Response('Data non corretta', 500);
+
+            $turn = $this->getDoctrine()->getRepository(EmployeeTurn::class)->findOneBy(array('turnDate' => $date));
+            if($turn == null) return new Response('Nessun turno esistente per questa data', 404);
+
+        } else {
+            $date = new \DateTime();
+            $turn = $etm->getTodayTurn();
+        }
 
         $form = $this->createForm(EmployeeTurnType::class, $turn);
 
         return $this->render('employees/turns/daily_turns.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Turni Giornalieri',
-            'action_url' => $this->generateUrl('ajax_daily_turns')
+            'action_url' => $this->generateUrl('ajax_daily_turns', array('n' => $n)),
+            'date' => $date
         ));
     }
 
     /**
-     * @Route("ajax-daily-turns", name="ajax_daily_turns")
+     * @Route("ajax-daily-turns/{n}", name="ajax_daily_turns")
      */
-    public function submitdailyTurnsAction(Request $request, EmployeeTurnManager $etm)
+    public function submitdailyTurnsAction(Request $request, EmployeeTurnManager $etm, $n = null)
     {
-        $turn = $etm->getTodayTurn();
+        if($n !== null) {
+
+            $date = \DateTime::createFromFormat('d-m-Y', $n);
+            if($date === false) return new Response('Data non corretta', 500);
+
+            $turn = $this->getDoctrine()->getRepository(EmployeeTurn::class)->findOneBy(array('turnDate' => $date));
+            if($turn == null) return new Response('Nessun turno esistente per questa data', 404);
+
+        } else {
+            $date = new \DateTime();
+            $turn = $etm->getTodayTurn();
+        }
 
         $form = $this->createForm(EmployeeTurnType::class, $turn);
 
