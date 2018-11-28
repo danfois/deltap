@@ -166,9 +166,15 @@ class TurnController extends Controller
     /**
      * @Route("monthly-turn-view/{m}/{y}", name="monthly_turn_view")
      */
-    public function monthlyTurnView(int $m, int $y)
+    public function monthlyTurnView(int $m = null, int $y = null)
     {
         if ($m > 12) return new Response('Non ci sono altri mesi dopo Dicembre', 500);
+
+        if($m === null && $y === null) {
+            $date = new \DateTime();
+            $m = $date->format('m');
+            $y = $date->format('Y');
+        }
 
         $startDate = $y . '/' . $m . '/' . '01';
         $endDate = $y . '/' . $m . '/' . '31';

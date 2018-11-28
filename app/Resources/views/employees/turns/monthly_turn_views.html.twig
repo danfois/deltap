@@ -20,6 +20,41 @@
                             </h3>
                         </div>
                     </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <select class="form-control m-input" id="scelta_mese">
+                                    <option value="1">Gennaio</option>
+                                    <option value="2">Febbraio</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Aprile</option>
+                                    <option value="5">Maggio</option>
+                                    <option value="6">Giugno</option>
+                                    <option value="7">Luglio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Settembre</option>
+                                    <option value="10">Ottobre</option>
+                                    <option value="11">Novembre</option>
+                                    <option value="12">Dicembre</option>
+                                </select>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <select class="form-control m-input" id="scelta_anno">
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <a href="javascript:void(0)" onclick="reindirizzaATabellaTurni()" class="m-portlet__nav-link btn btn-outline-info m-btn m-btn--icon m-btn--icon-only m-btn--pill"><i class="la la-search date-navigator"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="m-portlet__body">
 
@@ -76,5 +111,20 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script>
+        function reindirizzaATabellaTurni() {
+            var mese = $('#scelta_mese').val();
+            var anno = $('#scelta_anno').val();
+
+            if(mese === '' || anno === '') return false;
+
+            window.location.href = window.location.origin + '/monthly-turn-view/' + mese + '/' + anno;
+        }
+    </script>
 
 {% endblock %}

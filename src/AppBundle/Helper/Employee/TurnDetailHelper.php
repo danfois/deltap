@@ -19,7 +19,7 @@ class TurnDetailHelper extends AbstractHelper
     public  function execute()
     {
         $this->checkTimeCoherence();
-        $this->checkWorkingHours();
+        //$this->checkWorkingHours();
         $this->setWorkingHours();
         $this->checkIllnessOrHoliday();
         $this->executed = 1;
