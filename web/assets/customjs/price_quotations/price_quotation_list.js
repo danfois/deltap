@@ -49,11 +49,12 @@ var PriceQuotationList = function () {
                             spinner: {type: 1, theme: "default"}
                         },
                         sortable: !0,
-                        columns: [{
-                            field: "id",
-                            title: "Id Itin.",
-                            width:80
-                        },
+                        columns: [
+                        //     {
+                        //     field: "id",
+                        //     title: "Id Itin.",
+                        //     width:80
+                        // },
                             {
                                 field: "code",
                                 title: "Codice Itinerario"
@@ -180,11 +181,11 @@ var PriceQuotationList = function () {
                     width: 40,
                     selector: {class: 'm-checkbox--solid m-checkbox--brand'}
                 },
-                {
-                    field: 'idv',
-                    title: 'Id',
-                    width: 30
-                },
+                // {
+                //     field: 'idv',
+                //     title: 'Id',
+                //     width: 30
+                // },
                 {
                     field: 'code',
                     title: 'Codice',
