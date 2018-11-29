@@ -21,6 +21,7 @@ use AppBundle\Util\DistanceMatrixAPI;
 use AppBundle\Util\PriceQuotationUtils;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -518,5 +519,23 @@ class PriceQuotationController extends Controller
         $em->flush();
 
         return new Response('Status preventivo modificato', 200);
+    }
+
+    /**
+     * @Route("print/price-quotation-{n}", name="print_price_quotation")
+     */
+    public function printPriceQuotationAction(int $n = null)
+    {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
+        if($pq == null) return new Response('Preventivo non trovato', 404);
+
+        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 }

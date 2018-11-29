@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>Preventivo</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 30px;
+            color: #777;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        /*th, td {*/
+        /*border:1px #333 solid;*/
+        /*}*/
+
+        .general_details {
+            text-align: right;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .general_details th {
+            color: #FFCB05;
+        }
+
+        .general_details th:nth-child(1), .general_details td:nth-child(1) {
+            text-align: left;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .pqd {
+            margin-top: 25px;
+            text-align: center;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .pqd .date {
+            width: 100px;
+        }
+
+        .pqd .hour, .pqd .bus, .pqd .pass {
+            width: 60px;
+        }
+
+        .pqd .it {
+            width: 100px;
+        }
+
+        .pqd td, .pqd th {
+            padding: 5px;
+            border: 1px #ddd solid;
+            height: 40px;
+        }
+
+        .pqd th {
+            background-color: #FFCB05;
+            color: #555;
+        }
+
+        .pqd td {
+
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .prices {
+            width: 254px;
+            float: right;
+            clear: both;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .prices td {
+            padding: 5px;
+            border: 1px #ddd solid;
+            border-top: none;
+            height: 40px;
+        }
+
+        .note {
+            line-height: 24px;
+        }
+
+        .left {
+            float:left;
+        }
+
+        .right {
+            float:right;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <img alt="Logo Redentours" src="http://redentours.com/templates/redentstyle/images/logo.png" style="height:60px;"/>
+</div>
+<div>
+    <table class="general_details">
+        <tr>
+            <th>PREVENTIVO PER:</th>
+            <th colspan="2">DATI PREVENTIVO:</th>
+        </tr>
+        <tbody>
+        <tr>
+            <td>{{ pq.customer.businessName }}</td>
+            <td>N. Preventivo:</td>
+            <td width="100">{{ pq.code }}</td>
+        </tr>
+        <tr>
+            <td>{{ pq.customer.fullAddress.address }}, {{ pq.customer.fullAddress.city }}
+                - {{ pq.customer.fullAddress.cap }}</td>
+            <td>Data:</td>
+            <td>{{ pq.priceQuotationDate|date('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td>{{ pq.customer.email }}</td>
+            <td colspan="2">(da citare sempre alla conferma)</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if pq.contract is not null %}
+        <p>Rif. Contratto {{ pq.contract }}</p>
+    {% endif %}
+
+
+    <p style="margin-bottom:25px;">In merito alla Vostra richiesta {% if pq.request is not null %}
+        <u>{{ pq.request }}</u>{% endif %}, Vi comunichiamo la nostra migliore offerta per il servizio
+        richiestoci.</p>
+
+
+    {% for d in pq.priceQuotationDetails %}
+        <table class="pqd">
+            <tr>
+                <th class="it">It.</th>
+                <th class="pass">Pass.</th>
+                <th class="service">Servizio</th>
+                <th class="bus">N. Bus</th>
+                <th class="date">Data Part.</th>
+                <th class="hour">Ora</th>
+                <th class="date">Data Arr.</th>
+                <th class="hour">Ora</th>
+            </tr>
+            {% for s in d.stages %}
+                <tr>
+                    {% if loop.index == 1 %}
+                        <td rowspan="{{ d.stages|length }}" class="it">{{ d.name }}</td>
+                    {% endif %}
+                    <td class="pass">{{ s.passengers }}</td>
+                    <td class="service"><strong>da</strong>: {{ s.departureLocation }}
+                        <strong>a</strong>: {{ s.arrivalLocation }}</td>
+                    <td class="bus">{{ s.busNumber }}</td>
+                    <td class="date">{{ s.departureDate|date('d-m-Y') }}</td>
+                    <td class="hour">
+                        {% for rt in s.repeatedTimes %}
+                            {{ rt.start_time }}<br>
+                        {% endfor %}
+                    </td>
+                    <td class="date">{{ s.arrivalDate|date('d-m-Y') }}</td>
+                    <td class="hour">
+                        {% for rt in s.repeatedTimes %}
+                            {{ rt.end_time }}<br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="prices">
+            <tr>
+                <td>Prezzo: &euro; {{ d.price }}</td>
+                <td>Iva %: {{ d.vat }}%</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="background-color: #ffeeb5;"><strong>Totale: &euro; 1000</strong></td>
+            </tr>
+        </table>
+    {% endfor %}
+
+    <p>
+        <strong><u>La durata del servizio &egrave; di 12 ore.</u><br>
+            Supplementi per servizi di durata superiore alle 12 ore:</strong><br>
+        * da 12 fino a 15 ore : Euro 30,00 + Iva 10% per ogni ora<br>
+        * oltre le 15 ore : Euro 50,00 + Iva 10% per ogni ora<br>
+    </p>
+
+    <div class="note">
+        <p>Le date richieste vincoleranno la Ditta soltanto dopo la conferma del presente preventivo firmando le note in
+            calce e trasmettendolo,
+            con indicazione del luogo di ritrovo ove mancasse, tramite fax o lettera.
+            Vi informiamo che il servizio sar&agrave; effettuato con bus assicurati con massimali di 15,5 ML Euro.
+            Le spese di pagamento tramite bonifico bancario sono esclusivamente a Vs carico.
+            In attesa di una Vostra gradita conferma ringraziamo per la preferenza accordata.<br><br>
+
+        <div class="left">
+            Responsabile noleggio<br>
+            Rag. Giuseppino Deplanu<br>
+            (Firmato) *<br><br>
+
+            * Firma autografa sostituita a mezzo stampa<br>
+            ai sensi dell'art. 3, comma 2 del Lgs. 39/93<br>
+        </div>
+
+        <div class="right">
+            Preventivo redatto da: <strong>{{ pq.author.employee.name }}</strong><br>
+            Il presente preventivo si riferisce alle voci indicate<br>
+            ed &egrave; soggetto alle condizioni specificate di seguito:<br>
+            - {{ pq.serviceCode.service }}<br><br>
+            Per accettazione: Timbro e Firma<br>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>
