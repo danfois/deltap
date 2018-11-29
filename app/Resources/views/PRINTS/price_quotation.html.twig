@@ -75,6 +75,7 @@
 
         .prices {
             width: 254px;
+            width: 100%;
             float: right;
             clear: both;
             margin-bottom: 20px;
@@ -94,11 +95,11 @@
         }
 
         .left {
-            float:left;
+            float: left;
         }
 
         .right {
-            float:right;
+            float: right;
         }
 
     </style>
@@ -180,11 +181,24 @@
         </table>
         <table class="prices">
             <tr>
+                {% if d.description is not null %}
+                    <td rowspan="2" style="width:615px;"><strong>Descrizione: </strong>{{ d.description }}</td>
+                {% else %}
+                    <td rowspan="2" class="hidden" style="width:615px;"></td>
+                {% endif %}
+
                 <td>Prezzo: &euro; {{ d.price }}</td>
                 <td>Iva %: {{ d.vat }}%</td>
             </tr>
             <tr>
-                <td colspan="2" style="background-color: #ffeeb5;"><strong>Totale: &euro; 1000</strong></td>
+                <td colspan="2" style="background-color: #ffeeb5; width:254px;"><strong>Totale:
+                        &euro; {% if d.vat != 0 %}
+                            {{ d.price + (d.price / 100 * d.vat) }}
+                        {% else %}
+                            {{ d.price }}
+                        {% endif %}
+                    </strong>
+                </td>
             </tr>
         </table>
     {% endfor %}

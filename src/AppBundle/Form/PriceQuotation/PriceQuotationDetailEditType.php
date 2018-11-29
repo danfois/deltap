@@ -63,7 +63,8 @@ class PriceQuotationDetailEditType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('stages', CollectionType::class, array(
                 'entry_type' => StageEditType::class,
