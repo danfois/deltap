@@ -11,6 +11,7 @@ use AppBundle\Form\ServiceOrder\ProblemType;
 use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
 use AppBundle\Helper\ServiceOrder\ServiceOrderHelper;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -375,6 +376,24 @@ class ServiceOrderController extends Controller
             'modal_title' => 'Problemi Ordine di Servizio n.' . $so->getServiceOrder(),
             'modal_content' => '<div class="m--padding-20">' . $so->getProblems() . '</div>'
         ));
+    }
+
+    /**
+     * @Route("print/service-order-{n}", name="print_service_order")
+     */
+    public function printServiceOrder(int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        //return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
+
+        $html = $this->renderView('PRINTS/service_order.html.twig', array('so' => $so));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 
 }

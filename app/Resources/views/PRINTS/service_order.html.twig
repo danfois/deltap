@@ -1,0 +1,218 @@
+<html>
+<head>
+    <title>Ordine di Servizio</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 30px;
+            color: #777;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .general_details {
+            width: 100%;
+            margin-top:35px;
+        }
+
+        .so_body, .summary {
+            border-top:none;
+        }
+
+        td, th {
+            padding: 5px;
+            border: 1px #ddd solid;
+            height: 35px;
+        }
+
+        /*th {*/
+            /*height:20px;*/
+        /*}*/
+
+        th {
+            background-color: #FFCB05;
+        }
+
+        .left {
+            float: left;
+            text-align: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .so_body td {
+            width: 50%;
+        }
+
+        .summary_value {
+            height:40px;
+            line-height:40px;
+            font-size:24px;
+            font-weight:bold;
+            color:#333;
+            padding-left:15px;
+        }
+
+        .summary td {
+            vertical-align: top;
+        }
+
+        .notes {
+            height:200px;
+        }
+
+        .signature {
+            height:60px;
+            vertical-align: bottom !important;
+        }
+
+        .title {
+            font-size:20px;
+            font-weight:500;
+        }
+
+        .advert {
+            font-size:12px;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <img alt="Logo Redentours" src="http://redentours.com/templates/redentstyle/images/logo.png" style="height:60px;"/>
+</div>
+
+<table class="general_details center">
+    <tr>
+        <td colspan="7" class="center title">
+            Ordine di Servizio n. {{ so.serviceOrder }} {% if so.priceQuotation is not null %} - Rif Prev N.
+                <strong>{{ so.priceQuotation.code }}</strong>{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2">Partenza</th>
+        <th>Pax</th>
+        <th>Targa</th>
+        <th>Autista</th>
+        <th colspan="2">Rientro</th>
+    </tr>
+    <tr>
+        <td>{{ so.departureDate|date('d-m-Y') }}</td>
+        <td>{{ so.startTime }}</td>
+        <td>{{ so.passengers }}</td>
+        <td>{{ so.vehicle.plate }}</td>
+        <td>{{ so.driver.employee.name }} {{ so.driver.employee.surname }}</td>
+        <td>{{ so.arrivalDate|date('d-m-Y') }}</td>
+        <td>{{ so.endTime }}</td>
+    </tr>
+</table>
+
+
+<table class="so_body">
+    <tr>
+        <th colspan="2">Cliente</th>
+    </tr>
+    <tr>
+        <td colspan="2">{{ so.customer.businessName }}</td>
+    </tr>
+    <tr>
+        <th>Localit&agrave; di Partenza</th>
+        <th>Localit&agrave; di Arrivo</th>
+    </tr>
+    <tr>
+        <td>{{ so.departureLocation }}</td>
+        <td>{{ so.arrivalLocation }}</td>
+    </tr>
+    <tr>
+        <th>Servizio</th>
+        <th>Disposizioni</th>
+    </tr>
+    <tr>
+        <td style="height:200px; vertical-align: top;">{{ so.description|raw }}</td>
+        <td style="height:200px; vertical-align: top;">{{ so.dispositions|raw }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="center advert">
+            <strong>IL MEZZO DEVE PRESENTARSI AL PUNTO DI RACCOLTA <u>ALMENO 15 MINUTI PRIMA</u> DELL'ORA INDICATA
+                NELL'ORDINE DI SERVIZIO.<br><br>
+                FAR <u>SEMPRE</u> COMPILARE E FIRMARE AL CAPOGRUPPO IL QUESTIONARIO
+                SODDISFAZIONE CLIENTE</strong>
+        </td>
+    </tr>
+</table>
+
+<table class="summary">
+    <tr>
+        <td>
+            Km Partenza<br>
+            <div class="summary_value">{{ so.report.startKm }}</div>
+        </td>
+        <td>
+            Km Arrivo<br>
+            <div class="summary_value">{{ so.report.endKm }}</div>
+        </td>
+        <td>
+            Km Totali<br>
+            <div class="summary_value">{{ so.report.totalKm }}</div>
+        </td>
+        <td>Litri Gasolio
+            <div class="summary_value">{{ so.report.fuelLt }}</div>
+        </td>
+        <td>
+            Litri Olio<br>
+            <div class="summary_value">{{ so.report.oilLt }}</div>
+        </td>
+        <td rowspan="2" style="background-color: #ffeeb5;">
+            Fondo Cassa<br>
+            <div class="summary_value">&euro; </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Ora Partenza<br>
+            <div class="summary_value"></div>
+        </td>
+        <td>
+            Ora Arrivo<br>
+            <div class="summary_value"></div>
+        </td>
+        <td>
+            Ore Guida<br>
+            <div class="summary_value"></div>
+        </td>
+        <td>
+            Costo Gasolio<br>
+            <div class="summary_value">&euro; {{ so.report.fuelCost }}</div>
+        </td>
+        <td>
+            Costo Olio<br>
+            <div class="summary_value">&euro; {{ so.report.oilCost }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" style="height:100px;">Fuori Itinerario: </td>
+    </tr>
+    <tr>
+        <td colspan="6" class="notes">Note:</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="height:150px;">Segnalazioni Stato Veicolo (compilare in caso di anomalie):</td>
+    </tr>
+    <tr>
+        <td colspan="6" class="signature">Firma Autista: ______________________________________________________________</td>
+    </tr>
+</table>
+
+</body>
+</html>
