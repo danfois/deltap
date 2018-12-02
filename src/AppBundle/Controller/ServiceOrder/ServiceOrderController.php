@@ -396,4 +396,28 @@ class ServiceOrderController extends Controller
         );
     }
 
+    /**
+     * @Route("print/repeated-service-order-{n}", name="print_repeated_service_order")
+     */
+    public function printRepeatedServiceOrderAction(int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        $pqd = $so->getPriceQuotationDetail();
+        if($pqd == null) return new Response('Nessun itinerario associato a questo Ordine di Servizio', 500);
+
+        if(count($pqd->getServiceOrders()) <= 1) return new Response('Ordine di Servizio non ripetitivo', 500);
+
+//        return $this->render('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
+
+        $html = $this->renderView('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array(
+                'orientation' => 'Landscape'
+            ))
+        );
+    }
+
 }

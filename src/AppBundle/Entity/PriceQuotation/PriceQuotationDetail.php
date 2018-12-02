@@ -84,6 +84,11 @@ class PriceQuotationDetail
     protected $attachment;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ServiceOrder\ServiceOrder", mappedBy="priceQuotationDetail")
+     */
+    protected $serviceOrders;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -365,5 +370,39 @@ class PriceQuotationDetail
     public function getAttachment()
     {
         return $this->attachment;
+    }
+
+    /**
+     * Add serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     *
+     * @return PriceQuotationDetail
+     */
+    public function addServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders[] = $serviceOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     */
+    public function removeServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders->removeElement($serviceOrder);
+    }
+
+    /**
+     * Get serviceOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServiceOrders()
+    {
+        return $this->serviceOrders;
     }
 }

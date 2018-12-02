@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>Ordine di Servizio</title>
+    <style>
+
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 30px;
+            color: #777;
+        }
+
+        .title {
+            border: 1px black solid;
+            font-size: 20px;
+            box-shadow: 3px 3px #888888;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        td, th {
+            padding: 5px;
+            border: 1px #ddd solid;
+            height: 40px;
+        }
+
+        .service_orders {
+            margin-top: 25px;
+        }
+
+        .service_orders td, .service_orders th {
+            height: 20px;
+            font-size: 14px;
+        }
+
+        .signature td {
+            height: 50px;
+            vertical-align: bottom;
+        }
+
+        th {
+            background-color: #FFCB05;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <img alt="Logo Redentours" src="http://redentours.com/templates/redentstyle/images/logo.png"
+         style="height:50px; margin-bottom:25px;"/>
+</div>
+<div class="title center">Ordine di Servizio Ripetitivo: It: <strong>{{ pqd.name }}</strong> - Rif Prev.
+    <strong>{{ pqd.priceQuotation.code }}</strong></div>
+
+<table>
+    <tr>
+        <th>Servizio</th>
+        <th>Cliente</th>
+        <th>Data Inizio</th>
+        <th>Data Fine</th>
+    </tr>
+    <tr>
+        <td><strong>da</strong>: {{ pqd.serviceOrders|first.departureLocation }}
+            <strong>a</strong>: {{ pqd.serviceOrders|last.arrivalLocation }}</td>
+        <td>{{ pqd.priceQuotation.customer.businessName }}</td>
+        <td class="center">{{ pqd.serviceOrders|first.departureDate|date('d-m-Y') }}</td>
+        <td class="center">{{ pqd.serviceOrders|first.arrivalDate|date('d-m-Y') }}</td>
+    </tr>
+</table>
+
+<table class="service_orders">
+    <tr>
+        <th rowspan="2" colspan="2">Date/Orari</th>
+        <th rowspan="2">Servizio</th>
+        <th rowspan="2">Pax</th>
+        <th rowspan="2">Km Part.</th>
+        <th rowspan="2">Km Arr.</th>
+        <th rowspan="2">Km Perc.</th>
+        <th colspan="2">Rifornimento</th>
+        <th rowspan="2">Autista</th>
+        <th rowspan="2">Autobus</th>
+    </tr>
+    <tr>
+        <th>Litri</th>
+        <th>importo</th>
+    </tr>
+
+    {% for s in pqd.serviceOrders %}
+
+    <tr>
+        <td colspan="2" class="center">{{ s.departureDate|date('d-m-Y') }}</td>
+        <td rowspan="2"><strong>Da: </strong>{{ s.departureLocation }} <strong>a: </strong>{{ s.arrivalLocation }}
+        </td>
+        <td rowspan="2" class="center">{{ s.passengers }}</td>
+        {% if s.report is not null %}
+            <td rowspan="2" class="center">{{ s.report.startKm }}</td>
+            <td rowspan="2" class="center">{{ s.report.endKm }}</td>
+            <td rowspan="2" class="center">{{ s.report.endKm - s.report.startKm }}</td>
+            <td rowspan="2" class="center">{{ s.report.fuelLt }}</td>
+            <td rowspan="2" class="center">{{ s.report.fuelCost }}</td>
+        {% else %}
+            <td rowspan="2"></td>
+            <td rowspan="2"></td>
+            <td rowspan="2"></td>
+            <td rowspan="2"></td>
+            <td rowspan="2"></td>
+        {% endif %}
+        {% if s.driver is not null and s.driver.employee is not null %}
+            <td rowspan="2" class="center">{{ s.driver.employee.name }} {{ s.driver.employee.surname }}</td>
+        {% else %}
+            <td rowspan="2"></td>
+        {% endif %}
+        {% if s.vehicle is not null %}
+            <td rowspan="2" class="center">{{ s.vehicle.plate }}</td>
+        {% else %}
+            <td rowspan="2"></td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td class="center">{{ s.startTime }}</td>
+        <td class="center">{{ s.endTime }}</td>
+    </tr>
+
+    {% if loop.last %}
+</table>
+<table class="signature">
+    <tr>
+        <td>Firma Autista:
+            ________________________________________________________________________________________________________________________________
+        </td>
+    </tr>
+</table>
+{% endif %}
+
+{% if loop.index % 10 == 0 %}
+
+</table>
+
+<table class="signature">
+    <tr>
+        <td>Firma Autista:
+            ________________________________________________________________________________________________________________________________
+        </td>
+    </tr>
+</table>
+
+<div>
+    <img alt="Logo Redentours" src="http://redentours.com/templates/redentstyle/images/logo.png"
+         style="height:50px; margin-bottom:25px;"/>
+</div>
+<div class="title center">Ordine di Servizio Ripetitivo: It: <strong>{{ pqd.name }}</strong> - Rif Prev.
+    <strong>{{ pqd.priceQuotation.code }}</strong></div>
+
+<table>
+    <tr>
+        <th>Servizio</th>
+        <th>Cliente</th>
+        <th>Data Inizio</th>
+        <th>Data Fine</th>
+    </tr>
+    <tr>
+        <td><strong>da</strong>: {{ pqd.serviceOrders|first.departureLocation }}
+            <strong>a</strong>: {{ pqd.serviceOrders|last.arrivalLocation }}</td>
+        <td>{{ pqd.priceQuotation.customer.businessName }}</td>
+        <td>{{ pqd.serviceOrders|first.departureDate|date('d-m-Y') }}</td>
+        <td>{{ pqd.serviceOrders|first.arrivalDate|date('d-m-Y') }}</td>
+    </tr>
+</table>
+
+<table class="service_orders">
+    <tr>
+        <th rowspan="2" colspan="2">Date/Orari</th>
+        <th rowspan="2">Servizio</th>
+        <th rowspan="2">Pax</th>
+        <th rowspan="2">Km Part.</th>
+        <th rowspan="2">Km Arr.</th>
+        <th rowspan="2">Km Perc.</th>
+        <th colspan="2">Rifornimento</th>
+        <th rowspan="2">Autista</th>
+        <th rowspan="2">Autobus</th>
+    </tr>
+    <tr>
+        <th>Litri</th>
+        <th>importo</th>
+    </tr>
+
+
+    {% endif %}
+
+    {% endfor %}
+
+</table>
+</body>
+</html>

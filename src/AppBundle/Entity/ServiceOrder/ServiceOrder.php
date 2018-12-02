@@ -33,7 +33,7 @@ class ServiceOrder implements InvoiceDetailInterface
     protected $priceQuotation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", inversedBy="serviceOrders")
      * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId")
      */
     protected $priceQuotationDetail;
