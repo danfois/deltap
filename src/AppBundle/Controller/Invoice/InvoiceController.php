@@ -12,6 +12,7 @@ use AppBundle\Helper\Invoice\ReceivedInvoiceHelper;
 use AppBundle\Service\Invoice\InvoiceNumberManager;
 use AppBundle\Service\Invoice\InvoiceRequestManager;
 use AppBundle\Util\ClassResolver;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -399,6 +400,24 @@ class InvoiceController extends Controller
         $em->flush();
 
         return new Response('Trasformazione avvenuta con successo!', 200);
+    }
+
+    /**
+     * @Route("print/issued-invoice-{n}", name="print_issued_invoice")
+     */
+    public function printIssuedInvoiceAction(int $n)
+    {
+        $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->find($n);
+        if($invoice == null) return new Response('Fattura non trovata', 404);
+
+        //return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
+
+        $html = $this->renderView('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 
 }

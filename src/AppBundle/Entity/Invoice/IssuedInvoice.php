@@ -147,6 +147,22 @@ class IssuedInvoice extends Invoice implements PayableInterface
         return $sum;
     }
 
+    public function getTaxExcAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxExc();
+        }
+
+        return $sum;
+    }
+
+    public function getTotalVat()
+    {
+        return $this->getAmount() - $this->getTaxExcAmount();
+    }
+
 //    public function getCausal()
 //    {
 //        return 'Pagamento Fattura emessa N. ' . $this->getInvoiceNumber();
