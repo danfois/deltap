@@ -81,7 +81,7 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'idv' => $o->getServiceOrder(),
                     'ids' => $o->getServiceOrder(),
                     'customer' => $o->getCustomer()->getBusinessName(),
-                    'pq' => $o->getPriceQuotation()->getCode(),
+                    'pq' => ($o->getPriceQuotation() == null ? '' : $o->getPriceQuotation()->getCode()),
                     'pqd' => $o->getPriceQuotationDetail()->getName(),
                     'departureLocation' => $o->getDepartureLocation(),
                     'arrivalLocation' => $o->getArrivalLocation(),

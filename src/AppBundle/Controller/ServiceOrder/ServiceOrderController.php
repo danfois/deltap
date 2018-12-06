@@ -171,6 +171,8 @@ class ServiceOrderController extends Controller
             $form = $this->createForm(DriverAndVehicleType::class, $so);
         }
 
+        $customer = $so->getCustomer();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -180,6 +182,8 @@ class ServiceOrderController extends Controller
             $SOH = new ServiceOrderHelper($so, $em, true);
             $SOH->execute();
             $errors = $SOH->getErrors();
+
+            if($customer != $so->getCustomer() && $so->getPriceQuotation() != null) $errors .= 'Non puoi modificare il cliente se l\'Ordine di Servizio è associato ad un preventivo<br>';
 
             if ($errors == null) {
                 $em->flush();
@@ -244,6 +248,60 @@ class ServiceOrderController extends Controller
             'modal_title' => 'Assegna Autista e Veicolo',
             'modal_content' => $html
         ));
+    }
+
+    /**
+     * @Route("mass-driver-and-vehicle-assignment-{n}", name="mass_driver_and_vehicle_assignment")
+     */
+    public function massDriverAndVehicleAssignment(int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        $form = $this->createForm(DriverAndVehicleType::class, $so);
+
+        $actionUrl = $this->generateUrl('ajax_mass_driver_and_vehicle_assignment', array('n' => $n));
+
+        $html = $this->renderView('service_orders/assign_driver_and_vehicle.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $actionUrl
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Assegna Autista e Veicolo in massa',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/mass-driver-and-vehicle-assignment-{n}", name="ajax_mass_driver_and_vehicle_assignment")
+     */
+    public function ajaxMassDriverAndVehicleAssignment(Request $request, int $n)
+    {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        $form = $this->createForm(DriverAndVehicleType::class, $so);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $so = $form->getData();
+            $pqd = $so->getPriceQuotationDetail();
+
+            foreach($pqd->getServiceOrders() as $s) {
+                $s->setDriver($so->getDriver());
+                $s->setVehicle($so->getVehicle());
+            }
+
+            $em->flush();
+
+            return new Response('Autista e Mezzo assegnati correttamente a tutti gli Ordini di Servizio relativi a questo itinerario', 200);
+        }
+        return new Response('Errore durante l\'assegnazione', 500);
     }
 
     /**

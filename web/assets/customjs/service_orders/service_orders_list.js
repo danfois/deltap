@@ -173,6 +173,7 @@ var ServiceOrderList = function () {
 						    	<a class="dropdown-item" href="edit-service-order-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Ordine di Servizio</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Dettagli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'assign-driver-and-vehicle\', {\'id\' : ' + row.idv +'}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna Autista e Veicolo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'mass-driver-and-vehicle-assignment-' + row.idv +'\', {\'id\' : ' + row.idv +'}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna in massa Autista e Veicolo</a>\
 						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'issued\', \'serviceOrders\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
 						    	<a class="dropdown-item" href="create-report-' + row.idv +'" onclick=""><i class="la la-plus-circle"></i> Compila Report</a>\
 						    	<a class="dropdown-item" href="edit-report-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Report</a>\
