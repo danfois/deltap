@@ -200,32 +200,9 @@ var PriceQuotationList = function () {
                     title: 'Cliente',
                     sortable: true
                 },
-                // {
-                //     field: 'sender',
-                //     title: 'Mittente'
-                // },
-                // {
-                //     field: 'recipient',
-                //     title: 'Destinatario'
-                // },
                 {
                     field:'author',
                     title: 'Autore'
-                },
-                {
-                    field: 'service',
-                    title: 'Servizio',
-                    sortable: 'asc',
-                    // template: function (row) {
-                    //
-                    //     var status = {
-                    //         'Tour': {'title': 'Tour', 'class': 'm-badge--warning'},
-                    //         'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--info'},
-                    //         'Scuola': {'title': 'Scuola', 'class': ' m-badge--brand'},
-                    //         'Escursione': {'title': 'Escursione', 'class': ' m-badge--success'},
-                    //     };
-                    //     return '<span class="m-badge ' + status[row.service].class + ' m-badge--wide">' + status[row.service].title + '</span>';
-                    // }
                 },
                 {
                     field: 'status',

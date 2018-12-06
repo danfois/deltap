@@ -378,7 +378,7 @@ class PriceQuotationController extends Controller
         return $this->render('price_quotations/create_price_quotation.html.twig', array(
             'form' => $form->createView(),
             'action_url' => $actionUrl,
-            'title' => 'Modifica Preventivo'
+            'title' => 'Modifica Preventivo - ' . $PQ->getCode()
         ));
     }
 
@@ -407,7 +407,8 @@ class PriceQuotationController extends Controller
 
                 $em->flush();
 
-                return new Response('Preventivo modificato con successo', 200);
+                //return new Response('Preventivo modificato con successo', 200);
+                return new Response($PQ->getPriceQuotationId(), 200);
             }
             return new Response($errors, 500);
         }

@@ -21,7 +21,7 @@ class PriceQuotationDetailType extends AbstractType
             ->add('priceQuotation', EntityType::class, array(
                 'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotation',
                 'choice_label' => function ($p) {
-                    return $p->getCode() . ' - ' . $p->getCustomer()->getBusinessName() . ' - ' . $p->getServiceCode()->getService();
+                    return $p->getCode() . ' - ' . $p->getCustomer()->getBusinessName();
                 },
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,

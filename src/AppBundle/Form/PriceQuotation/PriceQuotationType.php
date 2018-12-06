@@ -62,30 +62,6 @@ class PriceQuotationType extends AbstractType
                 ),
                 'required' => false
             ))
-            ->add('recipientEmail', EmailType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                ),
-                'required' => false
-            ))
-            ->add('senderMail', EmailType::class, array(
-                'attr' => array(
-                    'class' => 'form-control m-input'
-                ),
-                'required' => false
-            ))
-            ->add('serviceCode', EntityType::class, array(
-                'class' => 'AppBundle:Service',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('s')->select('s');
-                },
-                'choice_label' => 'service',
-                'placeholder' => 'Scegli Servizio',
-                'empty_data' => null,
-                'attr' => array(
-                    'class' => 'form-control m-input service_select'
-                )
-            ))
             ->add('letter', LetterType::class, array(
                 'required' => false
             ))

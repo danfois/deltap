@@ -64,24 +64,6 @@ class PriceQuotation implements InvoiceDetailInterface
     protected $request;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true, name="receiver_mail")
-     * @Assert\Email(message="The email address you provided is not valid", checkMX=false)
-     */
-    protected $recipientEmail;
-
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true, name="sender_mail")
-     * @Assert\Email(message="The sender email address you provided is not valid", checkMX=false)
-     */
-    protected $senderMail;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service")
-     * @ORM\JoinColumn(name="service_code", referencedColumnName="service_id")
-     */
-    protected $serviceCode;
-
-    /**
      * @ORM\Column(type="integer", name="status", nullable=false, length=1)
      */
     protected $status;
@@ -206,53 +188,6 @@ class PriceQuotation implements InvoiceDetailInterface
         return $this->request;
     }
 
-    /**
-     * Set recipientEmail
-     *
-     * @param string $recipientEmail
-     *
-     * @return PriceQuotation
-     */
-    public function setRecipientEmail($recipientEmail)
-    {
-        $this->recipientEmail = $recipientEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get recipientEmail
-     *
-     * @return string
-     */
-    public function getRecipientEmail()
-    {
-        return $this->recipientEmail;
-    }
-
-    /**
-     * Set senderMail
-     *
-     * @param string $senderMail
-     *
-     * @return PriceQuotation
-     */
-    public function setSenderMail($senderMail)
-    {
-        $this->senderMail = $senderMail;
-
-        return $this;
-    }
-
-    /**
-     * Get senderMail
-     *
-     * @return string
-     */
-    public function getSenderMail()
-    {
-        return $this->senderMail;
-    }
 
     /**
      * Set status
@@ -378,16 +313,6 @@ class PriceQuotation implements InvoiceDetailInterface
         $this->serviceCode = $serviceCode;
 
         return $this;
-    }
-
-    /**
-     * Get serviceCode
-     *
-     * @return \AppBundle\Entity\Service
-     */
-    public function getServiceCode()
-    {
-        return $this->serviceCode;
     }
 
     /**

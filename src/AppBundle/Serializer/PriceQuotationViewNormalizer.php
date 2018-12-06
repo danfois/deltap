@@ -25,9 +25,6 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
                     'ids' => $o->getPriceQuotationId(),
                     'code' => $o->getCode(),
                     'customer' => $o->getCustomer()->getBusinessName(),
-                    'sender' => $o->getSenderMail(),
-                    'recipient' => $o->getRecipientEmail(),
-                    'service' => $o->getServiceCode()->getService(),
                     'author' => $o->getAuthor()->getUsername(),
                     'status' => $status,
                     'date' => $o->getPriceQuotationDate()->format('d-m-Y')
