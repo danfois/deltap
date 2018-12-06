@@ -231,7 +231,9 @@
             Preventivo redatto da: <strong>{{ pq.author.employee.name }}</strong><br>
             Il presente preventivo si riferisce alle voci indicate<br>
             ed &egrave; soggetto alle condizioni specificate di seguito:<br>
-            - {{ pq.serviceCode.service }}<br><br>
+
+            - {{ pq.priceQuotationDetails|first.serviceCode.service }}<br><br>
+            {#{{ dump(pq.priceQuotationDetails) }}#}
             Per accettazione: Timbro e Firma<br>
         </div>
 
