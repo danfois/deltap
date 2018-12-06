@@ -13,7 +13,7 @@ class IssuedInvoice extends Invoice implements PayableInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation")
-     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId")
+     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId", nullable=true)
      */
     protected $priceQuotation;
 
