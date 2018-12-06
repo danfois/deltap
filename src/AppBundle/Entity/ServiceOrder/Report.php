@@ -51,15 +51,13 @@ class Report
     protected $totalKm;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="fuelLt")
-     * @Assert\NotBlank(message="Non hai inserito i litri di carburante")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="fuelLt")
      * @Assert\Length(max=10, maxMessage="Il numero dei litri di carburante è troppo alto")
      */
     protected $fuelLt;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="fuelCost")
-     * @Assert\NotBlank(message="Non hai inserito il costo del carburante")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="fuelCost")
      * @Assert\Length(max=10, maxMessage="Il costo del carburante è troppo elevato.")
      */
     protected $fuelCost;

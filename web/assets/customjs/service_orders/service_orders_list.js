@@ -50,52 +50,15 @@ var ServiceOrderList = function () {
                     width: 20,
                     selector: {class: 'm-checkbox--solid m-checkbox--brand'}
                 },
-                {
-                    field: 'pq',
-                    title: 'Prev.',
-                    width: 50
-                },
+                // {
+                //     field: 'pq',
+                //     title: 'Prev.',
+                //     width: 50
+                // },
                 {
                     field: 'pqd',
                     title: 'Itin.',
-                    width:50
-                },
-                {
-                    field: 'customer',
-                    title: 'Cliente',
-                    sortable: true
-                },
-                {
-                    field: 'driver',
-                    title: 'Autista',
-                    template: function(row) {
-                        if(row.driver === 'Nessuno') {
-                            return '<span class="m--font-danger">Nessuno</span>'
-                        } else {
-                            return '<span class="m--font-info">' + row.driver + '</span>';
-                        }
-                    }
-                },
-                {
-                    field: 'vehicle',
-                    title: 'Veicolo',
-                    template: function(row) {
-                        if(row.vehicle === 'Nessuno') {
-                            return '<span class="m--font-danger">Nessuno</span>'
-                        } else {
-                            return '<span class="m--font-info">' + row.vehicle + '</span>';
-                        }
-                    }
-                },
-                {
-                    field: 'departureLocation',
-                    title: 'Partenza',
-                    width: 80
-                },
-                {
-                    field: 'arrivalLocation',
-                    title: 'Arrivo',
-                    width: 80
+                    width:70
                 },
                 {
                     field: 'departureDate',
@@ -110,6 +73,7 @@ var ServiceOrderList = function () {
                 {
                     field: 'time',
                     title: 'Orari',
+                    width:75,
                     template: function(row) {
                         if(row.lessThanFive === 1) {
                             return '<span class="m--font-danger">' + row.time + '</span>';
@@ -122,6 +86,43 @@ var ServiceOrderList = function () {
                     field: 'passengers',
                     title: 'Pass.',
                     width:50
+                },
+                {
+                    field: 'vehicle',
+                    title: 'Veicolo',
+                    template: function(row) {
+                        if(row.vehicle === 'Nessuno') {
+                            return '<span class="m--font-danger">Nessuno</span>'
+                        } else {
+                            return '<span class="m--font-info">' + row.vehicle + '</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'driver',
+                    title: 'Autista',
+                    template: function(row) {
+                        if(row.driver === 'Nessuno') {
+                            return '<span class="m--font-danger">Nessuno</span>'
+                        } else {
+                            return '<span class="m--font-info">' + row.driver + '</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'customer',
+                    title: 'Cliente',
+                    sortable: true
+                },
+                {
+                    field: 'departureLocation',
+                    title: 'Partenza',
+                    width: 80
+                },
+                {
+                    field: 'arrivalLocation',
+                    title: 'Arrivo',
+                    width: 80
                 },
                 {
                     field: 'frequency',

@@ -28,19 +28,19 @@ class ServiceOrder implements InvoiceDetailInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation", inversedBy="serviceOrders")
-     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId")
+     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId", nullable=true)
      */
     protected $priceQuotation;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", inversedBy="serviceOrders")
-     * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId")
+     * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId", nullable=true)
      */
     protected $priceQuotationDetail;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\Stage")
-     * @ORM\JoinColumn(name="stageId", referencedColumnName="stageId")
+     * @ORM\JoinColumn(name="stageId", referencedColumnName="stageId", nullable=true)
      */
     protected $stage;
 

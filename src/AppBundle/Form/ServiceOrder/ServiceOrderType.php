@@ -48,7 +48,8 @@ class ServiceOrderType extends AbstractType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('priceQuotationDetail', EntityType::class, array(
                 'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
@@ -57,10 +58,12 @@ class ServiceOrderType extends AbstractType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('stage', EntityType::class, array(
                 'class' => 'AppBundle\Entity\PriceQuotation\Stage',
+                'required' => false,
                 'query_builder' => function(EntityRepository $er) use ($pqd) {
                     if($pqd !== null) {
                         return $er->createQueryBuilder('s')
@@ -161,7 +164,9 @@ class ServiceOrderType extends AbstractType
             ->add('price', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false,
+                'empty_data' => 0
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array(
@@ -182,7 +187,9 @@ class ServiceOrderType extends AbstractType
             ->add('vat', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false,
+                'empty_data' => 0
             ));
 
         $builder->get('departureDate')->addModelTransformer($this->transformer);

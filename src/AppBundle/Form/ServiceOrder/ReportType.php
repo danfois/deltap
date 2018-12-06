@@ -40,22 +40,26 @@ class ReportType extends AbstractType
             ->add('fuelCost', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false
             ))
             ->add('fuelLt', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false
             ))
             ->add('oilCost', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false
             ))
             ->add('oilLt', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false
             ))
             ->add('notes', TextareaType::class, array(
                 'attr' => array(

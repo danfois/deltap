@@ -34,7 +34,7 @@ class ReportController extends Controller
         $actionUrl = $this->generateUrl('ajax_create_report');
 
         return $this->render('service_orders/report.html.twig', array(
-            'title' => 'Creazione Report per Ordine di Servizio N. ' . $so->getServiceOrder(),
+            'title' => 'Creazione Report per Ordine di Servizio N. ' . $so->getServiceOrder() . ' - ' . ($so->getVehicle() != null ? $so->getVehicle()->getPlate() : ''),
             'action_url' => $actionUrl,
             'form' => $form->createView()
         ));
@@ -59,7 +59,9 @@ class ReportController extends Controller
 
             if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
             if ($so->getReport() != null) return new Response('Esiste già un Report per questo Ordine di Servizio', 500);
-            if ($so->getDriver() != $user) return new Response('Non sei autorizzato a fare questa operazione. Il prossimo tentativo verrà segnalato all\'Amministratore', 403);
+            if ($so->getDriver() == null) return new Response('Inserire un autista nell\'Ordine di Servizio prima di compilare il report', 400);
+            if ($so->getVehicle() == null) return new Response('Inserire la targa relativa a questo ordine di servizio', 400);
+            if ($so->getDriver() != $user && $user->getRoles()[0] != 'ROLE_ADMIN') return new Response('Non sei autorizzato a fare questa operazione. Il prossimo tentativo verrà segnalato all\'Amministratore', 403);
 
             $RH = new ReportHelper($report, $em, false);
             $RH->execute();
