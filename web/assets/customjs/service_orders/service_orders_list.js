@@ -50,15 +50,10 @@ var ServiceOrderList = function () {
                     width: 20,
                     selector: {class: 'm-checkbox--solid m-checkbox--brand'}
                 },
-                // {
-                //     field: 'pq',
-                //     title: 'Prev.',
-                //     width: 50
-                // },
                 {
-                    field: 'pqd',
-                    title: 'Itin.',
-                    width:70
+                    field: 'idv',
+                    title: 'Id',
+                    width: 30
                 },
                 {
                     field: 'departureDate',

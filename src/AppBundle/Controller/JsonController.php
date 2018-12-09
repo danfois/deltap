@@ -327,7 +327,11 @@ class JsonController extends Controller
     {
         $id = $request->request->get('id');
 
-        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findBy(array('priceQuotation' => $id));
+        if($id == null) {
+            $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findAll();
+        } else {
+            $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findBy(array('priceQuotation' => $id));
+        }
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new PriceQuotationDetailViewNormalizer()];

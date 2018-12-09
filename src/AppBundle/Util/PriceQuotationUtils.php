@@ -27,7 +27,8 @@ class PriceQuotationUtils
 
     public static function generatePriceQuotationDetailCode(EntityManager $em)
     {
-        $firstPart = date('Y') . 'IT-';
+        //$firstPart = date('Y') . 'IT-';
+        $firstPart = '';
 
         //this method is taken by repository class and returns instance of PriceQuotation. So the index is required to work
         //with methods that require a string

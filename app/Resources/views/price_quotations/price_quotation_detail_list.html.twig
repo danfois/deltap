@@ -1,0 +1,42 @@
+{% extends('BASE/base_list.html.twig') %}
+
+{% block search_form %}
+
+    <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
+        <div class="row">
+            <div class="col-lg-2">
+
+                <select class="form-control m-input" id="mass-action">
+                    <option value="">Scegli Operazione...</option>
+                    <option value="3">Registra Fattura</option>
+                </select>
+            </div>
+            <div class="col-lg-1">
+                <a href="javascript:void(0);" class="btn btn-brand" id="apply-mass-action">Applica</a>
+            </div>
+            <div class="col-lg-9">
+                <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
+                    Seleziona Tutto
+                </button>
+                <button class="btn btn-secondary" type="button" id="m_datatable_uncheck_all">
+                    Deseleziona Tutto
+                </button>
+                <button class="btn btn-secondary" type="button" id="m_datatable_remove_row">
+                    Nascondi Selezionati
+                </button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extended_page_scripts %}
+    <script src="{{ asset('assets/customjs/generateInvoiceUrl.js') }}"></script>
+    <script src="{{ asset('assets/customjs/price_quotations/price_quotation_detail_list.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            initializeWidgets();
+            PriceQuotationDetailList.init();
+        });
+    </script>
+{% endblock %}

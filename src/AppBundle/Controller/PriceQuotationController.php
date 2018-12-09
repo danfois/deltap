@@ -295,6 +295,18 @@ class PriceQuotationController extends Controller
     }
 
     /**
+     * @Route("price-quotation-detail-list", name="price_quotation_detail_list")
+     */
+    public function priceQuotationDetailListAction()
+    {
+        return $this->render('price_quotations/price_quotation_detail_list.html.twig', array(
+            'title' => 'Lista Itinerari',
+            'new_button_path' => $this->generateUrl('create_price_quotation_detail'),
+            'new_button_name' => 'Nuovo Itinerario'
+        ));
+    }
+
+    /**
      * @Route("popup-create-price-quotation", name="popup_create_price_quotation")
      */
     public function popupCreatePriceQuotation()
