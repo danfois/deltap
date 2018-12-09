@@ -267,4 +267,9 @@ class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
     {
         return 22;
     }
+
+    public function getInvoiceCustomer()
+    {
+        return null;
+    }
 }

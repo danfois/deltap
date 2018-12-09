@@ -706,6 +706,11 @@ class ServiceOrder implements InvoiceDetailInterface
         return $this->getDepartureDate()->format('d/m/Y') . ' - Ordine di Servizio n. ' . $this->getServiceOrder() . ' da ' . $this->getDepartureLocation() . ' a ' . $this->getArrivalLocation();
     }
 
+    public function getInvoiceCustomer()
+    {
+        return $this->getCustomer();
+    }
+
 
     /**
      * Set problems

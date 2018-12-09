@@ -9,6 +9,7 @@ use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 
 class InvoiceFormManager
@@ -44,9 +45,14 @@ class InvoiceFormManager
                     $this->invoice->setPriceQuotation($d);
                     $this->invoice->setCustomer($d->getCustomer());
                 }
-                if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) {
-                    $this->invoice->setPriceQuotation($d->getPriceQuotation());
-                    $this->invoice->setCustomer($d->getPriceQuotation()->getCustomer());
+
+//                if($d instanceof ServiceOrder && $this->invoice instanceof IssuedInvoice) {
+//                    $this->invoice->setPriceQuotation($d->getPriceQuotation());
+//                    $this->invoice->setCustomer($d->getPriceQuotation()->getCustomer());
+//                }
+
+                if($this->invoice instanceof IssuedInvoice) {
+                    $this->invoice->setCustomer($d->getInvoiceCustomer());
                 }
 
                 if(method_exists($d, 'getParentProvider')) {

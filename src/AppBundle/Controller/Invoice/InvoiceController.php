@@ -188,7 +188,7 @@ class InvoiceController extends Controller
         $invoice = $ifm->manageInvoiceData()->getInvoice();
         $invoice->setInvoiceDate(new \DateTime());
 
-        if($irm->getRawData() != null) {
+        if($irm->getRawData() != null && !is_array($irm->getRawData())) {
             $idMethod = 'get' . ucwords($em->getClassMetadata(get_class($irm->getRawData()))->getSingleIdentifierFieldName());
             $id = $irm->getRawData()->$idMethod();
         } else {

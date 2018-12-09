@@ -408,4 +408,9 @@ class PriceQuotation implements InvoiceDetailInterface
 
         return $vat;
     }
+
+    public function getInvoiceCustomer()
+    {
+        return $this->getCustomer();
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\PriceQuotation;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PriceQuotationDetailRepository")
  * @ORM\Table(name="price_quotation_details")
  */
-class PriceQuotationDetail
+class PriceQuotationDetail implements InvoiceDetailInterface
 {
     const UNCONFIRMED = 1;
     const CONFIRMED = 2;
@@ -404,5 +405,35 @@ class PriceQuotationDetail
     public function getServiceOrders()
     {
         return $this->serviceOrders;
+    }
+
+    /*
+     * START OF INVOICEDETAILINTERFACE
+     */
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getPrice();
+    }
+
+    public function getProductName(): string
+    {
+        return 'Itinerario N. ' . $this->getName();
+    }
+
+    public function getProductCode(): string
+    {
+        return $this->getName();
+    }
+
+    public function getInvoiceVat()
+    {
+        return $this->getVat();
+    }
+
+    public function getInvoiceCustomer()
+    {
+        if($this->getPriceQuotation() != null) return $this->getPriceQuotation()->getCustomer();
+        return null;
     }
 }

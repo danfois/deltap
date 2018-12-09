@@ -295,6 +295,11 @@ class MaintenanceDetail implements InvoiceDetailInterface
         return $this->getMaintenance()->getProvider();
     }
 
+    public function getInvoiceCustomer()
+    {
+        return null;
+    }
+
     /*
      * End of InvoiceDetailInterface
      */

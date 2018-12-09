@@ -14,4 +14,14 @@ class PriceQuotationDetailRepository extends EntityRepository
             ->getQuery();
         return $query->getOneOrNullResult();
     }
+
+    public function findPqdInArray($data)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.priceQuotationDetailId IN (:dataarray)')
+            ->setParameter(':dataarray', $data)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

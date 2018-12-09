@@ -11,4 +11,6 @@ interface InvoiceDetailInterface
     public function getInvoicePrice(): float;
 
     public function getInvoiceVat();
+
+    public function getInvoiceCustomer();
 }

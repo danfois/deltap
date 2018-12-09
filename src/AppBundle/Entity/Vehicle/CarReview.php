@@ -68,4 +68,9 @@ class CarReview extends VehiclePeriodicCost implements UnavailabilityInterface, 
     {
         return 22;
     }
+
+    public function getInvoiceCustomer()
+    {
+        return null;
+    }
 }

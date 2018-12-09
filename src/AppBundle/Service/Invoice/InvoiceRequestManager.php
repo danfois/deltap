@@ -6,6 +6,7 @@ use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
+use AppBundle\Entity\PriceQuotation\PriceQuotationDetail;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Entity\Vehicle\Insurance;
@@ -73,6 +74,7 @@ class InvoiceRequestManager
 
         $allowedDataTypes = array(
             'priceQuotation' => 'issued',
+            'priceQuotationDetail' => 'issued',
             'serviceOrders' => 'issued',
             'insurances' => 'received',
             'reviews' => 'received',
@@ -114,6 +116,10 @@ class InvoiceRequestManager
         switch($pa['dataType']) {
             case 'priceQuotation':
                 $this->fetchPriceQuotation($data);
+                return true;
+                break;
+            case 'priceQuotationDetail':
+                $this->fetchPriceQuotationDetail($data);
                 return true;
                 break;
             case 'serviceOrders':
@@ -164,6 +170,15 @@ class InvoiceRequestManager
         $dataToPass = $this->em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $data[0]));
         $this->rawData = $dataToPass;
         if($dataToPass == null) throw new \Exception('Preventivo non trovato');
+
+        $this->data = $dataToPass;
+    }
+
+    protected function fetchPriceQuotationDetail(array $data)
+    {
+        $dataToPass = $this->em->getRepository(PriceQuotationDetail::class)->findPqdInArray($data);
+        $this->rawData = $dataToPass;
+        if($dataToPass == null) throw new \Exception('Itinerario non trovato');
 
         $this->data = $dataToPass;
     }
