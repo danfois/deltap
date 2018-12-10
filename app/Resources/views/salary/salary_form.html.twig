@@ -101,7 +101,7 @@
                                                     {{ form_widget(d.payment.amount) }}
                                                 </div>
 
-                                                <div class="col-lg-1 m-form__group-sub">
+                                                <div class="col-lg-2 m-form__group-sub">
                                                     <label>* Data Pag. :</label>
                                                     {{ form_widget(d.payment.paymentDate) }}
                                                 </div>
@@ -119,6 +119,20 @@
                                                 <div class="col-lg-3 m-form__group-sub">
                                                     <label>* Conto :</label>
                                                     {{ form_widget(d.payment.bankAccount) }}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+
+                                                <div class="col-lg-3 m-form__group-sub">
+                                                    <label>Data Assegno :</label>
+                                                    {{ form_widget(d.payment.checkDate) }}
+                                                </div>
+
+                                                <div class="col-lg-3 m-form__group-sub">
+                                                    <label>N. Assegno :</label>
+                                                    {{ form_widget(d.payment.checkNumber) }}
                                                 </div>
 
                                                 <div class="col-md-1 m-form__group-sub">

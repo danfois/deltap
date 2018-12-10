@@ -19,8 +19,17 @@ class SalaryHelper extends AbstractHelper
 
     public function execute()
     {
+        if($this->isEdited === false) $this->checkExistingSalary();
         $this->iterateDetails();
         $this->executed = 1;
+    }
+
+    protected function checkExistingSalary()
+    {
+        $salary = $this->em->getRepository(Salary::class)->findOneBy(array('employee' => $this->instance->getEmployee(), 'year' => $this->instance->getYear(), 'month' => $this->instance->getMonth()));
+        if($salary == null) return true;
+        $this->errors .= 'Esiste già uno stipendio per ' . $this->instance->getEmployee()->getName() . ' ' . $this->instance->getEmployee()->getSurname() . ' per il mese ' . $this->instance->getMonth() . '/' . $this->instance->getYear();
+        return false;
     }
 
     public function removeOldPayments($oldDetails)

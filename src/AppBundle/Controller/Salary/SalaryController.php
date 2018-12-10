@@ -22,6 +22,11 @@ class SalaryController extends Controller
         $salary = new Salary();
         $salaryDetail = new SalaryDetail();
 
+        $currentDate = new \DateTime();
+
+        $salary->setYear($currentDate->format('Y'));
+        $salary->setMonth($currentDate->format('m'));
+
         $salary->addSalaryDetail($salaryDetail);
 
         $form = $this->createForm(SalaryType::class, $salary);
@@ -56,7 +61,8 @@ class SalaryController extends Controller
                 $em->persist($salary);
                 $em->flush();
 
-                return new Response('Stipendio creato con successo!', 200);
+//                return new Response('Stipendio creato con successo!', 200);
+                return new Response($salary->getSalaryId(), 200);
             } else {
                 return new Response($errors, 500);
             }
@@ -83,6 +89,10 @@ class SalaryController extends Controller
     {
         $salary = $this->getDoctrine()->getRepository(Salary::class)->find($n);
         if ($salary == null) return new Response('Stipendio non trovato', 404);
+
+        if(count($salary->getSalaryDetails()) == 0) {
+            $salary->addSalaryDetail(new SalaryDetail());
+        }
 
         $form = $this->createForm(SalaryType::class, $salary);
 

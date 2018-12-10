@@ -71,7 +71,8 @@ class SalaryType extends AbstractType
             ->add('causal', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('salaryDetails', CollectionType::class, array(
                 'entry_type' => SalaryDetailType::class,

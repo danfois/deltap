@@ -16,7 +16,7 @@ class EmployeeViewNormalizer implements NormalizerInterface
                 $r[] = [
                     'id'            => $o->getEmployeeId(),
                     'idv'           => $o->getEmployeeId(),
-                    'name'          => $o->getName() . ' ' . $o->getSurname(),
+                    'name'          => $o->getSurname() . ' ' . $o->getName(),
                     'code'          => $o->getEmployeeCode(),
                     'type'          => $o->getEmploymentType(),
                     'payGrade'      => $o->getPayGrade(),
