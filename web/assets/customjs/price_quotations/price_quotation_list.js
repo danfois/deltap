@@ -57,7 +57,14 @@ var PriceQuotationList = function () {
                         // },
                             {
                                 field: "code",
-                                title: "Codice Itinerario"
+                                title: "Codice Itinerario",
+                                template: function(row) {
+                                    if(row.pqCode != '') {
+                                        return row.pqCode + '/' + row.code;
+                                    } else {
+                                        return row.code;
+                                    }
+                                }
                             },
                             {
                                 field: "serviceType",

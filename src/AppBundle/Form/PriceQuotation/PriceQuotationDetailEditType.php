@@ -76,7 +76,8 @@ class PriceQuotationDetailEditType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
                 )
-            ));
+            ))
+            ->add('attachment', AttachmentType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

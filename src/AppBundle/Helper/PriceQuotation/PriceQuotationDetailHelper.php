@@ -37,8 +37,9 @@ class PriceQuotationDetailHelper
 
     protected function checkCodeUnique()
     {
-        $pqd = $this->em->getRepository(PriceQuotationDetail::class)->findBy(array('name' => $this->priceQuotationDetail->getName()));
+        $pqd = $this->em->getRepository(PriceQuotationDetail::class)->findOneBy(array('name' => $this->priceQuotationDetail->getName()));
         if($pqd == null) return true;
+        if($pqd->getPriceQuotationDetailId() == $this->priceQuotationDetail->getPriceQuotationDetailId()) return true;
         $this->errors .= 'Esiste già un itinerario con questo codice<br>';
         return false;
     }

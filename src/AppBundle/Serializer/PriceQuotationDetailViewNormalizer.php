@@ -41,7 +41,8 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                     'arrivalLocation' => $arrivalLocation,
                     'departureDate' => $o->getStages()[0]->getDepartureDate()->format('d-m-Y'),
                     'arrivalDate' => $o->getStages()[$stageCount-1]->getArrivalDate()->format('d-m-Y'),
-                    'status' => $o->getStatus()
+                    'status' => $o->getStatus(),
+                    'pqCode' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCode() : '')
                 ];
             }
         }

@@ -56,6 +56,17 @@ var ServiceOrderList = function () {
                     width: 30
                 },
                 {
+                    field: 'pqd',
+                    title: 'Itin.',
+                    template: function(row) {
+                        if(row.pq != '') {
+                            return row.pq + '/' + row.pqd;
+                        } else {
+                            return row.pqd;
+                        }
+                    }
+                },
+                {
                     field: 'departureDate',
                     title: 'Data Part.',
                     width: 80
