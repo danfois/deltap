@@ -31,7 +31,7 @@ var SalaryList = function () {
                             type: "remote",
                             source: {
                                 read: {
-                                    url: "json/salary-details",
+                                    url: window.location.origin + "/json/salary-details",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
                                     params: {'id': t.data.idv}
                                 }
@@ -217,16 +217,16 @@ var SalaryList = function () {
                     title: 'Impiegato'
                 },
                 {
+                    field: 'causal',
+                    title: 'Causale'
+                },
+
+                {
                     field: 'amount',
                     title: 'Importo',
                     template: function(row) {
                         return '&euro; ' + row.amount;
                     }
-                },
-
-                {
-                    field: 'causal',
-                    title: 'Causale'
                 },
                 {
                     field: 'balance',

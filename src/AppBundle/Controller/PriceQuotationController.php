@@ -546,13 +546,8 @@ class PriceQuotationController extends Controller
 
         $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-//        return new PdfResponse(
-//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-//            'file.pdf'
-//        );
-
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false)),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
             'file.pdf'
         );
     }
