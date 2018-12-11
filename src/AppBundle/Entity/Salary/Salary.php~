@@ -42,7 +42,7 @@ class Salary
     protected $causal;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Salary\SalaryDetail", mappedBy="salary", cascade={"persist"})
      */
     protected $salaryDetails;
 
@@ -51,6 +51,11 @@ class Salary
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     protected $employee;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="notes")
+     */
+    protected $notes;
 
     /**
      * Get salaryId
@@ -181,5 +186,46 @@ class Salary
     public function getEmployee()
     {
         return $this->employee;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->salaryDetails = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add salaryDetail
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salaryDetail
+     *
+     * @return Salary
+     */
+    public function addSalaryDetail(\AppBundle\Entity\Salary\SalaryDetail $salaryDetail)
+    {
+        $this->salaryDetails[] = $salaryDetail;
+
+        return $this;
+    }
+
+    /**
+     * Remove salaryDetail
+     *
+     * @param \AppBundle\Entity\Salary\SalaryDetail $salaryDetail
+     */
+    public function removeSalaryDetail(\AppBundle\Entity\Salary\SalaryDetail $salaryDetail)
+    {
+        $this->salaryDetails->removeElement($salaryDetail);
+    }
+
+    /**
+     * Get salaryDetails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalaryDetails()
+    {
+        return $this->salaryDetails;
     }
 }

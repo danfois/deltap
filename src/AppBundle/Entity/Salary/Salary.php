@@ -53,6 +53,11 @@ class Salary
     protected $employee;
 
     /**
+     * @ORM\Column(type="text", nullable=true, name="notes")
+     */
+    protected $notes;
+
+    /**
      * Get salaryId
      *
      * @return integer
@@ -222,5 +227,29 @@ class Salary
     public function getSalaryDetails()
     {
         return $this->salaryDetails;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Salary
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }
