@@ -75,7 +75,8 @@ class PaymentType extends AbstractType
             ->add('causal', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('description', TextType::class, array(
                 'attr' => array(
@@ -122,8 +123,7 @@ class PaymentType extends AbstractType
                 'placeholder' => 'Nessuno',
                 'attr' => array(
                     'class' => 'form-control m-input'
-                ),
-                'required' => false
+                )
             ))
             ->add('issuedInvoice', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Invoice\IssuedInvoice',

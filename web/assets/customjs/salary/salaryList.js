@@ -31,7 +31,7 @@ var SalaryList = function () {
                             type: "remote",
                             source: {
                                 read: {
-                                    url: window.location.origin + "/json/salary-details",
+                                    url: "/json/salary-details",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
                                     params: {'id': t.data.idv}
                                 }
