@@ -21,7 +21,7 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
 
     public function getEmployeeSelect()
     {
-        $this->employees = $this->em->getRepository(User::class)->findAll();
+        $this->employees = $this->em->getRepository(User::class)->findWithEmployee();
     }
 
     public function getVehicleSelect()
@@ -36,9 +36,9 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
 
         foreach($this->employees as $e) {
             if($id === $e->getIdUser()) {
-                $options .= '<option selected="selected" value=' . $e->getIdUser() . '>' . $e->getUsername() . ' </option>';
+                $options .= '<option selected="selected" value=' . $e->getIdUser() . '>' . $e->getEmployee()->getName() . ' ' . $e->getEmployee()->getSurname()  . ' </option>';
             } else {
-                $options .= '<option value="' . $e->getIdUser() . '">' . $e->getUsername() .  ' </option>';
+                $options .= '<option value="' . $e->getIdUser() . '">' . $e->getEmployee()->getName() . ' ' . $e->getEmployee()->getSurname() . ' </option>';
             }
         }
 
