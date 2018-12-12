@@ -51,6 +51,11 @@ abstract class Invoice
      */
     protected $pa_receipt_date;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="notes")
+     */
+    protected $notes;
+
 
     /**
      * @return mixed
@@ -175,6 +180,24 @@ abstract class Invoice
     public function setPaReceiptDate($pa_receipt_date)
     {
         $this->pa_receipt_date = $pa_receipt_date;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     * @return Invoice
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
         return $this;
     }
 

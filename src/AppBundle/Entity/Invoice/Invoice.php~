@@ -1,8 +1,9 @@
 <?php
 
 namespace AppBundle\Entity\Invoice;
+
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 
 /**
@@ -24,14 +25,6 @@ abstract class Invoice
     protected $invoiceDate;
 
     /**
-     * @ORM\Column(type="int", nullable=false, name="invoiceNumber")
-     * @Assert\NotBlank(message="Invoice Number cannot be null")
-     */
-    protected $invoiceNumber;
-
-    //todo: inserire OneToMany per i pagamenti
-
-    /**
      * @ORM\Column(type="text", nullable=false, name="causal")
      * @Assert\NotBlank(message="Invoice causal cannot be null")
      */
@@ -44,12 +37,12 @@ abstract class Invoice
     protected $paymentTerms;
 
     /**
-     * @ORM\Column(type="int", nullable=false, length=1, name="pa_invoice")
+     * @ORM\Column(type="integer", nullable=false, length=1, name="pa_invoice")
      */
     protected $paInvoice;
 
     /**
-     * @ORM\Column(type="int", nullable=true, name="pa_invoice_number")
+     * @ORM\Column(type="integer", nullable=true, name="pa_invoice_number")
      */
     protected $paInvoiceNumber;
 
@@ -59,20 +52,135 @@ abstract class Invoice
     protected $pa_receipt_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
-     * @ORM\JoinColumn(name="customerId", referencedColumnName="idCustomer")
+     * @ORM\Column(type="text", nullable=true, name="notes")
      */
-    protected $customer;
+    protected $notes;
+
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
-     * @ORM\JoinColumn(name="providerId", referencedColumnName="idProvider")
+     * @return mixed
      */
-    protected $provider;
+    public function getInvoiceId()
+    {
+        return $this->invoiceId;
+    }
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="invoice")
+     * @param mixed $invoiceId
+     * @return Invoice
      */
-    protected $invoiceDetails;
+    public function setInvoiceId($invoiceId)
+    {
+        $this->invoiceId = $invoiceId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInvoiceDate()
+    {
+        return $this->invoiceDate;
+    }
+
+    /**
+     * @param mixed $invoiceDate
+     * @return Invoice
+     */
+    public function setInvoiceDate($invoiceDate)
+    {
+        $this->invoiceDate = $invoiceDate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCausal()
+    {
+        return $this->causal;
+    }
+
+    /**
+     * @param mixed $causal
+     * @return Invoice
+     */
+    public function setCausal($causal)
+    {
+        $this->causal = $causal;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentTerms()
+    {
+        return $this->paymentTerms;
+    }
+
+    /**
+     * @param mixed $paymentTerms
+     * @return Invoice
+     */
+    public function setPaymentTerms($paymentTerms)
+    {
+        $this->paymentTerms = $paymentTerms;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaInvoice()
+    {
+        return $this->paInvoice;
+    }
+
+    /**
+     * @param mixed $paInvoice
+     * @return Invoice
+     */
+    public function setPaInvoice($paInvoice)
+    {
+        $this->paInvoice = $paInvoice;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaInvoiceNumber()
+    {
+        return $this->paInvoiceNumber;
+    }
+
+    /**
+     * @param mixed $paInvoiceNumber
+     * @return Invoice
+     */
+    public function setPaInvoiceNumber($paInvoiceNumber)
+    {
+        $this->paInvoiceNumber = $paInvoiceNumber;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaReceiptDate()
+    {
+        return $this->pa_receipt_date;
+    }
+
+    /**
+     * @param mixed $pa_receipt_date
+     * @return Invoice
+     */
+    public function setPaReceiptDate($pa_receipt_date)
+    {
+        $this->pa_receipt_date = $pa_receipt_date;
+        return $this;
+    }
 
 }
