@@ -21,7 +21,6 @@ use AppBundle\Util\DistanceMatrixAPI;
 use AppBundle\Util\PriceQuotationUtils;
 use AppBundle\Util\TableMaker;
 use Doctrine\ORM\EntityManager;
-use Dompdf\Dompdf;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Mpdf\Mpdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -83,7 +82,7 @@ class PriceQuotationController extends Controller
 
             if ($errors == null) {
 
-                foreach ($PQ->getPriceQuotationDetails() as $d) {
+                foreach($PQ->getPriceQuotationDetails() as $d) {
                     $em->persist($d);
                 }
 
@@ -130,7 +129,7 @@ class PriceQuotationController extends Controller
 
         if ($id != null) {
             $PQ = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
-            if ($PQ == null) return new Response('Nessun preventivo trovato', 404);
+            if($PQ == null) return new Response('Nessun preventivo trovato', 404);
             $PQD->setPriceQuotation($PQ);
         }
 
@@ -167,7 +166,7 @@ class PriceQuotationController extends Controller
             $PQDH->execute();
             $errors = $PQDH->getErrors();
 
-            if ($errors == null) {
+            if($errors == null) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($PQD);
                 $PQD->setStatus(1);
@@ -201,7 +200,7 @@ class PriceQuotationController extends Controller
     public function editPriceQuotationDetailAction(int $id)
     {
         $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
-        if ($pqd == null) return new Response('Itinerario non trovato!', 404);
+        if($pqd == null) return new Response('Itinerario non trovato!', 404);
 
         $form = $this->createForm(PriceQuotationDetailEditType::class, $pqd);
 
@@ -228,7 +227,7 @@ class PriceQuotationController extends Controller
     public function ajaxEditPriceQuotationDetailAction(Request $request, int $id)
     {
         $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
-        if ($pqd == null) return new Response('Itinerario non trovato!', 404);
+        if($pqd == null) return new Response('Itinerario non trovato!', 404);
 
         $form = $this->createForm(PriceQuotationDetailEditType::class, $pqd);
 
@@ -250,7 +249,7 @@ class PriceQuotationController extends Controller
             $PQDH->execute();
             $errors = $PQDH->getErrors();
 
-            if ($errors == null) {
+            if($errors == null) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($PQD);
 
@@ -359,11 +358,11 @@ class PriceQuotationController extends Controller
     {
         $id = $request->query->get('id');
 
-        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o itinerario non trovato', 400);
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o itinerario non trovato', 400);
 
         $PQD = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->findOneBy(array('priceQuotationDetailId' => $id));
 
-        if ($PQD == null) return new Response('Nessun itinerario trovato', 404);
+        if($PQD == null) return new Response('Nessun itinerario trovato', 404);
 
         $html = $this->renderView('price_quotations/stage_details.html.twig', array(
             'stages' => $PQD->getStages()
@@ -382,7 +381,7 @@ class PriceQuotationController extends Controller
     {
         $PQ = $this->getDoctrine()->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
 
-        if ($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
+        if($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
 
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
@@ -404,13 +403,13 @@ class PriceQuotationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $PQ = $em->getRepository(PriceQuotation::class)->findOneBy(array('priceQuotationId' => $id));
-        if ($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
+        if($PQ == null) return new Response('Impossibile trovare questo preventivo', 404);
 
         $form = $this->createForm(PriceQuotationType::class, $PQ);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $PQ = $form->getData();
 
             $PQH = new PriceQuotationHelper($PQ, $em, $this->getUser());
@@ -448,13 +447,13 @@ class PriceQuotationController extends Controller
         $startPoint = $request->query->get('startPoint');
         $endPoint = $request->query->get('endPoint');
         $startFromCompany = ($request->query->get('sfc') != 'false' ? $request->query->get('sfc') : false);
-        $returnToCompany = ($request->query->get('rtc') != 'false' ? $request->query->get('rtc') : false);
+        $returnToCompany  = ($request->query->get('rtc') != 'false' ? $request->query->get('rtc') : false);
 
         $DM = new DistanceMatrixAPI($startPoint, $endPoint, 'json', true);
         $DM->generateRequestUrl();
         $response = $DM->getResult();
 
-        if ($startFromCompany !== false && is_array($response) !== false) {
+        if($startFromCompany !== false && is_array($response) !== false) {
             $sfc = new DistanceMatrixAPI('Pratosardo, via Caruledda', $startPoint, 'json', true);
             $sfc->generateRequestUrl();
             $sfcResult = $sfc->getResult();
@@ -463,7 +462,7 @@ class PriceQuotationController extends Controller
             $response['time'] = $response['time'] + $sfcResult['time'];
         }
 
-        if ($returnToCompany !== false && is_array($response) !== false) {
+        if($returnToCompany !== false && is_array($response) !== false) {
             $rtc = new DistanceMatrixAPI($endPoint, 'Nuoro', 'json', true);
             $rtc->generateRequestUrl();
             $rtcResult = $rtc->getResult();
@@ -472,7 +471,7 @@ class PriceQuotationController extends Controller
             $response['time'] = $response['time'] + $rtcResult['time'];
         }
 
-        if (is_array($response) === true) {
+        if(is_array($response) === true) {
             return new Response(json_encode($response));
         }
 
@@ -486,7 +485,7 @@ class PriceQuotationController extends Controller
     {
         $id = $request->query->get('id');
         $status = $request->query->get('status');
-        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Preventivo non trovato', 400);
+        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Preventivo non trovato', 400);
 
         $possibleStatusArray = array(
             1 => 'da Inviare',
@@ -495,7 +494,7 @@ class PriceQuotationController extends Controller
             4 => 'annullato'
         );
 
-        if (array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato del preventivo richiesto NON valido!', 500);
+        if(array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato del preventivo richiesto NON valido!', 500);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -503,11 +502,11 @@ class PriceQuotationController extends Controller
 
         $details = $pq->getPriceQuotationDetails();
 
-        foreach ($details as $d) {
-            if ($d->getEmittedOrders() == 1) return new Response("Impossibile cambiare lo status del preventivo. Sono già stati emessi ordini di servizio", 500);
+        foreach($details as $d) {
+            if($d->getEmittedOrders() == 1) return new Response("Impossibile cambiare lo status del preventivo. Sono già stati emessi ordini di servizio", 500);
         }
 
-        if ($pq == null) return new Response('Preventivo non trovato', 404);
+        if($pq == null) return new Response('Preventivo non trovato', 404);
 
         $pq->setStatus($status);
         $em->flush();
@@ -525,10 +524,10 @@ class PriceQuotationController extends Controller
         $id = $request->query->get('id');
         $status = $request->query->get('status');
 
-        if (!is_numeric($id) || !in_array($status, [1, 2, 3])) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if(!is_numeric($id) || !in_array($status, [1,2,3])) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $pqd = $em->getRepository(PriceQuotationDetail::class)->find($id);
-        if ($pqd == null) return new Response('Itinerario non trovato', 404);
+        if($pqd == null) return new Response('Itinerario non trovato', 404);
 
         $pqd->setStatus($status);
         $em->flush();
@@ -542,29 +541,21 @@ class PriceQuotationController extends Controller
     public function printPriceQuotationAction(int $n = null)
     {
         $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
-        if ($pq == null) return new Response('Preventivo non trovato', 404);
+        if($pq == null) return new Response('Preventivo non trovato', 404);
 
         //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
         $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
+            $pdf = new Mpdf();
+            $pdf->WriteHTML($html);
+            $output = $pdf->Output();
 
-// (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'portrait');
+            return new Response($output);
 
-// Render the HTML as PDF
-        $dompdf->render();
-
-// Output the generated PDF to Browser
-       // $dompdf->stream();
 //        return new PdfResponse(
 //            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
 //            'file.pdf'
 //        );
-
-        return new PdfResponse($dompdf->stream());
     }
 }

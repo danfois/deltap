@@ -210,6 +210,8 @@ var SalaryList = function () {
                 {
                     field: 'date',
                     title: 'Data',
+                    type: 'date-uk',
+                    targets: 0,
                     width:80
                 },
                 {

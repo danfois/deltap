@@ -27,7 +27,7 @@ class SalaryType extends AbstractType
             ->add('employee', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function ($e) {
-                    return $e->getName() . ' ' . $e->getSurname();
+                    return $e->getSurname() . ' ' . $e->getName();
                 },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Dipendente',

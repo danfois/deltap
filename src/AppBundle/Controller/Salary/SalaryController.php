@@ -61,8 +61,8 @@ class SalaryController extends Controller
                 $em->persist($salary);
                 $em->flush();
 
-//                return new Response('Stipendio creato con successo!', 200);
-                return new Response($salary->getSalaryId(), 200);
+                return new Response('Stipendio creato con successo!', 200);
+//                return new Response($salary->getSalaryId(), 200);
             } else {
                 return new Response($errors, 500);
             }

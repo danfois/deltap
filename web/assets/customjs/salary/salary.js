@@ -36,22 +36,13 @@ var SalaryForm = function () {
                 i.form() && (mApp.progress(r), t.ajaxSubmit({
                     success: function (response) {
                         mApp.unprogress(r);
-                        if(isNaN(response)) {
-                            swal({
-                                title: "",
-                                html: response,
-                                type: "success",
-                                confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                            });
-                        } else {
-                            swal({
-                                title: "",
-                                html: 'Stipendio Creato con successo!',
-                                type: "success",
-                                confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
-                            });
-                            setTimeout(window.location.href = 'edit-salary-' + response);
-                        }
+                        swal({
+                            title: "",
+                            html: response,
+                            type: "success",
+                            confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+                        });
+                        t.resetForm();
                         mApp.unblockPage();
                     },
                     error: function(e) {
