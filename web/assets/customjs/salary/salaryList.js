@@ -210,9 +210,53 @@ var SalaryList = function () {
                 {
                     field: 'date',
                     title: 'Data',
-                    type: 'date-uk',
-                    targets: 0,
-                    width:80
+                    width: 80,
+                    sortCallback: function (data, sort, column) {
+                        var field = column['field'];
+                        return $(data).sort(function (a, b) {
+                            var aField = a[field];
+                            var bField = b[field];
+                            if (sort === 'asc') {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+
+                                if (parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                    return 1;
+                                } else {
+                                    if (parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                        return -1;
+                                    } else {
+                                        if (parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                            return 1;
+                                        } else {
+                                            return -1;
+                                        }
+                                    }
+                                }
+
+
+                            } else {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+
+                                if (parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                    return 1;
+                                } else {
+                                    if (parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                        return -1;
+                                    } else {
+                                        if (parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                            return 1;
+                                        } else {
+                                            return -1;
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 },
                 {
                     field: 'employee',
@@ -226,18 +270,18 @@ var SalaryList = function () {
                 {
                     field: 'amount',
                     title: 'Importo',
-                    template: function(row) {
+                    template: function (row) {
                         return '&euro; ' + row.amount;
                     }
                 },
                 {
                     field: 'balance',
                     title: 'Saldo',
-                    template: function(row) {
-                        if(row.remaining != '0') {
-                            return '<span class="m--font-success">&euro; '+row.balance+'</span>' + ' / ' + '<span class="m--font-danger">&euro; '+row.remaining+'</span>';
+                    template: function (row) {
+                        if (row.remaining != '0') {
+                            return '<span class="m--font-success">&euro; ' + row.balance + '</span>' + ' / ' + '<span class="m--font-danger">&euro; ' + row.remaining + '</span>';
                         } else {
-                            return '<span class="m--font-success">&euro; '+row.balance+'</span>';
+                            return '<span class="m--font-success">&euro; ' + row.balance + '</span>';
                         }
                     }
                 },

@@ -51,8 +51,128 @@ var InsuranceList = function () {
                             field: "id",
                             title: "Id Sospensione"
                         },
-                            {field: "startDate", title: "Data Inizio"},
-                            {field: "endDate", title: "Data Fine"},
+                            {
+                                field: "startDate",
+                                title: "Data Inizio",
+                                sortCallback: function (data, sort, column) {
+                                    var field = column['field'];
+                                    return $(data).sort(function (a, b) {
+                                        var aField = a[field];
+                                        var bField = b[field];
+                                        if (sort === 'asc') {
+                                            var dateA = aField.split('/');
+                                            var dateB = bField.split('/');
+
+                                            if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        } else {
+                                            var dateA = aField.split('/');
+                                            var dateB = bField.split('/');
+
+                                            if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            {field: "endDate", title: "Data Fine", sortCallback: function (data, sort, column) {
+                                var field = column['field'];
+                                return $(data).sort(function (a, b) {
+                                    var aField = a[field];
+                                    var bField = b[field];
+                                    if (sort === 'asc') {
+                                        var dateA = aField.split('/');
+                                        var dateB = bField.split('/');
+
+                                        if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                    return 1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                        return -1;
+                                                    } else {
+                                                        if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                            return 1;
+                                                        } else {
+                                                            return -1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    } else {
+                                        var dateA = aField.split('/');
+                                        var dateB = bField.split('/');
+
+                                        if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                    return 1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                        return -1;
+                                                    } else {
+                                                        if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                            return 1;
+                                                        } else {
+                                                            return -1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }},
                             {
                                 field: 'Actions',
                                 width: 110,
@@ -122,12 +242,130 @@ var InsuranceList = function () {
                 }, {
                     field: 'startDate',
                     title: 'Data Inizio',
-                    width: 100
+                    width: 100,
+                    sortCallback: function (data, sort, column) {
+                        var field = column['field'];
+                        return $(data).sort(function (a, b) {
+                            var aField = a[field];
+                            var bField = b[field];
+                            if (sort === 'asc') {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }, {
                     field: 'endDate',
                     title: 'Data Scadenza',
                     sortable: 'asc',
-                    width: 100
+                    width: 100,
+                    sortCallback: function (data, sort, column) {
+                        var field = column['field'];
+                        return $(data).sort(function (a, b) {
+                            var aField = a[field];
+                            var bField = b[field];
+                            if (sort === 'asc') {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                var dateA = aField.split('/');
+                                var dateB = bField.split('/');
+
+                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }, {
                     field: 'price',
                     title: 'Prezzo Tot.',
@@ -232,18 +470,18 @@ var InsuranceList = function () {
             $('.m_datatable').mDatatable('sort', 'ShipCity');
         });
 
-        $('#apply-mass-action').on('click', function() {
+        $('#apply-mass-action').on('click', function () {
             var select_value = $('#mass-action').val();
             var selected = [];
             datatable.rows('.m-datatable__row--active');
             if (datatable.nodes().length > 0) {
-                var value = datatable.columns('idv').nodes().each(function(element, index) {
+                var value = datatable.columns('idv').nodes().each(function (element, index) {
                     selected.push(index.childNodes[0].textContent);
                 });
                 console.log(selected);
             }
             //if(select_value === '2') CarTaxRenew(selected);
-            if(select_value === '3') generateInvoiceUrl('received', 'insurances', selected);
+            if (select_value === '3') generateInvoiceUrl('received', 'insurances', selected);
         });
 
         $('#m_datatable_check').on('click', function () {

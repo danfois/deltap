@@ -35,7 +35,66 @@ var PaymentList = function () {
                 {
                     field: 'paymentDate',
                     title: 'Data',
-                    width:80
+                    width:80,
+                    sortCallback: function (data, sort, column) {
+                        var field = column['field'];
+                        return $(data).sort(function (a, b) {
+                            var aField = a[field];
+                            var bField = b[field];
+                            if (sort === 'asc') {
+                                var dateA = aField.split('-');
+                                var dateB = bField.split('-');
+
+                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                var dateA = aField.split('-');
+                                var dateB = bField.split('-');
+
+                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 },
                 {
                     field: 'direction',

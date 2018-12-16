@@ -90,11 +90,129 @@ var PriceQuotationList = function () {
                             },
                             {
                                 field: "departureDate",
-                                title: "Data Partenza"
+                                title: "Data Partenza",
+                                sortCallback: function (data, sort, column) {
+                                    var field = column['field'];
+                                    return $(data).sort(function (a, b) {
+                                        var aField = a[field];
+                                        var bField = b[field];
+                                        if (sort === 'asc') {
+                                            var dateA = aField.split('-');
+                                            var dateB = bField.split('-');
+
+                                            if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        } else {
+                                            var dateA = aField.split('-');
+                                            var dateB = bField.split('-');
+
+                                            if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
                             },
                             {
                                 field: "arrivalDate",
-                                title: "Data Arrivo"
+                                title: "Data Arrivo",
+                                sortCallback: function (data, sort, column) {
+                                    var field = column['field'];
+                                    return $(data).sort(function (a, b) {
+                                        var aField = a[field];
+                                        var bField = b[field];
+                                        if (sort === 'asc') {
+                                            var dateA = aField.split('-');
+                                            var dateB = bField.split('-');
+
+                                            if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        } else {
+                                            var dateA = aField.split('-');
+                                            var dateB = bField.split('-');
+
+                                            if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                                return 1;
+                                            } else {
+                                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                                    return -1;
+                                                } else {
+                                                    if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                        return 1;
+                                                    } else {
+                                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                            return -1;
+                                                        } else {
+                                                            if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                                return 1;
+                                                            } else {
+                                                                return -1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
                             },
                             {
                                 field: "price",
@@ -200,7 +318,66 @@ var PriceQuotationList = function () {
                 },
                 {
                     field: 'date',
-                    title: 'Data'
+                    title: 'Data',
+                    sortCallback: function (data, sort, column) {
+                        var field = column['field'];
+                        return $(data).sort(function (a, b) {
+                            var aField = a[field];
+                            var bField = b[field];
+                            if (sort === 'asc') {
+                                var dateA = aField.split('-');
+                                var dateB = bField.split('-');
+
+                                if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) < parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                var dateA = aField.split('-');
+                                var dateB = bField.split('-');
+
+                                if(parseInt(dateA[2]) > parseInt(dateB[2])) {
+                                    return 1;
+                                } else {
+                                    if(parseInt(dateA[2]) < parseInt(dateB[2])) {
+                                        return -1;
+                                    } else {
+                                        if(parseInt(dateA[1]) > parseInt(dateB[1])) {
+                                            return 1;
+                                        } else {
+                                            if(parseInt(dateA[1]) < parseInt(dateB[1])) {
+                                                return -1;
+                                            } else {
+                                                if(parseInt(dateA[0]) > parseInt(dateB[0])) {
+                                                    return 1;
+                                                } else {
+                                                    return -1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
                 },
                 {
                     field: 'customer',
