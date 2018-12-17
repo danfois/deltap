@@ -50,6 +50,10 @@ var PriceQuotationDetailList = function () {
                     }
                 },
                 {
+                    field: 'customer',
+                    title: 'Cliente'
+                },
+                {
                     field: "serviceType",
                     title: "Freq. Servizio"
                 },

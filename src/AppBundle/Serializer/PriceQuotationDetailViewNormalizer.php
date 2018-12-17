@@ -21,11 +21,11 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                 $arrivalLocation = '';
 
 
-                foreach($o->getStages() as $s) {
-                    $price += $s->getPrice();
-                    $departureLocation .= $s->getDepartureLocation() . ', ';
-                    $arrivalLocation .= $s->getArrivalLocation() . ', ';
-                }
+//                foreach($o->getStages() as $s) {
+//                    $price += $s->getPrice();
+//                    $departureLocation .= $s->getDepartureLocation() . ', ';
+//                    $arrivalLocation .= $s->getArrivalLocation() . ', ';
+//                }
 
                 $r[] = [
                     'id' => $o->getPriceQuotationDetailId(),
@@ -35,14 +35,16 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                     'serviceType' => $o->getServiceType()->getServiceName(),
                     'serviceCode' => $o->getServiceCode()->getService(),
                     'stages' => count($o->getStages()),
-                    'price' => $price,
+                    //'price' => $price,
+                    'price' => $o->getPrice(),
                     'emittedOrders' => $o->getEmittedOrders(),
                     'departureLocation' => $departureLocation,
                     'arrivalLocation' => $arrivalLocation,
                     'departureDate' => $o->getStages()[0]->getDepartureDate()->format('d-m-Y'),
                     'arrivalDate' => $o->getStages()[$stageCount-1]->getArrivalDate()->format('d-m-Y'),
                     'status' => $o->getStatus(),
-                    'pqCode' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCode() : '')
+                    'pqCode' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCode() : ''),
+                    'customer' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCustomer()->getBusinessName() : '')
                 ];
             }
         }
