@@ -19,6 +19,15 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class TurnController extends Controller
 {
     /**
+     * @Route("generate-turns", name="generate_turns")
+     */
+    public function generateTurnsAction(EmployeeTurnManager $etm)
+    {
+        $etm->generateYearlyTurns();
+        return new Response('fatto');
+    }
+
+    /**
      * @Route("daily-turns/{n}", name="daily_turns")
      */
     public function dailyTurnsAction(EmployeeTurnManager $etm, string $n = null)
