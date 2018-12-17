@@ -26,7 +26,7 @@ class EmployeeTurnManager
         for($i = $startDate; $i < \DateTime::createFromFormat('d-m-Y', '31-12-2018'); $i->modify('+1 day'))
         {
             $turn = new EmployeeTurn();
-            $turn->setTurnDate(new \DateTime());
+            $turn->setTurnDate($i);
             $this->em->persist($turn);
 
             foreach($employees as $e) {
