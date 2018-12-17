@@ -21,11 +21,11 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                 $arrivalLocation = '';
 
 
-//                foreach($o->getStages() as $s) {
-//                    $price += $s->getPrice();
-//                    $departureLocation .= $s->getDepartureLocation() . ', ';
-//                    $arrivalLocation .= $s->getArrivalLocation() . ', ';
-//                }
+                foreach($o->getStages() as $s) {
+                    $price += $s->getPrice();
+                    $departureLocation .= $s->getDepartureLocation() . ', ';
+                    $arrivalLocation .= $s->getArrivalLocation() . ', ';
+                }
 
                 $r[] = [
                     'id' => $o->getPriceQuotationDetailId(),
