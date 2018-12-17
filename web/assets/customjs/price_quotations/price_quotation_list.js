@@ -419,11 +419,11 @@ var PriceQuotationList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="' + window.location.origin + '/edit-price-quotation-' + row.idv + '"><i class="la la-edit"></i> Modifica Preventivo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Preventivo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'associated-demands-'+row.idv+'\', {}, {})"><i class="la la-eye"></i> Richieste Associate</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'' + window.location.origin + '/associated-demands-'+row.idv+'\', {}, {})"><i class="la la-eye"></i> Richieste Associate</a>\
 						    	<a class="dropdown-item" href="' + window.location.origin + '/create-price-quotation-detail-' + row.idv + ' " onclick=""><i class="la la-plus-circle"></i> Aggiungi Itinerario</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'Invierà per email il preventivo al destinatario. Il preventivo sarà compreso di un file pdf per ogni itinerario, e della `lettera` che sarà il testo della mail\')"><i class="la la-envelope"></i> Invia al Destinatario</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 3}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Preventivo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 4}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Annulla Preventivo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 3}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Preventivo</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-status\', {\'id\' : ' + row.idv + ', \'status\' : 4}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Annulla Preventivo</a>\
 						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'issued\', \'priceQuotation\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
 						  	</div>\
 						</div>\
