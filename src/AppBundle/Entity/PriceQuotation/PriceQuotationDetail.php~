@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity\PriceQuotation;
+use AppBundle\Entity\Invoice\InvoiceDetailInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -8,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PriceQuotationDetailRepository")
  * @ORM\Table(name="price_quotation_details")
  */
-class PriceQuotationDetail
+class PriceQuotationDetail implements InvoiceDetailInterface
 {
     const UNCONFIRMED = 1;
     const CONFIRMED = 2;
@@ -87,6 +88,11 @@ class PriceQuotationDetail
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ServiceOrder\ServiceOrder", mappedBy="priceQuotationDetail")
      */
     protected $serviceOrders;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\IssuedInvoice", mappedBy="priceQuotationDetail")
+     */
+    protected $issuedInvoices;
 
     /**
      * Constructor
@@ -370,5 +376,69 @@ class PriceQuotationDetail
     public function getAttachment()
     {
         return $this->attachment;
+    }
+
+    /**
+     * Add serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     *
+     * @return PriceQuotationDetail
+     */
+    public function addServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders[] = $serviceOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove serviceOrder
+     *
+     * @param \AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder
+     */
+    public function removeServiceOrder(\AppBundle\Entity\ServiceOrder\ServiceOrder $serviceOrder)
+    {
+        $this->serviceOrders->removeElement($serviceOrder);
+    }
+
+    /**
+     * Get serviceOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServiceOrders()
+    {
+        return $this->serviceOrders;
+    }
+
+    /*
+     * START OF INVOICEDETAILINTERFACE
+     */
+
+    public function getInvoicePrice(): float
+    {
+        return $this->getPrice();
+    }
+
+    public function getProductName(): string
+    {
+        return 'Itinerario N. ' . $this->getName();
+    }
+
+    public function getProductCode(): string
+    {
+        return $this->getName();
+    }
+
+    public function getInvoiceVat()
+    {
+        return $this->getVat();
+    }
+
+    public function getInvoiceCustomer()
+    {
+        if($this->getPriceQuotation() != null) return $this->getPriceQuotation()->getCustomer();
+        return null;
     }
 }

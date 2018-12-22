@@ -42,7 +42,11 @@ var SalaryForm = function () {
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         });
-                        t.resetForm();
+                        if($('.m-portlet__head-text').text().indexOf('Modifica') !== -1) {
+
+                        } else {
+                            t.resetForm();
+                        }
                         mApp.unblockPage();
                     },
                     error: function(e) {

@@ -11,7 +11,7 @@ var InvoiceForm = function () {
                 rules:
                     {
                         'issued_invoice[causal]' : { required : !0, maxlength : 255},
-                        'issued_invoice[invoiceNumber]' : { required : !0, maxlength : 11},
+                        'issued_invoice[invoiceNumber]' : { required : !0, maxlength : 11, number: true},
                         'issued_invoice[paInvoiceNumber]' : { maxlength : 11}
                     },
                 messages: {},
@@ -63,6 +63,16 @@ var InvoiceForm = function () {
     }
 };
 
+function toggleReadonly() {
+    var element = document.getElementById('issued_invoice_invoiceNumber');
+    if(element.hasAttribute('readonly')) {
+        var conferma = confirm('Vuoi davvero modificare il numero della fattura?');
+        if(conferma === true) {
+            element.removeAttribute('readonly');
+        }
+    }
+}
+
 jQuery(document).ready(function () {
     InvoiceForm().init();
 
@@ -107,5 +117,9 @@ jQuery(document).ready(function () {
     });
 
     initializeWidgets();
+
+    $('#issued_invoice_invoiceNumber').on('click', function() {
+        toggleReadonly();
+    })
 
 });

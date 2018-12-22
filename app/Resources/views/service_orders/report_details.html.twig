@@ -4,7 +4,7 @@
             <thead>
             <tr>
                 <th>Id OdS</th>
-                <th>Utente</th>
+                <th>Autista</th>
                 <th>Km Partenza</th>
                 <th>Km Arrivo</th>
                 <th>Km Totali</th>
@@ -20,7 +20,7 @@
             <tbody>
             <tr>
                 <td>{{ report.serviceOrder.serviceOrder }}</td>
-                <td>{{ report.user.username }}</td>
+                <td>{{ report.user.employee.name }} {{ report.user.employee.surname }}</td>
                 <td>{{ report.startKm }}</td>
                 <td>{{ report.endKm }}</td>
                 <td>{{ report.totalKm }}</td>

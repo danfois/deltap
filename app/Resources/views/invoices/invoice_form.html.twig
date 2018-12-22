@@ -40,7 +40,7 @@
                                     <label>* N. Fattura:</label>
                                     <div class="m-input-icon m-input-icon--right">
                                         {{ form_widget(form.invoiceNumber) }}
-                                        <span class="m-input-icon__icon m-input-icon__icon--right right-30"><span><i
+                                        <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                                         class="la la-barcode"></i></span></span>
                                     </div>
                                     <span class="m-form__help">Numero della fattura. Cambiare solo se si è sicuri</span>
@@ -81,16 +81,16 @@
 
                                 {% endif %}
 
-                                {% if form.priceQuotation is defined %}
+                                {% if form.priceQuotationDetail is defined %}
 
                                     <div class="col-lg-3 m-form__group-sub">
-                                        <label>* Preventivo</label>
+                                        <label>* Itinerario</label>
                                         <div class="m-input-icon m-input-icon--right">
-                                            {{ form_widget(form.priceQuotation) }}
+                                            {{ form_widget(form.priceQuotationDetail) }}
                                             <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
                                                             class="la la-barcode"></i></span></span>
                                         </div>
-                                        <span class="m-form__help">Preventivo da associare alla fattura</span>
+                                        <span class="m-form__help">Itinerario da associare alla fattura. Facoltativo.</span>
                                     </div>
 
                                 {% endif %}

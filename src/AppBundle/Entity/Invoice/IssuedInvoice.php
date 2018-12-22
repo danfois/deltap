@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class IssuedInvoice extends Invoice implements PayableInterface
 {
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation")
-     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail", inversedBy="issuedInvoices")
+     * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId", nullable=true)
      */
-    protected $priceQuotation;
+    protected $priceQuotationDetail;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
@@ -73,30 +73,6 @@ class IssuedInvoice extends Invoice implements PayableInterface
     {
         $this->customer = $customer;
         return $this;
-    }
-
-    /**
-     * Set priceQuotation
-     *
-     * @param \AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation
-     *
-     * @return IssuedInvoice
-     */
-    public function setPriceQuotation(\AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation = null)
-    {
-        $this->priceQuotation = $priceQuotation;
-
-        return $this;
-    }
-
-    /**
-     * Get priceQuotation
-     *
-     * @return \AppBundle\Entity\PriceQuotation\PriceQuotation
-     */
-    public function getPriceQuotation()
-    {
-        return $this->priceQuotation;
     }
 
     /**
@@ -301,5 +277,29 @@ class IssuedInvoice extends Invoice implements PayableInterface
     public function getInvoiceNumber()
     {
         return $this->invoiceNumber;
+    }
+
+    /**
+     * Set priceQuotationDetail
+     *
+     * @param \AppBundle\Entity\PriceQuotation\PriceQuotationDetail $priceQuotationDetail
+     *
+     * @return IssuedInvoice
+     */
+    public function setPriceQuotationDetail(\AppBundle\Entity\PriceQuotation\PriceQuotationDetail $priceQuotationDetail = null)
+    {
+        $this->priceQuotationDetail = $priceQuotationDetail;
+
+        return $this;
+    }
+
+    /**
+     * Get priceQuotationDetail
+     *
+     * @return \AppBundle\Entity\PriceQuotation\PriceQuotationDetail
+     */
+    public function getPriceQuotationDetail()
+    {
+        return $this->priceQuotationDetail;
     }
 }

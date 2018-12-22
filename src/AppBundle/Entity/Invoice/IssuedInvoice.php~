@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class IssuedInvoice extends Invoice implements PayableInterface
 {
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotation")
-     * @ORM\JoinColumn(name="priceQuotationId", referencedColumnName="priceQuotationId")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PriceQuotation\PriceQuotationDetail")
+     * @ORM\JoinColumn(name="priceQuotationDetailId", referencedColumnName="priceQuotationDetailId", nullable=true)
      */
-    protected $priceQuotation;
+    protected $priceQuotationDetail;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Invoice\InvoiceDetail", mappedBy="issuedInvoice", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
@@ -76,30 +76,6 @@ class IssuedInvoice extends Invoice implements PayableInterface
     }
 
     /**
-     * Set priceQuotation
-     *
-     * @param \AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation
-     *
-     * @return IssuedInvoice
-     */
-    public function setPriceQuotation(\AppBundle\Entity\PriceQuotation\PriceQuotation $priceQuotation = null)
-    {
-        $this->priceQuotation = $priceQuotation;
-
-        return $this;
-    }
-
-    /**
-     * Get priceQuotation
-     *
-     * @return \AppBundle\Entity\PriceQuotation\PriceQuotation
-     */
-    public function getPriceQuotation()
-    {
-        return $this->priceQuotation;
-    }
-
-    /**
      * Add invoiceDetail
      *
      * @param \AppBundle\Entity\Invoice\InvoiceDetail $invoiceDetail
@@ -145,6 +121,22 @@ class IssuedInvoice extends Invoice implements PayableInterface
         }
 
         return $sum;
+    }
+
+    public function getTaxExcAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxExc();
+        }
+
+        return $sum;
+    }
+
+    public function getTotalVat()
+    {
+        return $this->getAmount() - $this->getTaxExcAmount();
     }
 
 //    public function getCausal()
@@ -261,5 +253,29 @@ class IssuedInvoice extends Invoice implements PayableInterface
     public function getProformaNumber()
     {
         return $this->proformaNumber;
+    }
+
+    /**
+     * Set invoiceNumber
+     *
+     * @param integer $invoiceNumber
+     *
+     * @return IssuedInvoice
+     */
+    public function setInvoiceNumber($invoiceNumber)
+    {
+        $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNumber
+     *
+     * @return integer
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoiceNumber;
     }
 }

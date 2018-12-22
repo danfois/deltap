@@ -36,9 +36,9 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
 
         foreach($this->employees as $e) {
             if($id === $e->getIdUser()) {
-                $options .= '<option selected="selected" value=' . $e->getIdUser() . '>' . $e->getEmployee()->getName() . ' ' . $e->getEmployee()->getSurname()  . ' </option>';
+                $options .= '<option selected="selected" value=' . $e->getIdUser() . '>' . $e->getEmployee()->getSurname() . ' ' . $e->getEmployee()->getName()  . ' </option>';
             } else {
-                $options .= '<option value="' . $e->getIdUser() . '">' . $e->getEmployee()->getName() . ' ' . $e->getEmployee()->getSurname() . ' </option>';
+                $options .= '<option value="' . $e->getIdUser() . '">' . $e->getEmployee()->getSurname() . ' ' . $e->getEmployee()->getName() . ' </option>';
             }
         }
 

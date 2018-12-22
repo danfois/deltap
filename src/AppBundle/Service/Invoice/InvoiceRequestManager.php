@@ -97,6 +97,7 @@ class InvoiceRequestManager
         switch($this->parametersArray['type']) {
             case 'issued':
                 $this->invoice = new IssuedInvoice();
+                $this->invoice->setCausal('Vostro dare per i servizi sotto elencati');
                 return true;
                 break;
             case 'received':

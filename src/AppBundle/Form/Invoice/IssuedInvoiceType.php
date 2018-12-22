@@ -19,11 +19,17 @@ class IssuedInvoiceType extends InvoiceType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('priceQuotation', EntityType::class, array(
-                'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotation',
-                'choice_label' => 'code',
+            ->add('priceQuotationDetail', EntityType::class, array(
+                'class' => 'AppBundle\Entity\PriceQuotation\PriceQuotationDetail',
+                'choice_label' => function($p) {
+                    if($p->getPriceQuotation() != null) {
+                        return $p->getPriceQuotation()->getCode() . '/' . $p->getName();
+                    } else {
+                        return $p->getName();
+                    }
+                },
                 'empty_data' => null,
-                'placeholder' => 'Scegli il Preventivo',
+                'placeholder' => 'Scegli l\'Itinerario',
                 'attr' => array(
                     'class' => 'form-control m-input'
                 ),
@@ -31,7 +37,8 @@ class IssuedInvoiceType extends InvoiceType
             ))
             ->add('invoiceNumber', NumberType::class, array(
                 'attr' => array(
-                    'class' => 'form-control m-input int_touch_spin'
+                    'class' => 'form-control m-input',
+                    'readonly' => 'readonly'
                 )
             ))
             ->add('invoiceDetails', CollectionType::class, array(
