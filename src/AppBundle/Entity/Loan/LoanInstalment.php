@@ -27,6 +27,12 @@ class LoanInstalment implements PayableInterface, InvoiceDetailInterface
     protected $loan;
 
     /**
+     * @ORM\Column(type="integer", length=3, nullable=false, name="instalmentNumber")
+     * @Assert\NotBlank(message="Instalment number cannot be null")
+     */
+    protected $instalmentNumber;
+
+    /**
      * @ORM\Column(type="datetime", nullable=false, name="paymentDate")
      * @Assert\NotBlank(message="Instalment payment date must not be null")
      */
@@ -346,4 +352,28 @@ class LoanInstalment implements PayableInterface, InvoiceDetailInterface
     /*
      * END OF INVOICEINTERFACE
      */
+
+    /**
+     * Set instalmentNumber
+     *
+     * @param integer $instalmentNumber
+     *
+     * @return LoanInstalment
+     */
+    public function setInstalmentNumber($instalmentNumber)
+    {
+        $this->instalmentNumber = $instalmentNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get instalmentNumber
+     *
+     * @return integer
+     */
+    public function getInstalmentNumber()
+    {
+        return $this->instalmentNumber;
+    }
 }

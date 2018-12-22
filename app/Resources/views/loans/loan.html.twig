@@ -249,6 +249,12 @@
                                             <div class="form-group m-form__group row">
 
                                                 <div class="col-lg-2 m-form__group-sub">
+                                                    <label>* N. Rata :</label>
+                                                    {{ form_widget(d.instalmentNumber) }}
+                                                    <span class="m-form__help"></span>
+                                                </div>
+
+                                                <div class="col-lg-2 m-form__group-sub">
                                                     <label>* Data Pag. :</label>
                                                     {{ form_widget(d.paymentDate) }}
                                                     <span class="m-form__help"></span>

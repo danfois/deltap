@@ -74,7 +74,7 @@ jQuery(document).ready(function () {
                 $(this).slideUp(deleteElement);
             }
         },
-        isFirstItemUndeletable: true
+        isFirstItemUndeletable: false
     });
 
     initializeWidgets();

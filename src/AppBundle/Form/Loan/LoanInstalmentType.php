@@ -7,6 +7,7 @@ use AppBundle\Form\DataTransformer\StringToDateTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +27,11 @@ class LoanInstalmentType extends AbstractType
         $addingInstalmentOnly = $options['addingInstalmentOnly'];
 
         $builder
+            ->add('instalmentNumber', NumberType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input int_touch_spin'
+                )
+            ))
             ->add('paymentDate', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input date_picker'

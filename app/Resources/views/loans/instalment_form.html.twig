@@ -7,6 +7,12 @@
             {{ form_widget(form._token) }}
 
             <div class="col-lg-4 m-form__group-sub">
+                <label>* N. Rata :</label>
+                {{ form_widget(form.instalmentNumber) }}
+                <span class="m-form__help"></span>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
                 <label>* Mutuo:</label>
                 {{ form_widget(form.loan) }}
                 <span class="m-form__help"></span>
