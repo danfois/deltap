@@ -256,3 +256,7 @@ div.tagsinput div {
 .driver_select {
     width: 100px;
 }
+
+.highlighted_row {
+    background-color: lemonchiffon !important;
+}

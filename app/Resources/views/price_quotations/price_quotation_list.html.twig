@@ -19,6 +19,20 @@
                             </h3>
                         </div>
                     </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <a class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air" href="javascript:void(0);" onclick="genericModalFunction('GET', window.location.origin + '/create-demand', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_demand'} )">
+                                    <span>
+													<i class="la la-plus-circle"></i>
+													<span>
+														Nuova Richiesta
+													</span>
+												</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 {% include('price_quotations/price_quotation_form.html.twig') %}
             </div>
