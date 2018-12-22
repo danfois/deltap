@@ -260,3 +260,23 @@ div.tagsinput div {
 .highlighted_row {
     background-color: lemonchiffon !important;
 }
+
+.payment-totals {
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.payment-totals td {
+    height:37px;
+    border: 1px #ddd solid;
+    font-weight:600;
+}
+
+.payment-totals td:nth-child(odd) {
+    width:80px;
+}
+
+.payment-totals td:nth-child(even) {
+    width:170px;
+}

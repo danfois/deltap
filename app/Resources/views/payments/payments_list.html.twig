@@ -109,15 +109,16 @@
                         <a href="javascript:void(0);" class="btn btn-brand" id="apply-mass-action">Applica</a>
                     </div>-->
                     <div class="col-lg-9">
-                        <button class="btn btn-secondary" type="button" id="m_datatable_check_all">
-                            Seleziona Tutto
-                        </button>
-                        <button class="btn btn-secondary" type="button" id="m_datatable_uncheck_all">
-                            Deseleziona Tutto
-                        </button>
-                        <button class="btn btn-secondary" type="button" id="m_datatable_remove_row">
-                            Nascondi Selezionati
-                        </button>
+                        <table class="payment-totals">
+                            <tr>
+                                <td class="m--bg-fill-accent">Banca:</td>
+                                <td><span class="m--font-danger">&euro; {{ totals.obm }}</span> / <span class="m--font-success">&euro; {{ totals.ibm }}</span></td>
+                                <td class="m--bg-fill-accent">Contanti:</td>
+                                <td><span class="m--font-danger">&euro; {{ totals.ocm }}</span> / <span class="m--font-success">&euro; {{ totals.icm }}</span></td>
+                                <td class="m--bg-fill-success">Totale:</td>
+                                <td><span class="m--font-danger">&euro; {{ totals.ot }}</span> / <span class="m--font-success">&euro; {{ totals.it }}</span></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

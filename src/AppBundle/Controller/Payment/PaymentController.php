@@ -159,8 +159,19 @@ class PaymentController extends Controller
      */
     public function paymentsListAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $obm = $em->getRepository(Payment::class)->findTotalOutgoingBankMoney();
+        $ibm = $em->getRepository(Payment::class)->findTotalIncomeBankMoney();
+        $ocm = $em->getRepository(Payment::class)->findTotalOutgoingCashMoney();
+        $icm = $em->getRepository(Payment::class)->findTotalIncomeCashMoney();
+        $ot = $obm + $ocm;
+        $it = $ibm + $icm;
+
+        $totals = array('obm' => $obm, 'ibm' => $ibm, 'ocm' => $ocm, 'icm' => $icm, 'ot' => $ot, 'it' => $it);
+
         return $this->render('payments/payments_list.html.twig', array(
-            'title' => 'Pagamenti'
+            'title' => 'Pagamenti',
+            'totals' => $totals
         ));
     }
 
