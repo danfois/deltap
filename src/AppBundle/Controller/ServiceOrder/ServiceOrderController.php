@@ -33,6 +33,7 @@ class ServiceOrderController extends Controller
         if ($pqd->getEmittedOrders() === 1) return new Response('Sono già stati emessi ordini di servizio per questo itinerario');
         if ($pqd->getPriceQuotation()->getStatus() !== 3) return new Response('Impossibile emettere ordini di servizio per un preventivo non confermato', 500);
         if ($pqd->getStatus() != PriceQuotationDetail::CONFIRMED) return new Response('Non puoi emettere ordini di servizio per un itinerario non confermato', 500);
+        if ($pqd->getWrongDates() == true) return new Response('Non puoi emettere ordini di servizio per un itinerario con date NON confermate', 500);
 
         $stages = $pqd->getStages();
 

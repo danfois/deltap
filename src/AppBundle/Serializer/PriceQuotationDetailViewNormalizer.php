@@ -40,8 +40,8 @@ class PriceQuotationDetailViewNormalizer implements NormalizerInterface
                     'emittedOrders' => $o->getEmittedOrders(),
                     'departureLocation' => $departureLocation,
                     'arrivalLocation' => $arrivalLocation,
-                    'departureDate' => $o->getStages()[0]->getDepartureDate()->format('d-m-Y'),
-                    'arrivalDate' => $o->getStages()[$stageCount-1]->getArrivalDate()->format('d-m-Y'),
+                    'departureDate' => $o->getWrongDates() == false ? $o->getStages()[0]->getDepartureDate()->format('d-m-Y') : '<span class="m--font-danger m--font-bold" style="font-size:12px;">DA CONFERMARE</span>',
+                    'arrivalDate' => $o->getWrongDates() == false ? $o->getStages()[$stageCount-1]->getArrivalDate()->format('d-m-Y') : '<span class="m--font-danger m--font-bold" style="font-size:12px;">DA CONFERMARE</span>',
                     'status' => $o->getStatus(),
                     'pqCode' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCode() : ''),
                     'customer' => ($o->getPriceQuotation() != null ? $o->getPriceQuotation()->getCustomer()->getBusinessName() : '')

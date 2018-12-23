@@ -95,6 +95,11 @@ class PriceQuotationDetail implements InvoiceDetailInterface
     protected $issuedInvoices;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false, name="wrongDates")
+     */
+    protected $wrongDates;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -423,7 +428,8 @@ class PriceQuotationDetail implements InvoiceDetailInterface
 
     public function getProductName(): string
     {
-        return 'Itinerario N. ' . $this->getName();
+        $stagesCount = count($this->getStages());
+        return 'Itinerario N. ' . $this->getName() . ' da ' . $this->getStages()[0]->getDepartureLocation() . ' a ' . $this->getStages()[$stagesCount-1]->getArrivalLocation() . ' del ' . $this->getStages()[0]->getDepartureDate()->format('d-m-Y');
     }
 
     public function getProductCode(): string
@@ -440,5 +446,39 @@ class PriceQuotationDetail implements InvoiceDetailInterface
     {
         if($this->getPriceQuotation() != null) return $this->getPriceQuotation()->getCustomer();
         return null;
+    }
+
+    /**
+     * Add issuedInvoice
+     *
+     * @param \AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice
+     *
+     * @return PriceQuotationDetail
+     */
+    public function addIssuedInvoice(\AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice)
+    {
+        $this->issuedInvoices[] = $issuedInvoice;
+
+        return $this;
+    }
+
+    /**
+     * Remove issuedInvoice
+     *
+     * @param \AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice
+     */
+    public function removeIssuedInvoice(\AppBundle\Entity\Invoice\IssuedInvoice $issuedInvoice)
+    {
+        $this->issuedInvoices->removeElement($issuedInvoice);
+    }
+
+    /**
+     * Get issuedInvoices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIssuedInvoices()
+    {
+        return $this->issuedInvoices;
     }
 }

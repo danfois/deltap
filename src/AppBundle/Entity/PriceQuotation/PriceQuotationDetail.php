@@ -95,6 +95,11 @@ class PriceQuotationDetail implements InvoiceDetailInterface
     protected $issuedInvoices;
 
     /**
+     * @ORM\Column(type="boolean", nullable=false, name="wrongDates")
+     */
+    protected $wrongDates;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -475,5 +480,29 @@ class PriceQuotationDetail implements InvoiceDetailInterface
     public function getIssuedInvoices()
     {
         return $this->issuedInvoices;
+    }
+
+    /**
+     * Set wrongDates
+     *
+     * @param boolean $wrongDates
+     *
+     * @return PriceQuotationDetail
+     */
+    public function setWrongDates($wrongDates)
+    {
+        $this->wrongDates = $wrongDates;
+
+        return $this;
+    }
+
+    /**
+     * Get wrongDates
+     *
+     * @return boolean
+     */
+    public function getWrongDates()
+    {
+        return $this->wrongDates;
     }
 }

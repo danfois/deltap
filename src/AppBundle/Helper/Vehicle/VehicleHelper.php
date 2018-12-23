@@ -34,6 +34,7 @@ class VehicleHelper
     private function checkUniquePlate()
     {
         $vehicle = $this->em->getRepository(Vehicle::class)->findOneBy(array('plate' => $this->vehicle->getPlate()));
+        if($vehicle == $this->vehicle) return true;
         if($vehicle == '') return true;
         $this->errors .= 'Esiste già un veicolo con quella targa; <br>';
         return false;
@@ -76,7 +77,7 @@ class VehicleHelper
     private function setFireExtinguisherExpiration() {
         if($this->vehicle->getFireExtinguisherExpiration() != '') {
             //if($this->vehicle->setFireExtinguisherExpiration(new \DateTime($this->vehicle->getFireExtinguisherExpiration()))) return true;
-            if($this->vehicle->setFireExtinguisherExpiration(\DateTime::createFromFormat('d/m/Y', $this->vehicle->getFireExtinguisherExpiration()))) return true;
+            if($this->vehicle->setFireExtinguisherExpiration($this->vehicle->getFireExtinguisherExpiration())) return true;
             $this->errors .= 'Impossibile impostare la data di scadenza dell \'estintore; <br>';
             return false;
         }

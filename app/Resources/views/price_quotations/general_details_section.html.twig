@@ -8,7 +8,7 @@
 
             <div class="form-group m-form__group row">
 
-                <div class="col-lg-5 m-form__group-sub">
+                <div class="col-lg-3 m-form__group-sub">
                     <label>* Preventivo:</label>
                     <div class="m-input-icon m-input-icon--right">
                         {{ form_widget(form.priceQuotation) }}
@@ -46,6 +46,16 @@
                                         class="fa fa-euro"></i></span></span>
                     </div>
                     <span class="m-form__help">Prezzo dell'itinerario</span>
+                </div>
+
+                <div class="col-lg-2 m-form__group-sub">
+                    <label>* Date da Confermare:</label>
+
+                        <label class="m-checkbox">
+                        {{ form_widget(form.wrongDates) }}
+                            <span></span>
+                        </label>
+
                 </div>
 
             </div>
