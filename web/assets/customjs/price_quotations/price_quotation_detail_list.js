@@ -246,15 +246,15 @@ var PriceQuotationDetailList = function () {
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
-                                        <a class="dropdown-item" href="' + window.location.origin + '/edit-pq-detail-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 2}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Itinerario</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 1}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Rimuovi Conferma</a>\
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'' + window.location.origin + '/stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
-                                        <a class="dropdown-item" href="' + window.location.origin + '/confirm-service-orders-' + row.idv +'" onclick=""><i class="la la-list-alt"></i> Emetti Ordini di Servizio</a>\
+                                        <a target="_blank" class="dropdown-item" href="' + window.location.origin + '/edit-pq-detail-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Itinerario</a>\
+                                        <a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 2}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Conferma Itinerario</a>\
+                                        <a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'' + window.location.origin + '/change-price-quotation-detail-status\', {\'id\' : '+row.idv+', \'status\' : 1}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Rimuovi Conferma</a>\
+                                        <a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'' + window.location.origin + '/stage-details\', {\'id\' : ' + row.idv + ' })"><i class="la la-eye"></i> Vedi Tragitti</a>\
+                                        <a target="_blank" class="dropdown-item" href="' + window.location.origin + '/confirm-service-orders-' + row.idv +'" onclick=""><i class="la la-list-alt"></i> Emetti Ordini di Servizio</a>\
                                     </div>\
                                 </div>\
-                                    <a href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
-                                    <a href="javascript:void(0);" onclick="alert(\'Serve questa funzionalita?\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
+                                    <a target="_blank" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'stage-details\', {\'id\' : ' + row.idv + ' })" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Tragitti"><i class="la la-eye"></i></a>\
+                                    <a target="_blank" href="javascript:void(0);" onclick="alert(\'Serve questa funzionalita?\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina Itinerario">\
 							<i class="la la-trash"></i>\
 						</a>\
 					';
