@@ -47,7 +47,7 @@
 
                                 <div class="col-lg-1 m-form__group-sub">
                                     <label>* Anno:</label>
-                                        {{ form_widget(form.year) }}
+                                    {{ form_widget(form.year) }}
                                 </div>
 
                                 <div class="col-lg-1 m-form__group-sub">
@@ -86,6 +86,15 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 m--margin-top-15">
+                                    <a href="javascript:void(0);" class="btn btn btn-accent m-btn m-btn--icon m--margin-top-10 m--margin-bottom-10" id="compila_acconti">
+                                                    <span>
+                                                        <i class="la la-pencil"></i>
+                                                        <span>Compila Acconti</span>
+                                                    </span>
+                                    </a>
+                                </div>
+
                             </div>
 
                         </div>
@@ -97,11 +106,13 @@
                         <div class="m-form__section">
                             <div class="m-form__heading">
                                 <h3 class="m-form__heading-title">2. Saldi e Acconti</h3>
+                                <p class="m-form__heading-sub">Se si vuole salvare lo stipendio senza inserire acconti,
+                                    <u>bisogna cancellare l'acconto vuoto</u>.</p>
                             </div>
 
                             <div class="repeater">
 
-                                    <div data-repeater-list="salary[salaryDetails]">
+                                <div data-repeater-list="salary[salaryDetails]">
 
                                     {% for d in form.salaryDetails %}
 
@@ -197,7 +208,8 @@
                                     <label>Totale da Pagare :</label>
                                     <div class="m-input-icon m-input-icon--left">
                                         <input type="text" id="da_pagare" readonly="readonly"
-                                               class="form-control m-input" style="background-color: #ffc9c6; font-weight:600;">
+                                               class="form-control m-input"
+                                               style="background-color: #ffc9c6; font-weight:600;">
                                         <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
                                                         class="la la-euro"></i></span></span>
                                     </div>
@@ -208,7 +220,8 @@
                                     <label>Totale Pagato :</label>
                                     <div class="m-input-icon m-input-icon--left">
                                         <input type="text" id="pagato" readonly="readonly"
-                                               class="form-control m-input" style="background-color: #bcffb7; font-weight:600;">
+                                               class="form-control m-input"
+                                               style="background-color: #bcffb7; font-weight:600;">
                                         <span class="m-input-icon__icon m-input-icon__icon--left"><span><i
                                                         class="la la-euro"></i></span></span>
                                     </div>
@@ -257,5 +270,6 @@
     <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/salary/calculateTotal.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/salary/salary.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/salary/compilatePayments.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
 {% endblock %}
