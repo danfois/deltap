@@ -3,8 +3,11 @@
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Maintenance;
 use AppBundle\Entity\Vehicle\MaintenanceDetail;
+use AppBundle\Entity\Vehicle\MaintenanceRelationship;
 use AppBundle\Entity\Vehicle\MaintenanceType;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\Vehicle\MaintenanceTypeType;
+use AppBundle\Form\Vehicle\SetupMaintenanceType;
 use AppBundle\Form\Vehicle\VehicleMaintenanceType;
 use AppBundle\Helper\Vehicle\MaintenanceHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -273,5 +276,68 @@ class MaintenanceController extends Controller
             'new_button_path' => $this->generateUrl('create_maintenance'),
             'new_button_name' => 'Nuova Scheda Manutenzione'
         ));
+    }
+
+    /**
+     * @Route("setup-maintenances-{n}", name="setup_maintenances")
+     */
+    public function setupMaintenancesAction(int $n)
+    {
+        $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->find($n);
+        if($vehicle == null) return new Response('Veicolo non trovato', 404);
+
+        if(count($vehicle->getMaintenanceRelationships()) === 0) $vehicle->addMaintenanceRelationship(new MaintenanceRelationship());
+
+        $form = $this->createForm(SetupMaintenanceType::class, $vehicle);
+
+        $html = $this->renderView('vehicles/maintenance_setup.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('ajax_setup_maintenance', array('n' => $n))
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Imposta manutenzioni per ' . $vehicle->getPlate(),
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax-setup-maintenance-{n}", name="ajax_setup_maintenance")
+     */
+    public function ajaxSetupMaintenance(Request $request, int $n)
+    {
+        $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->find($n);
+        if($vehicle == null) return new Response('Veicolo non trovato', 404);
+
+        $form = $this->createForm(SetupMaintenanceType::class, $vehicle);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $vehicle = $form->getData();
+
+            foreach($vehicle->getMaintenanceRelationships() as $m) {
+//                $em->persist($m);
+                $m->setVehicle($vehicle);
+            }
+
+            $em->flush();
+
+            return new Response('ok', 200);
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $error = '';
+
+            foreach($errors as $k => $e) {
+                $error .= $e->getMessage() . '<br> ';
+
+            }
+            return new Response($error, 500);
+        }
+
+        return new Response('Accesso Negato', 403);
     }
 }

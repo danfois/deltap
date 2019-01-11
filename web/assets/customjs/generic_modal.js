@@ -20,6 +20,21 @@ var genericModalFunction = function (method, url, data, options) {
                 if (options['callbackInit'] !== undefined) {
                     options['callbackInit'].init();
                 }
+                if(options['repeater'] === true) {
+                    $('.repeater').repeater({
+                        initEmpty: false,
+                        show: function () {
+                            $(this).slideDown();
+                            initializeWidgets();
+                        },
+                        hide: function (deleteElement) {
+                            if(confirm('Sicuro di voler rimuovere questo elemento?')) {
+                                $(this).slideUp(deleteElement);
+                            }
+                        },
+                        isFirstItemUndeletable: true
+                    });
+                }
             }
 
             mApp.unblockPage();

@@ -127,6 +127,7 @@ var VehicleList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-vehicle-'+ row.id +'"><i class="la la-edit"></i> Modifica Veicolo</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'vehicle-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Vedi Dettagli</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'setup-maintenances-' + row.id + '\', { \'id\' : ' + row.id + '}, {\'initializeWidgets\' : true, \'repeater\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_maintenance_setup\'})"><i class="la la-gears"></i> Imposta Manutenzioni</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.insuranceId + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'insurance-suspensions-table\', { \'id\' : ' + row.insuranceId + '})"><i class="la la-eye"></i> Vedi Sospensioni Ass.</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'POST\', \'ajax/renew-cartax\', { \'ids\' : JSON.stringify([' + row.carTaxId + '])})"><i class="la la-refresh"></i> Rinnova Bollo Stesse Condizioni</a>\

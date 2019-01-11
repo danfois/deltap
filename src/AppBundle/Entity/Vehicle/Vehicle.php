@@ -19,6 +19,11 @@ class Vehicle
     private $vehicleId;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\MaintenanceRelationship", mappedBy="vehicle", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $maintenanceRelationships;
+
+    /**
      * @ORM\OneToOne(targetEntity="Insurance")
      * @ORM\JoinColumn(name="current_insurance", referencedColumnName="insuranceId", nullable=true)
      */
@@ -309,6 +314,7 @@ class Vehicle
         $this->insurances = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carTaxes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carReviews = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->maintenanceRelationships = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1507,5 +1513,39 @@ class Vehicle
     public function getCurrentCarReview()
     {
         return $this->currentCarReview;
+    }
+
+    /**
+     * Add maintenanceRelationship
+     *
+     * @param \AppBundle\Entity\Vehicle\MaintenanceRelationship $maintenanceRelationship
+     *
+     * @return Vehicle
+     */
+    public function addMaintenanceRelationship(\AppBundle\Entity\Vehicle\MaintenanceRelationship $maintenanceRelationship)
+    {
+        $this->maintenanceRelationships[] = $maintenanceRelationship;
+
+        return $this;
+    }
+
+    /**
+     * Remove maintenanceRelationship
+     *
+     * @param \AppBundle\Entity\Vehicle\MaintenanceRelationship $maintenanceRelationship
+     */
+    public function removeMaintenanceRelationship(\AppBundle\Entity\Vehicle\MaintenanceRelationship $maintenanceRelationship)
+    {
+        $this->maintenanceRelationships->removeElement($maintenanceRelationship);
+    }
+
+    /**
+     * Get maintenanceRelationships
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMaintenanceRelationships()
+    {
+        return $this->maintenanceRelationships;
     }
 }
