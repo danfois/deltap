@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>Veicolo</th>
+                <th>Km Correnti</th>
+                <th>Tipo Manutenzione</th>
+                <th>Eseguita a KM</th>
+                <th>Eseguita il</th>
+                <th>Fra Km</th>
+                <th>Scade Il</th>
+            </tr>
+            {% for d in data %}
+                <tr>
+                    <td class="font-weight-bold">{{ d.plate }}</td>
+                    <td>{{ d.currentKm }}</td>
+                    <td>{{ d.maintenanceName }}</td>
+                    <td>{{ d.startKm|number_format(0) }}</td>
+                    <td>{{ d.startDate|date('d-m-Y') }}</td>
+                    <td>{% if d.expirationKm is defined %} <span class="font-weight-bold m--font-danger">{{ d.expirationKm - d.currentKm|number_format(0) }}</span>{% else %} N/A{% endif %}</td>
+                    <td>{% if d.expirationDate is defined %}<span class="font-weight-bold m--font-danger">{{ d.expirationDate|date('d-m-Y') }}</span>{% else %}N/A{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

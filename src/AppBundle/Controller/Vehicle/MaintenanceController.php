@@ -9,6 +9,7 @@ use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Form\Vehicle\MaintenanceTypeType;
 use AppBundle\Form\Vehicle\SetupMaintenanceType;
 use AppBundle\Form\Vehicle\VehicleMaintenanceType;
+use AppBundle\Helper\Vehicle\ExpiringMaintenanceProvider;
 use AppBundle\Helper\Vehicle\MaintenanceHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -339,5 +340,37 @@ class MaintenanceController extends Controller
         }
 
         return new Response('Accesso Negato', 403);
+    }
+
+    /**
+     * @Route("expiring-maintenances-{n}", name="expiring_maintenances")
+     */
+    public function expiringMaintenancesAction(int $n = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $emp = new ExpiringMaintenanceProvider($em);
+
+        if($n !== null) {
+
+            $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->find($n);
+            if ($vehicle == null) return new Response('Veicolo non trovato', 404);
+
+            $data = $emp->setVehicle($vehicle)->prepareData()->getPreparedData();
+
+        } else {
+
+            $data = $emp->prepareData()->getPreparedData();
+
+        }
+
+        return $this->render('vehicles/expiring_maintenances.html.twig', array(
+            'data' => $data
+        ));
+
+//        return $this->render('DEBUG/form_data.html.twig', array(
+//            'data' => $data,
+//            'title' => 'bleru'
+//        ));
     }
 }
