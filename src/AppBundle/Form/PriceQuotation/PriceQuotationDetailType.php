@@ -85,7 +85,8 @@ class PriceQuotationDetailType extends AbstractType
             ->add('wrongDates', CheckboxType::class, array(
                 'attr' => array(
 //                    'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('attachment', AttachmentType::class);
 
