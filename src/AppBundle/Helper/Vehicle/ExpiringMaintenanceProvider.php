@@ -54,8 +54,8 @@ class ExpiringMaintenanceProvider
                     $lastMaintenance = array(
                         'plate' => $rr->getVehicle()->getPlate(),
                         'maintenanceName' => $rr->getMaintenanceType()->getMaintenanceName(),
-                        'expirationDate' => 0,
-                        'expirationKm' => $rr->getMaintenanceType()->getKmInterval(),
+                        'expirationDate' => null,
+                        'expirationKm' => $rr->getMaintenanceType()->getKmInterval() == null ? null : $rr->getMaintenanceType()->getKmInterval(),
                         'startKm' => 'MAI FATTA',
                         'startDate' => 'MAI FATTA'
                     );
