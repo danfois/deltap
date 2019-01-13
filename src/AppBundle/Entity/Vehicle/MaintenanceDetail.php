@@ -31,8 +31,7 @@ class MaintenanceDetail implements InvoiceDetailInterface
     protected $maintenanceType;
 
     /**
-     * @ORM\Column(type="string", nullable=false, name="description")
-     * @Assert\NotBlank(message="Maintenance Detail description cannot be null")
+     * @ORM\Column(type="string", nullable=true, name="description")
      */
     protected $description;
 

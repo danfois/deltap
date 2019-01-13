@@ -325,7 +325,7 @@ class MaintenanceController extends Controller
 
             $em->flush();
 
-            return new Response('ok', 200);
+            return new Response('Impostazioni Salvate', 200);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {

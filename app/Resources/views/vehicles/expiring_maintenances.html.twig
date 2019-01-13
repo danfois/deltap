@@ -11,12 +11,12 @@
                 <th>Scade Il</th>
             </tr>
             {% for d in data %}
-                <tr>
+                <tr {% if d.startDate == 'MAI FATTA' %}class="bg-warning"{% endif %}>
                     <td class="font-weight-bold">{{ d.plate }}</td>
                     <td>{{ d.currentKm }}</td>
                     <td>{{ d.maintenanceName }}</td>
-                    <td>{{ d.startKm|number_format(0) }}</td>
-                    <td>{{ d.startDate|date('d-m-Y') }}</td>
+                    <td>{% if d.startDate == 'MAI FATTA' %}<span class="font-weight-bold m--font-danger">Mai Eseguita</span>{% else %}{{ d.startKm|number_format(0) }}{% endif %}</td>
+                    <td>{% if d.startDate == 'MAI FATTA' %}<span class="font-weight-bold m--font-danger">Mai Eseguita</span>{% else %}{{ d.startDate|date('d-m-Y') }}{% endif %}</td>
                     <td>{% if d.expirationKm is defined %} <span class="font-weight-bold m--font-danger">{{ d.expirationKm - d.currentKm }}</span>{% else %} N/A{% endif %}</td>
                     <td>{% if d.expirationDate is defined %}<span class="font-weight-bold m--font-danger">{{ d.expirationDate|date('d-m-Y') }}</span>{% else %}N/A{% endif %}</td>
                 </tr>

@@ -30,7 +30,8 @@ class MaintenanceDetailType extends AbstractType
             ->add('description', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('amount', TextType::class, array(
                 'attr' => array(

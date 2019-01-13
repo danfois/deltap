@@ -5,6 +5,7 @@ namespace AppBundle\Helper\Vehicle;
 use AppBundle\Entity\ServiceOrder\Report;
 use AppBundle\Entity\Vehicle\MaintenanceDetail;
 use AppBundle\Entity\Vehicle\MaintenanceRelationship;
+use AppBundle\Entity\Vehicle\MaintenanceType;
 use AppBundle\Entity\Vehicle\Vehicle;
 use Doctrine\ORM\EntityManager;
 
@@ -47,6 +48,19 @@ class ExpiringMaintenanceProvider
             if($lastMaintenance == null || $lastMaintenance['expirationDate'] === null) {
 
                 $lastMaintenance = $this->em->getRepository(MaintenanceDetail::class)->findLastMaintenanceByKm($rr->getVehicle(), $rr->getMaintenanceType());
+
+                if($lastMaintenance == null) {
+
+                    $lastMaintenance = array(
+                        'plate' => $rr->getVehicle()->getPlate(),
+                        'maintenanceName' => $rr->getMaintenanceType()->getMaintenanceName(),
+                        'expirationDate' => 0,
+                        'expirationKm' => $rr->getMaintenanceType()->getKmInterval(),
+                        'startKm' => 'MAI FATTA',
+                        'startDate' => 'MAI FATTA'
+                    );
+
+                }
 
             }
 
