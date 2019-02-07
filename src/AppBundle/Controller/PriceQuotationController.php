@@ -217,7 +217,8 @@ class PriceQuotationController extends Controller
             'service_form' => $serviceType->createView(),
             'service_type_form' => $service_form_type->createView(),
             'action_url' => $actionUrl,
-            'title' => 'Modifica Itinerario'
+            'title' => 'Modifica Itinerario',
+            'isEditing' => true
         ));
     }
 
@@ -242,18 +243,18 @@ class PriceQuotationController extends Controller
         }*/
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $PQD = $form->getData();
+            $pqd = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
-            $PQDH = new PriceQuotationDetailHelper($PQD, $em, true);
+            $PQDH = new PriceQuotationDetailHelper($pqd, $em, true);
             $PQDH->execute();
             $errors = $PQDH->getErrors();
 
             if($errors == null) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($PQD);
+                $em->persist($pqd);
 
-                foreach ($PQD->getStages() as $ss) {
+                foreach ($pqd->getStages() as $ss) {
                     $em->persist($ss);
                 }
                 $em->flush();

@@ -56,6 +56,9 @@ var PriceQuotation = function () {
                         });
                         mApp.unblockPage();
                         var valore = $('#price_quotation_detail_priceQuotation option:selected').text().split('-');
+                        if (valore[1] === undefined) {
+                            valore = $('#price_quotation_detail_edit_priceQuotation option:selected').text().split('-');
+                        }
                         setTimeout(window.location.href='price-quotations-list/' + valore[0] + '-' + valore[1] , 2500);
                     },
                     error: function (e) {

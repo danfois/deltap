@@ -72,6 +72,7 @@ class PriceQuotationDetailEditType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'constraints' => array(new Valid()),
+                'by_reference' => false
             ))
             ->add('price', TextType::class, array(
                 'attr' => array(

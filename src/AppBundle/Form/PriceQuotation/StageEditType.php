@@ -60,7 +60,9 @@ class StageEditType extends AbstractType
             ->add('price', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control m-input touch_spin'
-                )
+                ),
+                'required' => false,
+                'empty_data' => 0
             ))
             ->add('repeatedTimes', CollectionType::class, array(
                 'entry_type' => RepeatedTimesEditType::class,
