@@ -178,6 +178,15 @@ class InvoiceRequestManager
     protected function fetchPriceQuotationDetail(array $data)
     {
         $dataToPass = $this->em->getRepository(PriceQuotationDetail::class)->findPqdInArray($data);
+
+        $customer = $dataToPass[0]->getPriceQuotation()->getCustomer();
+
+        foreach ($dataToPass as $d) {
+            if($d->getPriceQuotation()->getCustomer() != $customer) {
+                throw new \Exception("Non puoi fatturare itinerari di clienti diversi");
+            }
+        }
+
         $this->rawData = $dataToPass;
         if($dataToPass == null) throw new \Exception('Itinerario non trovato');
 

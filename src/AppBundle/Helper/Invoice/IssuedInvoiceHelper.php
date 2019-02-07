@@ -16,11 +16,38 @@ class IssuedInvoiceHelper extends InvoiceHelper
     public function execute()
     {
         $this->setProforma();
+        $this->checkCustomerAndPriceQuotationDetail();
         $this->checkInvoiceNumber();
         $this->checkPaInvoiceNumber();
         $this->checkPaReceiptDate();
         $this->iterateDetails();
+        if($this->isEdited === true) {
+            $this->checkSamePriceQuotationDetail();
+        }
         $this->executed = 1;
+    }
+
+    protected function checkCustomerAndPriceQuotationDetail()
+    {
+        $pqd = $this->invoice->getPriceQuotationDetail();
+        if($pqd != null) {
+            if($pqd->getPriceQuotation()->getCustomer() != $this->invoice->getCustomer()) {
+                $this->errors .= "L'itinerario che vuoi fatturare non appartiene al cliente che hai scelto<br>";
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+    protected function checkSamePriceQuotationDetail()
+    {
+        $existingInvoice = $this->em->getRepository(IssuedInvoice::class)->findBy(array('priceQuotationDetail' => $this->invoice->getPriceQuotationDetail()));
+        if($existingInvoice != null) {
+            $this->errors .= "Non puoi fatturare più di una volta lo stesso itinerario<br>";
+            return false;
+        }
+        return true;
     }
 
     protected function setProforma()

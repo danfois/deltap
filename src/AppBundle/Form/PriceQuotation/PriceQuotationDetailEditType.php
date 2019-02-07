@@ -25,7 +25,8 @@ class PriceQuotationDetailEditType extends AbstractType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('serviceType', EntityType::class, array(
                 'class' => 'AppBundle:ServiceType',
