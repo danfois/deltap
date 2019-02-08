@@ -248,9 +248,11 @@
                                             <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
                                                class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
                                         {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is not null %}
-                                            <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
-                                               class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
+                                        {% if o.priceQuotationDetail is not null %}
+                                            {% if o.priceQuotationDetail.attachment is not null %}
+                                                <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
+                                                   class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
+                                            {% endif %}
                                         {% endif %}
                                     </td>
                                 </tr>

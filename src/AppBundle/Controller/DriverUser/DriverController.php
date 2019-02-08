@@ -19,7 +19,7 @@ class DriverController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $newOrders = $em->getRepository(ServiceOrder::class)->findDriverNewOrders($user, new \DateTime(), 1);
-        $oldOrders = $em->getRepository(ServiceOrder::class)->findDriverOldOrders($user, new \DateTime('- 1 day'), 2);
+        $oldOrders = $em->getRepository(ServiceOrder::class)->findDriverOldOrders($user, new \DateTime('- 1 minute'), 2);
         $futureOrders = $em->getRepository(ServiceOrder::class)->findDriverFutureOrders($user, new \DateTime('+ 1 day'), 1);
         $toReportOrders = $em->getRepository(ServiceOrder::class)->findDriverToReportOrders($user, new \DateTime());
 

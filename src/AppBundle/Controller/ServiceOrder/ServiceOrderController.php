@@ -117,6 +117,7 @@ class ServiceOrderController extends Controller
             $errors = $SOH->getErrors();
 
             if ($errors == null) {
+                $em->persist($so);
                 $em->flush();
                 return new Response('Ordine di Servizio Creato con Successo', 200);
             }
