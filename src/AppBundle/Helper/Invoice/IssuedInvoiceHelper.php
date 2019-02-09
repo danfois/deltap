@@ -21,7 +21,7 @@ class IssuedInvoiceHelper extends InvoiceHelper
         $this->checkPaInvoiceNumber();
         $this->checkPaReceiptDate();
         $this->iterateDetails();
-        if($this->isEdited === true) {
+        if($this->isEdited === false) {
             $this->checkSamePriceQuotationDetail();
         }
         $this->executed = 1;
