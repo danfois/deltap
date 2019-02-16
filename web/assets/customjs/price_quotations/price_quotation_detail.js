@@ -58,6 +58,9 @@ var PriceQuotation = function () {
                         var valore = $('#price_quotation_detail_priceQuotation option:selected').text().split('-');
                         if (valore[1] === undefined) {
                             valore = $('#price_quotation_detail_edit_priceQuotation option:selected').text().split('-');
+                            if (valore[0] === undefined || valore[1] === undefined) {
+                                setTimeout(window.history.back, 1500)
+                            }
                         }
                         setTimeout(window.location.href='price-quotations-list/' + valore[0] + '-' + valore[1] , 2500);
                     },
