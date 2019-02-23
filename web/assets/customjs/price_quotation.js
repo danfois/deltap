@@ -16,7 +16,7 @@ var PriceQuotation = function () {
                 }),
 
                 e.on("change", function () {
-                    mApp.scrollTop();
+                    mUtil.scrollTop();
                 }),
 
                 i = t.validate({
@@ -24,7 +24,7 @@ var PriceQuotation = function () {
                     rules: createValidationObjects(),
                     messages: {},
                     invalidHandler: function (e, r) {
-                        mApp.scrollTop();
+                        mUtil.scrollTop();
                         swal({
                             title: "",
                             text: "Ci sono alcuni errori nel form.",

@@ -6,7 +6,7 @@ var WizardDemo = function () {
             n = $("#m_wizard"), t = $("#m_form"), (e = n.mWizard({startStep: 1})).on("beforeNext", function (e) {
                 if (!0 !== i.form())return !1
             }), e.on("change", function (e) {
-                mApp.scrollTop();
+                mUtil.scrollTop();
                 //inserire qua il corpo della funzione onchange aggiuntivo
                 $("#ic_username").html($("#users_username").val());
                 $("#ic_password").html($("#users_password").val());
@@ -57,7 +57,7 @@ var WizardDemo = function () {
                     accept: {required: "Devi spuntare la casella di conferma!"}
                 },
                 invalidHandler: function (e, r) {
-                    mApp.scrollTop(), swal({
+                    mUtil.scrollTop(), swal({
                         title: "",
                         text: "Ci sono alcuni errori nel form.",
                         type: "error",

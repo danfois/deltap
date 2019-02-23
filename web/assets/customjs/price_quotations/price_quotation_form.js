@@ -11,7 +11,7 @@ var PriceQuotation = function () {
                 rules: {},
                 messages: {},
                 invalidHandler: function (e, r) {
-                    mApp.scrollTop();
+                    mUtil.scrollTop();
                     swal({
                         title: "",
                         text: "Ci sono alcuni errori nel form.",

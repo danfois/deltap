@@ -45,7 +45,7 @@ var CarTaxEditForm = function () {
                     },
                 messages: {},
                 invalidHandler: function (e, r) {
-                    mApp.scrollTop();
+                    mUtil.scrollTop();
                     swal({
                         title: "",
                         text: "Ci sono errori nel form, per favore correggili.",

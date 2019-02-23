@@ -10,13 +10,18 @@ var PriceQuotation = function () {
             t = $("#form_price_quotation_detail"),
 
 
-                (e = n.mWizard({startStep: 1})).on("beforeNext", function () {
+                (e = new mWizard('m_wizard', {startStep: 1})).on("beforeNext", function () {
                     if (!0 !== i.form()) return !1;
                     LastStep();
                 }),
 
                 e.on("change", function () {
-                    mApp.scrollTop();
+                    mUtil.scrollTop();
+                    checkWhichToShow();
+                }),
+
+                e.on("change", function (e) {
+                    if (!0 !== i.form()) return !1;
                 }),
 
                 i = t.validate({
@@ -24,7 +29,7 @@ var PriceQuotation = function () {
                     rules: createValidationObjects(),
                     messages: {},
                     invalidHandler: function (e, r) {
-                        mApp.scrollTop();
+                        mUtil.scrollTop();
                         swal({
                             title: "",
                             text: "Ci sono alcuni errori nel form.",
@@ -62,7 +67,7 @@ var PriceQuotation = function () {
                                 setTimeout(window.history.back, 1500)
                             }
                         }
-                        setTimeout(window.location.href='price-quotations-list/' + valore[0] + '-' + valore[1] , 2500);
+                        setTimeout(window.location.href = 'price-quotations-list/' + valore[0] + '-' + valore[1], 2500);
                     },
                     error: function (e) {
                         mApp.unprogress(r);
@@ -142,10 +147,26 @@ function createValidationObjects() {
     return ValidationObject;
 }
 
+
+
+function checkWhichToShow() {
+    if($('#m_wizard_form_step_1:hidden').length == 1) {
+        $('#m_wizard_form_step_1').show();
+        $('#m_wizard_form_step_2').hide();
+    } else {
+        $('#m_wizard_form_step_2').show();
+        $('#m_wizard_form_step_1').hide();
+    }
+    console.log($('#m_wizard_form_step_1:hidden').length)
+}
+
 jQuery(document).ready(function () {
     PriceQuotation.init();
     PriceQuotationFormRepeater.init();
     window.comuni = TypeAheadPrefetch();
     TypeAheadWidget();
     initializeWidgets();
+    checkWhichToShow();
 });
+
+

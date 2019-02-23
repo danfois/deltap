@@ -11,7 +11,7 @@ var VehicleForm = function () {
                 rules: createValidationObjects(),
                 messages: {},
                 invalidHandler: function (e, r) {
-                    mApp.scrollTop();
+                    mUtil.scrollTop();
                     swal({
                         title: "",
                         text: "Ci sono alcuni errori nel form.",
