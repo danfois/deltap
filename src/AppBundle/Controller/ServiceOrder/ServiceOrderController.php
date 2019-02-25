@@ -80,6 +80,14 @@ class ServiceOrderController extends Controller
     }
 
     /**
+     * @Route("service-orders-list-2", name="service_orders_list_test")
+     */
+    public function serviceOrdersListTest()
+    {
+        return $this->render('service_orders/service_orders_list_test.html.twig');
+    }
+
+    /**
      * @Route("create-service-order", name="create_service_order")
      */
     public function createServiceOrderAction()
