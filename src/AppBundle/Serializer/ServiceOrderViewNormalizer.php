@@ -90,7 +90,7 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'time' => $o->getStartTime() . ' - ' . $o->getEndTime(),
                     'lessThanFive' => $totalTime,
 //                    'driver' => ($o->getDriver() != null ? $o->getDriver()->getUsername() : 'Nessuno'),
-                    'driver' => '<select class="driver_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareUserOptions($o->getDriver() != null ? $o->getDriver()->getIdUser() : '') . '</select>',
+                    'driver' => '<select class="driver_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareUserOptions($o->getDriver() != null ? $o->getDriver()->getIdUser() : '') . '</select><span class="d-none">' . ($o->getDriver() != null ? $o->getDriver()->getEmployee()->getSurname() . ' ' . $o->getDriver()->getEmployee()->getName() : '') . '</span>',
                     'vehicle' => '<select class="vehicle_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareVehicleOptions($o->getVehicle() != null ? $o->getVehicle()->getVehicleId() : '') . '</select>',
                     //'vehicle' => ($o->getVehicle() != null ? $o->getVehicle()->getPlate() : 'Nessuno'),
                     'price' => $o->getPrice(),

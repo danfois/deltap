@@ -72,7 +72,7 @@ class ServiceOrderController extends Controller
     }
 
     /**
-     * @Route("service-orders-list", name="service_orders_list")
+     * @Route("service-orders-list_old", name="service_orders_list_old")
      */
     public function serviceOrdersList()
     {
@@ -80,7 +80,7 @@ class ServiceOrderController extends Controller
     }
 
     /**
-     * @Route("service-orders-list-2", name="service_orders_list_test")
+     * @Route("service-orders-list", name="service_orders_list")
      */
     public function serviceOrdersListTest()
     {
