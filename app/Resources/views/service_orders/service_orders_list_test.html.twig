@@ -34,7 +34,7 @@
                                 <tbody>
                                 <tr>
                                     <td>Data Inizio:</td>
-                                    <td><input class="form-control m-input" name="min" id="min" type="text"></td>
+                                    <td><input class="form-control m-input" name="min" id="min" type="text" value="{{ "now"|date("d-m-Y") }}"></td>
                                     <td>Data Fine:</td>
                                     <td><input class="form-control m-input" name="max" id="max" type="text"></td>
                                 </tr>
@@ -107,7 +107,7 @@
                     <th>Freq.</th>
                     <th>Servizio</th>
                     <th>Stato</th>
-                    <th>Azioni</th>
+                    <th style="min-width:120px;">Azioni</th>
                 </tr>
                 </thead>
             </table>

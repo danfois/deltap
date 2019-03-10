@@ -17,6 +17,7 @@ var DatatablesDataSourceAjaxClient = function () {
                     }
                 }
             },
+            // "oSearch": {"sSearch": $('#min').val() },
             language: {
                 "sEmptyTable":     "Nessun dato presente nella tabella",
                 "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
@@ -183,17 +184,11 @@ var DatatablesDataSourceAjaxClient = function () {
 
                         case 'Azioni':
                             var search = $('<button class="btn btn-brand m-btn btn-sm m-btn--icon" id="sortTable">\
-							  <span>\
 							    <i class="la la-search"></i>\
-							    <span>Cerca</span>\
-							  </span>\
 							</button>');
 
-                            var reset = $('<button class="btn btn-secondary m-btn btn-sm m-btn--icon" id="resetFilter">\
-							  <span>\
+                            var reset = $('<button class="btn btn-secondary m-btn btn-sm m-btn--icon" id="resetFilter" style="margin-top:0 !important;">\
 							    <i class="la la-close"></i>\
-							    <span>Reset</span>\
-							  </span>\
 							</button>');
 
                             $('<th>').append(search).append(reset).appendTo(rowFilter);
@@ -232,6 +227,8 @@ var DatatablesDataSourceAjaxClient = function () {
 
                     $(input).appendTo($('<th>').appendTo(rowFilter));
                 });
+
+                $('tr.filter').find('th:last').remove();
             }
         });
     };
@@ -276,5 +273,20 @@ jQuery(document).ready(function () {
         $('#min, #max').change(function () {
             table.draw();
         });
+
+    $('#m_table_1').on('change', '.driver_select', function () {
+        var id = $(this).attr('data-so');
+        var idUser = $(this).children("option:selected").val();
+        genericAjaxRequestToastr('GET', 'ajax/assign-driver-' + id, {'idUser' : idUser });
+    });
+
+    $('#m_table_1').on('change', '.vehicle_select', function () {
+        var id = $(this).attr('data-so');
+        var idVehicle = $(this).children("option:selected").val();
+        genericAjaxRequestToastr('GET', 'ajax/assign-vehicle-' + id, {'idVehicle' : idVehicle });
+    });
+
+    $('#min').val(moment().format('DD-MM-YYYY'));
+
 
 });
