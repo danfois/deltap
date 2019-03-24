@@ -471,7 +471,7 @@ class ServiceOrderController extends Controller
      */
     public function pdfCurl() {
         $url = $this->generateUrl("print_service_order", array("n" => 1));
-        $content = file_get_contents("http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&document_url=http://gestionale.redentours.com/print/service-order-1");
+        $content = file_get_contents(urlencode("http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&document_url=http://gestionale.redentours.com/print/service-order-1& page_size = A4"));
         return new Response($content);
     }
 
