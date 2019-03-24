@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ServiceOrderController extends Controller
 {
@@ -454,25 +455,61 @@ class ServiceOrderController extends Controller
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
         if($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
-        //return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
+        $url = $this->generateUrl("print_service_order_effectively", array("n" => $n), UrlGeneratorInterface::ABSOLUTE_URL);
+        $md5 = md5($url . "alexander");
 
-        $html = $this->renderView('PRINTS/service_order.html.twig', array('so' => $so));
+//        return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
 
-        return new Response($html);
+//        $html = $this->renderView('PRINTS/service_order.html.twig', array('so' => $so));
 
-//        return new PdfResponse(
-//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-//            'file.pdf'
-//        );
+        $ch = curl_init();
+
+
+        curl_setopt($ch, CURLOPT_URL, "http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&secret_key=".$md5."&document_url=".$url."&page_size=A4");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close ($ch);
+
+
+        return new PdfResponse($result);
+    }
+
+    /**
+     * @Route("print-service-order-{n}", name="print_service_order_effectively")
+     */
+    public function printServiceOrderEffectively($n) {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+
+        return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
     }
 
     /**
      * @Route("pdf-curl", name="pdf_curl")
      */
     public function pdfCurl() {
-        $url = $this->generateUrl("print_service_order", array("n" => 1));
-        $content = file_get_contents(urlencode("http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&document_url=http://gestionale.redentours.com/print/service-order-1& page_size = A4"));
-        return new Response($content);
+
+        $ch = curl_init();
+
+        $md5 = md5("http://gestionale.redentours.com/print/service-order-1alexander");
+
+        curl_setopt($ch, CURLOPT_URL, "http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&secret_key=".$md5."&document_url=http://gestionale.redentours.com/print/service-order-1&page_size=A4");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close ($ch);
+
+        return new PdfResponse($result);
+
     }
 
     /**
