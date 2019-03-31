@@ -95,7 +95,7 @@ class MaintenanceController extends Controller
 
         $html = $this->renderView('vehicles/forms/maintenance_type_form.html.twig', array(
             'form' => $form->createView(),
-            'action_url' => $this->generateUrl('ajax_edit_maintenance', array('n' => $n)),
+            'action_url' => $this->generateUrl('ajax_edit_maintenance_type', array('n' => $n)),
             'edit' => '_edit'
         ));
 
@@ -106,7 +106,7 @@ class MaintenanceController extends Controller
     }
 
     /**
-     * @Route("ajax/edit-maintenance-type-{n}", name="ajax_edit_maintenance")
+     * @Route("ajax/edit-maintenance-type-{n}", name="ajax_edit_maintenance_type")
      */
     public function ajaxEditMaintenanceTypeAction(Request $request, int $n)
     {

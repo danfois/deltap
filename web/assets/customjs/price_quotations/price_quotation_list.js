@@ -433,7 +433,7 @@ var PriceQuotationList = function () {
 						\<a target="_blank" href="' + window.location.origin + '/create-price-quotation-detail-' + row.idv + ' " onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Aggiungi Itinerario">\
 							<i class="la la-plus-circle"></i>\
 						</a>\
-						<a target="_blank" href="javascript:void(0);" onclick="alert(\'Questo pulsante servirà per stampare a video il pdf del preventivo\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Preventivo">\
+						<a target="_blank" href="' + window.location.origin + '/print/price-quotation-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Preventivo">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';

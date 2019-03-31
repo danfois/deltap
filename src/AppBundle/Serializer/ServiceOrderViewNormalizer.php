@@ -87,7 +87,7 @@ class ServiceOrderViewNormalizer implements NormalizerInterface
                     'arrivalLocation' => $o->getArrivalLocation(),
                     'departureDate' => $o->getDepartureDate()->format('d-m-Y'),
                     'arrivalDate' => $o->getArrivalDate()->format('d-m-Y'),
-                    'time' => $o->getStartTime() . ' - ' . $o->getEndTime(),
+                    'time' => strlen($o->getStartTime()) < 5 ? '0' . $o->getStartTime() : $o->getStartTime() . ' - ' . $o->getEndTime(),
                     'lessThanFive' => $totalTime,
 //                    'driver' => ($o->getDriver() != null ? $o->getDriver()->getUsername() : 'Nessuno'),
                     'driver' => '<select class="driver_select" data-so="' . $o->getServiceOrder() . '">' . $this->prepareUserOptions($o->getDriver() != null ? $o->getDriver()->getIdUser() : '') . '</select><span class="d-none">' . ($o->getDriver() != null ? $o->getDriver()->getEmployee()->getSurname() . ' ' . $o->getDriver()->getEmployee()->getName() : '') . '</span>',

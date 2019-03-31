@@ -214,9 +214,9 @@
                                                     <div class="repeated-times-repeater">
                                                         <div data-repeater-list="repeatedTimes">
 
-                                                            <div data-repeater-item>
+                                                            {% for rt in s.repeatedTimes %}
 
-                                                                {% for rt in s.repeatedTimes %}
+                                                                <div data-repeater-item>
 
                                                                     <div class="form-group m-form__group row bg-itinerario m--padding-bottom-10">
 
@@ -253,8 +253,8 @@
 
                                                                     </div>
 
-                                                                {% endfor %}
-                                                            </div>
+                                                                </div>
+                                                            {% endfor %}
 
                                                         </div>
                                                         <div class="row">

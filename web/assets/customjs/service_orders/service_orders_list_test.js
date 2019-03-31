@@ -89,7 +89,8 @@ var DatatablesDataSourceAjaxClient = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a target="_blank" class="dropdown-item" href="edit-service-order-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Ordine di Servizio</a>\
-						    	<a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Dettagli</a>\
+						    	<a target="_blank" class="dropdown-item" href="print/service-order-' + row.idv + '"><i class="la la-eye"></i> Vedi OdS</a>\
+						    	<a target="_blank" class="dropdown-item" href="print/repeated-service-order-' + row.idv + '"><i class="la la-eye"></i> Vedi OdS Ripetitivo</a>\
 						    	<a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'assign-driver-and-vehicle\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna Autista e Veicolo</a>\
 						    	<a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'mass-driver-and-vehicle-assignment-' + row.idv + '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_assign_driver_vehicle\' } )"><i class="la la-plus-circle"></i> Assegna in massa Autista e Veicolo</a>\
 						    	\<a target="_blank" class="dropdown-item" href="javascript:void(0);" onclick="generateInvoiceUrl(\'issued\', \'serviceOrders\', [' + row.idv + '])"><i class="la la-file"></i> Registra Fattura</a>\
@@ -106,7 +107,7 @@ var DatatablesDataSourceAjaxClient = function () {
 						<a target="_blank" href="edit-service-order-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Ordine di Servizio">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a target="_blank" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Ordine di Servizio">\
+						<a target="_blank" href="print/service-order-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Ordine di Servizio">\
 							<i class="la la-eye"></i>\
 						</a></div>\
 					';

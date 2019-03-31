@@ -222,9 +222,6 @@ var InvoiceList = function () {
 						<a href="edit-payment-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Pagamento">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Dettagli Pagamento">\
-							<i class="la la-eye"></i>\
-						</a>\
 					';
                                 }
                             }],
@@ -298,7 +295,6 @@ var InvoiceList = function () {
                         return '<span class="m-badge m-badge--metal m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-metal">Nessuno</span></span>';
                     }
                 },
-
                 {
                     field: 'payment',
                     title: 'Tipo di Pagamento',
@@ -349,7 +345,7 @@ var InvoiceList = function () {
 						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
+						<a href="print/issued-invoice-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
@@ -371,7 +367,7 @@ var InvoiceList = function () {
 						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
+						<a href="print/issued-invoice-' + row.idv + '" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
@@ -470,4 +466,3 @@ var InvoiceList = function () {
         }
     };
 }();
-
