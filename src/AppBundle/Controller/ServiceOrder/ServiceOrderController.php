@@ -456,16 +456,10 @@ class ServiceOrderController extends Controller
         if($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $url = $this->generateUrl("print_service_order_effectively", array("n" => $n), UrlGeneratorInterface::ABSOLUTE_URL);
-        $md5 = md5($url . "alexander");
-
-//        return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
-
-//        $html = $this->renderView('PRINTS/service_order.html.twig', array('so' => $so));
 
         $ch = curl_init();
 
-
-        curl_setopt($ch, CURLOPT_URL, "http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&secret_key=".$md5."&document_url=".$url."&page_size=A4");
+        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/so/" . $n);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 
@@ -474,7 +468,6 @@ class ServiceOrderController extends Controller
             echo 'Error:' . curl_error($ch);
         }
         curl_close ($ch);
-
 
         return new PdfResponse($result);
     }
@@ -489,16 +482,17 @@ class ServiceOrderController extends Controller
         return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
     }
 
+
     /**
-     * @Route("pdf-curl", name="pdf_curl")
+     * @Route("print/repeated-service-order-{n}", name="print-repeated-service-order")
      */
-    public function pdfCurl() {
+    public function printRepeatedServiceOrderRemoteAction(int $n) {
+        $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
+        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $ch = curl_init();
 
-        $md5 = md5("http://gestionale.redentours.com/print/service-order-1alexander");
-
-        curl_setopt($ch, CURLOPT_URL, "http://api.pdflayer.com/api/convert?access_key=515db7cda3eafc7849debfd67ce8d5e6&secret_key=".$md5."&document_url=http://gestionale.redentours.com/print/service-order-1&page_size=A4");
+        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/re-so/" . $n);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 
@@ -509,11 +503,11 @@ class ServiceOrderController extends Controller
         curl_close ($ch);
 
         return new PdfResponse($result);
-
     }
 
+
     /**
-     * @Route("print/repeated-service-order-{n}", name="print_repeated_service_order")
+     * @Route("print-repeated-service-order-{n}", name="print_repeated_service_order")
      */
     public function printRepeatedServiceOrderAction(int $n)
     {
@@ -525,15 +519,15 @@ class ServiceOrderController extends Controller
 
         if(count($pqd->getServiceOrders()) <= 1) return new Response('Ordine di Servizio non ripetitivo', 500);
 
-//        return $this->render('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
+        return $this->render('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
 
-        $html = $this->renderView('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
-
-        return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array(
-                'orientation' => 'Landscape'
-            ))
-        );
+//        $html = $this->renderView('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
+//
+//        return new PdfResponse(
+//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array(
+//                'orientation' => 'Landscape'
+//            ))
+//        );
     }
 
 }

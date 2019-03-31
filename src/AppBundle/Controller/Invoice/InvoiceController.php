@@ -402,22 +402,44 @@ class InvoiceController extends Controller
         return new Response('Trasformazione avvenuta con successo!', 200);
     }
 
+
     /**
      * @Route("print/issued-invoice-{n}", name="print_issued_invoice")
+     */
+    public function printIssuedInvoiceRemoteAction(int $n) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/issInv/" . $n);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close ($ch);
+
+        return new PdfResponse($result);
+    }
+
+
+
+    /**
+     * @Route("print-issued-invoice-{n}", name="print-issued-invoice")
      */
     public function printIssuedInvoiceAction(int $n)
     {
         $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->find($n);
         if($invoice == null) return new Response('Fattura non trovata', 404);
 
-        //return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
+        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
-        $html = $this->renderView('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
-
-        return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'file.pdf'
-        );
+//        $html = $this->renderView('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
+//
+//        return new PdfResponse(
+//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+//            'file.pdf'
+//        );
     }
 
 }

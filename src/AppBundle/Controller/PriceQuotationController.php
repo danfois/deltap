@@ -536,27 +536,48 @@ class PriceQuotationController extends Controller
         return new Response('Status preventivo modificato', 200);
     }
 
+
     /**
-     * @Route("print/price-quotation-{n}", name="print_price_quotation")
+     * @Route("print-price-quotation-{n}", name="print-price-quotation")
      */
-    public function printPriceQuotationAction(int $n = null)
-    {
+    public function printRemotePriceQuotationAction(int $n) {
         $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
         if($pq == null) return new Response('Preventivo non trovato', 404);
 
-        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+        return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
-
-            $pdf = new Mpdf();
-            $pdf->WriteHTML($html);
-            $output = $pdf->Output();
-
-            return new Response($output);
+//        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+//
+//        $pdf = new Mpdf();
+//        $pdf->WriteHTML($html);
+//        $output = $pdf->Output();
+//
+//        return new Response($output);
 
 //        return new PdfResponse(
 //            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
 //            'file.pdf'
 //        );
+    }
+
+
+    /**
+     * @Route("print/price-quotation-{n}", name="print_price_quotation")
+     */
+    public function printPriceQuotationAction(int $n = null)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/pq/" . $n);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close ($ch);
+
+        return new PdfResponse($result);
     }
 }
