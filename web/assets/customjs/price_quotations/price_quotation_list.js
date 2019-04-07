@@ -58,6 +58,7 @@ var PriceQuotationList = function () {
                             {
                                 field: "code",
                                 title: "Codice Itinerario",
+                                type: "number",
                                 template: function(row) {
                                     if(row.pqCode != '') {
                                         return row.pqCode + '/' + row.code;
@@ -314,6 +315,7 @@ var PriceQuotationList = function () {
                 {
                     field: 'code',
                     title: 'Codice',
+                    type: "number",
                     width:80
                 },
                 {

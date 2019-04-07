@@ -23,6 +23,8 @@ class ReportController extends Controller
         $user = $this->getUser();
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
         if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+        if ($so->getDriver() == null) return new Response('Inserire un autista nell\'Ordine di Servizio prima di compilare il report', 400);
+        if ($so->getVehicle() == null) return new Response('Inserire la targa relativa a questo ordine di servizio', 400);
         if ($so->getReport() != null) return new Response('Esiste già un report per questo Ordine di Servizio', 500);
         if ($so->getDriver() !== $user && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ) return new Response('Non sei autorizzato a fare questa operazione. Il prossimo tentativo verrà segnalato all\'amministratore', 403);
 

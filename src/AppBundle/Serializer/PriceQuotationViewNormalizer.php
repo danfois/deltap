@@ -23,7 +23,7 @@ class PriceQuotationViewNormalizer implements NormalizerInterface
                     'id' => $o->getPriceQuotationId(),
                     'idv' => $o->getPriceQuotationId(),
                     'ids' => $o->getPriceQuotationId(),
-                    'code' => $o->getCode(),
+                    'code' => substr($o->getCode(), 5),
                     'customer' => $o->getCustomer()->getBusinessName(),
                     'author' => $o->getAuthor()->getUsername(),
                     'status' => $status,
