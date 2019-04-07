@@ -442,4 +442,39 @@ class InvoiceController extends Controller
 //        );
     }
 
+
+
+    /**
+     * @Route("print/received-invoice-{n}", name="print_received_invoice")
+     */
+    public function printReceivedInvoiceRemoteAction(int $n) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/recInv/" . $n);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close ($ch);
+
+        return new PdfResponse($result);
+    }
+
+
+
+
+    /**
+     * @Route("print-received-invoice-{n}", name="print-received-invoice")
+     */
+    public function printReceivedInvoiceAction(int $n)
+    {
+        $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->find($n);
+        if($invoice == null) return new Response('Fattura non trovata', 404);
+
+        return $this->render('PRINTS/received_invoice.html.twig', array('i' => $invoice));
+    }
+
 }

@@ -128,6 +128,23 @@ class ReceivedInvoice extends Invoice implements PayableInterface
         return $this;
     }
 
+    public function getTaxExcAmount()
+    {
+        $sum = 0;
+
+        foreach($this->getInvoiceDetails() as $d) {
+            $sum += $d->getTotTaxExc();
+        }
+
+        return $sum;
+    }
+
+
+    public function getTotalVat()
+    {
+        return $this->getAmount() - $this->getTaxExcAmount();
+    }
+
     public function getPaymentDate()
     {
         return $this->getInvoiceDate();

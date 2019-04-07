@@ -333,7 +333,7 @@ var InvoiceList = function () {
 						<a href="edit-received-invoice-' + row.idv +'" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
+						<a href="print/issued-invoice-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
