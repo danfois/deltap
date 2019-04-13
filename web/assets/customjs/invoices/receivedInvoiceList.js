@@ -325,7 +325,7 @@ var InvoiceList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-received-invoice-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Fattura</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Fattura</a>\
+						    	<a class="dropdown-item" href="print/received-invoice-' + row.idv + '"><i class="la la-eye"></i> Vedi Fattura</a>\
 						    	\<a class="dropdown-item" href="create-payment-from/receivedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
 						  	</div>\
