@@ -23,6 +23,7 @@
                             <span></span>
                         </a>
                         <!-- END -->
+                        {% if is_granted('ROLE_ADMIN') == true %}
                         <!-- BEGIN: Responsive Header Menu Toggler -->
                         <a id="m_aside_header_menu_mobile_toggle" href="javascript:;"
                            class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
@@ -34,6 +35,7 @@
                            class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
                             <i class="flaticon-more"></i>
                         </a>
+                        {% endif %}
                         <!-- BEGIN: Topbar Toggler -->
                     </div>
                 </div>
@@ -45,6 +47,7 @@
                         id="m_aside_header_menu_mobile_close_btn">
                     <i class="la la-close"></i>
                 </button>
+                {% if is_granted('ROLE_ADMIN') == true %}
                 <div id="m_header_menu"
                      class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
                     <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
@@ -183,6 +186,7 @@
                         </ul>
                     </div>
                 </div>
+                {% endif %}
                 <!-- END: Topbar -->
             </div>
         </div>

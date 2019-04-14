@@ -46,6 +46,6 @@ security:
                     b: { path: null, domain: null }
 
     access_control:
-#            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#            - { path: ^/, role: ROLE_ADMIN }
-#            - { path: ^/, role: ROLE_DRIVER}
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/drivers, role: ROLE_DRIVER}
+            - { path: ^/, role: ROLE_ADMIN }

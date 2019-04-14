@@ -41,12 +41,12 @@
                 <div class="tab-content">
 
 
-                    <div class="tab-pane active" id="m_tabs_1_1" role="tabpanel" style="overflow-x: scroll;">
+                    <div class="tab-pane active driver-orders-pane" id="m_tabs_1_1" role="tabpanel" style="overflow-x: scroll;">
 
                         {% for o in new_orders %}
 
                             <table class="table table-bordered text-center new_order_table m--margin-bottom-30"
-                                   style="min-width:900px;">
+                                   style="min-width:100%;">
                                 <tbody>
                                 <tr>
                                     <td colspan="2" class="head">Data</td>
@@ -86,7 +86,7 @@
                                             <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
                                                class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
                                         {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is not null %}
+                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
                                             <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
@@ -101,11 +101,11 @@
                     </div>
 
 
-                    <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
+                    <div class="tab-pane driver-orders-pane" id="m_tabs_1_2" role="tabpanel">
                         {% for o in to_report_orders %}
 
                             <table class="table table-bordered text-center to_report_order m--margin-bottom-30"
-                                   style="min-width:900px;">
+                                   style="min-width:100%;">
                                 <tbody>
                                 <tr>
                                     <td colspan="2" class="head">Data</td>
@@ -146,7 +146,7 @@
                                             <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
                                                class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
                                         {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is not null %}
+                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
                                             <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
@@ -160,7 +160,7 @@
                     </div>
 
 
-                    <div class="tab-pane" id="m_tabs_1_3" role="tabpanel">
+                    <div class="tab-pane driver-orders-pane" id="m_tabs_1_3" role="tabpanel">
                         {% for o in old_orders %}
 
                             <table class="table table-bordered text-center old_order m--margin-bottom-30"
@@ -198,7 +198,7 @@
                                                         class="la la-edit"></i> Modifica
                                                 Report</a>
                                         {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is not null %}
+                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
                                             <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
@@ -211,7 +211,7 @@
                     </div>
 
 
-                    <div class="tab-pane" id="m_tabs_1_4" role="tabpanel">
+                    <div class="tab-pane driver-orders-pane" id="m_tabs_1_4" role="tabpanel">
                         {% for o in future_orders %}
 
                             <table class="table table-bordered text-center future_order m--margin-bottom-30"
@@ -249,7 +249,7 @@
                                                class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
                                         {% endif %}
                                         {% if o.priceQuotationDetail is not null %}
-                                            {% if o.priceQuotationDetail.attachment is not null %}
+                                            {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
                                                 <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
                                                    class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                             {% endif %}

@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ReportController extends Controller
 {
     /**
-     * @Route("create-report-{id}", name="create_report")
+     * @Route("drivers/create-report-{id}", name="create_report")
      */
     public function createReportAction(int $id)
     {
@@ -43,7 +43,7 @@ class ReportController extends Controller
     }
 
     /**
-     * @Route("ajax/create-report", name="ajax_create_report")
+     * @Route("drivers/ajax/create-report", name="ajax_create_report")
      */
     public function createReportAjaxAction(Request $request)
     {
@@ -95,7 +95,7 @@ class ReportController extends Controller
     }
 
     /**
-     * @Route("edit-report-{id}", name="edit-report")
+     * @Route("drivers/edit-report-{id}", name="edit-report")
      */
     public function editReportAction(int $id)
     {

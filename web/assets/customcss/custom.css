@@ -280,3 +280,15 @@ div.tagsinput div {
 .payment-totals td:nth-child(even) {
     width:170px;
 }
+
+.driver-orders-pane {
+    overflow-x: scroll;
+}
+
+.driver-orders-pane table {
+    -webkit-box-shadow: 1px 6px 28px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 6px 28px -1px rgba(0,0,0,0.75);
+    box-shadow: 1px 6px 28px -1px rgba(0,0,0,0.75);
+    margin-bottom:50px;
+}
+

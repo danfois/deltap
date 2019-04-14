@@ -109,7 +109,7 @@ class TurnController extends Controller
     }
 
     /**
-     * @Route("daily-driver-turn", name="daily_driver_turn")
+     * @Route("/drivers/daily-driver-turn", name="daily_driver_turn")
      */
     public function dailyDriverTurnAction(EmployeeTurnManager $etm)
     {
@@ -128,7 +128,7 @@ class TurnController extends Controller
     }
 
     /**
-     * @Route("ajax/daily-driver-turn", name="ajax_daily_driver_turn")
+     * @Route("/drivers/ajax/daily-driver-turn", name="ajax_daily_driver_turn")
      */
     public function ajaxDailyDriverTurnAction(Request $request, EmployeeTurnManager $etm)
     {

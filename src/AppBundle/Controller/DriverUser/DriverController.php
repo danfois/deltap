@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DriverController extends Controller
 {
     /**
-     * @Route("daily-orders", name="daily_orders")
+     * @Route("/drivers/daily-orders", name="daily_orders")
      */
     public function dailyOrdersAction()
     {

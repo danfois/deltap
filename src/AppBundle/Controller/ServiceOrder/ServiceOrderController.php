@@ -387,7 +387,7 @@ class ServiceOrderController extends Controller
     }
 
     /**
-     * @Route("report-problems-{n}", name="report_problems")
+     * @Route("drivers/report-problems-{n}", name="report_problems")
      */
     public function reportProblemsAction(int $n)
     {
@@ -404,7 +404,7 @@ class ServiceOrderController extends Controller
     }
 
     /**
-     * @Route("ajax/report-problems-{n}", name="ajax_report_problems")
+     * @Route("drivers/ajax/report-problems-{n}", name="ajax_report_problems")
      */
     public function ajaxReportProblemsAction(Request $request, int $n)
     {

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class AttachmentController extends Controller
 {
     /**
-     * @Route("download-attachment-{n}", name="download_attachment")
+     * @Route("drivers/download-attachment-{n}", name="download_attachment")
      */
     public function downloadAttachment(int $n)
     {
