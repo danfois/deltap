@@ -5,6 +5,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class SecurityController extends Controller
@@ -22,5 +24,30 @@ class SecurityController extends Controller
         return $this->render('login.html.twig', array(
             'error' => $error
         ));
+    }
+
+    /**
+     * @Route("/drivers/login/redirect", name="login_redirect")
+     */
+    public function loginRedirectAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            return $this->redirectToRoute('login');
+            // throw $this->createAccessDeniedException();
+        }
+
+        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+        {
+            return $this->redirectToRoute('homepage');
+        }
+        else if($this->get('security.authorization_checker')->isGranted('ROLE_DRIVER'))
+        {
+            return $this->redirectToRoute('daily_orders');
+        }
+        else
+        {
+            return $this->redirectToRoute('login');
+        }
     }
 }

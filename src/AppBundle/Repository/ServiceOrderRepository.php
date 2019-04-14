@@ -22,6 +22,8 @@ class ServiceOrderRepository extends EntityRepository
 
     public function findDriverFutureOrders($user, $date, $status)
     {
+        $date = $date->format('Y-m-d');
+
         $query = $this->createQueryBuilder('s')
             ->select('s')
             ->where('s.driver = :user AND s.departureDate > :date AND s.status = :status')
