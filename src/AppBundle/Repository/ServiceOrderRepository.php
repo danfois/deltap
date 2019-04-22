@@ -15,6 +15,7 @@ class ServiceOrderRepository extends EntityRepository
             ->setParameter(':user', $user)
             ->setParameter(':date', $date . '%')
             ->setParameter(':status', $status)
+            ->orderBy('s.startTime')
             ->getQuery();
 
         return $query->getResult();
@@ -30,6 +31,7 @@ class ServiceOrderRepository extends EntityRepository
             ->setParameter(':user', $user)
             ->setParameter(':date', $date)
             ->setParameter(':status', $status)
+            ->orderBy('s.departureDate, s.startTime')
             ->getQuery();
 
         return $query->getResult();
@@ -43,6 +45,7 @@ class ServiceOrderRepository extends EntityRepository
             ->where('s.driver = :user AND s.arrivalDate < :date AND r.reportId IS NOT NULL')
             ->setParameter(':user', $user)
             ->setParameter(':date', $date)
+            ->orderBy('s.departureDate, s.startTime')
             ->getQuery();
 
         return $query->getResult();
@@ -56,6 +59,7 @@ class ServiceOrderRepository extends EntityRepository
             ->where('s.driver = :user AND s.departureDate < :date AND r.reportId IS NULL')
             ->setParameter(':user', $user)
             ->setParameter(':date', $date)
+            ->orderBy('s.departureDate, s.startTime')
             ->getQuery();
 
         return $query->getResult();

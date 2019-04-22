@@ -292,3 +292,20 @@ div.tagsinput div {
     margin-bottom:50px;
 }
 
+
+.service-order-portlet {
+    border:1px #666 solid;
+}
+
+.service-order-portlet .m-portlet__foot {
+    text-align:center;
+}
+
+.service-order-portlet .m-portlet__foot a {
+    margin-bottom:10px;
+}
+
+.driver-service-order-detail span {
+    font-weight:600;
+}
+

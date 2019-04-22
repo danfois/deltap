@@ -241,11 +241,15 @@ var PaymentList = function () {
             datatable.search($(this).val(), 'direction');
         }).val(typeof query.direction !== 'undefined' ? query.direction : '');
 
+        $('#m_form_paymentType').on('change', function () {
+            datatable.search($(this).val(), 'type');
+        }).val(typeof query.direction !== 'undefined' ? query.direction : '');
+
         $('#m_form_type').on('change', function () {
             datatable.search($(this).val(), 'Type');
         }).val(typeof query.Type !== 'undefined' ? query.Type : '');
 
-        $('#m_form_status_ordine, #m_form_direction').selectpicker();
+        $('#m_form_status_ordine, #m_form_direction, #m_form_paymentType').selectpicker();
 
         $('#m_datatable_destroy').on('click', function () {
             $('.m_datatable').mDatatable('destroy');

@@ -1,0 +1,137 @@
+<html>
+<head>
+    <title>Lista Fatture Emesse</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 30px;
+            color: #777;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        /*th, td {*/
+        /*border:1px #333 solid;*/
+        /*}*/
+
+        .general_details {
+            text-align: right;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .general_details th {
+            color: #FFCB05;
+        }
+
+        .general_details th:nth-child(1), .general_details td:nth-child(1) {
+            text-align: left;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .pqd {
+            margin-top: 25px;
+            text-align: center;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .pqd .date {
+            width: 100px;
+        }
+
+        .pqd .hour, .pqd .bus, .pqd .pass {
+            width: 60px;
+        }
+
+        .pqd .it {
+            width: 100px;
+        }
+
+        .pqd td, .pqd th {
+            padding: 5px;
+            border: 1px #ddd solid;
+            height: 40px;
+        }
+
+        .pqd th {
+            background-color: #FFCB05;
+            color: #555;
+        }
+
+        .pqd td {
+
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .prices {
+            width: 254px;
+            width: 100%;
+            float: right;
+            clear: both;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .prices td {
+            padding: 5px;
+            border: 1px #ddd solid;
+            border-top: none;
+            height: 40px;
+        }
+
+        .note {
+            line-height: 24px;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <img alt="Logo Redentours" src="http://redentours.com/templates/redentstyle/images/logo.png" style="height:60px;"/>
+</div>
+<h1>Lista Fatture per {{ customer.businessName }}</h1>
+
+<table>
+    <tr>
+        <th>Numero</th>
+        <th>Data</th>
+        <th>Imponibile</th>
+        <th>Imposta</th>
+        <th>Totale</th>
+        <th>Causale</th>
+    </tr>
+    {% for i in invoices %}
+        <tr>
+            <td>{{ i.invoiceNumber }}</td>
+            <td>{{ i.invoiceDate|date('d/m/Y') }}</td>
+            <td>{{ i.getTaxExcAmount }}</td>
+            <td>{{ i.getTotalVat }}</td>
+            <td>{{ i.getAmount }}</td>
+            <td>{{ i.getCausal }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+<!-- ricordardsi per ogni fattura di mettee anche il totale pagato e da pagare e alla fine della lista mettere i totali -->
+</body>
+</html>

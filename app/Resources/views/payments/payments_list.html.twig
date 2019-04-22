@@ -72,7 +72,7 @@
             <!--begin: Search Form -->
             <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-30">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="m-form__group m-form__group--inline">
                             <div class="m-form__label">
                                 <label class="m-label m-label--single">
@@ -96,6 +96,33 @@
                         </div>
                         <div class="d-md-none m--margin-bottom-10"></div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="m-form__group m-form__group--inline">
+                            <div class="m-form__label">
+                                <label class="m-label m-label--single">
+                                    Tipo
+                                </label>
+                            </div>
+                            <div class="m-form__control">
+                                <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
+                                        id="m_form_paymentType">
+                                    <option value="">
+                                        Tutti
+                                    </option>
+                                    <option value="transfer">
+                                        Bonifico
+                                    </option>
+                                    <option value="cash">
+                                        Contanti
+                                    </option>
+                                    <option value="check">
+                                        Assegno
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-md-none m--margin-bottom-10"></div>
+                    </div>
                     <!--<div class="col-lg-2">
 
                         <select class="form-control m-input" id="mass-action">
@@ -108,7 +135,7 @@
                     <div class="col-lg-1">
                         <a href="javascript:void(0);" class="btn btn-brand" id="apply-mass-action">Applica</a>
                     </div>-->
-                    <div class="col-lg-9">
+                    <div class="col-lg-8">
                         <table class="payment-totals">
                             <tr>
                                 <td class="m--bg-fill-accent">Banca:</td>

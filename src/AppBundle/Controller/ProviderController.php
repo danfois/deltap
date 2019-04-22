@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Payment\Payment;
 use AppBundle\Entity\Provider;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\ProviderType;
@@ -44,7 +46,7 @@ class ProviderController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $provider = $form->getData();
             $provider->setRegistrationDate(new \DateTime);
@@ -64,7 +66,7 @@ class ProviderController extends Controller
     public function editProvider(int $n)
     {
         $provider = $this->getDoctrine()->getRepository(Provider::class)->find($n);
-        if($provider == null) return new Response('Fornitore non trovato', 404);
+        if ($provider == null) return new Response('Fornitore non trovato', 404);
 
         $category = new Category();
 
@@ -85,13 +87,13 @@ class ProviderController extends Controller
     public function ajaxEditProvider(Request $request, int $n)
     {
         $provider = $this->getDoctrine()->getRepository(Provider::class)->find($n);
-        if($provider == null) return new Response('Fornitore non trovato', 404);
+        if ($provider == null) return new Response('Fornitore non trovato', 404);
 
         $form = $this->createForm(ProviderType::class, $provider);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $provider = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
@@ -103,7 +105,7 @@ class ProviderController extends Controller
             $errors = $form->getErrors(true);
             $error = '';
 
-            foreach($errors as $k => $e) {
+            foreach ($errors as $k => $e) {
                 $error .= $e->getMessage() . '<br> ';
 
             }
@@ -128,7 +130,7 @@ class ProviderController extends Controller
         $id = $request->query->get('id');
         $provider = $this->getDoctrine()->getRepository(Provider::class)->find($id);
 
-        if($provider == null) return new Response('Questo Fornitore non è registrato', 404);
+        if ($provider == null) return new Response('Questo Fornitore non è registrato', 404);
 
         $html = $this->renderView('providers/provider_details.html.twig', array(
             'c' => $provider
@@ -147,8 +149,25 @@ class ProviderController extends Controller
     {
         $invoices = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->findBy(array('provider' => $n));
 
+        $totalSum = 0;
+        $paidSum = 0;
+        $debtSum = 0;
+
+        foreach ($invoices as $i) {
+
+            $totalSum += $i->getAmount();
+            $payment = $i->getPayments();
+            foreach ($payment as $p) {
+                if ($p->getDirection() == 'OUT') $paidSum += $p->getAmount();
+            }
+
+        }
+
         $html = $this->renderView('invoices/invoice_list_modal.html.twig', array(
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'total' => $totalSum,
+            'paidTotal' => $paidSum,
+            'debtTotal' => $totalSum - $paidSum
         ));
 
         return $this->render('includes/generic_modal_content.html.twig', array(

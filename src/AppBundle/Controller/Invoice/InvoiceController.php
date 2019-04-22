@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Invoice;
 
+use AppBundle\Entity\Customer;
 use AppBundle\Entity\Invoice\InvoiceDetail;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
@@ -475,6 +476,23 @@ class InvoiceController extends Controller
         if($invoice == null) return new Response('Fattura non trovata', 404);
 
         return $this->render('PRINTS/received_invoice.html.twig', array('i' => $invoice));
+    }
+
+
+    /**
+     * @Route("/customers/print-issued-invoice-list-{n}", name="print_issued_invoice_list")
+     */
+    public function printIssuedInvoiceList(int $n, Request $request)
+    {
+        $customer = $this->getDoctrine()->getRepository(Customer::class)->find($n);
+        if($customer == null) return new Response("Cliente non trovato", 404);
+
+        $invoices = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findBy(array("customer" => $n));
+
+        return $this->render('PRINTS/issued_invoice_list.html.twig', array(
+            'invoices' => $invoices,
+            'customer' => $customer
+        ));
     }
 
 }

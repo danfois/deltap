@@ -4,6 +4,17 @@
 
 {% block content %}
 
+    <style>
+        .m-body .m-content {
+            padding:0;
+            margin:0;
+        }
+
+        .m-subheader {
+            display:none !important;
+        }
+    </style>
+
     <div class="col-lg-12">
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -45,56 +56,49 @@
 
                         {% for o in new_orders %}
 
-                            <table class="table table-bordered text-center new_order_table m--margin-bottom-30"
-                                   style="min-width:100%;">
-                                <tbody>
-                                <tr>
-                                    <td colspan="2" class="head">Data</td>
-                                    <td style="width:250px" class="head">Partenza</td>
-                                    <td class="head" style="min-width:300px;">Descrizione</td>
-                                    <td class="head" style="width:400px;">Disposizioni</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
-                                    <td>{{ o.departureLocation }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="head" style="width:100px">Ora Part.</td>
-                                    <td class="head" style="width:100px">Ora Arr.</td>
-                                    <td class="head">Arrivo</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ o.startTime }}</td>
-                                    <td>{{ o.endTime }}</td>
-                                    <td>{{ o.arrivalLocation }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        {% if o.report is null %}
-                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
-                                                        class="la la-edit"></i> Compila Report</a>
-                                        {% else %}
-                                            <a href="#" class="btn btn-warning"><i class="la la-edit"></i> Modifica
-                                                Report</a>
-                                        {% endif %}
-                                        {% if o.directionsLink is not null %}
-                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
-                                                        class="la la-map-marker"></i> Vedi Mappa</a>
-                                        {% else %}
-                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
-                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
-                                        {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
-                                            <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
-                                               class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
-                                        {% endif %}
-                                        <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="m-portlet m-portlet--info m-portlet--head-solid-bg service-order-portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon">
+													<i class="flaticon-placeholder-2"></i>
+												</span>
+                                            <h3 class="m-portlet__head-text">
+                                                {{ o.departureLocation }} - {{ o.arrivalLocation }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="driver-service-order-detail"><span>Partenza da: </span>{{ o.departureLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Arrivo a: </span>{{ o.arrivalLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Data: </span>{{ o.departureDate|date('d-m-Y') }}</div>
+                                    <div class="driver-service-order-detail"><span>Orari: </span>{{ o.startTime }} - {{ o.endTime }}</div>
+                                    <div class="driver-service-order-detail"><span>Descrizione: </span>{{ o.description|raw }}</div>
+                                    <div class="driver-service-order-detail"><span>Disposizioni: </span>{{ o.dispositions|raw }}</div>
+                                </div>
+                                <div class="m-portlet__foot">
+                                    {% if o.report is null %}
+                                        <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                    class="la la-edit"></i> Compila Report</a>
+                                    {% else %}
+                                        <a href="#" class="btn btn-warning"><i class="la la-edit"></i> Modifica
+                                            Report</a>
+                                    {% endif %}
+                                    {% if o.directionsLink is not null %}
+                                        <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                    class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% else %}
+                                        <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                           class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% endif %}
+                                    {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
+                                        <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
+                                           class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
+                                    {% endif %}
+                                    <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                </div>
+                            </div>
 
                         {% endfor %}
 
@@ -104,57 +108,50 @@
                     <div class="tab-pane driver-orders-pane" id="m_tabs_1_2" role="tabpanel">
                         {% for o in to_report_orders %}
 
-                            <table class="table table-bordered text-center to_report_order m--margin-bottom-30"
-                                   style="min-width:100%;">
-                                <tbody>
-                                <tr>
-                                    <td colspan="2" class="head">Data</td>
-                                    <td style="width:250px" class="head">Partenza</td>
-                                    <td class="head" style="min-width:300px;">Descrizione</td>
-                                    <td class="head" style="width:400px;">Disposizioni</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
-                                    <td>{{ o.departureLocation }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="head" style="width:100px">Ora Part.</td>
-                                    <td class="head" style="width:100px">Ora Arr.</td>
-                                    <td class="head">Arrivo</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ o.startTime }}</td>
-                                    <td>{{ o.endTime }}</td>
-                                    <td>{{ o.arrivalLocation }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        {% if o.report is null %}
-                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
-                                                        class="la la-edit"></i> Compila Report</a>
-                                        {% else %}
-                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
-                                                        class="la la-edit"></i> Modifica
-                                                Report</a>
-                                        {% endif %}
-                                        {% if o.directionsLink is not null %}
-                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
-                                                        class="la la-map-marker"></i> Vedi Mappa</a>
-                                        {% else %}
-                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
-                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
-                                        {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
-                                            <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
-                                               class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
-                                        {% endif %}
-                                        <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="m-portlet m-portlet--warning m-portlet--head-solid-bg service-order-portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon">
+													<i class="flaticon-placeholder-2"></i>
+												</span>
+                                            <h3 class="m-portlet__head-text">
+                                                {{ o.departureLocation }} - {{ o.arrivalLocation }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="driver-service-order-detail"><span>Partenza da: </span>{{ o.departureLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Arrivo a: </span>{{ o.arrivalLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Data: </span>{{ o.departureDate|date('d-m-Y') }}</div>
+                                    <div class="driver-service-order-detail"><span>Orari: </span>{{ o.startTime }} - {{ o.endTime }}</div>
+                                    <div class="driver-service-order-detail"><span>Descrizione: </span>{{ o.description|raw }}</div>
+                                    <div class="driver-service-order-detail"><span>Disposizioni: </span>{{ o.dispositions|raw }}</div>
+                                </div>
+                                <div class="m-portlet__foot">
+                                    {% if o.report is null %}
+                                        <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                    class="la la-edit"></i> Compila Report</a>
+                                    {% else %}
+                                        <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
+                                                    class="la la-edit"></i> Modifica
+                                            Report</a>
+                                    {% endif %}
+                                    {% if o.directionsLink is not null %}
+                                        <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                    class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% else %}
+                                        <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                           class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% endif %}
+                                    {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
+                                        <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
+                                           class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
+                                    {% endif %}
+                                    <a href="{{ path('report_problems', {n : o.serviceOrder}) }}" class="btn btn-danger"><i class="la la-close"></i> Segnala Problemi</a>
+                                </div>
+                            </div>
 
                         {% endfor %}
                     </div>
@@ -163,49 +160,42 @@
                     <div class="tab-pane driver-orders-pane" id="m_tabs_1_3" role="tabpanel">
                         {% for o in old_orders %}
 
-                            <table class="table table-bordered text-center old_order m--margin-bottom-30"
-                                   style="min-width:900px;">
-                                <tbody>
-                                <tr>
-                                    <td colspan="2" class="head">Data</td>
-                                    <td style="width:250px" class="head">Partenza</td>
-                                    <td class="head" style="min-width:300px;">Descrizione</td>
-                                    <td class="head" style="width:400px;">Disposizioni</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
-                                    <td>{{ o.departureLocation }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="head" style="width:100px">Ora Part.</td>
-                                    <td class="head" style="width:100px">Ora Arr.</td>
-                                    <td class="head">Arrivo</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ o.startTime }}</td>
-                                    <td>{{ o.endTime }}</td>
-                                    <td>{{ o.arrivalLocation }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        {% if o.report is null %}
-                                            <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
-                                                        class="la la-edit"></i> Compila Report</a>
-                                        {% else %}
-                                            <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
-                                                        class="la la-edit"></i> Modifica
-                                                Report</a>
-                                        {% endif %}
-                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
-                                            <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
-                                               class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="m-portlet m-portlet--secondary m-portlet--head-solid-bg service-order-portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon">
+													<i class="flaticon-placeholder-2"></i>
+												</span>
+                                            <h3 class="m-portlet__head-text">
+                                                {{ o.departureLocation }} - {{ o.arrivalLocation }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="driver-service-order-detail"><span>Partenza da: </span>{{ o.departureLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Arrivo a: </span>{{ o.arrivalLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Data: </span>{{ o.departureDate|date('d-m-Y') }}</div>
+                                    <div class="driver-service-order-detail"><span>Orari: </span>{{ o.startTime }} - {{ o.endTime }}</div>
+                                    <div class="driver-service-order-detail"><span>Descrizione: </span>{{ o.description|raw }}</div>
+                                    <div class="driver-service-order-detail"><span>Disposizioni: </span>{{ o.dispositions|raw }}</div>
+                                </div>
+                                <div class="m-portlet__foot">
+                                    {% if o.report is null %}
+                                        <a href="create-report-{{ o.serviceOrder }}" class="btn btn-success"><i
+                                                    class="la la-edit"></i> Compila Report</a>
+                                    {% else %}
+                                        <a href="edit-report-{{ o.serviceOrder }}" class="btn btn-warning"><i
+                                                    class="la la-edit"></i> Modifica
+                                            Report</a>
+                                    {% endif %}
+                                    {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
+                                        <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
+                                           class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
+                                    {% endif %}
+                                </div>
+                            </div>
 
                         {% endfor %}
                     </div>
@@ -214,50 +204,43 @@
                     <div class="tab-pane driver-orders-pane" id="m_tabs_1_4" role="tabpanel">
                         {% for o in future_orders %}
 
-                            <table class="table table-bordered text-center future_order m--margin-bottom-30"
-                                   style="min-width:900px;">
-                                <tbody>
-                                <tr>
-                                    <td colspan="2" class="head">Data</td>
-                                    <td style="width:250px" class="head">Partenza</td>
-                                    <td class="head" style="min-width:300px;">Descrizione</td>
-                                    <td class="head" style="width:400px;">Disposizioni</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">{{ o.departureDate|date('d-m-Y') }}</td>
-                                    <td>{{ o.departureLocation }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.description|raw }}</td>
-                                    <td rowspan="3" class="text-left">{{ o.dispositions|raw }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="head" style="width:100px">Ora Part.</td>
-                                    <td class="head" style="width:100px">Ora Arr.</td>
-                                    <td class="head">Arrivo</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ o.startTime }}</td>
-                                    <td>{{ o.endTime }}</td>
-                                    <td>{{ o.arrivalLocation }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        {% if o.directionsLink is not null %}
-                                            <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
-                                                        class="la la-map-marker"></i> Vedi Mappa</a>
-                                        {% else %}
-                                            <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
-                                               class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                            <div class="m-portlet m-portlet--success m-portlet--head-solid-bg service-order-portlet">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon">
+													<i class="flaticon-placeholder-2"></i>
+												</span>
+                                            <h3 class="m-portlet__head-text">
+                                                {{ o.departureLocation }} - {{ o.arrivalLocation }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="driver-service-order-detail"><span>Partenza da: </span>{{ o.departureLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Arrivo a: </span>{{ o.arrivalLocation }}</div>
+                                    <div class="driver-service-order-detail"><span>Data: </span>{{ o.departureDate|date('d-m-Y') }}</div>
+                                    <div class="driver-service-order-detail"><span>Orari: </span>{{ o.startTime }} - {{ o.endTime }}</div>
+                                    <div class="driver-service-order-detail"><span>Descrizione: </span>{{ o.description|raw }}</div>
+                                    <div class="driver-service-order-detail"><span>Disposizioni: </span>{{ o.dispositions|raw }}</div>
+                                </div>
+                                <div class="m-portlet__foot">
+                                    {% if o.directionsLink is not null %}
+                                        <a href="{{ o.directionsLink }}" class="btn btn-info" target="_blank"><i
+                                                    class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% else %}
+                                        <a href="https://www.google.it/maps/dir/{{ o.departureLocation }}/{{ o.arrivalLocation }}"
+                                           class="btn btn-info" target="_blank"><i class="la la-map-marker"></i> Vedi Mappa</a>
+                                    {% endif %}
+                                    {% if o.priceQuotationDetail is not null %}
+                                        {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
+                                            <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
+                                               class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
                                         {% endif %}
-                                        {% if o.priceQuotationDetail is not null %}
-                                            {% if o.priceQuotationDetail.attachment is defined and o.priceQuotationDetail.attachment is not null %}
-                                                <a href="{{ path('download_attachment', {n : o.priceQuotationDetail.attachment.attachmentId}) }}"
-                                                   class="btn btn-brand" target="_blank"><i class="la la-file"></i> Scarica Allegato</a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    {% endif %}
+                                </div>
+                            </div>
 
                         {% endfor %}
                     </div>

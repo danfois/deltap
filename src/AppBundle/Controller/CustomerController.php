@@ -152,8 +152,25 @@ class CustomerController extends Controller
     {
         $invoices = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findBy(array('customer' => $n));
 
+        $totalSum = 0;
+        $paidSum = 0;
+        $debtSum = 0;
+
+        foreach ($invoices as $i) {
+
+            $totalSum += $i->getAmount();
+            $payment = $i->getPayments();
+            foreach ($payment as $p) {
+                if ($p->getDirection() == 'IN') $paidSum += $p->getAmount();
+            }
+
+        }
+
         $html = $this->renderView('invoices/invoice_list_modal.html.twig', array(
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'total' => $totalSum,
+            'paidTotal' => $paidSum,
+            'debtTotal' => $totalSum - $paidSum
         ));
 
         return $this->render('includes/generic_modal_content.html.twig', array(

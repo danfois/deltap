@@ -326,7 +326,7 @@ class ServiceOrderController extends Controller
         if($so == null) return new Response('Ordine di Servizio non trovato!', 404);
 
         $driverId = $request->query->get('idUser');
-        if(is_numeric($driverId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if(is_numeric($driverId) === false && $driverId != null) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $driver = $em->getRepository(User::class)->find($driverId);
 

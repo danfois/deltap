@@ -38,6 +38,17 @@
                            title="Vedi Fattura"> <i class="la la-eye"></i> </a></td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>&euro; {{ total }}</td>
+                <td class="m--font-success m--font-bold">&euro; {{ paidTotal }}</td>
+                <td class="m--font-danger m--font-bold">&euro; {{ debtTotal }}</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
