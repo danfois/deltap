@@ -69,13 +69,13 @@ class ServiceOrder implements InvoiceDetailInterface
     protected $arrivalLocation;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false, name="departure_date")
+     * @ORM\Column(type="date", nullable=false, name="departure_date")
      * @Assert\NotBlank(message="Departure Date cannot be null")
      */
     protected $departureDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false, name="arrival_date")
+     * @ORM\Column(type="date", nullable=false, name="arrival_date")
      * @Assert\NotBlank(message="Arrival Date cannot be null")
      */
     protected $arrivalDate;
@@ -216,7 +216,7 @@ class ServiceOrder implements InvoiceDetailInterface
     /**
      * Set departureDate
      *
-     * @param \DateTime $departureDate
+     * @param Date $departureDate
      *
      * @return ServiceOrder
      */
@@ -230,7 +230,7 @@ class ServiceOrder implements InvoiceDetailInterface
     /**
      * Get departureDate
      *
-     * @return \DateTime
+     * @return Date
      */
     public function getDepartureDate()
     {
