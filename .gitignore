@@ -19,3 +19,6 @@
 /.idea
 .idea/
 /.idea/
+/web/uploads/
+/web/uploads/*
+/web/uploads

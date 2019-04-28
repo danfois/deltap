@@ -30,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PriceQuotationController extends Controller
@@ -682,5 +683,76 @@ class PriceQuotationController extends Controller
         }
 
         return new Response("Non sei autorizzato a fare questa operazione");
+    }
+
+
+    /**
+     * @Route("send-pq-modal-{n}", name="send_pq_modal")
+     */
+    public function sendPqModal(Request $request, int $n)
+    {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
+        if($pq == null) return new Response("Preventivo non trovato", 404);
+
+        $addresses = array($pq->getCustomer()->getEmail(), $pq->getCustomer()->getPec());
+
+        $html = $this->renderView('price_quotations/email_form.html.twig', array(
+            'action_url' => $this->generateUrl('send_pq_email', array('n' => $n)),
+            'addresses' => $addresses
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Invia Preventivo',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("send-pq-email-{n}", name="send_pq_email")
+     */
+    public function sendPqEmail(Request $request, int $n, \Swift_Mailer $mailer)
+    {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
+        if($pq == null) return new Response("Preventivo non trovato", 404);
+
+        $pqa = $this->getDoctrine()->getRepository(PriceQuotationAttachment::class)->find(1);
+
+        $emailText = $request->request->get('testo');
+        $indirizzo = $request->request->get('indirizzo');
+        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+//        $fattura_file = $this->get('knp_snappy.pdf')->generateFromHtml($html, $this->cartella_fatture . $fattura->getNumeroFattura() . '_' . $this->ordine->getIdVenditore()->getIdUser() . '.pdf');
+        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
+
+        $pdf = new \Swift_Attachment($data, 'preventivo.pdf', 'application/pdf');
+
+        $message = (new \Swift_Message('Redentours | Nuovo Preventivo'))
+            ->setFrom('info@redentours.com')
+            ->setTo($indirizzo)
+            ->setBody($emailText, 'text/html')
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getFinancialFlow()))
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getQuestionary()))
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getResponsibilityDeclaration()))
+            ->attach($pdf);
+
+        $mailer->send($message);
+
+        return new Response("Email Inviata correttamente");
+    }
+
+    /**
+     * @Route("print-pq-for-mail-{n}", name="print_pq_mail")
+     */
+    public function printPqMail(int $n)
+    {
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
+        if ($pq == null) return new Response('Preventivo non trovato', 404);
+
+        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+        return
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
     }
 }
