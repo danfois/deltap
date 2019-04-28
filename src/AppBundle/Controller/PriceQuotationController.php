@@ -566,18 +566,16 @@ class PriceQuotationController extends Controller
      */
     public function printPriceQuotationAction(int $n = null)
     {
-        $ch = curl_init();
+        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
+        if($pq == null) return new Response('Preventivo non trovato', 404);
 
-        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/pq/" . $n);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close ($ch);
+        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-        return new PdfResponse($result);
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
+            'preventivo.pdf'
+        );
     }
 }

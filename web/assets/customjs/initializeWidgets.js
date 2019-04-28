@@ -20,6 +20,13 @@ var initializeWidgets = function () {
         snapToStep: !0
     });
 
+    $('.time_picker').timepicker().on('changeTime.timepicker', function(e) {
+        var timePicked = $('.time_picker').val();
+
+        if(timePicked.length < 5)
+            $('.time_picker').val("0" + timePicked);
+    });
+
     $(".touch_spin").TouchSpin({
         buttondown_class: "btn btn-secondary",
         buttonup_class: "btn btn-secondary",

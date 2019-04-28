@@ -408,19 +408,17 @@ class InvoiceController extends Controller
      * @Route("print/issued-invoice-{n}", name="print_issued_invoice")
      */
     public function printIssuedInvoiceRemoteAction(int $n) {
-        $ch = curl_init();
+        $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->find($n);
+        if($invoice == null) return new Response('Fattura non trovata', 404);
 
-        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/issInv/" . $n);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+//        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close ($ch);
+        $html = $this->renderView('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
-        return new PdfResponse($result);
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 
 
@@ -449,19 +447,17 @@ class InvoiceController extends Controller
      * @Route("print/received-invoice-{n}", name="print_received_invoice")
      */
     public function printReceivedInvoiceRemoteAction(int $n) {
-        $ch = curl_init();
+        $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->find($n);
+        if($invoice == null) return new Response('Fattura non trovata', 404);
 
-        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/recInv/" . $n);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+//        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close ($ch);
+        $html = $this->renderView('PRINTS/received_invoice.html.twig', array('i' => $invoice));
 
-        return new PdfResponse($result);
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'fattura.pdf'
+        );
     }
 
 
@@ -489,10 +485,19 @@ class InvoiceController extends Controller
 
         $invoices = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findBy(array("customer" => $n));
 
-        return $this->render('PRINTS/issued_invoice_list.html.twig', array(
+
+
+       $html = $this->renderView('PRINTS/issued_invoice_list.html.twig', array(
             'invoices' => $invoices,
             'customer' => $customer
         ));
+
+       return new Response($html);
+
+//        return new PdfResponse(
+//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
+//            'fattura.pdf'
+//        );
     }
 
 }

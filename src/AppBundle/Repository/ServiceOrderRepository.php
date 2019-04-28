@@ -27,7 +27,7 @@ class ServiceOrderRepository extends EntityRepository
 
         $query = $this->createQueryBuilder('s')
             ->select('s')
-            ->where('s.driver = :user AND s.departureDate > :date AND s.status = :status')
+            ->where('s.driver = :user AND s.departureDate >= :date AND s.status = :status')
             ->setParameter(':user', $user)
             ->setParameter(':date', $date)
             ->setParameter(':status', $status)

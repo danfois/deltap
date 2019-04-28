@@ -176,7 +176,7 @@ class ServiceOrderController extends Controller
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
         if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
-        if($assigning === false) {
+        if ($assigning === false) {
             $form = $this->createForm(ServiceOrderType::class, $so, array('pqd' => $so->getPriceQuotationDetail()));
         } else {
             $form = $this->createForm(DriverAndVehicleType::class, $so);
@@ -194,7 +194,7 @@ class ServiceOrderController extends Controller
             $SOH->execute();
             $errors = $SOH->getErrors();
 
-            if($customer != $so->getCustomer() && $so->getPriceQuotation() != null) $errors .= 'Non puoi modificare il cliente se l\'Ordine di Servizio è associato ad un preventivo<br>';
+            if ($customer != $so->getCustomer() && $so->getPriceQuotation() != null) $errors .= 'Non puoi modificare il cliente se l\'Ordine di Servizio è associato ad un preventivo<br>';
 
             if ($errors == null) {
                 $em->flush();
@@ -225,7 +225,7 @@ class ServiceOrderController extends Controller
         $em = $this->getDoctrine()->getManager();
         $so = $em->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
 
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $em->remove($so);
         $em->flush();
@@ -241,10 +241,10 @@ class ServiceOrderController extends Controller
     public function assignDriverAndVehicle(Request $request)
     {
         $id = $request->query->get('id');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Ordine di Servizio non trovato', 400);
+        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Ordine di Servizio non trovato', 400);
 
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $form = $this->createForm(DriverAndVehicleType::class, $so);
 
@@ -267,7 +267,7 @@ class ServiceOrderController extends Controller
     public function massDriverAndVehicleAssignment(int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $form = $this->createForm(DriverAndVehicleType::class, $so);
 
@@ -290,20 +290,19 @@ class ServiceOrderController extends Controller
     public function ajaxMassDriverAndVehicleAssignment(Request $request, int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $form = $this->createForm(DriverAndVehicleType::class, $so);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $so = $form->getData();
             $pqd = $so->getPriceQuotationDetail();
 
-            foreach($pqd->getServiceOrders() as $s) {
+            foreach ($pqd->getServiceOrders() as $s) {
                 $s->setDriver($so->getDriver());
                 $s->setVehicle($so->getVehicle());
             }
@@ -323,10 +322,10 @@ class ServiceOrderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $so = $em->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
 
         $driverId = $request->query->get('idUser');
-        if(is_numeric($driverId) === false && $driverId != null) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if (is_numeric($driverId) === false && $driverId != null) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $driver = $em->getRepository(User::class)->find($driverId);
 
@@ -344,10 +343,10 @@ class ServiceOrderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $so = $em->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato!', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
 
         $vehicleId = $request->query->get('idVehicle');
-        if(is_numeric($vehicleId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
+        if (is_numeric($vehicleId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $vehicle = $em->getRepository(Vehicle::class)->find($vehicleId);
 
@@ -364,7 +363,7 @@ class ServiceOrderController extends Controller
     {
         $id = $request->query->get('id');
         $status = $request->query->get('status');
-        if(is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Ordine di Servizio non trovato', 400);
+        if (is_numeric($id) === false) return new Response('Richiesta effettuata in maniera non corretta o Ordine di Servizio non trovato', 400);
 
         $possibleStatusArray = array(
             1 => 'da Eseguire',
@@ -372,13 +371,13 @@ class ServiceOrderController extends Controller
             3 => 'Annullato',
         );
 
-        if(array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato dell\'Ordine di Servizio richiesto NON valido!', 500);
+        if (array_key_exists($status, $possibleStatusArray) === false) return new Response('Stato dell\'Ordine di Servizio richiesto NON valido!', 500);
 
         $em = $this->getDoctrine()->getManager();
 
         $so = $em->getRepository(ServiceOrder::class)->findOneBy(array('serviceOrder' => $id));
 
-        if($so == null) return new Response('Preventivo non trovato', 404);
+        if ($so == null) return new Response('Preventivo non trovato', 404);
 
         $so->setStatus($status);
         $em->flush();
@@ -392,7 +391,7 @@ class ServiceOrderController extends Controller
     public function reportProblemsAction(int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+        if ($so == null) return new Response('Nessun ordine di servizio trovato', 404);
 
         $form = $this->createForm(ProblemType::class, $so);
 
@@ -409,13 +408,13 @@ class ServiceOrderController extends Controller
     public function ajaxReportProblemsAction(Request $request, int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+        if ($so == null) return new Response('Nessun ordine di servizio trovato', 404);
 
         $form = $this->createForm(ProblemType::class, $so);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $so = $form->getData();
 
@@ -432,9 +431,9 @@ class ServiceOrderController extends Controller
     public function viewProblemsAction(int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Nessun ordine di servizio trovato', 404);
+        if ($so == null) return new Response('Nessun ordine di servizio trovato', 404);
 
-        if($so->getProblems() == null) {
+        if ($so->getProblems() == null) {
             return $this->render('includes/generic_modal_content.html.twig', array(
                 'modal_title' => 'Problemi Ordine di Servizio n.' . $so->getServiceOrder(),
                 'modal_content' => '<h5 class="m--padding-20 m--font-success">Nessun problema per questo Ordine di Servizio</h5>'
@@ -453,31 +452,25 @@ class ServiceOrderController extends Controller
     public function printServiceOrder(int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
-        $url = $this->generateUrl("print_service_order_effectively", array("n" => $n), UrlGeneratorInterface::ABSOLUTE_URL);
+        //return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
 
-        $ch = curl_init();
+        $html = $this->renderView('PRINTS/service_order.html.twig', array('so' => $so));
 
-        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/so/" . $n);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close ($ch);
-
-        return new PdfResponse($result);
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'ods.pdf'
+        );
     }
 
     /**
      * @Route("print-service-order-{n}", name="print_service_order_effectively")
      */
-    public function printServiceOrderEffectively($n) {
+    public function printServiceOrderEffectively($n)
+    {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         return $this->render('PRINTS/service_order.html.twig', array('so' => $so));
     }
@@ -486,23 +479,25 @@ class ServiceOrderController extends Controller
     /**
      * @Route("print/repeated-service-order-{n}", name="print-repeated-service-order")
      */
-    public function printRepeatedServiceOrderRemoteAction(int $n) {
+    public function printRepeatedServiceOrderRemoteAction(int $n)
+    {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
         if($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
-        $ch = curl_init();
+        $pqd = $so->getPriceQuotationDetail();
 
-        curl_setopt($ch, CURLOPT_URL, "https://greenteamsrl.it/maps-api/external-print/re-so/" . $n);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        if($pqd == null) return new Response('Nessun itinerario associato a questo Ordine di Servizio', 500);
+        if(count($pqd->getServiceOrders()) <= 1) return new Response('Ordine di Servizio non ripetitivo', 500);
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close ($ch);
+//        return $this->render('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
 
-        return new PdfResponse($result);
+        $html = $this->renderView('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array(
+                'orientation' => 'Landscape'
+            ))
+        );
     }
 
 
@@ -512,12 +507,12 @@ class ServiceOrderController extends Controller
     public function printRepeatedServiceOrderAction(int $n)
     {
         $so = $this->getDoctrine()->getRepository(ServiceOrder::class)->find($n);
-        if($so == null) return new Response('Ordine di Servizio non trovato', 404);
+        if ($so == null) return new Response('Ordine di Servizio non trovato', 404);
 
         $pqd = $so->getPriceQuotationDetail();
-        if($pqd == null) return new Response('Nessun itinerario associato a questo Ordine di Servizio', 500);
+        if ($pqd == null) return new Response('Nessun itinerario associato a questo Ordine di Servizio', 500);
 
-        if(count($pqd->getServiceOrders()) <= 1) return new Response('Ordine di Servizio non ripetitivo', 500);
+        if (count($pqd->getServiceOrders()) <= 1) return new Response('Ordine di Servizio non ripetitivo', 500);
 
         return $this->render('PRINTS/repeated_service_order.html.twig', array('pqd' => $pqd));
 
