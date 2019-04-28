@@ -1,0 +1,104 @@
+{% extends('base.html.twig') %}
+{% block title %}Redentours | {{ title }}{% endblock %}
+{% block subheader_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+						<i class="la la-gear"></i>
+						</span>
+                            <h3 class="m-portlet__head-text">
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form id="form_price_quotation_attachments" method="POST" enctype="multipart/form-data" class="m-form m-form--fit m-form--label-align-right"
+                      action="{{ action_url }}" autocomplete="off">
+                    {{ form_widget(form._token) }}
+                    <div class="m-portlet__body">
+
+
+                        <div class="col-lg-12 m-form__group-sub">
+                            <label>* Flusso Finanziario:</label>
+                                {{ form_widget(form.financialFlow) }}
+                            <br><span class="m-form__help">Documento del Flusso Finanziario</span>
+                        </div>
+                        <br><br>
+
+                        <div class="col-lg-12 m-form__group-sub">
+                            <label>* Questionario:</label>
+                            {{ form_widget(form.questionary) }}
+                            <br><span class="m-form__help">Documento del Questionario</span>
+                        </div>
+                        <br><br>
+
+                        <div class="col-lg-12 m-form__group-sub">
+                            <label>* Dichiarazione Responsabilità:</label>
+                            {{ form_widget(form.responsibilityDeclaration) }}
+                            <br><span class="m-form__help">Documento della Dichiarazione di Responsabilità</span>
+                        </div>
+                        <br><br>
+
+
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>Flusso Finanziario</td>
+                                    <td>{% if pqa.financialFlow is defined %}<a href="{{ directory }}/{{ pqa.financialFlow }}">{{ pqa.financialFlow }}</a>{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Questionario</td>
+                                    <td>{% if pqa.questionary is defined %}<a href="{{ directory }}/{{ pqa.questionary }}">{{ pqa.questionary }}</a>{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dichiarazione Responsabilità</td>
+                                    <td>{% if pqa.responsibilityDeclaration is defined %}<a href="{{ directory }}/{{ pqa.responsibilityDeclaration }}">{{ pqa.responsibilityDeclaration }}</a>{% endif %}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary">Salva</button>
+                                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="reset" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!--end::Form-->
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block modals %}
+{% endblock %}
+
+
+{% block page_scripts %}
+    <script src="{{ asset('assets/customjs/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/initializeWidgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/price_quotations/price_quotation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+{% endblock %}
