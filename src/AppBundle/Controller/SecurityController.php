@@ -27,6 +27,13 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction() {
+        return $this->redirectToRoute('login');
+    }
+
+    /**
      * @Route("/drivers/login/redirect", name="login_redirect")
      */
     public function loginRedirectAction(Request $request)

@@ -35,7 +35,7 @@ security:
 
             remember_me:
               secret: '%secret%'
-              lifetime: 3600
+              lifetime: 31536000
               path: /
 
             logout:

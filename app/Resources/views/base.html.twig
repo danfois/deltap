@@ -142,5 +142,17 @@
 
 {% endblock %}
 
+<script>
+    var getUrl = window.location;
+    $('#m_ver_menu').find('a').each(function(t){
+        if($(this).attr('href') == getUrl.pathname) {
+            console.log($(this).attr('href') +  " - " + getUrl.pathname);
+            $(this).parent().addClass('m-menu__item--active');
+            $(this).parents('li:eq(2)').addClass('m-menu__item--open');
+            $(this).parents('li:eq(1)').addClass('m-menu__item--open');
+        }
+    });
+</script>
+
 </body>
 </html>
