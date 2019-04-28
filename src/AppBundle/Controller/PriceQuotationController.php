@@ -585,6 +585,26 @@ class PriceQuotationController extends Controller
     }
 
 
+
+    /**
+     * @Route("print/pqd-{n}", name="print_price_quotation_detail")
+     */
+    public function printPriceQuotationDetailAction(int $n = null)
+    {
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->find($n);
+        if ($pqd == null) return new Response('Itinerario non trovato', 404);
+
+        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+
+        $html = $this->renderView('PRINTS/price_quotation_detail.html.twig', array('pq' => $pqd->getPriceQuotation(), 'd' => $pqd));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
+            'preventivo.pdf'
+        );
+    }
+
+
     /**
      * @Route("price-quotation-attachments", name="price_quotation_attachments")
      */
@@ -639,7 +659,7 @@ class PriceQuotationController extends Controller
             $qname = 'questionario.' . $questionary->guessExtension();
             $rdname = 'dichiarazione_responsabilita.' . $responsibilityDeclaration->guessExtension();
 
-//            try {
+            try {
                 $financialFlow->move(
                     $this->getParameter('pqa_directory'),
                     $ffname
@@ -667,9 +687,9 @@ class PriceQuotationController extends Controller
 
                 return new Response("Documenti salvati con successo");
 
-//            } catch (FileException $e) {
-//                return new Response("Errore durante il caricamento di alcuni files", 500);
-//            }
+            } catch (FileException $e) {
+                return new Response("Errore durante il caricamento di alcuni files", 500);
+            }
         }
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true);
@@ -708,20 +728,41 @@ class PriceQuotationController extends Controller
     }
 
     /**
-     * @Route("send-pq-email-{n}", name="send_pq_email")
+     * @Route("send-pqd-modal-{n}", name="send_pq_modal")
      */
-    public function sendPqEmail(Request $request, int $n, \Swift_Mailer $mailer)
+    public function sendPqdModal(Request $request, int $n)
     {
-        $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
-        if($pq == null) return new Response("Preventivo non trovato", 404);
+        $pq = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->find($n);
+        if($pq == null) return new Response("Itinerario non trovato", 404);
+
+        $addresses = array($pq->getPriceQuotation()->getCustomer()->getEmail(), $pq->getPriceQuotation()->getCustomer()->getPec());
+
+        $html = $this->renderView('price_quotations/email_form.html.twig', array(
+            'action_url' => $this->generateUrl('send_pqd_email', array('n' => $n)),
+            'addresses' => $addresses
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Invia Itinerario',
+            'modal_content' => $html
+        ));
+    }
+
+
+    /**
+     * @Route("send-pqd-email-{n}", name="send_pqd_email")
+     */
+    public function sendPqdEmail(Request $request, int $n, \Swift_Mailer $mailer)
+    {
+        $pqd = $this->getDoctrine()->getRepository(PriceQuotationDetail::class)->find($n);
+        if($pqd == null) return new Response("Itinerario non trovato", 404);
 
         $pqa = $this->getDoctrine()->getRepository(PriceQuotationAttachment::class)->find(1);
 
         $emailText = $request->request->get('testo');
         $indirizzo = $request->request->get('indirizzo');
-        $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+        $html = $this->renderView('PRINTS/price_quotation_detail.html.twig', array('pq' => $pqd->getPriceQuotation(), 'd' => $pqd));
 
-//        $fattura_file = $this->get('knp_snappy.pdf')->generateFromHtml($html, $this->cartella_fatture . $fattura->getNumeroFattura() . '_' . $this->ordine->getIdVenditore()->getIdUser() . '.pdf');
         $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
 
         $pdf = new \Swift_Attachment($data, 'preventivo.pdf', 'application/pdf');
@@ -740,19 +781,36 @@ class PriceQuotationController extends Controller
         return new Response("Email Inviata correttamente");
     }
 
+
     /**
-     * @Route("print-pq-for-mail-{n}", name="print_pq_mail")
+     * @Route("send-pq-email-{n}", name="send_pq_email")
      */
-    public function printPqMail(int $n)
+    public function sendPqEmail(Request $request, int $n, \Swift_Mailer $mailer)
     {
         $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
-        if ($pq == null) return new Response('Preventivo non trovato', 404);
+        if($pq == null) return new Response("Preventivo non trovato", 404);
 
-        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+        $pqa = $this->getDoctrine()->getRepository(PriceQuotationAttachment::class)->find(1);
 
+        $emailText = $request->request->get('testo');
+        $indirizzo = $request->request->get('indirizzo');
         $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
-        return
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
+        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
+
+        $pdf = new \Swift_Attachment($data, 'preventivo.pdf', 'application/pdf');
+
+        $message = (new \Swift_Message('Redentours | Nuovo Preventivo'))
+            ->setFrom('info@redentours.com')
+            ->setTo($indirizzo)
+            ->setBody($emailText, 'text/html')
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getFinancialFlow()))
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getQuestionary()))
+            ->attach(\Swift_Attachment::fromPath($this->getParameter('pqa_directory').'/'. $pqa->getResponsibilityDeclaration()))
+            ->attach($pdf);
+
+        $mailer->send($message);
+
+        return new Response("Email Inviata correttamente");
     }
 }
