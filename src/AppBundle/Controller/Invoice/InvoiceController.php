@@ -6,6 +6,8 @@ use AppBundle\Entity\Customer;
 use AppBundle\Entity\Invoice\InvoiceDetail;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use AppBundle\Entity\Payment\Payment;
+use AppBundle\Entity\Provider;
 use AppBundle\Form\Invoice\IssuedInvoiceType;
 use AppBundle\Form\Invoice\ReceivedInvoiceType;
 use AppBundle\Helper\Invoice\IssuedInvoiceHelper;
@@ -70,11 +72,10 @@ class InvoiceController extends Controller
             if ($errors == null) {
                 $em->persist($invoice);
 
-                if($type != null && $id != null)
-                {
+                if ($type != null && $id != null) {
                     $class = ClassResolver::resolveClass($type);
                     $associatedObject = $em->getRepository($class)->find($id);
-                    if($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
+                    if ($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
                         $associatedObject->setInvoice($invoice);
                     }
                 }
@@ -147,11 +148,10 @@ class InvoiceController extends Controller
             if ($errors == null) {
                 $em->persist($invoice);
 
-                if($type != null && $id != null)
-                {
+                if ($type != null && $id != null) {
                     $class = ClassResolver::resolveClass($type);
                     $associatedObject = $em->getRepository($class)->find($id);
-                    if($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
+                    if ($associatedObject != null && method_exists($associatedObject, 'setInvoice')) {
                         $associatedObject->setInvoice($invoice);
                     }
                 }
@@ -189,7 +189,7 @@ class InvoiceController extends Controller
         $invoice = $ifm->manageInvoiceData()->getInvoice();
         $invoice->setInvoiceDate(new \DateTime());
 
-        if($irm->getRawData() != null && !is_array($irm->getRawData())) {
+        if ($irm->getRawData() != null && !is_array($irm->getRawData())) {
             $idMethod = 'get' . ucwords($em->getClassMetadata(get_class($irm->getRawData()))->getSingleIdentifierFieldName());
             $id = $irm->getRawData()->$idMethod();
         } else {
@@ -231,13 +231,13 @@ class InvoiceController extends Controller
     public function editInvoiceAction(int $n)
     {
         $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findOneBy(array('invoiceId' => $n));
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
-        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
-        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+        if ($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if ($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
 
-        if($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
-        if($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
+        if ($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
+        if ($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
 
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
 
@@ -260,13 +260,13 @@ class InvoiceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $invoice = $em->getRepository(IssuedInvoice::class)->findOneBy(array('invoiceId' => $n));
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
-        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
-        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+        if ($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if ($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
 
-        if($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
-        if($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
+        if ($invoice->getIsProforma() == 1) $invoice->setIsProforma(true);
+        if ($invoice->getIsProforma() == 0) $invoice->setIsProforma(false);
 
         $form = $this->createForm(IssuedInvoiceType::class, $invoice);
         $form->handleRequest($request);
@@ -307,10 +307,10 @@ class InvoiceController extends Controller
     public function editReceivedInvoiceAction(int $n)
     {
         $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->findOneBy(array('invoiceId' => $n));
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
-        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
-        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+        if ($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if ($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
 
         $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
 
@@ -332,10 +332,10 @@ class InvoiceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $invoice = $em->getRepository(ReceivedInvoice::class)->findOneBy(array('invoiceId' => $n));
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
-        if($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
-        if($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
+        if ($invoice->getPaInvoice() == 1) $invoice->setPaInvoice(true);
+        if ($invoice->getPaInvoice() == 0) $invoice->setPaInvoice(false);
 
         $form = $this->createForm(ReceivedInvoiceType::class, $invoice);
         $form->handleRequest($request);
@@ -393,7 +393,7 @@ class InvoiceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $proforma = $em->getRepository(IssuedInvoice::class)->findBy(array('invoiceId' => $n, 'isProforma' => 1))[0];
-        if($proforma == null) return new Response('Proforma non trovato', 404);
+        if ($proforma == null) return new Response('Proforma non trovato', 404);
 
         $proforma->setInvoiceNumber($ivm->getCurrentInvoiceNumber());
         $proforma->setIsProforma(null);
@@ -407,9 +407,10 @@ class InvoiceController extends Controller
     /**
      * @Route("print/issued-invoice-{n}", name="print_issued_invoice")
      */
-    public function printIssuedInvoiceRemoteAction(int $n) {
+    public function printIssuedInvoiceRemoteAction(int $n)
+    {
         $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->find($n);
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
 //        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
@@ -422,14 +423,13 @@ class InvoiceController extends Controller
     }
 
 
-
     /**
      * @Route("print-issued-invoice-{n}", name="print-issued-invoice")
      */
     public function printIssuedInvoiceAction(int $n)
     {
         $invoice = $this->getDoctrine()->getRepository(IssuedInvoice::class)->find($n);
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
         return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
@@ -442,13 +442,13 @@ class InvoiceController extends Controller
     }
 
 
-
     /**
      * @Route("print/received-invoice-{n}", name="print_received_invoice")
      */
-    public function printReceivedInvoiceRemoteAction(int $n) {
+    public function printReceivedInvoiceRemoteAction(int $n)
+    {
         $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->find($n);
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
 //        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
@@ -461,15 +461,13 @@ class InvoiceController extends Controller
     }
 
 
-
-
     /**
      * @Route("print-received-invoice-{n}", name="print-received-invoice")
      */
     public function printReceivedInvoiceAction(int $n)
     {
         $invoice = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->find($n);
-        if($invoice == null) return new Response('Fattura non trovata', 404);
+        if ($invoice == null) return new Response('Fattura non trovata', 404);
 
         return $this->render('PRINTS/received_invoice.html.twig', array('i' => $invoice));
     }
@@ -481,23 +479,83 @@ class InvoiceController extends Controller
     public function printIssuedInvoiceList(int $n, Request $request)
     {
         $customer = $this->getDoctrine()->getRepository(Customer::class)->find($n);
-        if($customer == null) return new Response("Cliente non trovato", 404);
+        if ($customer == null) return new Response("Cliente non trovato", 404);
 
         $invoices = $this->getDoctrine()->getRepository(IssuedInvoice::class)->findBy(array("customer" => $n));
 
+        $paymentsArray = array();
+        $invoiceSum = 0;
 
+        foreach($invoices as $i) {
+            $payments = $this->getDoctrine()->getRepository(Payment::class)->findBy(array("issuedInvoice" => $i->getInvoiceId()));
+            $invoiceSum += $i->getAmount();
+            foreach($payments as $p) {
+                if(array_key_exists($i->getInvoiceId(), $paymentsArray) === true) {
+                    $paymentsArray[$i->getInvoiceId()] += $p->getAmount();
+                } else {
+                    $paymentsArray[$i->getInvoiceId()] = $p->getAmount();
+                }
+            }
+        }
 
-       $html = $this->renderView('PRINTS/issued_invoice_list.html.twig', array(
+        $html = $this->renderView('PRINTS/issued_invoice_list.html.twig', array(
             'invoices' => $invoices,
-            'customer' => $customer
+            'customer' => $customer,
+            'payments' => $paymentsArray,
+            'paidSum' => array_sum($paymentsArray),
+            'neededSum' => $invoiceSum - array_sum($paymentsArray)
         ));
 
-       return new Response($html);
+//       return new Response($html);
 
-//        return new PdfResponse(
-//            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
-//            'fattura.pdf'
-//        );
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'orientation' => 'landscape')),
+            'fattura.pdf'
+        );
     }
+
+
+    /**
+     * @Route("/providers/print-received-invoice-list-{n}", name="print_received_invoice_list")
+     */
+    public function printReceivedInvoiceList(int $n, Request $request)
+    {
+        $provider = $this->getDoctrine()->getRepository(Provider::class)->find($n);
+        if ($provider == null) return new Response("Fornitore non trovato", 404);
+
+        $invoices = $this->getDoctrine()->getRepository(ReceivedInvoice::class)->findBy(array("provider" => $n));
+
+        $paymentsArray = array();
+        $invoiceSum = 0;
+
+        foreach($invoices as $i) {
+            $payments = $this->getDoctrine()->getRepository(Payment::class)->findBy(array("receivedInvoice" => $i->getInvoiceId()));
+            $invoiceSum += $i->getAmount();
+            foreach($payments as $p) {
+                if(array_key_exists($i->getInvoiceId(), $paymentsArray) === true) {
+                    $paymentsArray[$i->getInvoiceId()] += $p->getAmount();
+                } else {
+                    $paymentsArray[$i->getInvoiceId()] = $p->getAmount();
+                }
+            }
+        }
+
+
+        $html = $this->renderView('PRINTS/received_invoice_list.html.twig', array(
+            'invoices' => $invoices,
+            'provider' => $provider,
+            'payments' => $paymentsArray,
+            'paidSum' => array_sum($paymentsArray),
+            'neededSum' => $invoiceSum - array_sum($paymentsArray)
+        ));
+
+//       return new Response($html);
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'orientation' => 'landscape')),
+            'fattura.pdf'
+        );
+    }
+
 
 }

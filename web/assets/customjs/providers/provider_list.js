@@ -69,6 +69,7 @@ var ProviderList = function () {
 						    	<a class="dropdown-item" href="edit-provider-' + row.idv +'" onclick="" target="_blank"><i class="la la-edit"></i> Modifica Fornitore</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'provider-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Dettagli Fornitore</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'provider-invoices-' + row.id + '\', {})"><i class="la la-eye"></i> Fatture del Fornitore</a>\
+						    	<a class="dropdown-item" href="providers/print-received-invoice-list-' + row.id + '"><i class="la la-print"></i>Stampa Fatture del Fornitore</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-provider-' + row.idv +'" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fornitore">\

@@ -69,6 +69,7 @@ var CustomerList = function () {
 						    	<a class="dropdown-item" href="edit-customer-' + row.idv +'" onclick="" target="_blank"><i class="la la-edit"></i> Modifica Cliente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'customer-details\', { \'id\' : ' + row.id + '})"><i class="la la-eye"></i> Dettagli Cliente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'customer-invoices-' + row.id + '\', {})"><i class="la la-eye"></i> Fatture del Cliente</a>\
+						    	<a class="dropdown-item" href="customers/print-issued-invoice-list-' + row.id + '"><i class="la la-print"></i>Stampa Fatture del Cliente</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'customer-price-quotations-' + row.id + '\', {})"><i class="la la-eye"></i> Preventivi del Cliente</a>\
 						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> OdS del Cliente</a>\
 						  	</div>\

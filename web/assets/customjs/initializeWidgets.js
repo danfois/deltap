@@ -24,7 +24,7 @@ var initializeWidgets = function () {
         var timePicked = $('.time_picker').val();
 
         if(timePicked.length < 5)
-            $('.time_picker').val("0" + timePicked);
+            $(this).val("0" + timePicked);
     });
 
     $(".touch_spin").TouchSpin({
