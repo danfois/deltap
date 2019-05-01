@@ -128,6 +128,15 @@ class TurnController extends Controller
     }
 
     /**
+     * @Route("/public/create-turn-for-cron", name="create_turns_for_cron")
+     */
+    public function createTurnsForCron(EmployeeTurnManager $etm)
+    {
+        $etm->getTodayTurn();
+        return new Response("Ok");
+    }
+
+    /**
      * @Route("/drivers/ajax/daily-driver-turn", name="ajax_daily_driver_turn")
      */
     public function ajaxDailyDriverTurnAction(Request $request, EmployeeTurnManager $etm)
