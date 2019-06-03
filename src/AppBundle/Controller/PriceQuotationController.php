@@ -728,7 +728,7 @@ class PriceQuotationController extends Controller
     }
 
     /**
-     * @Route("send-pqd-modal-{n}", name="send_pq_modal")
+     * @Route("send-pqd-modal-{n}", name="send_pqd_modal")
      */
     public function sendPqdModal(Request $request, int $n)
     {
