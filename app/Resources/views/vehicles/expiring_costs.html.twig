@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="costsTable">
+            <thead>
             <tr>
                 <th>Targa</th>
                 <th>Bollo</th>
@@ -8,6 +9,8 @@
                 <th>Assicurazione</th>
                 <th>Estintore</th>
             </tr>
+            </thead>
+            <tbody>
             {% for v in vehicles %}
                 <tr>
                     <td class="font-weight-bold">{{ v.plate }}</td>
@@ -51,7 +54,37 @@
                     </td>
                 </tr>
             {% endfor %}
-
+            </tbody>
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#costsTable').DataTable({
+            responsive: true,
+            language: {
+                "sEmptyTable":     "Nessun dato presente nella tabella",
+                "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
+                "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
+                "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ".",
+                "sLengthMenu":     "Visualizza _MENU_ elementi",
+                "sLoadingRecords": "Caricamento...",
+                "sProcessing":     "Elaborazione...",
+                "sSearch":         "Cerca:",
+                "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
+                "oPaginate": {
+                    "sFirst":      "Inizio",
+                    "sPrevious":   "Precedente",
+                    "sNext":       "Successivo",
+                    "sLast":       "Fine"
+                },
+                "oAria": {
+                    "sSortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+                    "sSortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+                }
+            }
+        })
+    });
+</script>

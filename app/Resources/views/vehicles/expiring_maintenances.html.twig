@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="maintenancesTable">
+            <thead>
             <tr>
                 <th>Veicolo</th>
                 <th>Km Correnti</th>
@@ -10,6 +11,8 @@
                 <th>Fra Km</th>
                 <th>Scade Il</th>
             </tr>
+            </thead>
+            <tbody>
             {% for d in data %}
                 <tr {% if d.startDate == 'MAI FATTA' %}class="bg-warning"{% endif %}>
                     <td class="font-weight-bold">{{ d.plate }}</td>
@@ -21,6 +24,37 @@
                     <td>{% if d.expirationDate is defined %}<span class="font-weight-bold m--font-danger">{{ d.expirationDate|date('d-m-Y') }}</span>{% else %}N/A{% endif %}</td>
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#maintenancesTable').DataTable({
+            responsive: true,
+            language: {
+                "sEmptyTable":     "Nessun dato presente nella tabella",
+                "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
+                "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
+                "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ".",
+                "sLengthMenu":     "Visualizza _MENU_ elementi",
+                "sLoadingRecords": "Caricamento...",
+                "sProcessing":     "Elaborazione...",
+                "sSearch":         "Cerca:",
+                "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
+                "oPaginate": {
+                    "sFirst":      "Inizio",
+                    "sPrevious":   "Precedente",
+                    "sNext":       "Successivo",
+                    "sLast":       "Fine"
+                },
+                "oAria": {
+                    "sSortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+                    "sSortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+                }
+            }
+        })
+    });
+</script>
