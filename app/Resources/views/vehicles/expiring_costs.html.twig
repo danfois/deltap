@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>Targa</th>
+                <th>Bollo</th>
+                <th>Revisione</th>
+                <th>Assicurazione</th>
+                <th>Estintore</th>
+            </tr>
+            {% for v in vehicles %}
+                <tr>
+                    <td class="font-weight-bold">{{ v.plate }}</td>
+                    <td>
+                        {% if v.currentCarTax is not null %}
+                            {% if v.currentCarTax.endDate < currentDate %}
+                                <span class="font-weight-bold m--font-danger">{{ v.currentCarTax.endDate|date('d-m-Y') }}</span>
+                            {% else %}
+                                {{ v.currentCarTax.endDate|date('d-m-Y') }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if v.currentCarReview is not null %}
+                            {% if v.currentCarReview.endDate is not null %}
+                                {% if v.currentCarReview.endDate < currentDate %}
+                                    <span class="font-weight-bold m--font-danger">{{ v.currentCarReview.endDate|date('d-m-Y') }}</span>
+                                    {% else %}
+                                        {{ v.currentCarReview.endDate|date('d-m-Y') }}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if v.currentInsurance is not null %}
+                            {% if v.currentInsurance.endDate < currentDate %}
+                                <span class="font-weight-bold m--font-danger">{{ v.currentInsurance.endDate|date('d-m-Y') }}</span>
+                            {% else %}
+                                {{ v.currentInsurance.endDate|date('d-m-Y') }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if v.fireExtinguisherExpiration is not null %}
+                            {% if v.fireExtinguisherExpiration < currentDate %}
+                                <span class="font-weight-bold m--font-danger">{{ v.fireExtinguisherExpiration|date('d-m-Y') }}</span>
+                            {% else %}
+                                {{ v.fireExtinguisherExpiration|date('d-m-Y') }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</div>

@@ -5,6 +5,7 @@ use AppBundle\Entity\Loan\Loan;
 use AppBundle\Entity\Loan\LoanInstalment;
 use AppBundle\Form\Loan\LoanInstalmentType;
 use AppBundle\Form\Loan\LoanType;
+use AppBundle\Helper\Loan\ExpiringInstalmentsProvider;
 use AppBundle\Helper\Loan\InstalmentCompiler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -288,5 +289,22 @@ class LoanController extends Controller
         $em->flush();
 
         return new Response('Mutuo eliminato correttamente', 200);
+    }
+
+    /**
+     * @Route("expiring-loans", name="expiring_loans")
+     */
+    public function expiringLoans()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $loans = $em->getRepository(Loan::class)->findAll();
+
+        $elp = new ExpiringInstalmentsProvider($em, $loans);
+        $data = $elp->prepareData()->getPreparedData();
+
+        return $this->render('loans/expiring_instalments.html.twig', array(
+            'loans' => $data,
+            'currentDate' => new \DateTime()
+        ));
     }
 }

@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>N. Mutuo</th>
+                <th>Banca</th>
+                <th>Importo</th>
+                <th>Scadenza</th>
+            </tr>
+
+            {% for l in loans %}
+
+                <tr>
+                    <td class="font-weight-bold">{{ l.loan.getLoanNumber }}</td>
+                    <td>{{ l.loan.provider.businessName }}</td>
+                    <td>&euro; {{ l.loan.instalmentAmount }}</td>
+                    <td>
+                        {% if l.lastInstalment is not null %}
+                            {% if l.lastInstalment.paymentDate < currentDate %}
+                                <span class="font-weight-bold m--font-danger">{{ l.lastInstalment.paymentDate|date('d-m-Y') }}</span>
+                            {% else %}
+                                {{ l.lastInstalment.paymentDate|date('d-m-Y') }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+
+            {#{% for v in vehicles %}#}
+                {#<tr>#}
+                    {#<td class="font-weight-bold">{{ v.plate }}</td>#}
+                    {#<td>#}
+                        {#{% if v.currentCarTax is not null %}#}
+                            {#{% if v.currentCarTax.endDate < currentDate %}#}
+                                {#<span class="font-weight-bold m--font-danger">{{ v.currentCarTax.endDate|date('d-m-Y') }}</span>#}
+                            {#{% else %}#}
+                                {#{{ v.currentCarTax.endDate|date('d-m-Y') }}#}
+                            {#{% endif %}#}
+                        {#{% endif %}#}
+                    {#</td>#}
+                    {#<td>#}
+                        {#{% if v.currentCarReview is not null %}#}
+                            {#{% if v.currentCarReview.endDate is not null %}#}
+                                {#{% if v.currentCarReview.endDate < currentDate %}#}
+                                    {#<span class="font-weight-bold m--font-danger">{{ v.currentCarReview.endDate|date('d-m-Y') }}</span>#}
+                                    {#{% else %}#}
+                                        {#{{ v.currentCarReview.endDate|date('d-m-Y') }}#}
+                                {#{% endif %}#}
+                            {#{% endif %}#}
+                        {#{% endif %}#}
+                    {#</td>#}
+                    {#<td>#}
+                        {#{% if v.currentInsurance is not null %}#}
+                            {#{% if v.currentInsurance.endDate < currentDate %}#}
+                                {#<span class="font-weight-bold m--font-danger">{{ v.currentInsurance.endDate|date('d-m-Y') }}</span>#}
+                            {#{% else %}#}
+                                {#{{ v.currentInsurance.endDate|date('d-m-Y') }}#}
+                            {#{% endif %}#}
+                        {#{% endif %}#}
+                    {#</td>#}
+                    {#<td>#}
+                        {#{% if v.fireExtinguisherExpiration is not null %}#}
+                            {#{% if v.fireExtinguisherExpiration < currentDate %}#}
+                                {#<span class="font-weight-bold m--font-danger">{{ v.fireExtinguisherExpiration|date('d-m-Y') }}</span>#}
+                            {#{% else %}#}
+                                {#{{ v.fireExtinguisherExpiration|date('d-m-Y') }}#}
+                            {#{% endif %}#}
+                        {#{% endif %}#}
+                    {#</td>#}
+                {#</tr>#}
+            {#{% endfor %}#}
+
+        </table>
+    </div>
+</div>

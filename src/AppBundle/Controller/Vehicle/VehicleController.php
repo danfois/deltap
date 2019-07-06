@@ -195,4 +195,16 @@ class VehicleController extends Controller
         return $this->render('vehicles/models_json.html.twig');
     }
 
+    /**
+     * @Route("expiring-vehicle-costs", name="expiring_vehicle_costs")
+     */
+    public function expiringVehicleCosts()
+    {
+        $vehicles = $this->getDoctrine()->getRepository(Vehicle::class)->findAll();
+        return $this->render('vehicles/expiring_costs.html.twig', array(
+            'vehicles' => $vehicles,
+            'currentDate' => new \DateTime()
+        ));
+    }
+
 }
