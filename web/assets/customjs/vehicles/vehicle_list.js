@@ -75,7 +75,7 @@ var VehicleList = function () {
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            'Autonoleggio': {'title': 'Autonoleggio', 'class': 'm-badge--primary'},
+                            'Autoscuola': {'title': 'Autoscuola', 'class': 'm-badge--primary'},
                             'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--warning'},
                             'Linea': {'title': 'Linea', 'class': ' m-badge--accent'},
                             'Uso Privato': {'title': 'Uso Privato', 'class': ' m-badge--success'},

@@ -89,10 +89,10 @@ class VehicleController extends Controller
         $vehicle = $this->getDoctrine()->getRepository(Vehicle::class)->findOneBy(array('vehicleId' => $id));
         if($vehicle == null) return new Response('Veicolo non trovato', 404);
 
-        $vehicle->setCarRegistrationDate($vehicle->getCarRegistrationDate()->format('d/m/Y'));
-        $vehicle->setRegistrationCardDate($vehicle->getRegistrationCardDate()->format('d/m/Y'));
-        $vehicle->setPurchaseDate($vehicle->getPurchaseDate()->format('d/m/Y'));
-        if ($vehicle->getSaleDate() != null) $vehicle->setSaleDate($vehicle->getSaleDate()->format('d/m/Y'));
+        if($vehicle->getCarRegistrationDate() != null) $vehicle->setCarRegistrationDate($vehicle->getCarRegistrationDate()->format('d/m/Y'));
+        if($vehicle->getRegistrationCardDate() != null) $vehicle->setRegistrationCardDate($vehicle->getRegistrationCardDate()->format('d/m/Y'));
+        if($vehicle->getPurchaseDate() != null) $vehicle->setPurchaseDate($vehicle->getPurchaseDate()->format('d/m/Y'));
+        if($vehicle->getSaleDate() != null) $vehicle->setSaleDate($vehicle->getSaleDate()->format('d/m/Y'));
 
         $form = $this->createForm(VehicleType::class, $vehicle);
 

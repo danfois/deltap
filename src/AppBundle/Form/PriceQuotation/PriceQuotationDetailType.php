@@ -37,7 +37,7 @@ class PriceQuotationDetailType extends AbstractType
                     return $er->createQueryBuilder('s')->select('s');
                 },
                 'choice_label' => 'service_name',
-                'placeholder' => 'Tipo Servizio',
+                'placeholder' => 'Frequenza',
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input service_type_select'
@@ -49,7 +49,7 @@ class PriceQuotationDetailType extends AbstractType
                     return $er->createQueryBuilder('s')->select('s');
                 },
                 'choice_label' => 'service',
-                'placeholder' => 'Servizio',
+                'placeholder' => 'Tipo Servizio',
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input service_select'
