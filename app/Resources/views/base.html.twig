@@ -66,9 +66,20 @@
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
 
 
-            {% block subheader %}
-                {% include 'includes/subheader.html.twig' with {subheader_title:block('subheader_title'), subheader_class:block('subheader_class')} %}
-            {% endblock %}
+            {#{% block subheader %}#}
+                {#{% include 'includes/subheader.html.twig' with {subheader_title:block('subheader_title'), subheader_class:block('subheader_class')} %}#}
+            {#{% endblock %}#}
+
+            <div class="m-subheader {% block subheader_class %}{% endblock %}">
+                <div class="d-flex align-items-center">
+                    <div class="mr-auto">
+                        <h3 class="m-subheader__title ">
+                           {% block subheader_title %}Homepage{% endblock %}
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
 
 
             <div class="m-content">
