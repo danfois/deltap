@@ -65,4 +65,20 @@ var ServiceOrderForm = function () {
 jQuery(document).ready(function () {
     ServiceOrderForm().init();
     initializeWidgets();
+
+    $('#service_order_customer').select2({
+        placeholder: "Seleziona un cliente"
+    });
+
+    $('#service_order_stage').select2({
+        placeholder: "Scegli un tragitto"
+    });
+
+    $('#service_order_vehicle').select2({
+        placeholder: "Scegli un veicolo"
+    });
+
+    $('#service_order_driver').select2({
+        placeholder: "Scegli un autista"
+    });
 });

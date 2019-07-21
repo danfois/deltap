@@ -78,5 +78,9 @@ jQuery(document).ready(function () {
     });
 
     initializeWidgets();
+    $('select').select2({
+        placeholder: "Nessuno/a"
+    });
+
 
 });

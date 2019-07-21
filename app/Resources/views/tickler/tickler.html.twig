@@ -55,6 +55,8 @@
 {% endblock %}
 
 {% block page_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
     <script src="{{ asset('assets/customjs/genericAjaxRequestWithCallback.js') }}"></script>
     <script src="{{ asset('assets/customjs/tickler/tickler.js') }}"></script>
 {% endblock %}

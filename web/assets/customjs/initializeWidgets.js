@@ -20,12 +20,12 @@ var initializeWidgets = function () {
         snapToStep: !0
     });
 
-    $('.time_picker').timepicker().on('changeTime.timepicker', function(e) {
-        var timePicked = $('.time_picker').val();
-
-        if(timePicked.length < 5)
-            $(this).val("0" + timePicked);
-    });
+    // $('.time_picker').timepicker().on('changeTime.timepicker', function(e) {
+    //     var timePicked = $('.time_picker').val();
+    //
+    //     if(timePicked.length < 5)
+    //         $(this).val("0" + timePicked);
+    // });
 
     $(".touch_spin").TouchSpin({
         buttondown_class: "btn btn-secondary",
@@ -49,8 +49,8 @@ var initializeWidgets = function () {
         maxboostedstep: 10
     });
 
-    $('.time_picker').on('click', function() {
-        $(this).val('');
-    });
+    // $('.time_picker').on('click', function() {
+    //     $(this).val('');
+    // });
 };
 

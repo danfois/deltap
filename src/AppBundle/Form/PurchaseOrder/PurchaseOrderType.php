@@ -3,6 +3,7 @@
 namespace AppBundle\Form\PurchaseOrder;
 use AppBundle\Entity\PurchaseOrder\PurchaseOrder;
 use AppBundle\Form\DataTransformer\StringToDateTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,6 +28,9 @@ class PurchaseOrderType extends AbstractType
             ->add('provider', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Provider',
                 'choice_label' => 'businessName',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Fornitore',
                 'attr' => array(
@@ -54,6 +58,9 @@ class PurchaseOrderType extends AbstractType
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function($employee) {
                     return $employee->getName() . ' ' . $employee->getSurname();
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.name');
                 },
                 'empty_data' => 'null',
                 'placeholder' => 'Scegli Dipendente',
@@ -102,6 +109,9 @@ class PurchaseOrderType extends AbstractType
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function ($employee) {
                     return $employee->getName() . ' ' . $employee->getSurname();
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.name');
                 },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Referente',

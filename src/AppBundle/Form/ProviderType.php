@@ -73,7 +73,7 @@ class ProviderType extends AbstractType
                 'class' => 'AppBundle:Category',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                        ->select('c');
+                        ->select('c')->orderBy('c.categoryName');
                 },
                 'choice_label' => 'category_name',
                 'placeholder' => 'Nessuno',

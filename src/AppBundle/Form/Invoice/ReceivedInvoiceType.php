@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Invoice;
 
 use AppBundle\Entity\Invoice\ReceivedInvoice;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,6 +32,9 @@ class ReceivedInvoiceType extends InvoiceType
             ->add('provider', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Provider',
                 'choice_label' => 'businessName',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'

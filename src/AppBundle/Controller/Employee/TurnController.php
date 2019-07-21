@@ -8,6 +8,7 @@ use AppBundle\Form\Employee\EmployeeTurnDetailDriverType;
 use AppBundle\Form\Employee\EmployeeTurnType;
 use AppBundle\Helper\Employee\TurnDetailHelper;
 use AppBundle\Helper\Employee\TurnHelper;
+use AppBundle\Helper\Employee\TurnViewProvider;
 use AppBundle\Helper\Employee\TurnViewTransformer;
 use AppBundle\Service\EmployeeTurn\EmployeeTurnManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -203,7 +204,8 @@ class TurnController extends Controller
             return new Response('Errore durante il recupero dei turni', 500);
         }
 
-        $TVT = new TurnViewTransformer($turns);
+//        $TVT = new TurnViewTransformer($turns);
+        $TVT = new TurnViewProvider($turns);
         $data = $TVT->prepareDataArray()->getTransformedData();
 
         return $this->render('employees/turns/monthly_turn_views.html.twig', array(

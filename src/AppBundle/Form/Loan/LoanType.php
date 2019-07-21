@@ -4,6 +4,7 @@ namespace AppBundle\Form\Loan;
 
 use AppBundle\Entity\Loan\Loan;
 use AppBundle\Form\DataTransformer\StringToDateTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -28,6 +29,9 @@ class LoanType extends AbstractType
             ->add('provider', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Provider',
                 'choice_label' => 'businessName',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'empty_data' => null,
                 'placeholder' => 'Scegli il fornitore',
                 'attr' => array(

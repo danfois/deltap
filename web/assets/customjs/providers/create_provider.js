@@ -13,7 +13,7 @@ var ProviderForm = function () {
                     'provider[phone]': {maxlength: 12},
                     'provider[mobile]': {maxlength: 12},
                     'provider[fax]': {maxlength: 12},
-                    'provider[email]': {required: !0, maxlength: 32, email: true},
+                    'provider[email]': {required: !0, maxlength: 128, email: true},
                     'provider[vat]': {maxlength: 12},
                     'provider[cf]': {maxlength: 16},
                     'provider[website]': {maxlength: 255},

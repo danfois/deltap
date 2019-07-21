@@ -60,55 +60,87 @@
 
 
                     <table class="table-bordered turn_table text-center">
-
-                        <tr>
-
-                                <th>Autista</th>
-
-                            {% for t in turns %}
-
-                                <th class="">
-                                    <a href="{{ path('daily_turns') }}/{{ t.turnDate|date('d-m-Y') }}">
-                                    {{ t.turnDate|date('d/m') }}
-                                    </a>
-                                </th>
-
-                            {% endfor %}
-
-                        </tr>
-
-                        {% for d in data %}
-
-
+                        <thead>
                             <tr>
-
-                                <td class="text-left">{{ d.name }}</td>
-
-                                {# todo: qui c'è l'errore di incolonnamento #}
-
+                                <th>Autista</th>
+                            {% if data[1] is defined and data[1] is not null %}
+                                {% for d in data[1].turns %}
+                                    <th class="">
+                                        <a href="{{ path('daily_turns') }}/{{ loop.index }}-{{ month }}-{{ year }}">
+                                            {{ loop.index }}/{{ month }}
+                                        </a>
+                                    </th>
+                                {% endfor %}
+                            {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in data %}
+                                <tr>
+                                <td>{% if d.name is not null %}<span class="">{{ d.name }}</span>{% endif %}</td>
                                 {% for td in d.turns %}
-
                                     <td>
-
-                                        {% if td.workingHours is not null %}<span class="">{{ td.workingHours|date('H:i') }}</span>{% endif %}
-                                        {% if td.permissionTime is not null %}<span class="m--font-danger">{{ td.permissionTime|date('H:i') }}</span>{% endif %}
-                                        {% if td.illness is not null and td.illness == true %}<span class="m--font-danger m--font-boldest">M</span>{% endif %}
-                                        {% if td.holiday is not null and td.holiday == true %}<span class="m--font-success m--font-boldest">F</span>{% endif %}
-
-
+                                    {% if td.workingHours is not null %}<span class="">{{ td.workingHours|date('H:i') }}</span>{% endif %}
+                                    {% if td.permissionTime is not null %}<span class="m--font-danger">{{ td.permissionTime|date('H:i') }}</span>{% endif %}
+                                    {% if td.illness is not null and td.illness == true %}<span class="m--font-danger m--font-boldest">M</span>{% endif %}
+                                    {% if td.holiday is not null and td.holiday == true %}<span class="m--font-success m--font-boldest">F</span>{% endif %}
                                     </td>
 
                                 {% endfor %}
-
-
-                            </tr>
-
-
-                        {% endfor %}
-
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
 
-                    {{ dump(data) }}
+
+                    {#<table class="table-bordered turn_table text-center">#}
+
+                        {#<tr>#}
+
+                                {#<th>Autista</th>#}
+
+                            {#{% for t in turns %}#}
+
+                                {#<th class="">#}
+                                    {#<a href="{{ path('daily_turns') }}/{{ t.turnDate|date('d-m-Y') }}">#}
+                                    {#{{ t.turnDate|date('d/m') }}#}
+                                    {#</a>#}
+                                {#</th>#}
+
+                            {#{% endfor %}#}
+
+                        {#</tr>#}
+
+                        {#{% for d in data %}#}
+
+
+                            {#<tr>#}
+
+                                {#<td class="text-left">{{ d.name }}</td>#}
+
+                                {#{% for td in d.turns %}#}
+
+                                    {#<td>#}
+
+                                        {#{% if td.workingHours is not null %}<span class="">{{ td.workingHours|date('H:i') }}</span>{% endif %}#}
+                                        {#{% if td.permissionTime is not null %}<span class="m--font-danger">{{ td.permissionTime|date('H:i') }}</span>{% endif %}#}
+                                        {#{% if td.illness is not null and td.illness == true %}<span class="m--font-danger m--font-boldest">M</span>{% endif %}#}
+                                        {#{% if td.holiday is not null and td.holiday == true %}<span class="m--font-success m--font-boldest">F</span>{% endif %}#}
+
+
+                                    {#</td>#}
+
+                                {#{% endfor %}#}
+
+
+                            {#</tr>#}
+
+
+                        {#{% endfor %}#}
+
+                    {#</table>#}
+
+                    {#{{ dump(data) }}#}
 
 
                 </div>

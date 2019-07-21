@@ -233,6 +233,9 @@
         $(document).ready(function() {
             GenericFormSubmission($('#form_payment')).init();
             initializeWidgets();
+            $('select').select2({
+                placeholder: "Nessuno/a"
+            });
         });
     </script>
 {% endblock %}

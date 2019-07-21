@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Salary;
 
 use AppBundle\Entity\Salary\Salary;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -28,6 +29,9 @@ class SalaryType extends AbstractType
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function ($e) {
                     return $e->getSurname() . ' ' . $e->getName();
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.surname');
                 },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Dipendente',

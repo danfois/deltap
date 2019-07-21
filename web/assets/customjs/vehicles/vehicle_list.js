@@ -77,11 +77,17 @@ var VehicleList = function () {
                         var status = {
                             'Autoscuola': {'title': 'Autoscuola', 'class': 'm-badge--primary'},
                             'Noleggio': {'title': 'Noleggio', 'class': ' m-badge--warning'},
+                            'Autonoleggio': {'title': 'Autonoleggio', 'class': ' m-badge--warning'},
                             'Linea': {'title': 'Linea', 'class': ' m-badge--accent'},
                             'Uso Privato': {'title': 'Uso Privato', 'class': ' m-badge--success'},
                             'Altro': {'title': 'Altro', 'class': ' m-badge--metal'}
                         };
-                        return '<span class="m-badge ' + status[row.use].class + ' m-badge--wide">' + status[row.use].title + '</span>';
+                        if(status[row.use] != null) {
+                            return '<span class="m-badge ' + status[row.use].class + ' m-badge--wide">' + status[row.use].title + '</span>';
+                        } else {
+                            return '<span class="m-badge m-badge--metal m-badge--wide">' + row.use + '</span>';
+                        }
+
                     }
                 }, {
                     field: 'purchaseDate',

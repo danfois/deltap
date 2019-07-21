@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Invoice;
 
 use AppBundle\Entity\Invoice\IssuedInvoice;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -29,6 +30,9 @@ class IssuedInvoiceType extends InvoiceType
                     }
                 },
                 'empty_data' => null,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.priceQuotationDetailId');
+                },
                 'placeholder' => 'Scegli l\'Itinerario',
                 'attr' => array(
                     'class' => 'form-control m-input'
@@ -50,6 +54,9 @@ class IssuedInvoiceType extends InvoiceType
             ))
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Customer',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'choice_label' => 'businessName',
                 'empty_data' => null,
                 'attr' => array(

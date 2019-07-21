@@ -31,7 +31,7 @@ class PriceQuotationType extends AbstractType
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle:Customer',
                 'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('c')->select('c');
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
                 },
                 'choice_label' => 'business_name',
                 'placeholder' => 'Scegli Cliente',

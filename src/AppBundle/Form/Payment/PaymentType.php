@@ -6,6 +6,7 @@ use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Payment\BankAccount;
 use AppBundle\Entity\Payment\Payment;
 use AppBundle\Form\DataTransformer\StringToDateTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -85,6 +86,9 @@ class PaymentType extends AbstractType
             ))
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Customer',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'choice_label' => 'businessName',
                 'empty_data' => null,
                 'placeholder' => 'Nessuno',
@@ -95,6 +99,9 @@ class PaymentType extends AbstractType
             ))
             ->add('provider', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Provider',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'choice_label' => 'businessName',
                 'empty_data' => null,
                 'placeholder' => 'Nessuno',
@@ -107,6 +114,9 @@ class PaymentType extends AbstractType
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function($e) {
                     return $e->getName() . ' ' . $e->getSurname();
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.name');
                 },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Dipendente',

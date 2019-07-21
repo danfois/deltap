@@ -32,7 +32,7 @@ class ServiceOrderType extends AbstractType
             ->add('customer', EntityType::class, array(
                 'class' => 'AppBundle:Customer',
                 'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('c')->select('c');
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
                 },
                 'choice_label' => 'business_name',
                 'placeholder' => 'Scegli Cliente',
@@ -86,6 +86,9 @@ class ServiceOrderType extends AbstractType
             ))
             ->add('driver', EntityType::class, array(
                 'class' => 'AppBundle\Entity\User',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.username');
+                },
                 'choice_label' => 'username',
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,
@@ -95,6 +98,9 @@ class ServiceOrderType extends AbstractType
             ))
             ->add('vehicle', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Vehicle\Vehicle',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.plate');
+                },
                 'choice_label' => 'plate',
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,

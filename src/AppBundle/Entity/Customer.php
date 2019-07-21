@@ -62,14 +62,14 @@ class Customer
     private $fax;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false, name="email")
+     * @ORM\Column(type="string", length=128, nullable=false, name="email")
      * @Assert\NotBlank(message="Email address cannot be empty.")
      * @Assert\Email(message="The email address you provided is not valid.", checkMX=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true, name="pec")
+     * @ORM\Column(type="string", length=128, nullable=true, name="pec")
      * @Assert\Email(message="The pec address you provided is not valid.", checkMX=false)
      */
     private $pec;

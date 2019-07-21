@@ -4,6 +4,7 @@ namespace AppBundle\Form\PriceQuotation;
 
 use AppBundle\Entity\PriceQuotation\Demand;
 use AppBundle\Form\DataTransformer\StringToDateTimeTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -60,6 +61,9 @@ class DemandType extends AbstractType
             ->add('receiver', EntityType::class, array(
                 'class' => 'AppBundle\Entity\User',
                 'choice_label' => 'username',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.username');
+                },
                 'empty_data' => null,
                 'placeholder' => 'Scegli Utente',
                 'attr' => array(

@@ -13,7 +13,7 @@ var CustomerForm = function () {
                     'create_customer[phone]': {maxlength: 12},
                     'create_customer[mobile]': {maxlength: 12},
                     'create_customer[fax]': {maxlength: 12},
-                    'create_customer[email]': {required: !0, maxlength: 32, email: true},
+                    'create_customer[email]': {required: !0, maxlength: 128, email: true},
                     'create_customer[vat]': {maxlength: 12},
                     'create_customer[cf]': {maxlength: 16},
                     'create_customer[website]': {maxlength: 255},

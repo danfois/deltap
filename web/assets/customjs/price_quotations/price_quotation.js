@@ -170,4 +170,9 @@ jQuery(document).ready(function () {
     PriceQuotationFormRepeater.init();
     generateLetter.init();
     initializeWidgets();
+
+    $('#price_quotation_customer').select2({
+        placeholder: "Seleziona un cliente"
+    });
+
 });

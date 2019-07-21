@@ -1,4 +1,6 @@
 var Tickler = function () {
+    $.fn.dataTable.moment('DD-MM-YYYY');
+
     genericAjaxRequestWithCallback('GET', 'expiring-maintenances', {}, function (r) {
         $('#manutenzioni').html(r);
     });

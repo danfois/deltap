@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Vehicle;
 use AppBundle\Entity\Vehicle\Maintenance;
 use AppBundle\Form\DataTransformer\StringToDateTransformer;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -25,6 +26,9 @@ class VehicleMaintenanceType extends AbstractType
         $builder
             ->add('vehicle', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Vehicle\Vehicle',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.plate');
+                },
                 'choice_label' => 'plate',
                 'empty_data' => null,
                 'placeholder' => 'Scegli un veicolo',
@@ -34,6 +38,9 @@ class VehicleMaintenanceType extends AbstractType
             ))
             ->add('provider', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Provider',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.businessName');
+                },
                 'choice_label' => 'businessName',
                 'empty_data' => null,
                 'placeholder' => 'Scegli Fornitore',
@@ -45,6 +52,9 @@ class VehicleMaintenanceType extends AbstractType
                 'class' => 'AppBundle\Entity\Employee\Employee',
                 'choice_label' => function($e) {
                     return $e->getName() . ' ' . $e->getSurname();
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->select('c')->orderBy('c.name');
                 },
                 'empty_data' => null,
                 'placeholder' => 'Esecutore Interno',
