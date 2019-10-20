@@ -460,7 +460,7 @@ class ServiceOrderController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'ods.pdf'
+            'ods' . $n . '.pdf'
         );
     }
 

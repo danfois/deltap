@@ -30,11 +30,11 @@ var UserForm = function () {
             (r = t.find(':submit')).on("click", function (e) {
                 e.preventDefault();
                 i.form() && (mApp.progress(r), t.ajaxSubmit({
-                    success: function () {
+                    success: function (response) {
                         mApp.unprogress(r);
                         swal({
                             title: "",
-                            text: "Utente creato con successo!",
+                            text: response,
                             type: "success",
                             confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
                         })

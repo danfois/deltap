@@ -10,6 +10,7 @@ use AppBundle\Entity\Employee\DrivingLetter;
 use AppBundle\Entity\Employee\DrivingLicense;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Employee\EmployeeUnavailability;
+use AppBundle\Entity\Expiration;
 use AppBundle\Entity\Invoice\IssuedInvoice;
 use AppBundle\Entity\Invoice\ReceivedInvoice;
 use AppBundle\Entity\Loan\Loan;
@@ -43,6 +44,7 @@ use AppBundle\Serializer\DocumentViewNormalizer;
 use AppBundle\Serializer\DrivingDocumentViewNormalizer;
 use AppBundle\Serializer\EmployeeUnavailabilityNormalizer;
 use AppBundle\Serializer\EmployeeViewNormalizer;
+use AppBundle\Serializer\ExpirationViewNormalizer;
 use AppBundle\Serializer\InsuranceSuspensionViewNormalizer;
 use AppBundle\Serializer\InsuranceViewNormalizer;
 use AppBundle\Serializer\IssuedInvoiceSerializer;
@@ -597,6 +599,21 @@ class JsonController extends Controller
         $normalizers = [new DemandNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $json = $serializer->serialize($d, 'json');
+
+        return new Response($json);
+    }
+
+    /**
+     * @Route("json/expirations", name="json_expirations")
+     */
+    public function jsonExpirationsAction()
+    {
+        $e = $this->getDoctrine()->getRepository(Expiration::class)->findAll();
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ExpirationViewNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        $json = $serializer->serialize($e, 'json');
 
         return new Response($json);
     }

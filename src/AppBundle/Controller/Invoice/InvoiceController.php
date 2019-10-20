@@ -418,7 +418,7 @@ class InvoiceController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'file.pdf'
+            'fattura-emessa-' . $invoice->getInvoiceNumber() . '.pdf'
         );
     }
 
@@ -456,7 +456,7 @@ class InvoiceController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'fattura.pdf'
+            'fattura-ricevuta-' . $n . '.pdf'
         );
     }
 
@@ -510,7 +510,7 @@ class InvoiceController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'orientation' => 'landscape')),
-            'fattura.pdf'
+            'resoconto-fatture-cliente-' . $customer->getBusinessName() . '.pdf'
         );
     }
 
@@ -553,7 +553,7 @@ class InvoiceController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'orientation' => 'landscape')),
-            'fattura.pdf'
+            'resoconto-fatture-fornitore' . $provider->getBusinessName() . '.pdf'
         );
     }
 

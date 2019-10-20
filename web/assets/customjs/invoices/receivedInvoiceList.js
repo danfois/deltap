@@ -328,6 +328,7 @@ var InvoiceList = function () {
 						    	<a class="dropdown-item" href="print/received-invoice-' + row.idv + '"><i class="la la-eye"></i> Vedi Fattura</a>\
 						    	\<a class="dropdown-item" href="create-payment-from/receivedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
+                                <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-expiration-from-received-invoice/'+ row.idv+ '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_expiration\', \'initializeWidgets\' : true } )"><i class="la la-calendar-plus-o"></i> Inserisci Scadenza</a>\
 						  	</div>\
 						</div>\
 						<a href="edit-received-invoice-' + row.idv +'" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\

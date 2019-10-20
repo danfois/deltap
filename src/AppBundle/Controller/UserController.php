@@ -49,7 +49,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return new Response('OK', 200);
+        return new Response('Utente creato con successo', 200);
     }
 
     /**
@@ -60,11 +60,58 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository(User::class)->find($n);
         if($user == null) return new Response('Utente non trovato', 404);
 
+        if($user->getStatus() == 1) {
+            $user->setStatus(true);
+        } else {
+            $user->setStatus(false);
+        }
+
         $form = $this->createForm(CreateUserType::class, $user);
 
-        return $this->render('users/create_user.html.twig', array(
-            'form' => $form->createView()
+        return $this->render('users/edit_user.html.twig', array(
+            'form' => $form->createView(),
+            'action_url' => $this->generateUrl('edit_user_ajax', array('n' => $n))
         ));
+    }
+
+    /**
+     * @Route("ajax-edit-user-{n}", name="edit_user_ajax")
+     */
+    public function editUserAjaxAction(Request $request, int $n)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($n);
+        if($user == null) return new Response('Utente non trovato', 404);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($user->getStatus() == 1) {
+            $user->setStatus(true);
+        } else {
+            $user->setStatus(false);
+        }
+
+        $form = $this->createForm(CreateUserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+
+            $encoder = $this->container->get('security.password_encoder');
+            $plainPassword = $user->getPassword();
+            $encoded = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encoded);
+
+            try {
+                $em->flush();
+            } catch( \Exception $e) {
+                return new Response("Esiste già un utente con quei dati", 500);
+            }
+
+            return new Response('Utente modificato con successo', 200);
+        } else {
+            return new Response('Errore durante la modifica dell\'utente', 200);
+        }
     }
 
     /**

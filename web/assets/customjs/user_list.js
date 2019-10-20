@@ -62,19 +62,20 @@ var UserList = function () {
                     sortable: false,
                     overflow: 'visible',
                     template: function (row, index, datatable) {
-                        var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
                         \<div class="dropdown ' + dropup + '">\
                                     <a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
                                         <i class="la la-ellipsis-h"></i>\
                                     </a>\
                                     <div class="dropdown-menu dropdown-menu-right">\
+                                        <a class="dropdown-item" href="edit-user-' + row.idv + '" target="_blank"><i class="la la-edit"></i> Modifica Utente</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'employee-to-user-'+row.idv+'\', {}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_employee_to_user\'});"><i class="la la-user-plus"></i> Associa Dipendente</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-user-status\', {\'status\' : 1, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-check"></i> Imposta come Attivo</a>\
                                         <a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'change-user-status\', {\'status\' : 0, \'id\' : '+row.idv+'}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-close"></i> Imposta come Disattivo</a>\
                                     </div>\
                                 </div>\
 					';
+                        var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                     }
                 }],
             translate: {

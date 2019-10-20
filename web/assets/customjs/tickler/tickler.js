@@ -13,6 +13,10 @@ var Tickler = function () {
         $('#finanziarie').html(r);
     });
 
+    genericAjaxRequestWithCallback('GET', 'expiring-invoices', {}, function (r) {
+        $('#fatture').html(r);
+    });
+
 };
 
 $(document).ready(function () {

@@ -42,6 +42,7 @@ class IssuedInvoiceHelper extends InvoiceHelper
 
     protected function checkSamePriceQuotationDetail()
     {
+        if($this->invoice->getPriceQuotationDetail() == null) return true;
         $existingInvoice = $this->em->getRepository(IssuedInvoice::class)->findBy(array('priceQuotationDetail' => $this->invoice->getPriceQuotationDetail()));
         if($existingInvoice != null) {
             $this->errors .= "Non puoi fatturare più di una volta lo stesso itinerario<br>";

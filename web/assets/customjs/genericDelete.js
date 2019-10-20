@@ -8,6 +8,6 @@ var genericDelete = function (url, sentence, data) {
         cancelButtonText: "No, Annulla!",
         reverseButtons: !0
     }).then(function (e) {
-        e.value ? genericAjaxRequest('GET', url, data, function() { $('.m_datatable').mDatatable('reload'); }) : "cancel" === e.dismiss && swal("Annullato", sentence, "info")
+        e.value ? genericAjaxRequest('GET', url, data, function() { $('.m_datatable').mDatatable('reload'); $('#m_table_1').DataTable().ajax.reload(); }) : "cancel" === e.dismiss && swal("Annullato", sentence, "info")
     })
 };

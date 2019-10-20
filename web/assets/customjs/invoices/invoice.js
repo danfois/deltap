@@ -122,16 +122,16 @@ jQuery(document).ready(function () {
         toggleReadonly();
     })
 
-    $('#issued_invoice_customer').select2({
-        placeholder: "Seleziona un cliente"
-    });
-
-    $('#issued_invoice_priceQuotationDetail').select2({
-        placeholder: "Seleziona un itinerario"
-    });
-
-    $('#received_invoice_provider').select2({
-        placeholder: "Seleziona un fornitore"
-    });
+    // $('#issued_invoice_customer').select2({
+    //     placeholder: "Seleziona un cliente"
+    // });
+    //
+    // $('#issued_invoice_priceQuotationDetail').select2({
+    //     placeholder: "Seleziona un itinerario"
+    // });
+    //
+    // $('#received_invoice_provider').select2({
+    //     placeholder: "Seleziona un fornitore"
+    // });
 
 });

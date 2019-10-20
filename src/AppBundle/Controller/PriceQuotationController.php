@@ -580,7 +580,7 @@ class PriceQuotationController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
-            'preventivo.pdf'
+            'preventivo-' . $n . '.pdf'
         );
     }
 
@@ -600,7 +600,7 @@ class PriceQuotationController extends Controller
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
-            'preventivo.pdf'
+            'preventivo-' . $n . '.pdf'
         );
     }
 
@@ -718,7 +718,8 @@ class PriceQuotationController extends Controller
 
         $html = $this->renderView('price_quotations/email_form.html.twig', array(
             'action_url' => $this->generateUrl('send_pq_email', array('n' => $n)),
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'text' => 'In riferimento alla Vostra gradita richiesta le inviamo il nostro miglior preventivo, flussi finanziari, la dichiarazione di responsabilità e un questionario che Vi preghiamo volerci rispedire al termine del servizio. Distinti saluti Responsabile Noleggio <br>Angela Motzo'
         ));
 
         return $this->render('includes/generic_modal_content.html.twig', array(
@@ -739,7 +740,8 @@ class PriceQuotationController extends Controller
 
         $html = $this->renderView('price_quotations/email_form.html.twig', array(
             'action_url' => $this->generateUrl('send_pqd_email', array('n' => $n)),
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'text' => 'In riferimento alla Vostra gradita richiesta le inviamo il nostro miglior preventivo, flussi finanziari, la dichiarazione di responsabilità e un questionario che Vi preghiamo volerci rispedire al termine del servizio. Distinti saluti Responsabile Noleggio <br>Angela Motzo'
         ));
 
         return $this->render('includes/generic_modal_content.html.twig', array(
@@ -765,7 +767,7 @@ class PriceQuotationController extends Controller
 
         $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
 
-        $pdf = new \Swift_Attachment($data, 'preventivo.pdf', 'application/pdf');
+        $pdf = new \Swift_Attachment($data, 'preventivo-' . $n . '.pdf', 'application/pdf');
 
         $message = (new \Swift_Message('Redentours | Nuovo Preventivo'))
             ->setFrom('info@redentours.com')
@@ -798,7 +800,7 @@ class PriceQuotationController extends Controller
 
         $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
 
-        $pdf = new \Swift_Attachment($data, 'preventivo.pdf', 'application/pdf');
+        $pdf = new \Swift_Attachment($data, 'preventivo-' . $n . '.pdf', 'application/pdf');
 
         $message = (new \Swift_Message('Redentours | Nuovo Preventivo'))
             ->setFrom('info@redentours.com')

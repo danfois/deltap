@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <table class="table table-bordered" id="expirationsTable">
+            <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Descrizione</th>
+                <th>Data Scadenza</th>
+                <th>Creata il</th>
+                <th>Creata da</th>
+                <th>Fattura Emessa N.</th>
+                <th>Fattura Ricevuta N.</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for e in expirations %}
+
+                <tr>
+                    <td>{{ e.title }}</td>
+                    <td>{{ e.description }}</td>
+                    <td>{{ e.expirationDate|date('d-m-Y') }}</td>
+                    <td>{{ e.createdAt|date('d-m-Y') }}</td>
+                    <td>{{ e.user.username }}</td>
+                    <td>{% if e.issuedInvoice is not null %}
+                            {{ e.issuedInvoice.invoiceNumber }}
+                        {% endif %}
+                    </td>
+                    <td>{% if e.receivedInvoice is not null %}
+                            {{ e.receivedInvoice.invoiceNumber }}
+                        {% endif %}
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#expirationsTable').DataTable({
+            responsive: true,
+            language: {
+                "sEmptyTable":     "Nessun dato presente nella tabella",
+                "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
+                "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
+                "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ".",
+                "sLengthMenu":     "Visualizza _MENU_ elementi",
+                "sLoadingRecords": "Caricamento...",
+                "sProcessing":     "Elaborazione...",
+                "sSearch":         "Cerca:",
+                "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
+                "oPaginate": {
+                    "sFirst":      "Inizio",
+                    "sPrevious":   "Precedente",
+                    "sNext":       "Successivo",
+                    "sLast":       "Fine"
+                },
+                "oAria": {
+                    "sSortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+                    "sSortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+                }
+            }
+        })
+    });
+</script>
