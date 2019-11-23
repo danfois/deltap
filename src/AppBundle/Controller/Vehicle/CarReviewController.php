@@ -6,7 +6,7 @@ use AppBundle\Entity\Vehicle\CarReview;
 use AppBundle\Form\Vehicle\CarReviewType;
 use AppBundle\Helper\Vehicle\CarReviewHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

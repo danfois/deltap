@@ -8,7 +8,7 @@ use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Form\CreateCategoryType;
 use AppBundle\Form\CreateCustomerType;
 use AppBundle\Helper\Customer\CustomerHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

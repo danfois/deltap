@@ -16,7 +16,7 @@ use AppBundle\Service\Invoice\InvoiceNumberManager;
 use AppBundle\Service\Invoice\InvoiceRequestManager;
 use AppBundle\Util\ClassResolver;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;

@@ -12,7 +12,7 @@ use AppBundle\Form\Employee\DriverQualificationLetterType;
 use AppBundle\Form\Employee\DrivingLetterType;
 use AppBundle\Helper\Employee\DrivingLetterHelper;
 use AppBundle\Helper\Employee\QualificationLetterHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;

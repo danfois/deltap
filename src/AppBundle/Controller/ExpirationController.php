@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Expiration;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ExpirationController extends Controller

@@ -6,7 +6,7 @@ use AppBundle\Entity\ServiceType;
 use AppBundle\Form\CreateServiceType;
 use AppBundle\Form\CreateServiceTypeType;
 use AppBundle\Util\TableMaker;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

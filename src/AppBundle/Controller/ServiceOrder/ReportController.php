@@ -6,7 +6,7 @@ use AppBundle\Entity\ServiceOrder\Report;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
 use AppBundle\Form\ServiceOrder\ReportType;
 use AppBundle\Helper\ServiceOrder\ReportHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -9,7 +9,7 @@ use AppBundle\Form\Employee\EmployeeUnavailabilityType;
 use AppBundle\Form\Employee\TerminateEmployeeType;
 use AppBundle\Helper\Employee\EmployeeHelper;
 use AppBundle\Helper\Employee\UnavailabilityHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -46,8 +46,8 @@ security:
                     a: { path: null, domain: null }
                     b: { path: null, domain: null }
 
-    access_control:
-            - { path: ^/public/create-turn-for-cron$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/drivers, role: [ROLE_DRIVER, ROLE_ADMIN]}
-            - { path: ^/, role: ROLE_ADMIN }
+#    access_control:
+#            - { path: ^/public/create-turn-for-cron$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#            - { path: ^/drivers, role: [ROLE_DRIVER, ROLE_ADMIN]}
+#            - { path: ^/, role: ROLE_ADMIN }

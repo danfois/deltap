@@ -6,7 +6,7 @@ use AppBundle\Entity\PriceQuotation\Demand;
 use AppBundle\Entity\PriceQuotation\PriceQuotation;
 use AppBundle\Form\PriceQuotation\DemandType;
 use AppBundle\Util\TableMaker;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

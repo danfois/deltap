@@ -11,7 +11,7 @@ use AppBundle\Form\Vehicle\SetupMaintenanceType;
 use AppBundle\Form\Vehicle\VehicleMaintenanceType;
 use AppBundle\Helper\Vehicle\ExpiringMaintenanceProvider;
 use AppBundle\Helper\Vehicle\MaintenanceHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\DriverUser;
 use AppBundle\Entity\ServiceOrder\ServiceOrder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;

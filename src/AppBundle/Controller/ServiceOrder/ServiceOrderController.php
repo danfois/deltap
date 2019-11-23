@@ -12,7 +12,7 @@ use AppBundle\Form\ServiceOrder\ServiceOrderType;
 use AppBundle\Helper\ServiceOrder\ServiceOrderCreator;
 use AppBundle\Helper\ServiceOrder\ServiceOrderHelper;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
