@@ -79,6 +79,8 @@ class LoanController extends Controller
         $loan = $this->getDoctrine()->getRepository(Loan::class)->find($n);
         if($loan == null) return new Response('Mutuo non trovato', 404);
 
+        if(count($loan->getLoanInstalments()) == 0) $loan->addLoanInstalment(new LoanInstalment());
+
         $form = $this->createForm(LoanType::class, $loan);
 
         return $this->render('loans/loan.html.twig', array(

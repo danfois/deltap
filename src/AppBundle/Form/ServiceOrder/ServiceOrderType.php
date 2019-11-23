@@ -93,8 +93,9 @@ class ServiceOrderType extends AbstractType
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,
                 'attr' => array(
-                    'class' => 'form-control m-input'
-                )
+                    'class' => 'form-control m-input',
+                ),
+                'required' => false
             ))
             ->add('vehicle', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Vehicle\Vehicle',
@@ -106,7 +107,8 @@ class ServiceOrderType extends AbstractType
                 'empty_data' => null,
                 'attr' => array(
                     'class' => 'form-control m-input'
-                )
+                ),
+                'required' => false
             ))
             ->add('serviceFrequency', EntityType::class, array(
                 'class' => 'AppBundle:ServiceType',

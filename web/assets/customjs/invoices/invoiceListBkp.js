@@ -1,13 +1,13 @@
-var LoanList = function () {
+var InvoiceList = function () {
 
-    var loanList = function () {
+    var invoiceList = function () {
 
         var options = {
             data: {
                 type: 'remote',
                 source: {
                     read: {
-                        url: '/json/loans'
+                        url: '/json/issued-invoices'
                     }
                 },
                 pageSize: 20
@@ -31,9 +31,9 @@ var LoanList = function () {
                             type: "remote",
                             source: {
                                 read: {
-                                    url: "json/loan-instalments",
+                                    url: "json/payments",
                                     //headers: {"x-my-custom-header": "some value", "x-test-header": "the value"},
-                                    params: {'id': t.data.idv}
+                                    params: {'id': t.data.idv, 'invoiceType': 'issuedInvoice'}
                                 }
                             },
                             pageSize: 10
@@ -41,6 +41,7 @@ var LoanList = function () {
                         layout: {
                             theme: "default",
                             scroll: !0,
+                            height: 300,
                             footer: !1,
                             spinner: {type: 1, theme: "default"}
                         },
@@ -48,14 +49,15 @@ var LoanList = function () {
                         columns: [
                             {
                                 field: 'id',
-                                title: 'Id',
+                                title: 'Id Pag.',
                                 sortable: false,
                                 width: 20,
                                 selector: {class: 'm-checkbox--solid m-checkbox--brand'}
                             },
                             {
                                 field: 'paymentDate',
-                                title: 'Data Pag.',
+                                title: 'Data',
+                                width: 80,
                                 sortCallback: function (data, sort, column) {
                                     var field = column['field'];
                                     return $(data).sort(function (a, b) {
@@ -117,35 +119,86 @@ var LoanList = function () {
                                 }
                             },
                             {
-                                field: 'amount',
-                                title: 'Importo',
-                                template: function (row) {
-                                    return '&euro; ' + row.amount;
-                                }
-                            },
-                            {
-                                field: 'interestRate',
-                                title: 'Interessi %',
-                                template: function (row) {
-                                    return row.interestRate + ' %';
-                                }
-                            },
-                            {
-                                field: 'paymentType',
-                                title: 'Tipo Pag.',
+                                field: 'direction',
+                                title: '<i class="la la-exchange"></i>',
                                 template: function (row) {
                                     var status = {
-                                        'CASH': {'title': 'Contanti', 'class': 'success'},
-                                        'TRANSFER': {'title': 'Bonifico', 'class': 'info'},
-                                        'CHECK': {'title': 'Assegno', 'class': 'brand'},
-                                        'RID': {'title': 'RID', 'class': 'accent'},
+                                        'IN': {'title': 'Entrata', 'class': 'success'},
+                                        'OUT': {'title': 'Uscita', 'class': 'danger'}
                                     };
-                                    return '<span class="m-badge m-badge--' + status[row.paymentType].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.paymentType].class + '">' + status[row.paymentType].title + '</span>';
+                                    return '<span class="m-badge m-badge--' + status[row.direction].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.direction].class + '">' + status[row.direction].title + '</span>';
+                                },
+                                width: 70
+                            },
+                            {
+                                field: 'type',
+                                title: 'Tipo',
+                                sortable: 'asc',
+                                width: 80,
+                                template: function (row) {
+                                    var status = {
+                                        'CASH': {'title': 'Contanti', 'class': 'm-badge--success'},
+                                        'TRANSFER': {'title': 'Bonifico', 'class': ' m-badge--info'},
+                                        'CHECK': {'title': 'Assegno', 'class': ' m-badge--warning'}
+                                    };
+                                    return '<span class="m-badge ' + status[row.type].class + ' m-badge--wide">' + status[row.type].title + '</span>';
                                 }
                             },
                             {
-                                field: 'bankAccount',
-                                title: 'Conto Corrente'
+                                field: 'amount',
+                                title: 'Importo',
+                                width: 70,
+                                sortable: true,
+                                template: function (row) {
+                                    if (row.direction === 'IN') {
+                                        return '<span class="m--font-success m--font-bold">&euro; ' + row.amount + '</span>';
+                                    } else {
+                                        return '<span class="m--font-danger m--font-bold">&euro; ' + row.amount + '</span>';
+                                    }
+                                }
+                            },
+                            {
+                                field: 'causal',
+                                title: 'Causale',
+                                sortable: true,
+                                template: function (row) {
+                                    return '<span style="font-size:11px;">' + row.causal + '</span>';
+                                }
+                            },
+                            {
+                                field: 'description',
+                                title: 'Descrizione',
+                                sortable: true,
+                                template: function (row) {
+                                    return '<span style="font-size:11px;">' + row.description + '</span>';
+                                }
+                            },
+                            {
+                                field: 'customer',
+                                title: 'Cliente/Fornitore',
+                                sortable: true,
+                                template: function (row) {
+                                    if (row.customer != '') {
+                                        return row.customer;
+                                    }
+                                    if (row.provider != '') {
+                                        return row.provider;
+                                    }
+
+                                    return 'Nessuno';
+                                }
+                            },
+                            {
+                                field: 'checkDate',
+                                title: 'Dati Assegno',
+                                width: 100,
+                                template: function (row) {
+                                    if (row.checkDate != null && row.checkNumber != null) {
+                                        return row.checkDate + ' - ' + row.checkNumber;
+                                    } else {
+                                        return 'N/A';
+                                    }
+                                }
                             },
                             {
                                 field: 'Actions',
@@ -161,19 +214,21 @@ var LoanList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'edit-instalment-'+row.idv+'\', {\'id\' : ' + row.idv + '}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_instalment\'})" target="_blank"><i class="la la-edit"></i> Modifica Rata</a>\
-						    	<a class="dropdown-item" href="create-payment-from/loanInstalment/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
-						    	<a class="dropdown-item" href="generate-invoice?type=received&datatype=loans&data=['+row.idv+']" onclick="" target="_blank"><i class="la la-file"></i> Registra Fattura</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-instalment\', \'La rata non è stata rimossa\', {\'id\' : '+row.idv+'})"><i class="la la-trash"></i> Rimuovi Rata</a>\
+						    	<a class="dropdown-item" href="edit-payment-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Pagamento</a>\
+						    	<a class="dropdown-item" href="" onclick="alert(\'In Lavorazione\')"><i class="la la-print"></i> Stampa Pagamento</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'ajax/delete-payment-' + row.idv + '\', \'Pagamento NON eliminato!\', {} )"><i class="la la-trash"></i> Elimina Pagamento</a>\
 						  	</div>\
 						</div>\
+						<a href="edit-payment-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Pagamento">\
+							<i class="la la-edit"></i>\
+						</a>\
 					';
-                                }}
-                        ],
+                                }
+                            }],
                         translate: {
                             records: {
                                 processing: "Caricamento...",
-                                noRecords: "Nessuna rata per questo mutuo"
+                                noRecords: "Nessun pagamento per questa fattura"
                             },
                             toolbar: {
                                 pagination: {
@@ -186,7 +241,7 @@ var LoanList = function () {
                                             more: "Più Pagine",
                                             input: "Numero di Pagina",
                                             select: "Seleziona il numero della pagina"
-                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Rate"
+                                        }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Pagamenti"
                                     }
                                 }
                             }
@@ -209,57 +264,60 @@ var LoanList = function () {
                     width: 30
                 },
                 {
-                    field: 'provider',
-                    title: 'Banca'
+                    field: 'customer',
+                    title: 'Cliente'
+                },
+                {
+                    field:'proforma',
+                    title: 'Tipo',
+                    template: function (row) {
+                        var status = {
+                            '0': {'title': 'Fattura', 'class': 'm-badge--success'},
+                            '1': {'title': 'Proforma', 'class': ' m-badge--info'}
+
+                        };
+                        return '<span class="m-badge ' + status[row.proforma].class + ' m-badge--wide">' + status[row.proforma].title + '</span>';
+                    }
                 },
                 {
                     field: 'number',
-                    title: 'Numero Mutuo',
+                    title: 'N. Fatt.',
                     template: function (row) {
-                        return '<strong>' + row.number + '</strong>';
+                        return '<span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">' + row.number + '</span></span>';
                     }
                 },
                 {
-                    field: 'amount',
-                    title: 'Importo Finanziato',
+                    field: 'paInvoiceNumber',
+                    title: 'N. Fatt. PA',
+                    sortable: true,
                     template: function (row) {
-                        return '&euro; ' + row.amount;
-                    }
-                }, {
-                    field: 'interestRate',
-                    title: 'Interessi %',
-                    template: function (row) {
-                        return row.interestRate + ' %';
+                        if (row.paInvoiceNumber != null) return '<span class="m-badge m-badge--warning m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-warning">' + row.paInvoiceNumber + '</span></span>';
+                        return '<span class="m-badge m-badge--metal m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-metal">Nessuno</span></span>';
                     }
                 },
                 {
-                    field: 'interestType',
-                    title: 'Tipo Interessi',
+                    field: 'payment',
+                    title: 'Tipo di Pagamento',
+                    sortable: true
+                },
+                {
+                    field: 'totTaxInc',
+                    title: 'Importo',
+                    sortable: true,
                     template: function (row) {
-                        var status = {
-                            'FIXED': {'title': 'Fisso', 'class': 'success'},
-                            'VARIABLE': {'title': 'Variabile', 'class': 'danger'},
-                            'MIXED': {'title': 'Misto', 'class': 'warning'}
-                        };
-                        return '<span class="m-badge m-badge--' + status[row.interestType].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.interestType].class + '">' + status[row.interestType].title + '</span>';
+                        return '&euro; ' + row.totTaxInc;
                     }
                 },
                 {
-                    field: 'instalmentType',
-                    title: 'Rateizzazione',
-                    template: function (row) {
-                        var status = {
-                            'MONTHLY': {'title': 'Mensile', 'class': 'warning'},
-                            'QUARTERLY': {'title': 'Trimestrale', 'class': 'brand'},
-                            'HALFYEARLY': {'title': 'Semestrale', 'class': 'info'},
-                            'YEARLY': {'title': 'Annuale', 'class': 'metal'}
-                        };
-                        return '<span class="m-badge ' + status[row.instalmentType].class + ' m-badge--wide">' + status[row.instalmentType].title + '</span>';
+                    field: 'balance',
+                    title: 'Saldo',
+                    template: function(row) {
+                        if(row.remaining != '0') {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>' + ' / ' + '<span class="m--font-danger">&euro; '+row.remaining+'</span>';
+                        } else {
+                            return '<span class="m--font-success">&euro; '+row.balance+'</span>';
+                        }
                     }
-                },
-                {
-                    field: 'instalmentNumber',
-                    title: 'N. Rate'
                 },
                 {
                     field: 'Actions',
@@ -268,6 +326,30 @@ var LoanList = function () {
                     sortable: false,
                     overflow: 'visible',
                     template: function (row, index, datatable) {
+                        if(row.proforma != '0') {
+                            var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
+                            return '\
+						<div class="dropdown ' + dropup + '">\
+							<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">\
+                                <i class="la la-ellipsis-h"></i>\
+                            </a>\
+						  	<div class="dropdown-menu dropdown-menu-right">\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericAjaxRequest(\'GET\', \'proforma-to-invoice-'+row.idv+'\', {}, $(\'.m_datatable\').mDatatable(\'reload\'))"><i class="la la-file"></i> Trasforma in Fattura</a>\
+						    	<a class="dropdown-item" href="edit-issued-invoice-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Proforma</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Proforma</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Invia al Cliente</a>\
+						    	\<a class="dropdown-item" href="create-payment-from/issuedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
+						  	</div>\
+						</div>\
+						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
+							<i class="la la-edit"></i>\
+						</a>\
+						<a href="print/issued-invoice-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
+							<i class="la la-eye"></i>\
+						</a>\
+					';
+                        }
                         var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
                         return '\
 						<div class="dropdown ' + dropup + '">\
@@ -275,16 +357,18 @@ var LoanList = function () {
                                 <i class="la la-ellipsis-h"></i>\
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
-						    	<a class="dropdown-item" href="edit-loan-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Mutuo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-eye"></i> Vedi Mutuo</a>\
-						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-instalment\', {\'id\' : ' + row.idv + '}, {\'initializeWidgets\' : true, \'initializeForm\' : true, \'formJquery\' : \'form_instalment\'})"><i class="la la-plus-circle"></i> Aggiungi Rata</a>\
-						    	\<a class="dropdown-item" href="javascript:void(0);" onclick="genericDelete(\'delete-loan\', \'Il mutuo non è stato rimosso\', {\'id\' : '+row.idv+'})"><i class="la la-trash"></i> Elimina Mutuo</a>\
+						    	<a class="dropdown-item" href="edit-issued-invoice-' + row.idv + '" onclick=""><i class="la la-edit"></i> Modifica Fattura</a>\
+						    	<a class="dropdown-item" href="print/issued-invoice-' + row.idv + '"><i class="la la-eye"></i> Vedi Fattura</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Invia al Cliente</a>\
+						    	<a class="dropdown-item" href="create-payment-from/issuedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-expiration-from-issued-invoice/'+ row.idv+ '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_expiration\', \'initializeWidgets\' : true } )"><i class="la la-calendar-plus-o"></i> Inserisci Scadenza</a>\
 						  	</div>\
 						</div>\
-						<a href="edit-loan-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Mutuo">\
+						<a href="edit-issued-invoice-' + row.idv + '" onclick="" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica Fattura">\
 							<i class="la la-edit"></i>\
 						</a>\
-						<a href="javascript:void(0);" onclick="alert(\'In Lavorazione\')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Mutuo">\
+						<a href="print/issued-invoice-' + row.idv + '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Vedi Fattura">\
 							<i class="la la-eye"></i>\
 						</a>\
 					';
@@ -293,7 +377,7 @@ var LoanList = function () {
             translate: {
                 records: {
                     processing: "Caricamento...",
-                    noRecords: "Nessun Mutuo trovato"
+                    noRecords: "Nessuna fattura emessa trovata"
                 },
                 toolbar: {
                     pagination: {
@@ -306,7 +390,7 @@ var LoanList = function () {
                                 more: "Più Pagine",
                                 input: "Numero di Pagina",
                                 select: "Seleziona il numero della pagina"
-                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Mutui"
+                            }, info: "Visualizzando {{start}} - {{end}} dì {{total}} Fatture Emesse"
                         }
                     }
                 }
@@ -314,6 +398,14 @@ var LoanList = function () {
         };
 
         var datatable = $('.m_datatable').mDatatable(options);
+
+        var query = datatable.getDataSourceQuery();
+
+        $('#m_form_proforma').on('change', function () {
+            datatable.search($(this).val(), 'proforma');
+        }).val(typeof query.proforma !== 'undefined' ? query.proforma : '');
+
+        $('#m_form_proforma').selectpicker();
 
         $('#m_datatable_destroy').on('click', function () {
             $('.m_datatable').mDatatable('destroy');
@@ -371,8 +463,7 @@ var LoanList = function () {
 
     return {
         init: function () {
-            loanList();
+            invoiceList();
         }
     };
 }();
-

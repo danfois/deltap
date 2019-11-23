@@ -346,6 +346,13 @@ class ServiceOrderController extends Controller
         if ($so == null) return new Response('Ordine di Servizio non trovato!', 404);
 
         $vehicleId = $request->query->get('idVehicle');
+
+        if($vehicleId == null) {
+            $so->setVehicle(null);
+            $em->flush();
+            return new Response('Veicolo assegnato correttamente', 200);
+        }
+
         if (is_numeric($vehicleId) === false) return new Response('Richiesta effettuata in maniera non corretta', 400);
 
         $vehicle = $em->getRepository(Vehicle::class)->find($vehicleId);

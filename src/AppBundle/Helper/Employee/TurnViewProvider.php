@@ -24,7 +24,7 @@ class TurnViewProvider
             if ($t instanceof EmployeeTurn)
                 foreach ($t->getTurnDetails() as $td) {
                     if ($td instanceof EmployeeTurnDetail) {
-                        if (!in_array($td->getEmployee()->getEmployeeId(), $driverArray)) {
+                        if ($td->getEmployee() != null && !in_array($td->getEmployee()->getEmployeeId(), $driverArray)) {
                             $driverArray[$td->getEmployee()->getEmployeeId()] = array('name' => $td->getEmployee()->getName() . ' ' . $td->getEmployee()->getSurname(), 'turns' => $daysArray);
                         } else {
                             continue;

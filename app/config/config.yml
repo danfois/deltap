@@ -67,6 +67,10 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+sensio_framework_extra:
+    router:
+        annotations: false
+
 knp_snappy:
     #pdf:
     #    enabled: true

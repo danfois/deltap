@@ -21,6 +21,7 @@ class InstalmentCompiler
     {
         $interests = $this->calculateInterests();
 
+        $this->instalment->setLoan($this->loan);
         $this->instalment->setPaymentDate(new \DateTime());
         $this->instalment->setAmount($this->loan->getInstalmentAmount());
         $this->instalment->setCapital($this->loan->getInstalmentAmount() - $interests);

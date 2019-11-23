@@ -27,6 +27,8 @@ var SalaryForm = function () {
             });
             (r = t.find(':submit')).on("click", function (e) {
                 e.preventDefault();
+                // correctSalaryForm();s
+                // t = $('#form_salary');
                 mApp.blockPage({
                     overlayColor: "#000000",
                     type: "loader",
@@ -64,6 +66,18 @@ var SalaryForm = function () {
         }
     }
 };
+
+function correctSalaryForm() {
+    var sdInputs = $('input[name*="salaryDetails"], select[name*="salaryDetails"]');
+    sdInputs.each(function() {
+       if($(this).attr('name').indexOf('payment') !== -1) return;
+       var currentName = $(this).attr('name');
+       var splittedName = currentName.split("]");
+       var newName = splittedName[0] + "]" + splittedName[1] + "]" + "[payment]" + splittedName[2] + "]";
+       $(this).attr('name', newName);
+       console.log(newName);
+    });
+}
 
 jQuery(document).ready(function () {
     SalaryForm().init();

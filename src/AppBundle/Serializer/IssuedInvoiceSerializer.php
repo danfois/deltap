@@ -29,13 +29,13 @@ class IssuedInvoiceSerializer implements NormalizerInterface
                     'id' => $o->getInvoiceId(),
                     'ids' => $o->getInvoiceId(),
                     'idv' => $o->getInvoiceId(),
-                    'number' => $o->getInvoiceNumber(),
-                    'payment' => $o->getPaymentTerms(),
-                    'paInvoiceNumber' => $o->getPaInvoiceNumber(),
+                    'number' => (string) $o->getInvoiceNumber(),
+                    'payment' => (string) $o->getPaymentTerms(),
+                    'paInvoiceNumber' => (string) $o->getPaInvoiceNumber(),
                     'customer' => $o->getCustomer()->getBusinessName(),
-                    'totTaxInc' => $totTaxInc,
-                    'balance' => $balance,
-                    'remaining' => $totTaxInc - $balance,
+                    'totTaxInc' => (string) $totTaxInc,
+                    'balance' => (string) $balance,
+                    'remaining' => (string) $totTaxInc - $balance,
                     'proforma' => ($o->getIsProforma() != null ? '1' : '0')
                 );
             }
