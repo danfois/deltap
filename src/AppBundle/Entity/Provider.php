@@ -118,6 +118,16 @@ class Provider
     private $registration_date;
 
     /**
+     * @ORM\Column(type="boolean", name="critical", nullable=true)
+     */
+    private $critical;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="rating")
+     */
+    private $rating;
+
+    /**
      * Get idProvider
      *
      * @return integer
@@ -437,5 +447,41 @@ class Provider
     public function getPec()
     {
         return $this->pec;
+    }
+
+    /**
+     * @param $critical
+     * @return $this
+     */
+    public function setCritical($critical)
+    {
+        $this->critical = $critical;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCritical()
+    {
+        return $this->critical;
+    }
+
+    /**
+     * @param $rating
+     * @return $this
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 }

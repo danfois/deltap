@@ -80,7 +80,7 @@ abstract class Person implements Contactable
     protected $fax;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false, name="email")
+     * @ORM\Column(type="string", length=200, nullable=false, name="email")
      * @Assert\NotBlank(message="Email address cannot be empty.")
      * @Assert\Email(message="The email address you provided is not valid.", checkMX=false)
      */

@@ -277,9 +277,9 @@ class Vehicle
     private $engineCapacity;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, length=5, name="powerKw")
+     * @ORM\Column(type="integer", nullable=false, length=10, name="powerKw")
      * @Assert\NotBlank(message="Power KW cannot be null")
-     * @Assert\Length(max=5, maxMessage="Power KW cannot be more than 99999")
+     * @Assert\Length(max=5, maxMessage="Power KW cannot be more than 9999999")
      */
     private $powerKw;
 
