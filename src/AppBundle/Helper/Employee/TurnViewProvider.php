@@ -15,6 +15,11 @@ class TurnViewProvider
         $this->turns = $turns;
     }
 
+    private static function customSort($a, $b) {
+        if($a['name'] == $b['name']) return 0;
+        return ($a['name'] < $b['name']) ? -1 : 1;
+    }
+
     protected function createDriversBidimensionalArray()
     {
         $driverArray = array();
@@ -25,13 +30,16 @@ class TurnViewProvider
                 foreach ($t->getTurnDetails() as $td) {
                     if ($td instanceof EmployeeTurnDetail) {
                         if ($td->getEmployee() != null && !in_array($td->getEmployee()->getEmployeeId(), $driverArray)) {
-                            $driverArray[$td->getEmployee()->getEmployeeId()] = array('name' => $td->getEmployee()->getName() . ' ' . $td->getEmployee()->getSurname(), 'turns' => $daysArray);
+                            $driverArray[$td->getEmployee()->getEmployeeId()] = array('name' => $td->getEmployee()->getSurname() . ' ' . $td->getEmployee()->getName(), 'turns' => $daysArray);
                         } else {
                             continue;
                         }
                     }
                 }
         }
+//        array_multisort( array_column($driverArray, "name"), SORT_ASC, $driverArray );
+        uasort($driverArray, array("AppBundle\\Helper\\Employee\\TurnViewProvider", "customSort"));
+
         return $driverArray;
     }
 

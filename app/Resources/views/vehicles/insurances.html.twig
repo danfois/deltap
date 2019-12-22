@@ -129,4 +129,17 @@
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_suspension_delete.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/insurances/insurance_suspend.js') }}"></script>
     <script src="{{ asset('assets/customjs/set_active.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#insurance_vehicle').select2({
+                placeholder: "Seleziona vehicle",
+                width: '100%'
+            });
+
+            $('#insurance_company').select2({
+                placeholder: "Seleziona compagnia",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

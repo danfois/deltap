@@ -79,13 +79,13 @@
 
                             </div>
 
+                            <div class="turnContainer">
                             {% for f in form.turnDetails %}
-
 
                                 <div class="form-group m-form__group row turn_body">
 
                                     <div class="col-md-2 col-lg-1 m-form__group-sub turn_employee_name">
-                                        {{ f.vars.value.employee.name }} {{ f.vars.value.employee.surname }}
+                                        {{ f.vars.value.employee.surname }} {{ f.vars.value.employee.name }}
                                     </div>
 
                                     <div class="col-md-2 col-lg-2 m-form__group-sub d-none">
@@ -126,7 +126,7 @@
 
 
                             {% endfor %}
-
+                            </div>
 
                         </div>
 
@@ -175,6 +175,13 @@
         $(document).ready(function () {
             initializeWidgets();
             GenericFormSubmission($('#form_turns')).init();
+            $('.turnContainer').each(function() {
+                $(this).find('.turn_body').sort(function(a, b) {
+                    console.log($(a).find('.turn_employee_name').text().trim());
+                    console.log($(a).find('.turn_employee_name').text().trim() > $(b).find('.turn_employee_name').text().trim());
+                    return $(a).find('.turn_employee_name').text().trim() < $(b).find('.turn_employee_name').text().trim() ? -1 : 1;
+                }).appendTo($('.turnContainer'));
+            })
         })
     </script>
 {% endblock %}

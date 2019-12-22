@@ -26,7 +26,7 @@ abstract class DrivingDocumentHelper
 
     protected function checkDateCoherence()
     {
-        if($this->instance->getReleaseDate() < new \DateTime()) return true;
+        if($this->instance->getReleaseDate() > new \DateTime()) return true;
         $this->errors .= 'La data di rilascio è successiva alla data odierna<br>';
         return false;
     }

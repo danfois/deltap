@@ -102,4 +102,12 @@
             type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/create_user.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $('#create_user_employee').select2({
+                placeholder: "Seleziona dipendente",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

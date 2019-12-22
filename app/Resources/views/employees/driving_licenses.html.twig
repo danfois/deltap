@@ -124,4 +124,13 @@
             initializeWidgets();
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#driving_license_employee').select2({
+                placeholder: "Seleziona dipendente",
+                width: '100%',
+                sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+            });
+        });
+    </script>
 {% endblock %}

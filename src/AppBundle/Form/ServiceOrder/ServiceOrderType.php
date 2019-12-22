@@ -89,7 +89,13 @@ class ServiceOrderType extends AbstractType
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('c')->select('c')->orderBy('c.username');
                 },
-                'choice_label' => 'username',
+                'choice_label' => function($u) {
+                    if($u->getEmployee() != null) {
+                        return $u->getEmployee()->getName() . " " . $u->getEmployee()->getSurname();
+                    } else {
+                        return $u->getUsername();
+                    }
+                },
                 'placeholder' => 'Nessuno',
                 'empty_data' => null,
                 'attr' => array(

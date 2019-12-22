@@ -125,4 +125,12 @@
     <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_edit.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_delete.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/unavailabilities/unavailability_batch_delete.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#unavailability_vehicle').select2({
+                placeholder: "Seleziona vehicle",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

@@ -67,7 +67,6 @@ class ServiceOrderCreator
                 if(isset($dateLeftout)) {
                     foreach ($dateLeftout as $d) {
                         if($d->format('d/m/Y') == $clonedDate->format('d/m/Y')) $isLeftout = true;
-
                     }
                 }
 
@@ -80,22 +79,26 @@ class ServiceOrderCreator
     protected function createOrders()
     {
         if ($this->repeatedDays == null) {
-            foreach ($this->repeatedTimes as $t) {
-                $SOC = new ServiceOrderCompiler($this->stage, $t);
-                $SOC->compileOrder();
-                $order = $SOC->getOrder();
-                $this->resultArray[] = $order;
-                $SOC = null;
-            }
-            return true;
-        } else {
-            foreach ($this->repeatedDays as $d) {
+            for($j = 0; $j < $this->stage->getBusNumber(); $j++) {
                 foreach ($this->repeatedTimes as $t) {
-                    $SOC = new ServiceOrderCompiler($this->stage, $t, $d);
+                    $SOC = new ServiceOrderCompiler($this->stage, $t);
                     $SOC->compileOrder();
                     $order = $SOC->getOrder();
                     $this->resultArray[] = $order;
                     $SOC = null;
+                }
+            }
+            return true;
+        } else {
+            for($j = 0; $j < $this->stage->getBusNumber(); $j++) {
+                foreach ($this->repeatedDays as $d) {
+                    foreach ($this->repeatedTimes as $t) {
+                        $SOC = new ServiceOrderCompiler($this->stage, $t, $d);
+                        $SOC->compileOrder();
+                        $order = $SOC->getOrder();
+                        $this->resultArray[] = $order;
+                        $SOC = null;
+                    }
                 }
             }
             return true;

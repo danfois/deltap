@@ -60,7 +60,13 @@ class DemandType extends AbstractType
             ))
             ->add('receiver', EntityType::class, array(
                 'class' => 'AppBundle\Entity\User',
-                'choice_label' => 'username',
+                'choice_label' => function($u) {
+                    if($u->getEmployee() != null) {
+                        return $u->getEmployee()->getName() . " " . $u->getEmployee()->getSurname();
+                    } else {
+                        return $u->getUsername();
+                    }
+                },
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('c')->select('c')->orderBy('c.username');
                 },

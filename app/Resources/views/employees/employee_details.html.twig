@@ -84,7 +84,7 @@
             </tr>
             <tr>
                 <td class="bg-light m--font-bold">Cessazione</td>
-                <td class="m--font-danger">{{ e.terminationDate|date('d/m/Y') }}</td>
+                <td class="m--font-danger">{% if e.terminationDate is not null %}{{ e.terminationDate|date('d/m/Y') }}{% endif %}</td>
             </tr>
         </table>
     </div>

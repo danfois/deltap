@@ -20,10 +20,10 @@ class EmployeeTurnManager
 
     public function generateYearlyTurns()
     {
-        $startDate = \DateTime::createFromFormat('d-m-Y', '01-01-2018');
+        $startDate = \DateTime::createFromFormat('d-m-Y', '01-01-2019');
         $employees = $this->em->getRepository(Employee::class)->findAll();
 
-        for($i = $startDate; $i < \DateTime::createFromFormat('d-m-Y', '31-12-2018'); $i->modify('+1 day'))
+        for($i = $startDate; $i < \DateTime::createFromFormat('d-m-Y', '31-12-2021'); $i->modify('+1 day'))
         {
             $turn = new EmployeeTurn();
             $turn->setTurnDate($i);
@@ -41,6 +41,22 @@ class EmployeeTurnManager
             $this->em->flush();
             $this->turn = $turn;
         }
+    }
+
+    public function generateYearlyTurnsForEmployee(Employee $e) {
+        $startDate = \DateTime::createFromFormat('d-m-Y', '01-01-2019');
+
+        $turns = $this->em->getRepository(EmployeeTurn::class)->findAll();
+        foreach($turns as $t) {
+            $td = new EmployeeTurnDetail();
+            $td->setEmployee($e);
+            $td->setIllness(false);
+            $td->setHoliday(false);
+            $td->setTurn($t);
+            $this->em->persist($td);
+        }
+
+        $this->em->flush();
     }
 
     public function getTodayTurn()

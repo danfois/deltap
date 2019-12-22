@@ -9,6 +9,7 @@ use AppBundle\Form\Employee\EmployeeUnavailabilityType;
 use AppBundle\Form\Employee\TerminateEmployeeType;
 use AppBundle\Helper\Employee\EmployeeHelper;
 use AppBundle\Helper\Employee\UnavailabilityHelper;
+use AppBundle\Service\EmployeeTurn\EmployeeTurnManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class EmployeeController extends Controller
     /**
      * @Route("create-employee-ajax", name="create_employee_ajax")
      */
-    public function createEmployeeAjaxAction(Request $request)
+    public function createEmployeeAjaxAction(Request $request, EmployeeTurnManager $etm)
     {
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
@@ -54,6 +55,7 @@ class EmployeeController extends Controller
 
             if ($errors == null) {
                 $em->persist($employee);
+                $etm->generateYearlyTurnsForEmployee($employee);
                 $em->flush();
 
                 return new Response('Dipendente registrato con successo!', 200);
@@ -216,7 +218,12 @@ class EmployeeController extends Controller
 
         if($form->isValid() && $form->isSubmitted()) {
             $employee = $form->getData();
-            $employee->setisFired(1);
+
+            if($employee->getTerminationDate() != null) {
+                $employee->setisFired(1);
+            } else {
+                $employee->setisFired(0);
+            }
 
             $em->flush();
 

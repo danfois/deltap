@@ -17,6 +17,11 @@ var editCarTax = function (id) {
             initializeWidgets();
             $('#edit_car_tax_modal').modal();
             mApp.unblockPage();
+            $('#car_tax_vehicle').select2({
+                placeholder: "Seleziona veicolo",
+                width: '100%'
+            });
+
         },
         error: function (e) {
             swal({

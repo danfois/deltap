@@ -125,4 +125,13 @@
             initializeWidgets();
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#employee_unavailability_employee').select2({
+                placeholder: "Seleziona dipendente",
+                width: '100%',
+                sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+            });
+        });
+    </script>
 {% endblock %}

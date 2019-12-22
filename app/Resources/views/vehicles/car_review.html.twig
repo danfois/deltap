@@ -129,4 +129,12 @@
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_edit.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/carreview/car_review_delete.js') }}"></script>
     <script src="{{ asset('assets/customjs/set_active.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#car_review_vehicle').select2({
+                placeholder: "Seleziona veicolo",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

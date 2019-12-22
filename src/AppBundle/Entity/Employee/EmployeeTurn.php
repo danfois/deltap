@@ -24,6 +24,7 @@ class EmployeeTurn
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\EmployeeTurnDetail", mappedBy="turn")
+     * @ORM\OrderBy({"employee" = "ASC"})
      */
     protected $turnDetails;
 
@@ -102,4 +103,5 @@ class EmployeeTurn
     {
         return $this->turnDetails;
     }
+
 }

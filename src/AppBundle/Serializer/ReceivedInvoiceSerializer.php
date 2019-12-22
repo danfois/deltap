@@ -29,12 +29,12 @@ class ReceivedInvoiceSerializer implements NormalizerInterface
                     'id' => $o->getInvoiceId(),
                     'ids' => $o->getInvoiceId(),
                     'idv' => $o->getInvoiceId(),
-                    'number' => $o->getInvoiceNumber(),
-                    'payment' => $o->getPaymentTerms(),
-                    'paInvoiceNumber' => $o->getPaInvoiceNumber(),
+                    'number' => (string) $o->getInvoiceNumber(),
+                    'payment' => (string) $o->getPaymentTerms(),
+                    'paInvoiceNumber' => (string) $o->getPaInvoiceNumber(),
                     'provider' => $o->getProvider()->getBusinessName(),
-                    'totTaxInc' => $totTaxInc,
-                    'balance' => $balance,
+                    'totTaxInc' => (string) $totTaxInc,
+                    'balance' => (string) $balance,
                     'remaining' => $totTaxInc - $balance
                 );
             }

@@ -251,4 +251,12 @@
     <script src="{{ asset('assets/customjs/modals/modal_create_category.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/providers/create_provider.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customjs/validate_translations.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $('#provider_category').select2({
+                placeholder: "Seleziona categoria",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

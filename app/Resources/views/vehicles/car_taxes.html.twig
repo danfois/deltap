@@ -128,4 +128,12 @@
     <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_delete.js') }}"></script>
     <script src="{{ asset('assets/customjs/vehicles/cartax/car_tax_renew.js') }}"></script>
     <script src="{{ asset('assets/customjs/set_active.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#car_tax_vehicle').select2({
+                placeholder: "Seleziona veicolo",
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}

@@ -22,6 +22,7 @@ class TerminateEmployeeType extends AbstractType
     {
         $builder
             ->add('terminationDate', TextType::class, array(
+                'required' => false,
                 'attr' => array(
                     'class' => 'form-control m-input date_picker'
                 )
@@ -33,7 +34,8 @@ class TerminateEmployeeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Employee::class
+            'data_class' => Employee::class,
+            'validation_groups' => false
         ));
     }
 }
