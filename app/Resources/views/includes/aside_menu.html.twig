@@ -5,10 +5,10 @@
      data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
         {% if is_granted('ROLE_ADMIN') == true %}
-        <li class="m-menu__item " aria-haspopup="true">
-            <a href="{{ path('homepage') }}" class="m-menu__link ">
-                <i class="m-menu__link-icon flaticon-line-graph"></i>
-                <span class="m-menu__link-title">
+            <li class="m-menu__item " aria-haspopup="true">
+                <a href="{{ path('homepage') }}" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
 											<span class="m-menu__link-text">
 												Pannello di Controllo
@@ -20,731 +20,832 @@
                                             </span>-->
 										</span>
 									</span>
-            </a>
-        </li>
-        <li class="m-menu__section">
-            <h4 class="m-menu__section-text">
-                Componenti
-            </h4>
-            <i class="m-menu__section-icon flaticon-more-v3"></i>
-        </li>
-        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-            <a href="#" class="m-menu__link m-menu__toggle">
-                <i class="m-menu__link-icon la la-calendar-check-o"></i>
-                <span class="m-menu__link-text">
+                </a>
+            </li>
+            <li class="m-menu__section">
+                <h4 class="m-menu__section-text">
+                    Componenti
+                </h4>
+                <i class="m-menu__section-icon flaticon-more-v3"></i>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon la la-calendar-check-o"></i>
+                    <span class="m-menu__link-text">
                                     Scadenziario
                                 </span>
-                <i class="m-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="m-menu__submenu ">
-                <span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
                                         <span class="m-menu__link">
                                             <span class="m-menu__link-text">
                                                 Scadenziario
                                             </span>
                                         </span>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('tickler') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('tickler') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Scadenziario
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="javascript:void(0);"
-                           onclick="genericModalFunction('GET', window.location.origin + '/create-expiration', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_expiration'} )"
-                           class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="javascript:void(0);"
+                               onclick="genericModalFunction('GET', window.location.origin + '/create-expiration', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_expiration'} )"
+                               class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuova Scadenza
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('expiration_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('expiration_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Scadenze
                                             </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-            <a href="#" class="m-menu__link m-menu__toggle">
-                <i class="m-menu__link-icon fa fa-bus"></i>
-                <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon fa fa-bus"></i>
+                    <span class="m-menu__link-text">
                                     Turismo
                                 </span>
-                <i class="m-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="m-menu__submenu ">
-                <span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
                                         <span class="m-menu__link">
                                             <span class="m-menu__link-text">
                                                 Turismo
                                             </span>
                                         </span>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="javascript:void(0);"
-                           onclick="genericModalFunction('GET', window.location.origin + '/create-demand', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_demand'} )"
-                           class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="javascript:void(0);"
+                               onclick="genericModalFunction('GET', window.location.origin + '/create-demand', {}, {'initializeWidgets' : true, 'initializeForm': true, 'formJquery' : 'form_demand'} )"
+                               class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuova Richiesta
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('demand_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('demand_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Richieste
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('price_quotation_attachments') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('price_quotation_attachments') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Allegati Preventivo
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_price_quotation') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_price_quotation') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Preventivo
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_price_quotation_detail') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_price_quotation_detail') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Itinerario
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('price_quotations_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('price_quotations_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Preventivi
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('price_quotation_detail_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('price_quotation_detail_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Itinerari
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_service_order') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_service_order') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Ordine di Servizio
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('service_orders_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('service_orders_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Ordini di Servizio
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="#" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Stampe
                                             </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-            <a href="#" class="m-menu__link m-menu__toggle">
-                <i class="m-menu__link-icon la la-money"></i>
-                <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon la la-money"></i>
+                    <span class="m-menu__link-text">
                                     Contabilità
                                 </span>
-                <i class="m-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="m-menu__submenu ">
-                <span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
                                         <span class="m-menu__link">
                                             <span class="m-menu__link-text">
                                                 Contabilità
                                             </span>
                                         </span>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('issue_invoice') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('issue_invoice') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Emetti Fattura
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('receive_invoice') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('receive_invoice') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Ricevi Fattura
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('issued_invoice_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('issued_invoice_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Fatture Emesse
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('received_invoice_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('received_invoice_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Fatture Ricevute
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_payment') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_payment') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Nuovo Pagamento
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('payments_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('payments_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Prima Nota
 												</span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_loan') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_loan') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Mutuo
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('loan_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('loan_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Mutui
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_salary') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_salary') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Stipendio
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('salaries_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('salaries_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Stipendi
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('bank_accounts') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('bank_accounts') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Lista Conti Correnti
 												</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-            <a href="#" class="m-menu__link m-menu__toggle">
-                <i class="m-menu__link-icon fa fa-wrench"></i>
-                <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon fa fa-wrench"></i>
+                    <span class="m-menu__link-text">
                                     Manutenzione
                                 </span>
-                <i class="m-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="m-menu__submenu ">
-                <span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_purchase_order') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_purchase_order') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuovo Ordine di Acquisto
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('purchase_order_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('purchase_order_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Lista Ordini di Acquisto
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('maintenance_types') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('maintenance_types') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Tipi Manutenzione
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_maintenance') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_maintenance') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Nuova Scheda Manutenzione
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('maintenance_list') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('maintenance_list') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Schede Manutenzione
                                             </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
-            <a href="#" class="m-menu__link m-menu__toggle">
-                <i class="m-menu__link-icon la la-file"></i>
-                <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon la la-file"></i>
+                    <span class="m-menu__link-text">
                                     Generale
                                 </span>
-                <i class="m-menu__ver-arrow la la-angle-right"></i>
-            </a>
-            <div class="m-menu__submenu ">
-                <span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
 											<span class="m-menu__link">
 												<span class="m-menu__link-text">
 													Generale
 												</span>
 											</span>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Utenti
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_user') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_user') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Crea Utente
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('users_list') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('users_list') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Lista Utenti
 															</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Dipendenti
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('daily_turns') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('daily_turns') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Turni Giornalieri
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('monthly_turn_view') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('monthly_turn_view') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Turni Mensili
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_employee') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_employee') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Crea Dipendente
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('employees') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('employees') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Lista Dipendenti
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('driving_license') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('driving_license') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Patenti
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_employee_unavailability') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_employee_unavailability') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Indisponibilità
                                             </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Clienti
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_customer') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_customer') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Crea Cliente
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('customer_list') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('customer_list') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Lista Clienti
 															</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Fornitori
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_provider') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_provider') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Crea Fornitore
 															</span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('provider_list') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('provider_list') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
 																Lista Fornitori
 															</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Automezzi
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_vehicle') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_vehicle') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Inserisci Automezzo
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('vehicles') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('vehicles') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Lista Automezzi
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_cartax') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_cartax') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Bolli
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_car_review') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_car_review') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Revisioni
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_unavailability') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_unavailability') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Indisponibilità
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_insurance') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_insurance') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Assicurazioni
                                 </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
-                        data-menu-submenu-toggle="hover">
-                        <a href="#" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                            data-menu-submenu-toggle="hover">
+                            <a href="#" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
 													Servizi
 												</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="m-menu__submenu ">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_service_type') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow"></span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_service_type') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Freq. Servizio
                                             </span>
-                                    </a>
-                                </li>
-                                <li class="m-menu__item " aria-haspopup="true">
-                                    <a href="{{ path('create_service') }}" class="m-menu__link ">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="{{ path('create_service') }}" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">
                                                 Tipi Servizio
                                             </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('create_category') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('create_category') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Categorie
                                             </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ path('tickler') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('tickler') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
                                                 Scadenziario
                                             </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        {#{% if is_granted('ROLE_ADMIN') == false %}}#}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon la la-upload"></i>
+                    <span class="m-menu__link-text">
+                                    Importazione Dati
+                                </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+											<span class="m-menu__link">
+												<span class="m-menu__link-text">
+													Importazione Dati
+												</span>
+											</span>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'categories'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Categorie
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'customers'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Clienti
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'providers'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Fornitori
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'employees'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Dipendenti
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'vehicles'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Veicoli
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'bankaccounts'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Conti In Banca
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'loans'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Mutui
+                                            </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ path('import_data',  {entityName: 'loaninstalments'}) }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                                Dettagli Mutuo
+                                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {#{% if is_granted('ROLE_ADMIN') == false %}}#}
 
-        {# {% endif %} #}
+            {# {% endif %} #}
         {% endif %}
         {% if is_granted('ROLE_DRIVER') == true %}
             <li class="m-menu__item " aria-haspopup="true">

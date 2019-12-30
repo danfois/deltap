@@ -134,6 +134,12 @@ class Customer
         return $this->idCustomer;
     }
 
+    public function setIdCustomer($idCustomer)
+    {
+        $this->idCustomer = $idCustomer;
+        return $this;
+    }
+
     /**
      * Set businessName
      *

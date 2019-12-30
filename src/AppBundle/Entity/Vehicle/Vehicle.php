@@ -327,6 +327,12 @@ class Vehicle
         return $this->vehicleId;
     }
 
+    public function setVehicleId($vehicleId)
+    {
+        $this->vehicleId = $vehicleId;
+        return $this;
+    }
+
     /**
      * Set plate
      *

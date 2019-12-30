@@ -108,6 +108,12 @@ class Employee extends Person
         return $this->employeeId;
     }
 
+    public function setEmployeeId($employeeId)
+    {
+        $this->employeeId = $employeeId;
+        return $this;
+    }
+
     /**
      * Set employeeCode
      *

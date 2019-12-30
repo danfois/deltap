@@ -137,6 +137,12 @@ class Provider
         return $this->idProvider;
     }
 
+    public function setIdProvider($idProvider)
+    {
+        $this->idProvider = $idProvider;
+        return $this;
+    }
+
     /**
      * Set businessName
      *

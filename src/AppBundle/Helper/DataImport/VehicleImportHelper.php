@@ -22,6 +22,7 @@ class VehicleImportHelper extends AbstractImportHelper
                 $vehicle = new Vehicle();
 
                 $vehicle
+                    ->setVehicleId($c['CodiceAutobus'])
                     ->setPlate($c['Targa'])
                     ->setExPlate($c['ExTarga'])
                     ->setCarRegistrationDate($c['DataImmatricolazione'] == null ? new \DateTime() : \DateTime::createFromFormat('d/m/Y', $c['DataImmatricolazione']))
@@ -61,6 +62,11 @@ class VehicleImportHelper extends AbstractImportHelper
 
 
                 $this->em->persist($vehicle);
+
+                $metadata = $this->em->getClassMetaData(get_class($vehicle));
+                $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+                $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+
                 $this->persist();
                 $this->success[] = $c['Targa'];
 

@@ -17,8 +17,6 @@ class ProviderImportHelper extends AbstractImportHelper
 
     protected function startImportProcess()
     {
-
-        //todo: fare l'importazione della categoria
         $csv = $this->reader->setHeaderOffset(0);
         $csv->setDelimiter(';');
 
@@ -29,6 +27,7 @@ class ProviderImportHelper extends AbstractImportHelper
                 $category = $this->em->getRepository(Category::class)->find($c['Tipologgia']);
 
                 $provider
+                    ->setIdProvider($c['CodiceFornitori'])
                     ->setBusinessName($c['NomeSocietà'])
                     ->setFullAddress($this->prepareAddress($c))
                     ->setCategory($category)
@@ -43,6 +42,11 @@ class ProviderImportHelper extends AbstractImportHelper
                     ->setRegistrationDate(new DateTime());
 
                 $this->em->persist($provider);
+
+                $metadata = $this->em->getClassMetaData(get_class($provider));
+                $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+                $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+
                 $this->persist();
                 $this->success[] = $c['NomeSocietà'];
 

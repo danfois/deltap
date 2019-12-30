@@ -34,6 +34,18 @@ class ImportController extends Controller
             'categories' => array(
                 'slug' => 'Categorie',
                 'dataImportType' => DataImportHelper::CATEGORY
+            ),
+            'loans' => array(
+                'slug' => 'Mutui',
+                'dataImportType' => DataImportHelper::LOAN
+            ),
+            'loaninstalments' => array(
+                'slug' => 'Dettagli Mutuo',
+                'dataImportType' => DataImportHelper::LOANINSTALMENT
+            ),
+            'bankaccounts' => array(
+                'slug' => 'Conti In Banca',
+                'dataImportType' => DataImportHelper::BANKACCOUNT
             )
         );
 

@@ -10,6 +10,9 @@ class DataImportHelper
     CONST VEHICLE = "vehicle";
     CONST EMPLOYEE = "employee";
     CONST CATEGORY = "category";
+    CONST LOAN = "loan";
+    CONST LOANINSTALMENT = "loaninstalment";
+    CONST BANKACCOUNT = 'bankaccount';
 
     static public function getInstance($file, String $className, ObjectManager $em) : AbstractImportHelper
     {
@@ -28,6 +31,15 @@ class DataImportHelper
                 break;
             case self::EMPLOYEE:
                 return new EmployeeImportHelper($file, $em);
+                break;
+            case self::LOAN:
+                return new LoanImportHelper($file, $em);
+                break;
+            case self::LOANINSTALMENT:
+                return new LoanInstalmentImportHelper($file, $em);
+                break;
+            case self::BANKACCOUNT:
+                return new BankAccountImportHelper($file, $em);
                 break;
             default:
                 return null;

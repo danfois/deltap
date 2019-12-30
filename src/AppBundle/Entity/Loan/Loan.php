@@ -25,7 +25,7 @@ class Loan
     protected $provider;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=12, name="loanNumber")
+     * @ORM\Column(type="string", nullable=false, length=24, name="loanNumber")
      * @Assert\NotBlank(message="Loan number must not be null")
      * @Assert\Length(max=12, maxMessage="Loan Number is too long. Max 12 chars")
      */
@@ -159,6 +159,12 @@ class Loan
     public function getLoanId()
     {
         return $this->loanId;
+    }
+
+    public function setLoanId($loanId)
+    {
+        $this->loanId = $loanId;
+        return $this;
     }
 
     /**

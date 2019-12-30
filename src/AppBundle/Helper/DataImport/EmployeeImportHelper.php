@@ -22,6 +22,7 @@ class EmployeeImportHelper extends AbstractImportHelper
             try {
                 $employee = new Employee();
                 $employee
+                    ->setEmployeeId($c['CodiceAutista'])
                     ->setName(explode(" ", $c['NomeSocietà'])[1])
                     ->setSurname(explode(" ", $c['NomeSocietà'])[0])
                     ->setBirthDate($c['DataNascita'] == null ? new \DateTime() : \DateTime::createFromFormat('d/m/Y', $c['DataNascita']))
@@ -41,6 +42,11 @@ class EmployeeImportHelper extends AbstractImportHelper
                     ->setTerminationDate($c['Dimissioni'] == null ? new \DateTime() : \DateTime::createFromFormat('d/m/Y', $c['Dimissioni']));
 
                 $this->em->persist($employee);
+
+                $metadata = $this->em->getClassMetaData(get_class($employee));
+                $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+                $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+
                 $this->persist();
                 $this->success[] = $c['NomeSocietà'];
 

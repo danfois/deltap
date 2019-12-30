@@ -22,6 +22,7 @@ class CustomerImportHelper extends AbstractImportHelper
             try {
                 $customer = new Customer();
                 $customer
+                    ->setIdCustomer($c['CodiceCliente'])
                     ->setBusinessName($c['NomeSocietà'])
                     ->setFullAddress($this->prepareAddress($c))
                     ->setPhone($c['Telefono'])
@@ -35,6 +36,11 @@ class CustomerImportHelper extends AbstractImportHelper
                     ->setRegistrationDate(new DateTime());
 
                 $this->em->persist($customer);
+
+                $metadata = $this->em->getClassMetaData(get_class($customer));
+                $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+                $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+
                 $this->persist();
                 $this->success[] = $c['NomeSocietà'];
 
