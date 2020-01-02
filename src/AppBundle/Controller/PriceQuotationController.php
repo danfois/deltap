@@ -574,12 +574,14 @@ class PriceQuotationController extends Controller
         $pq = $this->getDoctrine()->getRepository(PriceQuotation::class)->find($n);
         if ($pq == null) return new Response('Preventivo non trovato', 404);
 
-        //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+//        return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
         $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
+        $footer = $this->renderView('PRINTS/footer.html.twig', []);
 
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'header-html' => $header, 'footer-html' => $footer)),
             'preventivo-' . $n . '.pdf'
         );
     }
@@ -597,9 +599,11 @@ class PriceQuotationController extends Controller
         //return $this->render('PRINTS/price_quotation.html.twig', array('pq' => $pq));
 
         $html = $this->renderView('PRINTS/price_quotation_detail.html.twig', array('pq' => $pqd->getPriceQuotation(), 'd' => $pqd));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
+        $footer = $this->renderView('PRINTS/footer.html.twig', []);
 
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true)),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'header-html' => $header, 'footer-html' => $footer)),
             'preventivo-' . $n . '.pdf'
         );
     }
@@ -764,8 +768,10 @@ class PriceQuotationController extends Controller
         $emailText = $request->request->get('testo');
         $indirizzo = $request->request->get('indirizzo');
         $html = $this->renderView('PRINTS/price_quotation_detail.html.twig', array('pq' => $pqd->getPriceQuotation(), 'd' => $pqd));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
+        $footer = $this->renderView('PRINTS/footer.html.twig', []);
 
-        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
+        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'header-html' => $header, 'footer-html' => $footer));
 
         $pdf = new \Swift_Attachment($data, 'preventivo-' . $n . '.pdf', 'application/pdf');
 
@@ -797,8 +803,10 @@ class PriceQuotationController extends Controller
         $emailText = $request->request->get('testo');
         $indirizzo = $request->request->get('indirizzo');
         $html = $this->renderView('PRINTS/price_quotation.html.twig', array('pq' => $pq));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
+        $footer = $this->renderView('PRINTS/footer.html.twig', []);
 
-        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true));
+        $data = $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('enable-javascript' => false, 'disable-javascript' => true, 'header-html' => $header, 'footer-html' => $footer));
 
         $pdf = new \Swift_Attachment($data, 'preventivo-' . $n . '.pdf', 'application/pdf');
 
