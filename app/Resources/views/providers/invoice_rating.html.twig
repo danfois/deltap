@@ -1,0 +1,55 @@
+<form id="form_rating" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ action_url }}"
+      autocomplete="off">
+    <div class="m-portlet__body m--margin-15">
+
+        <div class="row">
+            <div class="col-md-12 m--margin-bottom-15">
+                Scegliere un punteggio da 0 a 3 per ogni campo. La valutazione riguarderà soltanto questa fattura di questo specifico fornitore. Il punteggio potrà essere cambiato in qualsiasi momento.
+            </div>
+        </div>
+
+        <div class="form-group m-form__group row">
+
+            {{ form_widget(form._token) }}
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Affidabilità:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.reliability) }}
+                </div>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Qualità:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.quality) }}
+                </div>
+            </div>
+
+            <div class="col-lg-4 m-form__group-sub">
+                <label>* Prezzo:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.price) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                    {% if rating.ratingId is defined and rating.ratingId is not null %}<button type="reset" class="btn btn-danger" onclick="genericDelete('ajax-delete-invoice-rating/{{ invoice.invoiceId }}', 'Sei sicuro di voler cancellare questa valutazione?', {})">Cancella Valutazione</button>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -45,6 +45,7 @@ var GenericFormSubmission = function (formjQuery) {
                         });
                         //t[0].reset();
                         mApp.unblockPage();
+                        $('#generic_modal').modal('hide');
                     },
                     error: function(e) {
                         mApp.unprogress(r);

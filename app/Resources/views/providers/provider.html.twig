@@ -86,6 +86,14 @@
                                     </div>
                                     <span class="m-form__help">Eventualmente, scrivere delle tags separate da virgola (es: scuola, trasporti, ecc) che possono servire per la ricerca del fornitore</span>
                                 </div>
+                                <div class="col-lg-6 m-form__group-sub">
+                                    <label>Fornitore Critico</label><br>
+                                    <label class="m-checkbox">
+                                        {{ form_widget(form.critical) }}
+                                        <span></span>
+                                    </label>
+                                    <span class="m-form__help">Se questa casella viene selezionata, il fornitore verrà considerato critico.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="m-form__seperator m-form__seperator--dashed"></div>

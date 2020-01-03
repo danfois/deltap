@@ -271,6 +271,10 @@ var InvoiceList = function () {
                     title: 'Fornitore'
                 },
                 {
+                  field: 'isCritical',
+                  title: 'Critico'
+                },
+                {
                     field: 'number',
                     title: 'N. Fatt.',
                     template: function(row) {
@@ -326,8 +330,9 @@ var InvoiceList = function () {
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="edit-received-invoice-' + row.idv +'" onclick=""><i class="la la-edit"></i> Modifica Fattura</a>\
 						    	<a class="dropdown-item" href="print/received-invoice-' + row.idv + '"><i class="la la-eye"></i> Vedi Fattura</a>\
-						    	\<a class="dropdown-item" href="create-payment-from/receivedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
+						    	<a class="dropdown-item" href="create-payment-from/receivedInvoice/' + row.idv + '" onclick="" target="_blank"><i class="la la-money"></i> Registra Pagamento</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="alert(\'In Lavorazione\')"><i class="la la-plus-circle"></i> Inserisci in Prima Nota</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'rate-invoice/'+ row.idv+ '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_rating\', \'initializeWidgets\' : true } )"><i class="la la-star"></i> Modifica Valutazione</a>\
                                 <a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'create-expiration-from-received-invoice/'+ row.idv+ '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_expiration\', \'initializeWidgets\' : true } )"><i class="la la-calendar-plus-o"></i> Inserisci Scadenza</a>\
 						  	</div>\
 						</div>\

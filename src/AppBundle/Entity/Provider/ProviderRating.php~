@@ -1,0 +1,60 @@
+<?php
+
+namespace AppBundle\Entity\Provider;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProviderRatingRepository")
+ * @ORM\Table(name="providerRatings")
+ */
+class ProviderRating
+{
+    /**
+     * @ORM\Column(type="integer", length=11, name="ratingId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $ratingId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Invoice\ReceivedInvoice", inversedBy="rating")
+     * @ORM\JoinColumn(name="invoiceId", referencedColumnName="invoiceId")
+     */
+    protected $invoice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, name="reliability", length=1)
+     * @Assert\NotBlank(message="Devi inserire un punteggio di affidabilità")
+     * @Assert\GreaterThanOrEqual(value=0, message="Il punteggio di affidabilità deve essere compreso fra 0 e 3")
+     * @Assert\LessThanOrEqual(value=3, message="Il punteggio di affidabilità deve essere compreso fra 0 e 3")
+     */
+    protected $reliability;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, name="quality", length=1)
+     * @Assert\NotBlank(message="Devi inserire un punteggio di qualità")
+     * @Assert\GreaterThanOrEqual(value=0, message="Il punteggio di qualità deve essere compreso fra 0 e 3")
+     * @Assert\LessThanOrEqual(value=3, message="Il punteggio di qualità deve essere compreso fra 0 e 3")
+     */
+    protected $quality;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, name="price", length=1)
+     * @Assert\NotBlank(message="Devi inserire un punteggio per il prezzo")
+     * @Assert\GreaterThanOrEqual(value=0, message="Il punteggio del prezzo deve essere compreso fra 0 e 3")
+     * @Assert\LessThanOrEqual(value=3, message="Il punteggio del prezzo deve essere compreso fra 0 e 3")
+     */
+    protected $price;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="insertionDate")
+     */
+    protected $insertionDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id_user")
+     */
+    protected $author;
+}

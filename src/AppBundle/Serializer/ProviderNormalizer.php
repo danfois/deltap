@@ -21,7 +21,8 @@ class ProviderNormalizer implements NormalizerInterface
                     'address' => $o->getFullAddress()->getAddress() . ', ' . $o->getFullAddress()->getCity() . ', ' . $o->getFullAddress()->getCap(),
                     'email' => $o->getEmail(),
                     'phone' => $o->getPhone() . ' / ' . $o->getMobile(),
-                    'category' =>  ($o->getCategory() != null ? $o->getCategory()->getCategoryName() : '')
+                    'category' =>  ($o->getCategory() != null ? $o->getCategory()->getCategoryName() : ''),
+                    'critical' => $o->getCritical() ? 'Si' : 'No'
                 ];
             }
         }

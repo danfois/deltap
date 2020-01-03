@@ -49,6 +49,17 @@ var initializeWidgets = function () {
         maxboostedstep: 10
     });
 
+    $(".provider-rating").TouchSpin({
+        buttondown_class: "btn btn-secondary",
+        buttonup_class: "btn btn-secondary",
+        min: 0,
+        max: 3,
+        step: 1,
+        decimals: 0,
+        boostat: 1,
+        maxboostedstep: 1
+    });
+
     // $('.time_picker').on('click', function() {
     //     $(this).val('');
     // });

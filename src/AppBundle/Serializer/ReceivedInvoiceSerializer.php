@@ -35,7 +35,8 @@ class ReceivedInvoiceSerializer implements NormalizerInterface
                     'provider' => $o->getProvider()->getBusinessName(),
                     'totTaxInc' => (string) $totTaxInc,
                     'balance' => (string) $balance,
-                    'remaining' => $totTaxInc - $balance
+                    'remaining' => $totTaxInc - $balance,
+                    'isCritical' => $o->getProvider()->getCritical() ? 'Si' : 'No'
                 );
             }
         }

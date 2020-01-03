@@ -33,6 +33,11 @@ class ReceivedInvoice extends Invoice implements PayableInterface
      */
     protected $payments;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Provider\ProviderRating", mappedBy="invoice")
+     */
+    protected $rating;
+
 
     /**
      * Constructor
@@ -215,5 +220,16 @@ class ReceivedInvoice extends Invoice implements PayableInterface
     public function getInvoiceNumber()
     {
         return $this->invoiceNumber;
+    }
+
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        return $this;
     }
 }
