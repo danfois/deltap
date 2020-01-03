@@ -1,0 +1,31 @@
+<?php
+
+namespace AppBundle\Entity\Employee;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="course_attendances")
+ */
+class CourseAttendance
+{
+    /**
+     * @ORM\Column(type="integer", length=11, name="attendanceId")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $attendanceId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Course", inversedBy="attendances")
+     * @ORM\JoinColumn(name="courseId", referencedColumnName="courseId")
+     */
+    private $course;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee", inversedBy="attendances")
+     * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
+     */
+    private $employee;
+}

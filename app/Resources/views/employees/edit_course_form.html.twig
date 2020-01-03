@@ -1,0 +1,34 @@
+<form id="form_course_edit" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ path('edit_course_ajax', { 'courseId': courseId }) }}"
+      autocomplete="off">
+    <div class="m-portlet__body m--margin-15">
+
+        <div class="form-group m-form__group row">
+
+            {{ form_widget(form._token) }}
+
+            <div class="col-lg-12 m-form__group-sub">
+                <label>* Nome:</label>
+                <div class="m-input-icon m-input-icon--right">
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

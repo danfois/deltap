@@ -88,6 +88,11 @@ class Employee extends Person
     private $unavailabilities;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\CourseAttendance", mappedBy="employee")
+     */
+    private $attendances;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -450,5 +455,41 @@ class Employee extends Person
     public function getUnavailabilities()
     {
         return $this->unavailabilities;
+    }
+
+    /**
+     * Add attendance.
+     *
+     * @param \AppBundle\Entity\Employee\CourseAttendance $attendance
+     *
+     * @return Employee
+     */
+    public function addAttendance(\AppBundle\Entity\Employee\CourseAttendance $attendance)
+    {
+        $this->attendances[] = $attendance;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendance.
+     *
+     * @param \AppBundle\Entity\Employee\CourseAttendance $attendance
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeAttendance(\AppBundle\Entity\Employee\CourseAttendance $attendance)
+    {
+        return $this->attendances->removeElement($attendance);
+    }
+
+    /**
+     * Get attendances.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendances()
+    {
+        return $this->attendances;
     }
 }

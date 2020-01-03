@@ -1,0 +1,32 @@
+<style>
+    td {
+        line-height: 33px;
+        padding: 0;
+    }
+</style>
+
+<table class="table m-table m-table--head-separator-primary">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Azioni</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for c in courses %}
+        <tr>
+            <td>{{ c.courseId }}</td>
+            <td>{{ c.name }}</td>
+            <td>
+                <a href="javascript:void(0);" onclick="genericModalFunction('GET', '{{ path('edit_course', {'courseId' : c.courseId}) }}', { 'id' : '{{ c.courseId }}'},  { 'initializeForm' : true, 'formJquery' : 'form_course_edit', 'initializeWidgets' : true })" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Modifica corso">
+                    <i class="la la-edit"></i>
+                </a>
+                <a href="javascript:void(0);" onclick="genericDelete('delete-course/{{ c.courseID }}', 'Corso NON eliminato', {}, updateCourseTable)" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Elimina corso">
+                    <i class="la la-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

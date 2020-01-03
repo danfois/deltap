@@ -46,7 +46,7 @@
                     <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
                     </button>
                     <button type="reset" class="btn btn-secondary">Annulla</button>
-                    {% if rating.ratingId is defined and rating.ratingId is not null %}<button type="reset" class="btn btn-danger" onclick="genericDelete('ajax-delete-invoice-rating/{{ invoice.invoiceId }}', 'Sei sicuro di voler cancellare questa valutazione?', {})">Cancella Valutazione</button>{% endif %}
+                    {% if rating.ratingId is defined and rating.ratingId is not null %}<button type="reset" class="btn btn-danger" onclick="genericDelete('ajax-delete-invoice-rating/{{ invoice.invoiceId }}', 'Valutazione NON eliminata', {})">Cancella Valutazione</button>{% endif %}
                 </div>
             </div>
         </div>

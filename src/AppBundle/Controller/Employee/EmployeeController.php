@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller\Employee;
 
+use AppBundle\Entity\Employee\Course;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Employee\EmployeeUnavailability;
+use AppBundle\Form\Employee\CourseType;
 use AppBundle\Form\Employee\EmployeeType;
 use AppBundle\Form\Employee\EmployeeUnavailabilityType;
 use AppBundle\Form\Employee\TerminateEmployeeType;
@@ -364,6 +366,124 @@ class EmployeeController extends Controller
         $em->flush();
 
         return new Response('Indisponibilità rimossa con successo', 200);
+    }
+
+    /**
+     * @Route("courses", name="courses")
+     */
+    public function coursesAction()
+    {
+        $course = new Course();
+        $form = $this->createForm(CourseType::class, $course);
+
+        return $this->render('employees/create_course.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("generate-course-table", name="generate_course_table")
+     */
+    public function generateCourseTable()
+    {
+        $courses = $this->getDoctrine()->getRepository(Course::class)->findAll();
+        return $this->render('employees/course_table.html.twig', array(
+            'courses' => $courses
+        ));
+    }
+
+    //todo: al success della creazione e della modifica la tabella deve essere aggiornata
+    //todo: wrapparla in una funzione
+
+    /**
+     * @Route("create-course-ajax", name="create_course_ajax")
+     */
+    public function createCourseAjaxAction(Request $request)
+    {
+        $course = new Course();
+        $form = $this->createForm(CourseType::class, $course);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $course = $form->getData();
+
+            $em->persist($course);
+            $em->flush();
+
+            return new Response("Corso salvato con successo", 200);
+        }
+
+        return new Response("Errore durante il salvataggio del corso", 500);
+    }
+
+    /**
+     * @Route("edit-course/{courseId}", name="edit_course")
+     */
+    public function editCourse(int $courseId)
+    {
+        if($courseId == null) return new Response("Scegliere il corso da modificare", 400);
+        $em = $this->getDoctrine()->getManager();
+
+        $course = $em->getRepository(Course::class)->find($courseId);
+        if($course == null) return new Response("Il corso che stai cercando di modificare non esiste", 404);
+
+        $form = $this->createForm(CourseType::class, $course);
+
+        $html = $this->renderView('employees/edit_course_form.html.twig', array(
+            'form' => $form->createView(),
+            'courseId' => $courseId
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Modifica corso',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("edit-course-ajax/{courseId}", name="edit_course_ajax")
+     */
+    public function editCourseAjaxAction(Request $request, int $courseId)
+    {
+        if($courseId == null) return new Response("Scegliere il corso da modificare", 400);
+        $em = $this->getDoctrine()->getManager();
+
+        $course = $em->getRepository(Course::class)->find($courseId);
+        if($course == null) return new Response("Il corso che stai cercando di modificare non esiste", 404);
+
+        $form = $this->createForm(CourseType::class, $course);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $course = $form->getData();
+
+            $em->flush();
+            return new Response("Corso aggiornato con successo", 200);
+        }
+
+        return new Response("Errore durante il salvataggio del corso", 500);
+    }
+
+    /**
+     * @Route("delete-course/{courseId}", name="delete_course")
+     */
+    public function deleteCourse(int $courseId)
+    {
+        if($courseId == null) return new Response("Scegliere il corso da eliminare", 400);
+        $em = $this->getDoctrine()->getManager();
+
+        $course = $em->getRepository(Course::class)->find($courseId);
+        if($course == null) return new Response("Il corso che stai cercando di eliminare non esiste", 404);
+        if(count($course->getAttendances()) > 0) return new Response("Non puoi cancellare il corso perchè ha già degli iscritti", 500);
+
+        $em->remove($course);
+        $em->flush();
+
+        return new Response("Corso eliminato con successo", 200);
     }
 
 }
