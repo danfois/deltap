@@ -18,13 +18,13 @@ class CourseAttendance
     private $attendanceId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Course", inversedBy="attendances")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Course", inversedBy="attendances", cascade={"persist"})
      * @ORM\JoinColumn(name="courseId", referencedColumnName="courseId")
      */
     private $course;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee", inversedBy="attendances")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Employee\Employee", inversedBy="attendances", cascade={"persist"})
      * @ORM\JoinColumn(name="employeeId", referencedColumnName="employeeId")
      */
     private $employee;

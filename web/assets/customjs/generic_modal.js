@@ -32,7 +32,7 @@ var genericModalFunction = function (method, url, data, options) {
                                 $(this).slideUp(deleteElement);
                             }
                         },
-                        isFirstItemUndeletable: true
+                        isFirstItemUndeletable: false
                     });
                 }
             }

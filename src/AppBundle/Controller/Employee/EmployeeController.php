@@ -3,9 +3,11 @@
 namespace AppBundle\Controller\Employee;
 
 use AppBundle\Entity\Employee\Course;
+use AppBundle\Entity\Employee\CourseAttendance;
 use AppBundle\Entity\Employee\Employee;
 use AppBundle\Entity\Employee\EmployeeUnavailability;
 use AppBundle\Form\Employee\CourseType;
+use AppBundle\Form\Employee\EmployeeAttendancesType;
 use AppBundle\Form\Employee\EmployeeType;
 use AppBundle\Form\Employee\EmployeeUnavailabilityType;
 use AppBundle\Form\Employee\TerminateEmployeeType;
@@ -392,9 +394,6 @@ class EmployeeController extends Controller
         ));
     }
 
-    //todo: al success della creazione e della modifica la tabella deve essere aggiornata
-    //todo: wrapparla in una funzione
-
     /**
      * @Route("create-course-ajax", name="create_course_ajax")
      */
@@ -484,6 +483,59 @@ class EmployeeController extends Controller
         $em->flush();
 
         return new Response("Corso eliminato con successo", 200);
+    }
+
+    /**
+     * @Route("attendances/{employeeId}", name="attendances")
+     */
+    public function attendancesAction(int $employeeId)
+    {
+        if($employeeId == null) return new Response("Devi scegliere un dipendente", 400);
+        $em = $this->getDoctrine()->getManager();
+
+        $e = $em->getRepository(Employee::class)->find($employeeId);
+        if($e == null) return new Response("Dipendente non trovato", 404);
+
+        if(count($e->getAttendances()) < 1) $e->addAttendance(new CourseAttendance());
+
+        $form = $this->createForm(EmployeeAttendancesType::class, $e);
+
+        $html = $this->renderView('employees/attendances.html.twig', array(
+            'form' => $form->createView(),
+            'employeeId' => $employeeId
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Corsi frequentati',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("save-attendances/{employeeId}", name="save_attendances")
+     */
+    public function saveAttendancesAjax(Request $request, int $employeeId)
+    {
+        if($employeeId == null) return new Response("Devi scegliere un dipendente", 400);
+        $em = $this->getDoctrine()->getManager();
+
+        $e = $em->getRepository(Employee::class)->find($employeeId);
+        if($e == null) return new Response("Dipendente non trovato", 404);
+
+        $form = $this->createForm(EmployeeAttendancesType::class, $e);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $e = $form->getData();
+            foreach($e->getAttendances() as $a) {
+                $a->setEmployee($e);
+            }
+            $em->flush();
+
+            return new Response('Modifiche salvate con successo!', 200);
+        }
+
+        return new Response("Errore durante il salvataggio", 500);
     }
 
 }

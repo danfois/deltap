@@ -88,7 +88,7 @@ class Employee extends Person
     private $unavailabilities;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\CourseAttendance", mappedBy="employee")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Employee\CourseAttendance", mappedBy="employee", cascade={"persist"}, orphanRemoval=true)
      */
     private $attendances;
 
@@ -101,6 +101,7 @@ class Employee extends Person
         $this->drivingLicenses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->drivingLetters = new \Doctrine\Common\Collections\ArrayCollection();
         $this->driverQualificationLetters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attendances = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

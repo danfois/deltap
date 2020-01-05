@@ -1,0 +1,66 @@
+<form id="form_attendances" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ path('save_attendances', { 'employeeId': employeeId }) }}"
+      autocomplete="off">
+    <div class="m-portlet__body m--margin-15">
+
+        {{ form_widget(form._token) }}
+
+        <div class="repeater">
+
+            <div data-repeater-list="employee_attendances[attendances]">
+
+                {% for a in form.attendances %}
+                    <div data-repeater-item>
+
+                        <div class="form-group m-form__group row">
+
+                            <div class="col-lg-9 m-form__group-sub">
+                                <label>* Nome:</label>
+                                <div class="m-input-icon m-input-icon--right">
+                                    {{ form_widget(a.course) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 m-form__group-sub">
+                                <label class="form-control-label">&nbsp;</label><br>
+                                <div data-repeater-delete=""
+                                     class="btn-sm btn btn-danger m-btn m-btn--icon">
+                                            <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>Rimuovi</span>
+                                            </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col text-left">
+                    <div data-repeater-create="" class="btn-sm btn btn-accent m-btn m-btn--icon m--margin-top-10">
+                        <span>
+                            <i class="la la-plus"></i>
+                            <span>Aggiungi Corso</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
