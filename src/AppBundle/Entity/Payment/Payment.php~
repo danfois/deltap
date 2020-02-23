@@ -424,4 +424,28 @@ class Payment
     {
         return $this->receivedInvoice;
     }
+
+    /**
+     * Set employee
+     *
+     * @param \AppBundle\Entity\Employee\Employee $employee
+     *
+     * @return Payment
+     */
+    public function setEmployee(\AppBundle\Entity\Employee\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \AppBundle\Entity\Employee\Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
 }

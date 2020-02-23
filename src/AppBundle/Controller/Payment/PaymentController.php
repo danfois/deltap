@@ -31,9 +31,9 @@ class PaymentController extends Controller
     }
 
     /**
-     * @Route("ajax-create-payment", name="ajax_create_payment")
+     * @Route("ajax-create-payment/{type}/{id}", name="ajax_create_payment")
      */
-    public function ajaxCreatePayment(Request $request)
+    public function ajaxCreatePayment(Request $request, string $type, int $id)
     {
         $payment = new Payment();
         $form = $this->createForm(PaymentType::class, $payment);
@@ -47,6 +47,16 @@ class PaymentController extends Controller
             $PH = new PaymentHelper($payment, $em, false);
             $PH->execute();
             $errors = $PH->getErrors();
+
+            if($type != null && $id != null) {
+                $class = ClassResolver::resolveClass($type);
+                if($class === false) return new Response('Richiesta effettuata in maniera non corretta'. 400);
+
+                $entity = $em->getRepository($class)->find($id);
+                if($entity != null)  {
+                    if(method_exists($entity, 'setPayment')) $entity->setPayment($payment);
+                }
+            }
 
             if($errors == null) {
                 $em->persist($payment);
@@ -150,7 +160,7 @@ class PaymentController extends Controller
         return $this->render('payments/payment.html.twig', array(
             'form' => $form->createView(),
             'title' => 'Registra Pagamento',
-            'action_url' => $this->generateUrl('ajax_create_payment')
+            'action_url' => $this->generateUrl('ajax_create_payment', array('type' => $type, 'id' => $n))
         ));
     }
 

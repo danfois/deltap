@@ -21,7 +21,8 @@ class LoanInstalmentNormalizer implements NormalizerInterface
                     'amount' => $o->getAmount(),
                     'interestRate' => $o->getInterestRate(),
                     'paymentType' => $o->getPaymentType(),
-                    'bankAccount' => $o->getBankAccount()->getBankName() . ' - ' . $o->getBankAccount()->getAccountNumber()
+                    'bankAccount' => $o->getBankAccount()->getBankName() . ' - ' . $o->getBankAccount()->getAccountNumber(),
+                    'paid' => $o->getPayment() != null ? 'Si' : 'No'
                 ];
             }
         }

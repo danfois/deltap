@@ -415,9 +415,10 @@ class InvoiceController extends Controller
 //        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
         $html = $this->renderView('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
 
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('header-html' => $header)),
             'fattura-emessa-' . $invoice->getInvoiceNumber() . '.pdf'
         );
     }
@@ -453,9 +454,10 @@ class InvoiceController extends Controller
 //        return $this->render('PRINTS/issued_invoice.html.twig', array('i' => $invoice));
 
         $html = $this->renderView('PRINTS/received_invoice.html.twig', array('i' => $invoice));
+        $header = $this->renderView('PRINTS/header.html.twig', []);
 
         return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html ,array('header-html' => $header)),
             'fattura-ricevuta-' . $n . '.pdf'
         );
     }

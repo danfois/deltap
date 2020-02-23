@@ -74,6 +74,12 @@ class LoanInstalment implements PayableInterface, InvoiceDetailInterface
      */
     protected $bankAccount;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Payment\Payment")
+     * @ORM\JoinColumn(name="paymentId", referencedColumnName="paymentId")
+     */
+    protected $payment;
+
 
     /**
      * Get loanInstalmentId
@@ -375,5 +381,29 @@ class LoanInstalment implements PayableInterface, InvoiceDetailInterface
     public function getInstalmentNumber()
     {
         return $this->instalmentNumber;
+    }
+
+    /**
+     * Set payment.
+     *
+     * @param \AppBundle\Entity\Payment\Payment|null $payment
+     *
+     * @return LoanInstalment
+     */
+    public function setPayment(\AppBundle\Entity\Payment\Payment $payment = null)
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Get payment.
+     *
+     * @return \AppBundle\Entity\Payment\Payment|null
+     */
+    public function getPayment()
+    {
+        return $this->payment;
     }
 }

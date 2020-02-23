@@ -148,6 +148,14 @@ var LoanList = function () {
                                 title: 'Conto Corrente'
                             },
                             {
+                                field: 'paid',
+                                title: 'Pagata',
+                                template: function(row) {
+                                    if(row.paid == 'Si') return '<span style="color: green">Si</span>';
+                                    return '<span style="color: red">No</span>';
+                                }
+                            },
+                            {
                                 field: 'Actions',
                                 width: 110,
                                 title: 'Azioni',
