@@ -49,9 +49,19 @@ class ExpiringInstalmentsProvider
         return $this->preparedData;
     }
 
+    protected function getOnlyUnpaidInstalments(array $instalments) : array
+    {
+        return array_filter($instalments, [$this, 'filter_by_payment_status']);
+    }
+
+    private function filter_by_payment_status($instalment)
+    {
+        return $instalment->getPayment() ? false : true;
+    }
+
     protected function getLastInstalment(Loan $loan)
     {
-        $instalments = $loan->getLoanInstalments()->getValues();
+        $instalments = $this->getOnlyUnpaidInstalments($loan->getLoanInstalments()->getValues());
 
         usort($instalments, function(LoanInstalment $a, LoanInstalment $b) {
             return  $a->getPaymentDate() < $b->getPaymentDate() ? -1 : 1;

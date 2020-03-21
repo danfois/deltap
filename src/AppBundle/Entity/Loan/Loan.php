@@ -27,7 +27,7 @@ class Loan
     /**
      * @ORM\Column(type="string", nullable=false, length=24, name="loanNumber")
      * @Assert\NotBlank(message="Loan number must not be null")
-     * @Assert\Length(max=12, maxMessage="Loan Number is too long. Max 12 chars")
+     * @Assert\Length(max=24, maxMessage="Loan Number is too long. Max 24 chars")
      */
     protected $loanNumber;
 
