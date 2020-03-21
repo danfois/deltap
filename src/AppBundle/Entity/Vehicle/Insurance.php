@@ -9,13 +9,30 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InsuranceRepository")
  * @ORM\Table(name="insurances")
  */
-class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
+class Insurance implements InvoiceDetailInterface
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Vehicle", inversedBy="insurances")
-     * @ORM\JoinColumn(name="vehicleId", referencedColumnName="vehicleId")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\InsuranceVehicleAssociation", mappedBy="insurance")
      */
-    private $vehicle;
+    private $vehicleAssociations;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="startDate")
+     * @Assert\NotBlank(message="Start Date must not be null")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="endDate")
+     * @Assert\NotBlank(message="End Date must not be null")
+     */
+    private $endDate;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=false, name="price")
+     * @Assert\NotBlank(message="Price must not be null")
+     */
+    private $price;
 
     /**
      * @ORM\Column(type="integer", name="insuranceId")
@@ -57,25 +74,6 @@ class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true, name="flat")
      */
     private $flat;
-
-    /**
-     * @return mixed
-     */
-    public function getVehicle()
-    {
-        return $this->vehicle;
-    }
-
-    /**
-     * @param Vehicle $vehicle
-     * @return $this
-     */
-    public function setVehicle(Vehicle $vehicle)
-    {
-        $this->vehicle = $vehicle;
-
-        return $this;
-    }
 
     /**
      * Set number
@@ -255,7 +253,7 @@ class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
 
     public function getProductName(): string
     {
-        return 'Assicurazione Veicolo ' . $this->getVehicle()->getPlate() . ' - ' . 'Polizza n. ' . $this->getNumber();
+        return 'Assicurazione Veicoli ' . ' - ' . 'Polizza n. ' . $this->getNumber();
     }
 
     public function getInvoicePrice(): float
@@ -272,4 +270,75 @@ class Insurance extends VehiclePeriodicCost implements InvoiceDetailInterface
     {
         return null;
     }
+
+    /**
+     * Add vehicleAssociation.
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $vehicleAssociation
+     *
+     * @return Insurance
+     */
+    public function addVehicleAssociation(\AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $vehicleAssociation)
+    {
+        $this->vehicleAssociations[] = $vehicleAssociation;
+
+        return $this;
+    }
+
+    /**
+     * Remove vehicleAssociation.
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $vehicleAssociation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeVehicleAssociation(\AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $vehicleAssociation)
+    {
+        return $this->vehicleAssociations->removeElement($vehicleAssociation);
+    }
+
+    /**
+     * Get vehicleAssociations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVehicleAssociations()
+    {
+        return $this->vehicleAssociations;
+    }
+
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setStartDate($date)
+    {
+        $this->startDate = $date;
+        return $this;
+    }
+
+    public function setEndDate($date)
+    {
+        $this->endDate = $date;
+        return $this;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+
 }

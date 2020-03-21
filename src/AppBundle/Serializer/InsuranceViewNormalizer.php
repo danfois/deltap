@@ -35,9 +35,7 @@ class InsuranceViewNormalizer implements NormalizerInterface
                     'endDate'   => $o->getEndDate()->format('d/m/Y'),
                     'price'     => $o->getPrice(),
                     'flat'      => $o->getFlat(),
-                    'vehicle'   => $o->getVehicle()->getPlate(),
-                    'status'    => $status,
-                    'active'    => $o->getIsActive()
+                    'status'    => $status
                 ];
             }
         }

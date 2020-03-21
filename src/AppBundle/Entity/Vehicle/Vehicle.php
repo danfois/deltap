@@ -30,6 +30,11 @@ class Vehicle
     private $currentInsurance;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\InsuranceVehicleAssociation", mappedBy="vehicle")
+     */
+    private $insuranceAssociations;
+
+    /**
      * @ORM\OneToOne(targetEntity="CarTax")
      * @ORM\JoinColumn(name="current_cartax", referencedColumnName="carTaxId", nullable=true)
      */
@@ -45,11 +50,6 @@ class Vehicle
      * @ORM\OneToMany(targetEntity="Tachograph", mappedBy="vehicle")
      */
     private $tachographs;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Insurance", mappedBy="vehicle")
-     */
-    private $insurances;
 
     /**
      * @ORM\OneToMany(targetEntity="KmRead", mappedBy="vehicle")
@@ -311,7 +311,6 @@ class Vehicle
     public function __construct()
     {
         $this->tachographs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->insurances = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carTaxes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carReviews = new \Doctrine\Common\Collections\ArrayCollection();
         $this->maintenanceRelationships = new \Doctrine\Common\Collections\ArrayCollection();
@@ -1280,40 +1279,6 @@ class Vehicle
     }
 
     /**
-     * Add insurance
-     *
-     * @param \AppBundle\Entity\Vehicle\Insurance $insurance
-     *
-     * @return Vehicle
-     */
-    public function addInsurance(\AppBundle\Entity\Vehicle\Insurance $insurance)
-    {
-        $this->insurances[] = $insurance;
-
-        return $this;
-    }
-
-    /**
-     * Remove insurance
-     *
-     * @param \AppBundle\Entity\Vehicle\Insurance $insurance
-     */
-    public function removeInsurance(\AppBundle\Entity\Vehicle\Insurance $insurance)
-    {
-        $this->insurances->removeElement($insurance);
-    }
-
-    /**
-     * Get insurances
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInsurances()
-    {
-        return $this->insurances;
-    }
-
-    /**
      * Add carTax
      *
      * @param \AppBundle\Entity\Vehicle\CarTax $carTax
@@ -1553,5 +1518,41 @@ class Vehicle
     public function getMaintenanceRelationships()
     {
         return $this->maintenanceRelationships;
+    }
+
+    /**
+     * Add insuranceAssociation.
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $insuranceAssociation
+     *
+     * @return Vehicle
+     */
+    public function addInsuranceAssociation(\AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $insuranceAssociation)
+    {
+        $this->insuranceAssociations[] = $insuranceAssociation;
+
+        return $this;
+    }
+
+    /**
+     * Remove insuranceAssociation.
+     *
+     * @param \AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $insuranceAssociation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeInsuranceAssociation(\AppBundle\Entity\Vehicle\InsuranceVehicleAssociation $insuranceAssociation)
+    {
+        return $this->insuranceAssociations->removeElement($insuranceAssociation);
+    }
+
+    /**
+     * Get insuranceAssociations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInsuranceAssociations()
+    {
+        return $this->insuranceAssociations;
     }
 }

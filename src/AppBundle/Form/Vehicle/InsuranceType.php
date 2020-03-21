@@ -4,18 +4,34 @@ namespace AppBundle\Form\Vehicle;
 use AppBundle\Entity\Vehicle\Insurance;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InsuranceType extends VehiclePeriodicCostType
+class InsuranceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('startDate', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input date_picker'
+                )
+            ))
+            ->add('endDate', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input date_picker'
+                )
+            ))
+            ->add('price', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control m-input touch_spin'
+                )
+            ))
             ->add('company', EntityType::class, array(
                 'class' => 'AppBundle:Provider',
                 'query_builder' => function (EntityRepository $er) {

@@ -23,7 +23,7 @@ class InsuranceHelper
     {
         $this->setInsuranceStartDate();
         $this->setInsuranceEndDate();
-        $this->checkSameInsurance();
+//        $this->checkSameInsurance();
         $this->checkDateCoherence();
         $this->executed = 1;
     }

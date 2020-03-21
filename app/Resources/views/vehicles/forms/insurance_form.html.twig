@@ -5,16 +5,6 @@
         <div class="form-group m-form__group row">
 
             <div class="col-lg-2 m-form__group-sub">
-                <label>* Veicolo:</label>
-                <div class="m-input-icon m-input-icon--right">
-                    {{ form_widget(form.vehicle) }}
-                    <span class="m-input-icon__icon m-input-icon__icon--right"><span><i
-                                    class="la la-barcode"></i></span></span>
-                </div>
-                <span class="m-form__help">Inserire la targa del veicolo</span>
-            </div>
-
-            <div class="col-lg-2 m-form__group-sub">
                 <label>* Data Inizio:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.startDate) }}
@@ -34,7 +24,7 @@
                 <span class="m-form__help">Data di scadenza della polizza</span>
             </div>
 
-            <div class="col-lg-2 m-form__group-sub">
+            <div class="col-lg-3 m-form__group-sub">
                 <label>* Prezzo:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.price) }}
@@ -44,7 +34,7 @@
                 <span class="m-form__help">Inserire prezzo totale della polizza</span>
             </div>
 
-            <div class="col-lg-2 m-form__group-sub">
+            <div class="col-lg-3 m-form__group-sub">
                 <label>* Rata:</label>
                 <div class="m-input-icon m-input-icon--right">
                     {{ form_widget(form.flat) }}

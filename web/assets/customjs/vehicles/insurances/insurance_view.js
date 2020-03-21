@@ -227,10 +227,6 @@ var InsuranceList = function () {
                     width: 30
                 },
                 {
-                    field: 'vehicle',
-                    title: 'Veicolo'
-                },
-                {
                     field: 'company',
                     title: 'Compagnia',
                     sortable: true,
@@ -382,23 +378,12 @@ var InsuranceList = function () {
                     sortable: 'asc',
                     template: function (row) {
                         var status = {
-                            1: {'title': 'In Uso', 'class': ' m-badge--success'},
+                            1: {'title': 'Valida', 'class': ' m-badge--success'},
                             2: {'title': 'Scaduta', 'class': ' m-badge--danger'},
                             3: {'title': 'In Scadenza', 'class': ' m-badge--warning'},
                             4: {'title': 'Sospesa', 'class': ' m-badge--info'}
                         };
                         return '<span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + status[row.status].title + '</span>';
-                    }
-                },
-                {
-                    field: 'active',
-                    title: 'Attiva',
-                    template: function (row) {
-                        var status = {
-                            1: {'title': 'In Uso', 'class': 'success'},
-                            0: {'title': 'Non in Uso', 'class': 'metal'}
-                        };
-                        return '<span class="m-badge m-badge--' + status[row.active].class + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.active].class + '">' + status[row.active].title + '</span>';
                     }
                 },
                 {
