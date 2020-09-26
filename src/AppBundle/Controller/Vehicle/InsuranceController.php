@@ -3,6 +3,9 @@
 namespace AppBundle\Controller\Vehicle;
 use AppBundle\Entity\Vehicle\Insurance;
 use AppBundle\Entity\Vehicle\InsuranceSuspension;
+use AppBundle\Entity\Vehicle\InsuranceVehicleAssociation;
+use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Form\Vehicle\InsuranceAssociationsType;
 use AppBundle\Form\Vehicle\InsuranceSuspensionType;
 use AppBundle\Form\Vehicle\InsuranceType;
 use AppBundle\Helper\Vehicle\InsuranceEditHelper;
@@ -165,18 +168,91 @@ class InsuranceController extends Controller
 
         if($insurance->getEndDate() < new \DateTime()) return new Response('Impossibile impostare come attivo poichè la data di fine validità è precedente a quella odierna', 500);
 
-        $v = $insurance->getVehicle();
-        $is = $em->getRepository(Insurance::class)->findActiveInsurancesPerVehicle($v->getVehicleId());
+        $va = $insurance->getVehicleAssociations();
 
-        foreach($is as $i) {
-            $i->setIsActive(0);
+        foreach($va as $v) {
+            if($v instanceof InsuranceVehicleAssociation) {
+                $v->getVehicle()->setCurrentInsurance($insurance);
+            }
         }
-
-        $insurance->setIsActive(1);
-        $v->setCurrentInsurance($insurance);
 
         $em->flush();
         return new Response('Assicurazione impostata come attiva!');
+    }
+
+    /**
+     * @Route("associate-vehicles/{id}", name="associate_vehicle")
+     */
+    public function associateVehicleAction(Request $request, int $id) {
+        if($id == null) return new Response("L'id dell'assicurazione non è stato inviato", 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $insurance = $em->getRepository(Insurance::class)->find($id);
+
+        if($insurance == null) return new Response("Impossibile trovare l'assicurazione selezionata", 404);
+
+        $vehicles = $em->getRepository(Vehicle::class)->findAll();
+        $associations = $insurance->getVehicleAssociations();
+
+        $associations_array = array();
+
+        foreach($associations as $a) {
+            $associations_array[$a->getVehicle()->getPlate()] = ['vehicle' => $a->getVehicle()->getPlate(), 'isAssociated' => true];
+        }
+
+        foreach($vehicles as $v) {
+            if(!array_key_exists($v->getPlate(), $associations_array)) {
+                $associations_array[$v->getPlate()] = ['vehicle' => $v->getPlate(), 'isAssociated' => false];
+            }
+        }
+
+        sort($associations_array);
+
+        $html = $this->renderView('vehicles/forms/modal_insurance_vehicle_associations.html.twig', array(
+            'associations' => $associations_array,
+            'action_url' => $this->generateUrl('ajax_associate_vehicles', array('id' => $id))
+        ));
+
+        return $this->render('includes/generic_modal_content.html.twig', array(
+            'modal_title' => 'Veicoli associati all\'assicurazione',
+            'modal_content' => $html
+        ));
+    }
+
+    /**
+     * @Route("ajax/associate-vehicles/{id}", name="ajax_associate_vehicles")
+     */
+    public function ajaxAssociateVehicles(Request $request, int $id) {
+        if($id == null) return new Response("L'id dell'assicurazione non è stato inviato", 400);
+
+        $em = $this->getDoctrine()->getManager();
+        $insurance = $em->getRepository(Insurance::class)->find($id);
+
+        if($insurance == null) return new Response("Impossibile trovare l'assicurazione selezionata", 404);
+
+        $associations = $insurance->getVehicleAssociations();
+        $newAssociations = $request->request->get('associations');
+
+        foreach($associations as $a) {
+            $insurance->removeVehicleAssociation($a);
+            $em->remove($a);
+        }
+
+        foreach($newAssociations as $na) {
+            $v = $em->getRepository(Vehicle::class)->findOneBy(array('plate' => $na));
+            if($v != null) {
+                $newAssociation = new InsuranceVehicleAssociation();
+                $newAssociation
+                    ->setVehicle($v)
+                    ->setInsurance($insurance);
+
+                $em->persist($newAssociation);
+            }
+        }
+
+        $em->flush();
+
+        return new Response(implode(', ', $newAssociations));
     }
 
     /**

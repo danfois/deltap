@@ -402,6 +402,7 @@ var InsuranceList = function () {
                             </a>\
 						  	<div class="dropdown-menu dropdown-menu-right">\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="setActive(' + row.idv + ', \'set-active-insurance\')"><i class="la la-check"></i> Imposta come in uso</a>\
+						    	<a class="dropdown-item" href="javascript:void(0);" onclick="genericModalFunction(\'GET\', \'associate-vehicles/'+ row.idv+ '\', {\'id\' : ' + row.idv + '}, { \'initializeForm\' : true, \'formJquery\' : \'form_insurance_associations\', \'initializeWidgets\' : true } )"><i class="la la-bus"></i> Associa Veicoli</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="suspendInsurance(' + row.idv + ')"><i class="la la-hourglass"></i> Sospendi Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="editInsurance(' + row.idv + ')"><i class="la la-edit"></i> Modifica Assicurazione</a>\
 						    	<a class="dropdown-item" href="javascript:void(0);" onclick="deleteInsurance(' + row.idv + ')"><i class="la la-trash"></i> Elimina Assicurazione</a>\

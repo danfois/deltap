@@ -309,3 +309,6 @@ div.tagsinput div {
     font-weight:600;
 }
 
+.vehicle-association-checkbox-container {
+    border: 1px #ddd solid;
+}

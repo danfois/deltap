@@ -1,0 +1,38 @@
+<form id="form_insurance_associations" method="POST" class="m-form m-form--fit m-form--label-align-right"
+      action="{{ action_url }}"
+      autocomplete="off">
+    <div class="m-portlet__body">
+        <div class="form-group m-form__group row" style="padding-top: 25px; padding-bottom: 25px;">
+
+            {% for a in associations %}
+                <div class="col-md-3 vehicle-association-checkbox-container">
+                    <div class="m-checkbox-inline">
+                        <label class="m-checkbox">
+                            <input
+                                    type="checkbox"
+                                    value="{{ a.vehicle }}"
+                                    id=" {{ a.vehicle }}"
+                                    name="associations[]"
+                                    {{ a.isAssociated ? 'checked' : '' }}
+                            >{{ a.vehicle }}
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions--line">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" data-wizard-action="submit" class="btn btn-primary">Salva
+                    </button>
+                    <button type="reset" class="btn btn-secondary">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

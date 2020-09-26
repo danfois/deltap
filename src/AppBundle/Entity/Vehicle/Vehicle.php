@@ -24,7 +24,7 @@ class Vehicle
     private $maintenanceRelationships;
 
     /**
-     * @ORM\OneToOne(targetEntity="Insurance")
+     * @ORM\ManyToOne(targetEntity="Insurance")
      * @ORM\JoinColumn(name="current_insurance", referencedColumnName="insuranceId", nullable=true)
      */
     private $currentInsurance;

@@ -16,7 +16,7 @@ class InsuranceHelper
     {
         $this->insurance = $insurance;
         $this->em = $em;
-        $this->insurance->setIsActive(0);
+//        $this->insurance->setIsActive(0);
     }
 
     public function execute()
