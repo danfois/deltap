@@ -23,7 +23,7 @@
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
-        "dompdf/dompdf": "^0.8.2",
+        "dompdf/dompdf": "^1.2.1",
         "h4cc/wkhtmltopdf-amd64": "0.12.4",
         "h4cc/wkhtmltopdf-i386": "0.12.4",
         "incenteev/composer-parameter-handler": "^2.0",
